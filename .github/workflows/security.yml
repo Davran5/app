@@ -25,6 +25,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        repository: Davran5/app
+        token: ${{ secrets.GH_PAT }}
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -50,6 +53,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        repository: Davran5/app
+        token: ${{ secrets.GH_PAT }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
@@ -81,7 +87,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+        with:
+          repository: Davran5/app
+          token: ${{ secrets.GH_PAT }}
+        
       - name: Check for LLM Integrations
         run: |
           if grep -r "openai" src/ || grep -r "langchain" src/; then
