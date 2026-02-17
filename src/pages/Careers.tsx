@@ -99,10 +99,10 @@ export default function Careers() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white w-full flex-1 flex flex-col">
       <Hero title={t.careers.title} description={t.careers.heroIntro} />
 
-      <div className="relative z-10 bg-white -mt-12 lg:-mt-16">
+      <div className="relative z-10 bg-white -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
 
 
         <div className="bg-white relative z-10">
@@ -118,7 +118,7 @@ export default function Careers() {
                   />
                 </div>
                 <div>
-                  <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E] mb-6">
+                  <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E] mb-6">
                     {t.careers.whyWork}
                   </h2>
                   <p className="text-base text-gray-600 leading-relaxed mb-8">
@@ -134,7 +134,7 @@ export default function Careers() {
           <section className="py-10 lg:py-14 bg-gray-50">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
               <div className="text-center mb-12">
-                <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E]">
+                <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E]">
                   {t.careers.team}
                 </h2>
               </div>
@@ -142,7 +142,7 @@ export default function Careers() {
               <div className="grid md:grid-cols-3 gap-6">
                 {teamMembers.map((member, index) => (
                   <div key={index} className="bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all">
-                    <div className="h-64 overflow-hidden">
+                    <div className="h-[179px] lg:h-64 overflow-hidden">
                       <img
                         src={member.image}
                         alt={member.name}
@@ -163,7 +163,7 @@ export default function Careers() {
           {/* Open Positions */}
           <section className="py-10 lg:py-14">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-              <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E] mb-10">
+              <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E] mb-10">
                 {t.careers.openPositions}
               </h2>
 

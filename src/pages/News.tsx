@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, User } from 'lucide-react';
+import { Calendar, User, ChevronRight } from 'lucide-react';
 import Hero from '../components/Hero';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -76,10 +76,10 @@ export default function News() {
   const selectedPost = blogPosts.find(p => p.id === selectedPostId) || blogPosts[0];
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white w-full flex-1 flex flex-col">
       <Hero title={t.blog.title} description={t.blog.heroIntro} />
 
-      <div className="relative z-10 bg-white -mt-12 lg:-mt-16">
+      <div className="relative z-10 bg-white -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
 
 
         <div className="bg-white relative z-10">
@@ -88,7 +88,71 @@ export default function News() {
           {/* Magazine Layout */}
           <section className="pt-12 lg:pt-16 pb-10 lg:pb-14">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-              <div className="flex flex-col lg:flex-row gap-8">
+              {/* MOBILE VIEW: Accordion Style */}
+              <div className="lg:hidden space-y-4">
+                <div className="flex flex-col border-t border-gray-100">
+                  {blogPosts.map((post) => (
+                    <div key={post.id} className="border-b border-gray-100">
+                      <button
+                        onClick={() => setSelectedPostId(selectedPostId === post.id ? 0 : post.id)}
+                        className={`w-full text-left py-6 flex items-center justify-between transition-all duration-300 ${selectedPostId === post.id ? 'text-[#244d85]' : 'text-[#0B0C0E]'}`}
+                      >
+                        <h4 className="font-display text-lg font-medium leading-tight pr-4">
+                          {post.title}
+                        </h4>
+                        <div className={`transition-transform duration-300 flex-shrink-0 ${selectedPostId === post.id ? 'rotate-90 text-[#244d85]' : 'text-gray-300'}`}>
+                          <ChevronRight size={20} />
+                        </div>
+                      </button>
+
+                      {selectedPostId === post.id && (
+                        <div className="pb-8 animate-in fade-in slide-in-from-top-2 duration-300">
+                          <div className="aspect-video w-full overflow-hidden mb-6">
+                            <img
+                              src={post.image}
+                              alt={post.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+
+                          <div className="flex items-center gap-4 mb-4 text-xs text-gray-500">
+                            <span className="flex items-center gap-1">
+                              <Calendar size={12} />
+                              {new Date(post.date).toLocaleDateString(language || 'en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                                year: 'numeric',
+                              })}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <User size={12} />
+                              {post.author}
+                            </span>
+                          </div>
+
+                          <p className="text-sm text-gray-600 leading-relaxed mb-6">
+                            {post.excerpt}
+                          </p>
+
+                          {post.link && (
+                            <a
+                              href={post.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 bg-[#244d85] text-white px-5 py-3 text-sm font-medium transition-all hover:bg-[#1E4ECC]"
+                            >
+                              {t.blog.readOriginal || 'Read Original News'}
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* DESKTOP VIEW: Magazine Layout */}
+              <div className="hidden lg:flex flex-row gap-8">
                 {/* Left - Article List (Scrollable) */}
                 <div className="lg:w-1/3">
                   <h3 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-6">{t.blog.latest}</h3>
@@ -138,7 +202,7 @@ export default function News() {
                       <div className="flex items-center gap-4 mb-4 text-base text-gray-500">
                         <span className="flex items-center gap-1">
                           <Calendar size={14} />
-                          {new Date(selectedPost.date).toLocaleDateString(t.locale === 'de' ? 'de-DE' : t.locale === 'ru' ? 'ru-RU' : t.locale === 'uz' ? 'uz-UZ' : 'en-US', {
+                          {new Date(selectedPost.date).toLocaleDateString(language || 'en-US', {
                             month: 'long',
                             day: 'numeric',
                             year: 'numeric',

@@ -18,7 +18,7 @@ export default function FloatingActions() {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+        <div className="fixed bottom-20 lg:bottom-6 right-6 flex flex-col gap-3 z-50">
             {/* Scroll to Top */}
             {showScrollTop && (
                 <button

@@ -40,10 +40,10 @@ export default function CustomSolutions() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f8f8f8' }}>
+    <div className="min-h-screen w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
       <Hero title={t.customSolutionsPage.heroTitle} description={t.customSolutionsPage.heroIntro} />
 
-      <div className="relative z-10 -mt-12 lg:-mt-16">
+      <div className="relative z-10 -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
 
         {/* Introduction with Image */}
         <section className="pt-12 lg:pt-16 pb-10 lg:pb-14 bg-white relative overflow-hidden">
@@ -151,7 +151,7 @@ export default function CustomSolutions() {
         <section className="py-10 lg:py-14" style={{ backgroundColor: '#f8f8f8' }}>
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="mb-16">
-              <h2 className="font-display text-4xl lg:text-6xl font-medium text-[#0B0C0E] mb-6">
+              <h2 className="font-display text-2xl lg:text-6xl font-medium text-[#0B0C0E] mb-6">
                 {t.customSolutionsPage.production.title}
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl">
@@ -160,55 +160,55 @@ export default function CustomSolutions() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-6">
-              <div className="md:col-span-2 relative group overflow-hidden">
+              <div className="md:col-span-2 relative group overflow-hidden h-[192px] md:h-[500px]">
                 <img
                   src="/man_floor.jpeg"
                   alt="Production Facility"
-                  className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h3 className="font-display text-2xl font-medium mb-2">{t.customSolutionsPage.production.items.manufacturing.title}</h3>
-                  <p className="text-gray-200">{t.customSolutionsPage.production.items.manufacturing.desc}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white z-10">
+                  <h3 className="font-display text-xl md:text-2xl font-medium mb-1 md:mb-2">{t.customSolutionsPage.production.items.manufacturing.title}</h3>
+                  <p className="text-gray-200 text-xs md:text-base line-clamp-2 md:line-clamp-none">{t.customSolutionsPage.production.items.manufacturing.desc}</p>
                 </div>
               </div>
-              <div className="relative group overflow-hidden h-[500px]">
+              <div className="relative group overflow-hidden h-[192px] md:h-[500px]">
                 <img
                   src="/cnc.jpeg"
                   alt="CNC Operations"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h3 className="font-display text-2xl font-medium mb-2">{t.customSolutionsPage.production.items.cnc.title}</h3>
-                  <p className="text-gray-200">{t.customSolutionsPage.production.items.cnc.desc}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white z-10">
+                  <h3 className="font-display text-xl md:text-2xl font-medium mb-1 md:mb-2">{t.customSolutionsPage.production.items.cnc.title}</h3>
+                  <p className="text-gray-200 text-xs md:text-base line-clamp-2 md:line-clamp-none">{t.customSolutionsPage.production.items.cnc.desc}</p>
                 </div>
               </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="relative group overflow-hidden">
+              <div className="relative group overflow-hidden h-[192px] md:h-[350px]">
                 <img
                   src="/welding.jpeg"
                   alt="Welding"
-                  className="w-full h-[350px] object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h3 className="font-display text-2xl font-medium mb-2">{t.customSolutionsPage.production.items.welding.title}</h3>
-                  <p className="text-gray-200">{t.customSolutionsPage.production.items.welding.desc}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white z-10">
+                  <h3 className="font-display text-xl md:text-2xl font-medium mb-1 md:mb-2">{t.customSolutionsPage.production.items.welding.title}</h3>
+                  <p className="text-gray-200 text-xs md:text-base line-clamp-2 md:line-clamp-none">{t.customSolutionsPage.production.items.welding.desc}</p>
                 </div>
               </div>
-              <div className="md:col-span-2 relative group overflow-hidden">
+              <div className="md:col-span-2 relative group overflow-hidden h-[192px] md:h-[350px]">
                 <img
                   src="/assembly_line.jpeg"
                   alt="Assembly"
-                  className="w-full h-[350px] object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h3 className="font-display text-2xl font-medium mb-2">{t.customSolutionsPage.production.items.assembly.title}</h3>
-                  <p className="text-gray-200">{t.customSolutionsPage.production.items.assembly.desc}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white z-10">
+                  <h3 className="font-display text-xl md:text-2xl font-medium mb-1 md:mb-2">{t.customSolutionsPage.production.items.assembly.title}</h3>
+                  <p className="text-gray-200 text-xs md:text-base line-clamp-2 md:line-clamp-none">{t.customSolutionsPage.production.items.assembly.desc}</p>
                 </div>
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function CustomSolutions() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-10 lg:py-14 bg-[#0B0C0E]">
+        <section className="py-10 lg:py-14 bg-[#0B0C0E] mt-auto mb-[-4px] relative z-20">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="font-display text-3xl lg:text-5xl font-medium text-white mb-4">

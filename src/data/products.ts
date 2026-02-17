@@ -104,14 +104,14 @@ export const products: Product[] = [
   },
   {
     id: 'mt-mining-truck-25t',
-    name: 'MT Mining Truck 25 t',
+    name: 'MT Mining Truck 240 t',
     category: 'Mining Trucks',
     categoryId: 'mining-trucks',
     description: 'Specialized mining truck for heavy-duty quarrying and extraction.',
     fullDescription: 'The MT Mining truck is specifically engineered for rigid off-road mining environments, delivering maximum payload capacity for quarrying and excavation operations with exceptional chassis durability.',
     image: '/products/MT Dump Truck, 20 m³  25 t.jpeg',
     gallery: ['/products/MT Dump Truck, 20 m³  25 t.jpeg'],
-    specs: { model: 'KMT-25', loadCapacity: '25 tons', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Diesel', environmentalClass: 'Euro 5' },
+    specs: { model: 'KMT-240', loadCapacity: '240 tons', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Diesel', environmentalClass: 'Euro 5' },
     features: ['Reinforced mining chassis', 'Heavy quarry duty', 'Off-road optimized', 'Powerful drivetrain', 'Industrial safety focus']
   },
   {
@@ -645,7 +645,7 @@ export const teamMembers = [
   { id: 1, name: 'Akmal Karimov', role: 'director', image: '/Karimov.jpeg' },
   { id: 2, name: 'Pulatov Jahongir', role: 'director', image: '/Pulatov.jpeg' },
   { id: 3, name: 'Anatoliy Yunusov', role: 'director', image: '/Yunusov.jpeg' },
-  { id: 4, name: 'Petrov Sergey Konstantinovich', role: 'deputyDirector', image: '/Konstantinovich.jpeg' },
+  { id: 4, name: 'Petrov Sergey', role: 'deputyDirector', image: '/Konstantinovich.jpeg' },
   { id: 5, name: 'Daniyarov Shukhrat', role: 'director', image: '/Daniyarov.jpeg' },
   { id: 6, name: 'Nuriddin', role: 'director', image: '/Nuriddin.jpeg' }
 ];

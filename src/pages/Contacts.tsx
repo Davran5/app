@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { ChevronRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import Hero from '../components/Hero';
 import ContactForm from '../components/ContactForm';
 
 export default function Contacts() {
   const { t } = useLanguage();
+  const [selectedDept, setSelectedDept] = useState<number | null>(null);
+  const [showFormMobile, setShowFormMobile] = useState(false);
 
   const departments = [
     { name: t.contacts.sales, email: 'sales@krantas.uz', phone: '+998 71 262 23 62' },
@@ -27,10 +30,10 @@ export default function Contacts() {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen w-full flex-1 flex flex-col">
       <Hero title={t.contacts.title} description={t.contacts.heroIntro} />
 
-      <div className="relative z-10 bg-white -mt-12 lg:-mt-16">
+      <div className="relative z-10 bg-white -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
 
 
         {/* Main Info Section - Grey Shade */}
@@ -94,11 +97,12 @@ export default function Contacts() {
         {/* Departments Section */}
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E] mb-10 text-center">
+            <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E] mb-10 text-center">
               {t.contacts.departments}
             </h2>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Desktop View: Grid */}
+            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {departments.map((dept, index) => (
                 <div
                   key={index}
@@ -112,18 +116,73 @@ export default function Contacts() {
                 </div>
               ))}
             </div>
+
+            {/* Mobile View: Dropdown Accordion */}
+            <div className="sm:hidden space-y-4">
+              <div className="flex flex-col border-t border-gray-100">
+                {departments.map((dept, index) => (
+                  <div key={index} className="border-b border-gray-100">
+                    <button
+                      onClick={() => setSelectedDept(selectedDept === index ? null : index)}
+                      className={`w-full text-left py-6 flex items-center justify-between transition-all duration-300 ${selectedDept === index ? 'text-[#244d85]' : 'text-[#0B0C0E]'}`}
+                    >
+                      <h4 className="font-display text-lg font-medium">
+                        {dept.name}
+                      </h4>
+                      <ChevronRight
+                        size={20}
+                        className={`transition-transform duration-300 ${selectedDept === index ? 'rotate-90 text-[#244d85]' : 'text-gray-300'}`}
+                      />
+                    </button>
+
+                    {selectedDept === index && (
+                      <div className="pb-8 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <div className="space-y-2 text-base">
+                          <p className="text-gray-600 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#244d85]"></span>
+                            {dept.email}
+                          </p>
+                          <p className="text-gray-600 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#244d85]"></span>
+                            {dept.phone}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Contact Form Section */}
-        <section id="contact-form" className="py-16 lg:py-20 bg-gray-50">
+        <section id="contact-form" className="py-16 lg:py-20 bg-gray-50 overflow-hidden mb-[-1px]">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="max-w-4xl mx-auto">
-              <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E] mb-12 text-center">
+              {/* Desktop View Title */}
+              <h2 className="hidden lg:block font-display text-5xl font-medium text-[#0B0C0E] mb-12 text-center">
                 {t.contacts.formTitle}
               </h2>
 
-              <ContactForm />
+              {/* Mobile View Accordion Header */}
+              <button
+                onClick={() => setShowFormMobile(!showFormMobile)}
+                className="lg:hidden w-full flex items-center justify-between py-6 border-b border-gray-200 mb-8"
+              >
+                <h2 className="font-display text-2xl font-medium text-[#0B0C0E]">
+                  {t.contacts.formTitle}
+                </h2>
+                <ChevronRight
+                  size={24}
+                  className={`transition-transform duration-300 ${showFormMobile ? 'rotate-90 text-[#244d85]' : 'text-gray-400'}`}
+                />
+              </button>
+
+              {/* Form Content - Desktop always visible, Mobile conditional */}
+              <div className={`${showFormMobile ? 'block animate-in fade-in slide-in-from-top-4 duration-500' : 'hidden lg:block'}`}>
+                <ContactForm />
+              </div>
             </div>
           </div>
         </section>

@@ -14,10 +14,10 @@ const Hero: React.FC<HeroProps> = ({ title, description }) => {
                     style={{ backgroundImage: 'url(/hero_cover.jpg)' }}
                 />
             </section>
-            <div className="relative h-[280px] lg:h-[360px] flex items-start pt-20 lg:pt-24 z-10 pointer-events-none">
+            <div className="relative w-full h-[280px] lg:h-[360px] flex items-start pt-20 lg:pt-24 z-10 pointer-events-none">
                 <div className="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                     <div className="max-w-5xl">
-                        <h1 className="font-display text-4xl lg:text-6xl xl:text-7xl font-semibold text-[#0B0C0E] mb-4 uppercase tracking-tight leading-tight">
+                        <h1 className="font-display text-2xl lg:text-6xl xl:text-7xl font-semibold text-[#0B0C0E] mb-4 uppercase tracking-tight leading-tight">
                             {title}
                         </h1>
                         {description && (

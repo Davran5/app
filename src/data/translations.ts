@@ -331,12 +331,12 @@ export const translations = {
       storyP2: 'After the devastating 1966 earthquake, the factory was repurposed and began production of steel structures and lifting equipment for civil and industrial construction.',
       storyP3: 'Following Uzbekistan\'s independence and subsequent privatization, a new phase began. We invested in modern technology, expanded our product offerings, and began serving international markets.',
       storyP4: 'Today, KRANTAS Group is a full-cycle manufacturer with modern CNC machining, welding, plasma/laser cutting, and assembly capabilities.',
-      family: 'KRANTAS Family',
-      familyDesc: 'At KRANTAS, we consider our employees as family. Generations of workers have dedicated their lives to building the foundation of our success.',
+      family: 'Family of KRANTAS',
+      familyDesc: 'Generations of dedication. Decades of expertise. The people who make KRANTAS more than a company.',
       familyQuote: '"I have been working at KRANTAS for over 30 years. I have seen this company grow from a small repair shop to a major manufacturer. The pride I feel seeing our equipment working across the country is immeasurable."',
       familyQuoteAuthor: '— Rustam Khasanov, Chief Engineer',
       joinFamily: 'Join Our Family',
-      history: 'History & Milestones',
+      history: 'Growth & Progress',
       production: 'Production Stages',
       manufacturing: 'Full-Cycle Manufacturing',
       manufacturingDesc: 'The factory has its own design bureau for independent development of projects and working drawings of new types of special equipment in accordance with the latest global trends.',
@@ -345,8 +345,46 @@ export const translations = {
       chairmanQuote: '"KRANTAS Group is built on strong engineering traditions, local manufacturing, and a clear vision for the future. KRANTAS is not just a vehicle—it is a reliable engineering solution."',
       chairmanName: 'Karimov Mukhtor Akbarovich',
       chairmanTitle: 'Chairman, KRANTAS Group',
-      team: 'Our Team',
-      teamSubtitle: 'Leadership That Builds',
+      team: 'Leadership that Builds',
+      teamSubtitle: '',
+      historyEvents: {
+        1945: { title: 'Foundation', description: 'Founded as a mechanical repair plant for trucks and heavy machinery in Tashkent.' },
+        1963: { title: 'Expansion', description: 'Began producing steel structures and lifting equipment for construction.' },
+        1990: { title: 'Diversification', description: 'Expanded into special-purpose vehicles and truck crane manufacturing.' },
+        2000: { title: 'Modernization', description: 'Introduced CNC machining and automated welding systems.' },
+        2012: { title: 'Brand Launch', description: 'Launched the KRANTAS truck crane brand with full certification.' },
+        2015: { title: 'International Growth', description: 'Entered Kazakhstan and Turkmenistan markets with export certification.' },
+        2020: { title: 'New Facilities', description: 'Opened new assembly lines and expanded agricultural machinery production.' },
+        2024: { title: 'Future Forward', description: 'Engineering the next generation of reliable industrial vehicles.' },
+      },
+      teamMemberStories: {
+        sergey: {
+          name: 'Petrov Sergey',
+          role: 'Deputy Director',
+          years: '50+ years with KRANTAS',
+          text: 'From a young specialist in 1972 to leading operations as Deputy Director today. Witnessed KRANTAS transform from experimental plant to modern manufacturer while preserving core values.'
+        },
+        komil: {
+          name: 'Komil Khaitmatov',
+          role: 'Assembly Technician',
+          years: '45 years with KRANTAS',
+          text: 'Started as a driver in 1980, grew to master crane assembly. From KamAZ trucks to 60-ton cranes — he\'s been part of every transformation.'
+        },
+        elvira: {
+          name: 'Elvira',
+          role: 'Overhead Crane Operator',
+          years: 'Third-generation · 10+ years',
+          text: 'Parents, grandparents, and brothers all worked at KRANTAS. Father: 40 years as painter. Mother: 37 years as crane operator. A legacy of dedication.'
+        }
+      },
+      certificatesList: {
+        1: { name: 'Certificate', desc: 'OOO "KRANTAS"', org: 'Directorate of the International Industrial Fair and Cooperation Exchange' },
+        2: { name: 'Certificate', desc: 'OOO "Crane and Special Trucks"', org: 'Directorate of the International Industrial Fair and Cooperation Exchange' },
+        3: { name: 'Certificate', desc: 'OOO "TTEMZ"', org: 'Directorate of the International Industrial Fair and Cooperation Exchange' },
+        4: { name: 'Performance Award', desc: 'Global Specific Performance Award 2022', org: 'FOTON' },
+        5: { name: 'Diplom', desc: 'Turkmen Construction 2015', org: 'Chamber of Commerce and Industry' },
+        6: { name: 'Certificate', desc: '17th Kazakhstan International Building Exhibition', org: 'Astana Build' },
+      },
       certificates: 'Quality Standards',
       partners: 'Our Partners',
       partnersDesc: 'We partner with leading global manufacturers to ensure the highest quality of components and technology in our products.',
@@ -674,11 +712,11 @@ export const translations = {
         specs: { model: 'KDT-20', loadCapacity: '20 tons', tankVolume: '16 m³', wheelFormula: '6x4', drive: 'Diesel', environmentalClass: 'Euro 5' }
       },
       'mt-mining-truck-25t': {
-        name: 'MT Mining Truck 25 t',
+        name: 'MT Mining Truck 240 t',
         description: 'Specialized mining truck for heavy-duty quarrying and extraction.',
         fullDescription: 'The MT Mining truck is specifically engineered for rigid off-road mining environments, delivering maximum payload capacity for quarrying and excavation operations with exceptional chassis durability.',
         features: ['Reinforced mining chassis', 'Heavy quarry duty', 'Off-road optimized', 'Powerful drivetrain', 'Industrial safety focus'],
-        specs: { model: 'KMT-25', loadCapacity: '25 tons', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Diesel', environmentalClass: 'Euro 5' }
+        specs: { model: 'KMT-240', loadCapacity: '240 tons', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Diesel', environmentalClass: 'Euro 5' }
       },
       'dt-tipper-semi-trailer': {
         name: 'Tipper Semi-Trailer 24-26 m³',
@@ -1308,7 +1346,7 @@ export const translations = {
       storyP3: 'После обретения Узбекистаном независимости и последующей приватизации начался новый этап. Мы инвестировали в современные технологии, расширили ассортимент продукции и вышли на международные рынки.',
       storyP4: 'Сегодня KRANTAS Group — это производитель полного цикла с современными возможностями ЧПУ-обработки, сварки, плазменной/лазерной резки и сборки.',
       family: 'Семья KRANTAS',
-      familyDesc: 'В KRANTAS мы относимся к нашим сотрудникам как к семье. Поколения рабочих посвятили свою жизнь укреплению фундамента нашего успеха.',
+      familyDesc: 'Поколения, преданные делу. Десятилетия опыта. Люди, которые делают KRANTAS больше, чем просто компанией.',
       familyQuote: '"Я работаю в KRANTAS более 30 лет. Я видел, как эта компания выросла из небольшой мастерской в крупного производителя. Гордость, которую я испытываю, видя нашу технику работающей по всей стране, неизмерима."',
       familyQuoteAuthor: '— Рустам Хасанов, Главный Инженер',
       joinFamily: 'Присоединяйтесь к Нашей Семье',
@@ -1321,9 +1359,47 @@ export const translations = {
       chairmanQuote: '"KRANTAS Group строится на сильных инженерных традициях, локальном производстве и четком видении будущего. KRANTAS — это не просто машина, это надежное инженерное решение."',
       chairmanName: 'Каримов Мухтор Акбарович',
       chairmanTitle: 'Председатель, KRANTAS Group',
-      team: 'Наша Команда',
-      teamSubtitle: 'Лидерство, Которое Созидает',
+      team: 'Руководство, которое строит',
+      teamSubtitle: '',
       certificates: 'Стандарты Качества',
+      historyEvents: {
+        1945: { title: 'Основание', description: 'Основан как механический ремонтный завод для грузовиков и тяжелой техники в Ташкенте.' },
+        1963: { title: 'Расширение', description: 'Начало производства стальных конструкций и подъемного оборудования для строительства.' },
+        1990: { title: 'Диверсификация', description: 'Расширение в производство спецтехники и автокранов.' },
+        2000: { title: 'Модернизация', description: 'Внедрение ЧПУ-обработки и автоматизированных сварочных систем.' },
+        2012: { title: 'Запуск Бренда', description: 'Запуск бренда автокранов KRANTAS с полной сертификацией.' },
+        2015: { title: 'Международный Рост', description: 'Выход на рынки Казахстана и Туркменистана с экспортной сертификацией.' },
+        2020: { title: 'Новые Мощности', description: 'Открытие новых сборочных линий и расширение производства сельскохозяйственной техники.' },
+        2024: { title: 'Взгляд в Будущее', description: 'Разработка следующего поколения надежных промышленных автомобилей.' },
+      },
+      teamMemberStories: {
+        sergey: {
+          name: 'Петров Сергей',
+          role: 'Заместитель Директора',
+          years: '50+ лет с KRANTAS',
+          text: 'От молодого специалиста в 1972 году до руководства операциями на посту заместителя директора сегодня. Свидетель трансформации KRANTAS из экспериментального завода в современного производителя с сохранением ключевых ценностей.'
+        },
+        komil: {
+          name: 'Комил Хаитматов',
+          role: 'Мастер Сборки',
+          years: '45 лет с KRANTAS',
+          text: 'Начал водителем в 1980 году, вырос до мастера по сборке кранов. От грузовиков КАМАЗ до 60-тонных кранов — он был частью каждой трансформации.'
+        },
+        elvira: {
+          name: 'Эльвира',
+          role: 'Оператор Мостового Крана',
+          years: 'Третье поколение · 10+ лет',
+          text: 'Родители, бабушки, дедушки и братья работали в KRANTAS. Отец: 40 лет маляром. Мать: 37 лет крановщицей. Наследие преданности делу.'
+        }
+      },
+      certificatesList: {
+        1: { name: 'Сертификат', desc: 'ООО "KRANTAS"', org: 'Дирекция Международной Промышленной Ярмарки и Кооперационной Биржи' },
+        2: { name: 'Сертификат', desc: 'ООО "Кран и Спецтехника"', org: 'Дирекция Международной Промышленной Ярмарки и Кооперационной Биржи' },
+        3: { name: 'Сертификат', desc: 'ООО "ТТЭМЗ"', org: 'Дирекция Международной Промышленной Ярмарки и Кооперационной Биржи' },
+        4: { name: 'Награда за Эффективность', desc: 'Global Specific Performance Award 2022', org: 'FOTON' },
+        5: { name: 'Диплом', desc: 'Туркменское Строительство 2015', org: 'Торгово-промышленная палата' },
+        6: { name: 'Сертификат', desc: '17-я Казахстанская Международная Строительная Выставка', org: 'Astana Build' },
+      },
       partners: 'Наши Партнеры',
       partnersDesc: 'Мы сотрудничаем с ведущими мировыми производителями, чтобы гарантировать высочайшее качество компонентов и технологий в наших продуктах.',
       geography: 'География Поставок',
@@ -1466,7 +1542,7 @@ export const translations = {
       },
       teamMembers: {
         sergey: {
-          name: 'Сергей Константинович Петров',
+          name: 'Сергей Петров',
           role: 'Заместитель Директора по Производству',
           story: 'Более 50 лет в KRANTAS. Руководил трансформацией завода в современного производителя.'
         },
@@ -1650,11 +1726,11 @@ export const translations = {
         specs: { model: 'KDT-20', loadCapacity: '20 тонн', tankVolume: '16 м³', wheelFormula: '6x4', drive: 'Дизель', environmentalClass: 'Евро 5' }
       },
       'mt-mining-truck-25t': {
-        name: 'Карьерный Самосвал 25 т',
+        name: 'Карьерный Самосвал 240 т',
         description: 'Специализированный карьерный самосвал для тяжелых условий добычи.',
         fullDescription: 'Карьерный самосвал MT специально разработан для жестких условий открытых горных работ, обеспечивая максимальную производительность при добыче полезных ископаемых благодаря исключительной прочности шасси.',
         features: ['Усиленное карьерное шасси', 'Тяжелые условия', 'Внедорожный', 'Мощная трансмиссия', 'Безопасность'],
-        specs: { model: 'KMT-25', loadCapacity: '25 тонн', tankVolume: '20 м³', wheelFormula: '6x4', drive: 'Дизель', environmentalClass: 'Евро 5' }
+        specs: { model: 'KMT-240', loadCapacity: '240 тонн', tankVolume: '20 м³', wheelFormula: '6x4', drive: 'Дизель', environmentalClass: 'Евро 5' }
       },
       'dt-tipper-semi-trailer': {
         name: 'Самосвальный Полуприцеп 24-26 м³',
@@ -2296,10 +2372,10 @@ export const translations = {
       storyP3: 'O\'zbekiston mustaqilligidan va keyingi xususiyalashtirishdan so\'ng yangi bosqich boshlandi. Biz zamonaviy texnologiyalarga sarmoya kiritdik, mahsulotlar assortimentini kengaytirdik va xalqaro bozorlarga xizmat ko\'rsatishni boshladik.',
       storyP4: 'Bugun KRANTAS Group zamonaviy CNC ishlov berish, payvandlash, plazma/lazer kesish va yig\'ish imkoniyatlariga ega to\'liq sikl ishlab chiqaruvchi.',
       family: 'KRANTAS Oilasi',
-      familyDesc: 'KRANTASda biz xodimlarimizni oila deb hisoblaymiz. Avlodlar ishchilar muvaffaqiyatimiz poydevorini yaratishga hayotlarini bag\'ishladilar.',
+      familyDesc: 'Fidoyilik avlodlari. O\'n yillik tajriba. KRANTASni shunchaki kompaniya emas, balki buyuk oila qiladigan insonlar.',
       familyQuote: '"Men KRANTASda 30 yildan ortiq vaqt davomida ishlayman. Men bu kompaniyaning kichik ta\'mirlash ustaxonasidan katta ishlab chiqaruvchigacha o\'sganini ko\'rdim. Mamlakat bo\'ylab bizning uskunalarimiz ishlayotganini ko\'rishdan his qiladigan g\'urur o\'lchovsiz."',
       familyQuoteAuthor: '— Rustam Khasanov, Bosh Muhandis',
-      joinFamily: 'Bizning Oilamizga Qoshiling',
+      joinFamily: 'Bizning oilamizga qo\'shiling',
       history: 'Tarix va Bosqichlar',
       production: 'Ishlab Chiqarish Bosqichlari',
       manufacturing: 'To\'liq Siklli Ishlab Chiqarish',
@@ -2312,6 +2388,44 @@ export const translations = {
       team: 'Bizning Jamoa',
       teamSubtitle: 'Quruvchi Rahbarlik',
       certificates: 'Sifat Standartlari',
+      historyEvents: {
+        1945: { title: 'Tashkil Topish', description: 'Toshkentda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan.' },
+        1963: { title: 'Kengayish', description: 'Qurilish uchun po\'lat konstruktsiyalar va yuk ko\'tarish uskunalari ishlab chiqarish boshlandi.' },
+        1990: { title: 'Diversifikatsiya', description: 'Maxsus texnika va avtokranlar ishlab chiqarishga kengaytirildi.' },
+        2000: { title: 'Modernizatsiya', description: 'CNC ishlov berish va avtomatlashtirilgan payvandlash tizimlari joriy etildi.' },
+        2012: { title: 'Brendni Ishga Tushirish', description: 'To\'liq sertifikatlangan KRANTAS avtokran brendi ishga tushirildi.' },
+        2015: { title: 'Xalqaro O\'sish', description: 'Qozog\'iston va Turkmaniston bozorlariga eksport sertifikati bilan kirib borildi.' },
+        2020: { title: 'Yangi Quvvatlar', description: 'Yangi yig\'uv liniyalari ochildi va qishloq xo\'jaligi texnikasi ishlab chiqarish kengaytirildi.' },
+        2024: { title: 'Kelajakka Nazar', description: 'Ishonchli sanoat transport vositalarining keyingi avlodini ishlab chiqish.' },
+      },
+      teamMemberStories: {
+        sergey: {
+          name: 'Petrov Sergey',
+          role: 'Direktor O\'rinbosari',
+          years: 'KRANTAS bilan 50 yildan ortiq',
+          text: '1972-yilda yosh mutaxassis sifatida kelib, bugungi kunda Direktor o\'rinbosari sifatida operatsiyalarni boshqarmoqda. KRANTASning tajriba zavodidan zamonaviy ishlab chiqaruvchigacha bo\'lgan o\'zgarishiga guvoh bo\'lgan.'
+        },
+        komil: {
+          name: 'Komil Xaitmatov',
+          role: 'Yig\'ish Ustasi',
+          years: 'KRANTAS bilan 45 yil',
+          text: '1980-yilda haydovchi sifatida boshlagan, kran yig\'ish ustasi darajasiga ko\'tarilgan. KamAZ yuk mashinalaridan 60 tonnalik kranlargacha — u har bir o\'zgarishning bir qismi bo\'lgan.'
+        },
+        elvira: {
+          name: 'Elvira',
+          role: 'Ko\'prik Krani Operatori',
+          years: 'Uchinchi avlod · 10+ yil',
+          text: 'Ota-onasi, bobo-buvisi va aka-uka barchasi KRANTASda ishlagan. Otasi: 40 yil bo\'yoqchi. Onasi: 37 yil kran operatori. Sadoqat merosi.'
+        }
+      },
+      certificatesList: {
+        1: { name: 'Sertifikat', desc: 'MChJ "KRANTAS"', org: 'Xalqaro Sanoat Yarmarkasi va Kooperatsiya Birjasi Direksiyasi' },
+        2: { name: 'Sertifikat', desc: 'MChJ "Kran va Maxsus Texnikalar"', org: 'Xalqaro Sanoat Yarmarkasi va Kooperatsiya Birjasi Direksiyasi' },
+        3: { name: 'Sertifikat', desc: 'MChJ "TTEMZ"', org: 'Xalqaro Sanoat Yarmarkasi va Kooperatsiya Birjasi Direksiyasi' },
+        4: { name: 'Samaradorlik Mukofoti', desc: 'Global Specific Performance Award 2022', org: 'FOTON' },
+        5: { name: 'Diplom', desc: 'Turkmen Construction 2015', org: 'Savdo-Sanoat Palatasi' },
+        6: { name: 'Sertifikat', desc: '17-xalqaro Qozog\'iston Qurilish Ko\'rgazmasi', org: 'Astana Build' },
+      },
       partners: 'Bizning Hamkorlar',
       partnersDesc: 'Biz mahsulotlarimizda komponentlar va texnologiyalarning eng yuqori sifatini ta\'minlash uchun yetakchi global ishlab chiqaruvchilar bilan hamkorlik qilamiz.',
       geography: 'Yetkazib Berish Geografiyasi',
@@ -2638,11 +2752,11 @@ export const translations = {
         specs: { model: 'KDT-20', loadCapacity: '20 tonna', tankVolume: '16 m³', wheelFormula: '6x4', drive: 'Dizel', environmentalClass: 'Euro 5' }
       },
       'mt-mining-truck-25t': {
-        name: 'Kon Samosvali 25 t',
+        name: 'Kon Samosvali 240 t',
         description: 'Og\'ir karyer va qazib olish ishlari uchun maxsus kon samosvali.',
         fullDescription: 'MT kon samosvali qattiq yo\'lsiz kon muhitlari uchun maxsus ishlab chiqilgan bo\'lib, ajoyib shassi chidamliligi bilan karyer va qazish operatsiyalari uchun maksimal yuk ko\'tarish qobiliyatini beradi.',
         features: ['Kuchaytirilgan kon shassisi', 'Og\'ir karyer ishi', 'Yo\'lsiz muhitga mos', 'Kuchli transmissiya', 'Sanoat xavfsizligi'],
-        specs: { model: 'KMT-25', loadCapacity: '25 tonna', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Dizel', environmentalClass: 'Euro 5' }
+        specs: { model: 'KMT-240', loadCapacity: '240 tonna', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Dizel', environmentalClass: 'Euro 5' }
       },
       'dt-tipper-semi-trailer': {
         name: 'Samosval Yarim Tirkama 24-26 m³',
@@ -3282,7 +3396,7 @@ export const translations = {
       storyP3: 'Nach der Unabhängigkeit Usbekistans und der anschließenden Privatisierung begann eine neue Phase. Wir investierten in moderne Technologie, erweiterten unser Produktangebot und begannen, internationale Märkte zu bedienen.',
       storyP4: 'Heute ist KRANTAS Group ein Komplettanbieter mit modernen CNC-Bearbeitungs-, Schweiß-, Plasma-/Laserschneid- und Montagefähigkeiten.',
       family: 'KRANTAS Familie',
-      familyDesc: 'Bei KRANTAS betrachten wir unsere Mitarbeiter als Familie. Generationen von Arbeitern haben ihr Leben der Schaffung der Grundlage unseres Erfolgs gewidmet.',
+      familyDesc: 'Generationen von Hingabe. Jahrzehnte der Expertise. Die Menschen, die KRANTAS zu mehr als einem Unternehmen machen.',
       familyQuote: '"Ich arbeite seit über 30 Jahren bei KRANTAS. Ich habe gesehen, wie dieses Unternehmen von einer kleinen Reparaturwerkstatt zu einem großen Hersteller gewachsen ist. Der Stolz, den ich empfinde, wenn ich unsere Ausrüstung im ganzen Land arbeiten sehe, ist unermesslich."',
       familyQuoteAuthor: '— Rustam Khasanov, Chefingenieur',
       joinFamily: 'Werden Sie Teil Unserer Familie',
@@ -3298,6 +3412,44 @@ export const translations = {
       team: 'Unser Team',
       teamSubtitle: 'Führung, die Baut',
       certificates: 'Qualitätsstandards',
+      historyEvents: {
+        1945: { title: 'Gründung', description: 'Gegründet als mechanische Reparaturwerkstatt für Lkw und schwere Maschinen in Taschkent.' },
+        1963: { title: 'Expansion', description: 'Beginn der Produktion von Stahlkonstruktionen und Hebezeugen für das Bauwesen.' },
+        1990: { title: 'Diversifizierung', description: 'Expansion in die Herstellung von Spezialfahrzeugen und Autokränen.' },
+        2000: { title: 'Modernisierung', description: 'Einführung von CNC-Bearbeitung und automatisierten Schweißsystemen.' },
+        2012: { title: 'Markeneinführung', description: 'Einführung der Autokran-Marke KRANTAS mit vollständiger Zertifizierung.' },
+        2015: { title: 'Internationales Wachstum', description: 'Eintritt in die Märkte Kasachstan und Turkmenistan mit Exportzertifizierung.' },
+        2020: { title: 'Neue Anlagen', description: 'Eröffnung neuer Montagelinien und Erweiterung der Landmaschinenproduktion.' },
+        2024: { title: 'Zukunftsorientiert', description: 'Entwicklung der nächsten Generation zuverlässiger Industriefahrzeuge.' },
+      },
+      teamMemberStories: {
+        sergey: {
+          name: 'Petrov Sergey',
+          role: 'Stellvertretender Direktor',
+          years: '50+ Jahre bei KRANTAS',
+          text: 'Voni einem jungen Spezialisten im Jahr 1972 bis zur Leitung des Betriebs als stellvertretender Direktor heute. Zeuge der Transformation von KRANTAS vom Versuchswerk zum modernen Hersteller unter Bewahrung der Grundwerte.'
+        },
+        komil: {
+          name: 'Komil Khaitmatov',
+          role: 'Montagetechniker',
+          years: '45 Jahre bei KRANTAS',
+          text: 'Begann 1980 als Fahrer, entwickelte sich zum Meister der Kranmontage. Von KamAZ-Lkw bis zu 60-Tonnen-Kränen – er war Teil jeder Transformation.'
+        },
+        elvira: {
+          name: 'Elvira',
+          role: 'Kranführerin',
+          years: 'Dritte Generation · 10+ Jahre',
+          text: 'Eltern, Großeltern und Brüder arbeiteten alle bei KRANTAS. Vater: 40 Jahre als Lackierer. Mutter: 37 Jahre als Kranführerin. Ein Vermächtnis der Hingabe.'
+        }
+      },
+      certificatesList: {
+        1: { name: 'Zertifikat', desc: 'OOO "KRANTAS"', org: 'Direktion der Internationalen Industriemesse und Kooperationsbörse' },
+        2: { name: 'Zertifikat', desc: 'OOO "Kran- und Spezialfahrzeuge"', org: 'Direktion der Internationalen Industriemesse und Kooperationsbörse' },
+        3: { name: 'Zertifikat', desc: 'OOO "TTEMZ"', org: 'Direktion der Internationalen Industriemesse und Kooperationsbörse' },
+        4: { name: 'Leistungspreis', desc: 'Global Specific Performance Award 2022', org: 'FOTON' },
+        5: { name: 'Diplom', desc: 'Turkmen Construction 2015', org: 'Industrie- und Handelskammer' },
+        6: { name: 'Zertifikat', desc: '17. Internationale Bauausstellung Kasachstan', org: 'Astana Build' },
+      },
       partners: 'Unsere Partner',
       partnersDesc: 'Wir arbeiten mit führenden globalen Herstellern zusammen, um höchste Qualität von Komponenten und Technologie in unseren Produkten zu gewährleisten.',
       geography: 'Geografie der Lieferungen',
@@ -3624,11 +3776,11 @@ export const translations = {
         specs: { model: 'KDT-20', loadCapacity: '20 Tonnen', tankVolume: '16 m³', wheelFormula: '6x4', drive: 'Diesel', environmentalClass: 'Euro 5' }
       },
       'mt-mining-truck-25t': {
-        name: 'Bergbau-Muldenkipper 25 t',
+        name: 'Bergbau-Muldenkipper 240 t',
         description: 'Spezialisierter Muldenkipper für schwere Steinbruch- und Aushubarbeiten.',
-        fullDescription: 'Der MT Bergbau-Muldenkipper wurde speziell für raue Offroad-Bergbauumgebungen entwickelt und bietet maximale Tragfähigkeit für Steinbruch- und Aushubarbeiten mit außergewöhnlicher Fahrgestellhaltbarkeit.',
+        fullDescription: 'Der MT Bergbau-Muldenkipper wurde speziell für raue Offroad-Bergbauumgebungen entwickelt and bietet maximale Tragfähigkeit für Steinbruch- and Aushubarbeiten mit außergewöhnlicher Fahrgestellhaltbarkeit.',
         features: ['Verstärktes Bergbau-Fahrgestell', 'Schwere Steinrucharbeit', 'Offroad-fähig', 'Kraftvoller Antriebsstrang', 'Industrielle Sicherheit'],
-        specs: { model: 'KMT-25', loadCapacity: '25 Tonnen', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Diesel', environmentalClass: 'Euro 5' }
+        specs: { model: 'KMT-240', loadCapacity: '240 Tonnen', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Diesel', environmentalClass: 'Euro 5' }
       },
       'dt-tipper-semi-trailer': {
         name: 'Kipp-Sattelauflieger 24-26 m³',

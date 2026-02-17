@@ -98,17 +98,17 @@ export default function Services() {
   const activeService = services.find(s => s.id === activeServiceId) || services[0];
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white w-full flex-1 flex flex-col">
       <Hero title={t.services.title} description={t.services.heroIntro} />
 
-      <div className="bg-white relative z-10 -mt-12 lg:-mt-16">
+      <div className="bg-white relative z-10 -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
 
-        {/* Introductory Section - Matched to Custom Solutions */}
+        {/* Introductory Section */}
         <section className="pt-12 lg:pt-16 pb-10 lg:pb-14 bg-white relative overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="font-display text-4xl lg:text-6xl font-medium text-[#0B0C0E] mb-8 whitespace-pre-line">
+                <h2 className="font-display text-2xl lg:text-6xl font-medium text-[#0B0C0E] mb-8 whitespace-pre-line">
                   {t.services.introHeadline}
                 </h2>
                 <p className="text-lg text-gray-600 leading-relaxed mb-6">
@@ -141,14 +141,59 @@ export default function Services() {
           </div>
         </section>
 
-        {/* Services Master Section - Architectural Layout (Image Removed) */}
+        {/* Services Master Section */}
         <section className="pb-16 lg:pb-24 bg-white overflow-hidden border-t border-gray-100 pt-16 lg:pt-24">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
 
-              {/* Column 1: Navigation Sidebar (lg:col-span-3) */}
-              <div className="lg:col-span-3 bg-gray-50/50 border-y border-gray-100 lg:border-y-0 sticky top-24">
-                <div className="flex flex-col">
+            {/* MOBILE VIEW: Accordion Style Dropdown */}
+            <div className="lg:hidden space-y-4">
+              <div className="flex flex-col border-t border-gray-100">
+                {services.map((service) => (
+                  <div key={service.id} className="border-b border-gray-100">
+                    <button
+                      onClick={() => setActiveServiceId(activeServiceId === service.id ? 0 : service.id)}
+                      className={`w-full text-left py-6 flex items-center justify-between transition-all duration-300 ${activeServiceId === service.id ? 'text-[#244d85]' : 'text-gray-400'}`}
+                    >
+                      <span className="text-lg font-medium uppercase tracking-[0.10em]">
+                        {service.shortTitle}
+                      </span>
+                      <ChevronRight
+                        size={20}
+                        className={`transition-transform duration-300 ${activeServiceId === service.id ? 'rotate-90 text-[#244d85]' : 'text-gray-300'}`}
+                      />
+                    </button>
+
+                    {activeServiceId === service.id && (
+                      <div className="pb-8 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <h3 className="font-display text-xl font-medium text-[#0B0C0E] mb-4">
+                          {service.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                          {service.description}
+                        </p>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-4 border-t border-gray-100 pt-6">
+                          {service.stages.map((stage: any, index: number) => (
+                            <div key={index} className="flex items-start gap-2">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#244d85] mt-1.5 flex-shrink-0" />
+                              <div>
+                                <span className="text-[11px] font-bold text-[#0B0C0E] block uppercase tracking-[0.05em] mb-1 leading-tight">{stage.name}</span>
+                                <span className="text-[11px] text-gray-500 leading-tight font-light">{stage.desc}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DESKTOP VIEW: Sidebar + Content Grid */}
+            <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+              {/* Column 1: Navigation Sidebar */}
+              <div className="lg:col-span-3 bg-gray-50/50 sticky top-24">
+                <div className="flex flex-col border-y lg:border-y-0 border-gray-100">
                   {services.map((service) => (
                     <button
                       key={service.id}
@@ -167,7 +212,7 @@ export default function Services() {
                 </div>
               </div>
 
-              {/* Column 2: Narrative Content Area (lg:col-span-9) - EXPANDED */}
+              {/* Column 2: Narrative Content Area */}
               <div className="lg:col-span-9 flex flex-col justify-start">
                 <div className="max-w-4xl">
                   <h2 className="font-display text-2xl lg:text-4xl font-medium text-[#0B0C0E] mb-6 leading-tight">
@@ -178,7 +223,7 @@ export default function Services() {
                   </p>
                 </div>
 
-                {/* Stages/Features - 2nd row grid expansion */}
+                {/* Stages/Features */}
                 <div className="grid md:grid-cols-2 gap-x-12 gap-y-10 border-t border-gray-100 pt-8 mt-8">
                   {activeService.stages.map((stage: any, index: number) => (
                     <div key={index} className="flex items-start gap-4">
@@ -191,16 +236,15 @@ export default function Services() {
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
         </section>
 
-        {/* Our Facilities Section - Redesigned to match Custom Solutions Backbone */}
+        {/* Our Facilities Section */}
         <section className="py-10 lg:py-14 bg-gray-50">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="mb-16">
-              <h2 className="font-display text-4xl lg:text-6xl font-medium text-[#0B0C0E] mb-6">
+              <h2 className="font-display text-2xl lg:text-6xl font-medium text-[#0B0C0E] mb-6">
                 {t.services.facilities}
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl">
@@ -208,50 +252,50 @@ export default function Services() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-4 lg:gap-6">
               {/* Warehouse: col-span-2 */}
-              <div className="md:col-span-2 relative group overflow-hidden h-[400px]">
+              <div className="md:col-span-2 relative group overflow-hidden h-[192px] md:h-[400px]">
                 <img
                   src={facilities[0].image}
                   alt={facilities[0].title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <h3 className="font-display text-2xl lg:text-3xl font-medium mb-3">{facilities[0].title}</h3>
-                  <p className="text-gray-200 text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
+                  <h3 className="font-display text-xl md:text-3xl font-medium mb-1 md:mb-3">{facilities[0].title}</h3>
+                  <p className="text-gray-200 text-xs md:text-base leading-relaxed line-clamp-2 md:line-clamp-none">
                     {facilities[0].description}
                   </p>
                 </div>
               </div>
 
               {/* Service Station: col-span-1 */}
-              <div className="relative group overflow-hidden h-[400px]">
+              <div className="relative group overflow-hidden h-[192px] md:h-[400px]">
                 <img
                   src={facilities[1].image}
                   alt={facilities[1].title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <h3 className="font-display text-2xl lg:text-3xl font-medium mb-3">{facilities[1].title}</h3>
-                  <p className="text-gray-200 text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
+                  <h3 className="font-display text-xl md:text-3xl font-medium mb-1 md:mb-3">{facilities[1].title}</h3>
+                  <p className="text-gray-200 text-xs md:text-base leading-relaxed line-clamp-2 md:line-clamp-none">
                     {facilities[1].description}
                   </p>
                 </div>
               </div>
 
               {/* Spare Parts Center: col-span-3 */}
-              <div className="md:col-span-3 relative group overflow-hidden h-[350px]">
+              <div className="md:col-span-3 relative group overflow-hidden h-[192px] md:h-[350px]">
                 <img
                   src={facilities[2].image}
                   alt={facilities[2].title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <h3 className="font-display text-2xl lg:text-3xl font-medium mb-3">{facilities[2].title}</h3>
-                  <p className="text-gray-300 text-base leading-relaxed max-w-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
+                  <h3 className="font-display text-xl md:text-3xl font-medium mb-1 md:mb-3">{facilities[2].title}</h3>
+                  <p className="text-gray-300 text-xs md:text-base leading-relaxed max-w-2xl line-clamp-2 md:line-clamp-none">
                     {facilities[2].description}
                   </p>
                 </div>
@@ -261,10 +305,10 @@ export default function Services() {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-10 lg:py-14 bg-[#0B0C0E]">
+        <section className="py-10 lg:py-14 bg-[#0B0C0E] mt-auto mb-[-4px] relative z-20">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="font-display text-3xl lg:text-5xl font-medium text-white mb-4">
+              <h2 className="font-display text-2xl lg:text-5xl font-medium text-white mb-4">
                 {t.services.supportCenter}
               </h2>
               <p className="text-gray-400 mb-8">

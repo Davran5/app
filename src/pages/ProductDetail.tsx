@@ -37,10 +37,10 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f8f8f8' }}>
+    <div className="min-h-screen w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
       <Hero title={t.productsData?.[product.id as keyof typeof t.productsData]?.name || product.name} />
 
-      <div className="relative z-10 bg-white -mt-12 lg:-mt-16">
+      <div className="relative z-10 bg-white -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
         {/* Breadcrumb */}
         <section className="pt-12 lg:pt-16 pb-6 border-b border-gray-200">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
@@ -153,7 +153,7 @@ export default function ProductDetail() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 lg:py-28 bg-[#0B0C0E]">
+        <section className="py-20 lg:py-28 bg-[#0B0C0E] mt-auto mb-[-4px] relative z-20">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="font-display text-3xl lg:text-5xl font-medium text-white mb-6">

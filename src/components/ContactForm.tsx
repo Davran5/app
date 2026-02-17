@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Send } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Send, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -16,6 +16,35 @@ export default function ContactForm({ dark = false }: { dark?: boolean }) {
         subject: '',
         message: '',
     });
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const subjectOptions = [
+        { value: 'lifting', label: t.contacts.subjectOptions?.lifting },
+        { value: 'dump', label: t.contacts.subjectOptions?.dump },
+        { value: 'special', label: t.contacts.subjectOptions?.special },
+        { value: 'metal', label: t.contacts.subjectOptions?.metal },
+        { value: 'agricultural', label: t.contacts.subjectOptions?.agricultural },
+        { value: 'tanks', label: t.contacts.subjectOptions?.tanks },
+        { value: 'mining', label: t.contacts.subjectOptions?.mining },
+        { value: 'cranes', label: t.contacts.subjectOptions?.cranes },
+        { value: 'custom', label: t.contacts.subjectOptions?.custom },
+        { value: 'service', label: t.contacts.subjectOptions?.service },
+        { value: 'careers', label: t.contacts.subjectOptions?.careers },
+        { value: 'other', label: t.contacts.subjectOptions?.other },
+    ];
+
+    const selectedSubjectLabel = subjectOptions.find(opt => opt.value === formData.subject)?.label;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -91,28 +120,46 @@ export default function ContactForm({ dark = false }: { dark?: boolean }) {
                     </div>
                     <div>
                         <label className={labelClasses}>{t.contacts.areaOfInterestLabel || 'Area of Interest'}</label>
-                        <div className="relative">
-                            <select
-                                value={formData.subject}
-                                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                className={`${inputClasses} appearance-none`}
+                        <div className="relative" ref={dropdownRef}>
+                            <button
+                                type="button"
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                className={`${inputClasses} flex items-center justify-between text-left h-[58px] ${!formData.subject ? (dark ? 'text-gray-600' : 'text-gray-400') : ''}`}
                             >
-                                <option value="" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>
-                                    {t.contacts.selectAreaPlaceholder || 'Select an area'}
-                                </option>
-                                <option value="lifting" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.lifting}</option>
-                                <option value="dump" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.dump}</option>
-                                <option value="special" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.special}</option>
-                                <option value="metal" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.metal}</option>
-                                <option value="agricultural" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.agricultural}</option>
-                                <option value="tanks" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.tanks}</option>
-                                <option value="mining" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.mining}</option>
-                                <option value="cranes" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.cranes}</option>
-                                <option value="custom" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.custom}</option>
-                                <option value="service" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.service}</option>
-                                <option value="careers" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.careers}</option>
-                                <option value="other" className={dark ? "bg-[#0B0C0E]" : "bg-white"}>{t.contacts.subjectOptions?.other}</option>
-                            </select>
+                                <span className="truncate">
+                                    {selectedSubjectLabel || t.contacts.selectAreaPlaceholder || 'Select an area'}
+                                </span>
+                                <ChevronDown
+                                    size={20}
+                                    className={`transition-transform duration-300 flex-shrink-0 ml-2 ${isDropdownOpen ? 'rotate-180' : ''} ${dark ? 'text-gray-600' : 'text-gray-400'}`}
+                                />
+                            </button>
+
+                            {isDropdownOpen && (
+                                <div className={`absolute z-50 w-full mt-2 py-2 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200 border ${dark
+                                        ? 'bg-[#0B0C0E] border-white/10'
+                                        : 'bg-white border-gray-100'
+                                    }`}>
+                                    <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
+                                        {subjectOptions.map((option) => (
+                                            <button
+                                                key={option.value}
+                                                type="button"
+                                                onClick={() => {
+                                                    setFormData({ ...formData, subject: option.value });
+                                                    setIsDropdownOpen(false);
+                                                }}
+                                                className={`w-full text-left px-5 py-3 text-sm transition-colors ${formData.subject === option.value
+                                                        ? (dark ? 'bg-[#244d85]/20 text-white' : 'bg-[#244d85]/5 text-[#244d85]')
+                                                        : (dark ? 'text-gray-400 hover:bg-white/5 hover:text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-[#244d85]')
+                                                    }`}
+                                            >
+                                                {option.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

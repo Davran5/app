@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -20,13 +21,18 @@ import Careers from './pages/Careers';
 import Contacts from './pages/Contacts';
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <LanguageProvider>
       <Router>
-        <div className="min-h-screen bg-white flex flex-col">
+        <div className={`min-h-[100dvh] w-full bg-white flex flex-col supports-[min-height:100dvh]:min-h-[100dvh] pb-16 lg:pb-0 ${isMobileMenuOpen ? 'pb-24' : ''}`}>
           <ScrollToTop />
-          <Navigation />
-          <main className="flex-1">
+          <Navigation
+            isMobileMenuOpen={isMobileMenuOpen}
+            setIsMobileMenuOpen={setIsMobileMenuOpen}
+          />
+          <main className="flex-1 flex flex-col w-full">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
@@ -42,7 +48,7 @@ function App() {
             </Routes>
           </main>
           <Footer />
-          <FloatingActions />
+          {!isMobileMenuOpen && <FloatingActions />}
           <SecurityOverlay />
           <CookieConsent />
           <Toaster

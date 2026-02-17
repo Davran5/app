@@ -7,10 +7,10 @@ export default function Products() {
     const { t } = useLanguage();
 
     return (
-        <div className="min-h-screen" style={{ backgroundColor: '#f8f8f8' }}>
+        <div className="w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
             <Hero title={t.productsPage.title} description={t.productsPage.heroIntro} />
 
-            <div className="relative z-10 -mt-12 lg:-mt-16" style={{ backgroundColor: '#f8f8f8' }}>
+            <div className="relative z-10 -mt-12 lg:-mt-16 w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16">
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="font-display text-3xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6">

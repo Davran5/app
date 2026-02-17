@@ -34,13 +34,13 @@ export default function CategoryPage() {
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white w-full flex-1 flex flex-col">
       <Hero
         title={t.categories?.[categoryId as keyof typeof t.categories]?.name || category.name}
         description={t.categories?.[categoryId as keyof typeof t.categories]?.description || category.description}
       />
 
-      <div className="bg-white relative z-10 -mt-12 lg:-mt-16">
+      <div className="bg-white relative z-10 -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
         {/* Products */}
         <section className="pt-12 lg:pt-16 pb-12 lg:pb-16">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
@@ -122,7 +122,7 @@ export default function CategoryPage() {
         </section>
 
         {/* Other Categories */}
-        <section className="py-12 lg:py-16 bg-gray-50">
+        <section className="py-12 lg:py-16 bg-gray-50 mb-[-1px]">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <h2 className="font-display text-2xl font-medium text-[#0B0C0E] mb-8">
               Other Categories

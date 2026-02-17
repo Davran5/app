@@ -10,9 +10,17 @@ const languages = [
   { code: 'de', label: 'DE' },
 ] as const;
 
-export default function Navigation() {
+interface NavigationProps {
+  isMobileMenuOpen?: boolean;
+  setIsMobileMenuOpen?: (isOpen: boolean) => void;
+}
+
+export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobileMenuOpen: externalSetIsOpen }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [localIsMobileMenuOpen, setLocalIsMobileMenuOpen] = useState(false);
+  const isMobileMenuOpen = externalIsOpen ?? localIsMobileMenuOpen;
+  const setIsMobileMenuOpen = externalSetIsOpen ?? setLocalIsMobileMenuOpen;
+
   const [isLangOpen, setIsLangOpen] = useState(false);
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
@@ -80,17 +88,17 @@ export default function Navigation() {
 
   return (
     <>
+      {/* --- DESKTOP NAVIGATION (Unchanged) --- */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${!isScrolled
+        className={`hidden lg:block fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${!isScrolled
           ? 'bg-transparent'
           : 'bg-white/95 backdrop-blur-md shadow-sm'
           }`}
       >
-
         <div className="relative max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="flex items-center h-[54px] lg:h-[68px]">
-            {/* Left Navigation - Fixed width to balance */}
-            <div className="hidden lg:flex items-center justify-end gap-6 w-[calc(50%-135px)] pr-8 h-full">
+          <div className="flex items-center justify-center h-[68px]">
+            {/* Left Nav */}
+            <div className="flex items-center justify-end gap-6 w-[calc(50%-135px)] pr-8 h-full">
               {navItems.left.map((link) => (
                 <Link
                   key={link.label}
@@ -102,30 +110,26 @@ export default function Navigation() {
               ))}
             </div>
 
-            {/* Center Logo - Fixed width */}
-            <div className="flex-shrink-0 w-48 lg:w-72 flex justify-center">
-              <Link
-                to="/"
-                className="transition-all duration-500"
-              >
+            {/* Center Logo */}
+            <div className="flex-shrink-0 w-72 flex justify-center">
+              <Link to="/" className="transition-all duration-500">
                 <img
                   src="/logo.png"
                   alt="KRANTAS"
-                  className={`transition-all duration-500 object-contain ${
-                    // Center glow effect for logo (using drop-shadow on filter)
-                    !isScrolled && isHome
-                      ? 'drop-shadow-[0_0_15px_rgba(253,193,94,0.5)]' // Home: Yellow glow
-                      : ''
+                  loading="lazy"
+                  className={`transition-all duration-500 object-contain ${!isScrolled && isHome
+                    ? 'drop-shadow-[0_0_15px_rgba(253,193,94,0.5)]'
+                    : ''
                     } ${isScrolled || location.pathname !== '/'
-                      ? 'h-[27px] lg:h-[34px]'
-                      : 'h-[41px] lg:h-[60px]'
+                      ? 'h-[34px]'
+                      : 'h-[60px]'
                     }`}
                 />
               </Link>
             </div>
 
-            {/* Right Navigation - Fixed width to balance */}
-            <div className="hidden lg:flex items-center justify-start gap-6 w-[calc(50%-135px)] pl-8 h-full">
+            {/* Right Nav */}
+            <div className="flex items-center justify-start gap-6 w-[calc(50%-135px)] pl-8 h-full">
               {navItems.right.map((link) => (
                 <Link
                   key={link.label}
@@ -136,7 +140,7 @@ export default function Navigation() {
                 </Link>
               ))}
 
-              {/* Language Selector - Absolute Positioned to prevent layout shift */}
+              {/* Desktop Language Selector */}
               <div
                 className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center"
                 onMouseLeave={() => setIsLangOpen(false)}
@@ -180,57 +184,98 @@ export default function Navigation() {
                   </div>
                 </div>
               </div>
-
-              {/* Mobile Menu Button */}
-              <button
-                className={`lg:hidden p-2 ml-auto ${isScrolled || !isHome ? 'text-[#244d85]' : 'text-[#fdc15e]'
-                  }`}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
             </div>
           </div>
         </div>
       </nav>
 
+      {/* --- MOBILE NAVIGATION --- */}
 
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 bg-white z-40 overflow-y-auto">
-          <div className="flex flex-col p-6 gap-2">
+
+      {/* 2. Mobile Bottom Menu Bar (Fixed) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 pb-[env(safe-area-inset-bottom)]">
+        <div className="relative flex justify-center items-center h-16 px-6">
+
+          {/* Centered Logo with Animation */}
+          <Link
+            to="/"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isMobileMenuOpen ? 'scale-150' : 'scale-100'
+              }`}
+          >
+            <img
+              src="/logo.png"
+              alt="KRANTAS"
+              className="h-10 w-auto object-contain"
+            />
+          </Link>
+
+          {/* Bottom Right Menu Toggle (Absolute) */}
+          <div className="absolute right-6 h-full flex items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="flex items-center justify-center p-2 text-[#244d85] active:bg-gray-50 transition-colors"
+            >
+              {isMobileMenuOpen ? (
+                <X size={28} />
+              ) : (
+                <Menu size={28} />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Mobile Menu Content (Drop-Up) */}
+      {/* Overlay */}
+      <div
+        className={`lg:hidden fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* Drop-up Panel */}
+      <div
+        className={`lg:hidden fixed bottom-16 left-0 right-0 z-40 bg-white rounded-t-2xl shadow-2xl transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] transform ${isMobileMenuOpen ? 'translate-y-0' : 'translate-y-full'
+          } max-h-[85vh] overflow-y-auto`}
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
+        <div className="flex flex-col p-6 pb-8">
+
+          {/* Menu Items */}
+          <div className="flex flex-col gap-1">
             {[...navItems.left, ...navItems.right].map((link) => (
               <Link
                 key={link.label}
                 to={link.href}
-                className={`text-lg font-display font-medium py-3 text-[#244d85] ${isActive(link.href) ? 'font-bold' : ''
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block text-center text-lg font-medium py-3 rounded-lg active:bg-gray-50 text-[#0B0C0E] ${isActive(link.href) ? 'font-bold text-[#244d85] bg-blue-50/50' : ''
                   }`}
               >
                 {link.label}
               </Link>
             ))}
-            {/* Mobile Language Switcher */}
-            <div className="pt-4">
-              <p className="text-sm text-gray-500 mb-3">Language</p>
-              <div className="flex gap-2">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => setLanguage(lang.code as typeof language)}
-                    className={`flex-1 py-3 text-sm font-medium uppercase transition-all ${language === lang.code
-                      ? 'bg-[#244d85] text-white shadow-md'
-                      : 'bg-gray-100 text-gray-500'
-                      }`}
-                  >
-                    {lang.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+          </div>
+
+          <div className="h-px bg-gray-100 my-6 w-full" />
+
+          {/* Language Switcher */}
+          <div className="flex justify-center gap-3">
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => setLanguage(lang.code as typeof language)}
+                className={`py-2 px-5 text-sm font-bold uppercase transition-all rounded-full ${language === lang.code
+                  ? 'bg-[#244d85] text-white shadow-sm'
+                  : 'bg-gray-100 text-gray-500'
+                  }`}
+              >
+                {lang.label}
+              </button>
+            ))}
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }
