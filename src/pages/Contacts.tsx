@@ -150,6 +150,37 @@ export default function Contacts() {
                 ))}
               </div>
             </div>
+
+            {/* Telegram Buttons Section */}
+            <div className="mt-12 lg:mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
+              <a
+                href="https://t.me/Krantas_service_bot"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-[#244d85] text-white rounded-sm hover:bg-[#1a3a63] transition-all shadow-md active:scale-95 group"
+              >
+                <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/30 transition-colors">
+                  <svg className="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.39.52-.45-.01-1.33-.26-1.98-.48-.8-.27-1.43-.42-1.37-.89.03-.25.38-.51 1.03-.78 4.04-1.76 6.74-2.92 8.08-3.48 3.85-1.61 4.65-1.89 5.17-1.9.11 0 .37.03.54.17.14.12.18.28.2.45-.01.07.01.2 0 .24z" />
+                  </svg>
+                </div>
+                <span className="font-display font-medium uppercase tracking-wider text-sm">{t.contacts.telegramService}</span>
+              </a>
+
+              <a
+                href="https://t.me/krantasuz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 border-2 border-[#244d85] text-[#244d85] rounded-sm hover:bg-[#244d85] hover:text-white transition-all shadow-sm active:scale-95 group"
+              >
+                <div className="bg-[#244d85]/10 p-2 rounded-full group-hover:bg-white/20 transition-colors">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.39.52-.45-.01-1.33-.26-1.98-.48-.8-.27-1.43-.42-1.37-.89.03-.25.38-.51 1.03-.78 4.04-1.76 6.74-2.92 8.08-3.48 3.85-1.61 4.65-1.89 5.17-1.9.11 0 .37.03.54.17.14.12.18.28.2.45-.01.07.01.2 0 .24z" />
+                  </svg>
+                </div>
+                <span className="font-display font-medium uppercase tracking-wider text-sm">{t.contacts.telegramKrantas}</span>
+              </a>
+            </div>
           </div>
         </section>
 

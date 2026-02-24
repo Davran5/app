@@ -642,12 +642,12 @@ export const historyEvents = [
 ];
 
 export const teamMembers = [
-  { id: 1, name: 'Akmal Karimov', role: 'director', image: '/Karimov.jpeg' },
+  { id: 1, name: 'Karimov Akmal', role: 'director', image: '/Karimov.jpeg' },
   { id: 2, name: 'Pulatov Jahongir', role: 'director', image: '/Pulatov.jpeg' },
-  { id: 3, name: 'Anatoliy Yunusov', role: 'director', image: '/Yunusov.jpeg' },
+  { id: 3, name: 'Yunusov Anatoliy', role: 'director', image: '/Yunusov.jpeg' },
   { id: 4, name: 'Petrov Sergey', role: 'deputyDirector', image: '/Konstantinovich.jpeg' },
   { id: 5, name: 'Daniyarov Shukhrat', role: 'director', image: '/Daniyarov.jpeg' },
-  { id: 6, name: 'Nuriddin', role: 'director', image: '/Nuriddin.jpeg' }
+  { id: 6, name: 'Alimov Nuriddin', role: 'director', image: '/Nuriddin.jpeg' }
 ];
 
 export const blogPosts = [
