@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronRight, Check, X } from 'lucide-react';
+import { ArrowRight, ChevronRight, ChevronLeft, Check, X } from 'lucide-react';
 import { products, categories } from '../data/products';
 import { useLanguage } from '../contexts/LanguageContext';
 import ContactForm from '../components/ContactForm';
@@ -77,38 +77,55 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-white w-full flex-1 flex flex-col">
+    <div className="w-full flex-1 flex flex-col">
       {/* Hero Section */}
-      <section className="fixed top-0 left-0 h-[32vh] md:h-screen w-full flex items-center overflow-hidden bg-black z-0">
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover opacity-100"
-          >
-            <source src="/herovid.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </section>
+      <div className="relative h-[50svh] md:h-[100svh] w-full z-0">
+        <section className="sticky top-0 left-0 h-[50svh] md:h-[100svh] w-full flex items-end overflow-hidden bg-black">
+          {/* Background Video */}
+          <div className="absolute inset-0 z-0">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover opacity-75 md:opacity-100"
+            >
+              <source src="/herovid.mp4" type="video/mp4" />
+            </video>
+            {/* Overlay for mobile readability */}
+            <div className="absolute inset-0 bg-black/25 md:hidden" />
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/65 to-transparent" />
+          </div>
 
-      {/* Hero Spacer */}
-      <div className="h-[32vh] md:h-screen w-full pointer-events-none" />
+          {/* Hero Content - pt-20 to ensure visibility below fixed header */}
+          <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-20 pb-8 md:pb-14">
+            <div className="max-w-4xl">
+              <span className="font-mono text-sm md:text-base uppercase tracking-[0.2em] text-[#fdc15e] mb-3 block opacity-80">
+                {t.home.since}
+              </span>
+              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 uppercase tracking-tight leading-[0.95]">
+                {t.home.title}
+              </h1>
+              <p className="font-display text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl leading-relaxed font-light hidden sm:block">
+                {t.home.subtitle}
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
 
-      {/* Subsequent sections start here */}
-      <div className="relative z-10 bg-white w-full flex-1 flex flex-col">
+      {/* Subsequent sections start here - Starts at relative pos to cover sticky video */}
+      <div className="relative z-10 bg-white w-full flex-1 flex flex-col shadow-[0_-15px_30px_rgba(0,0,0,0.15)]">
 
 
         {/* Intro Animation Section - White Background */}
-        <section ref={introRef} className="pt-10 lg:pt-14 pb-10 lg:pb-14 bg-white overflow-hidden border-t border-gray-200">
+        <section ref={introRef} className="pt-16 lg:pt-14 pb-10 lg:pb-14 bg-white overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className={`max-w-4xl mx-auto text-center mb-16 transition-all duration-1000 ${introVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="font-display text-3xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6">
+            <div className={`max-w-4xl mx-auto text-left md:text-center mb-16 transition-all duration-1000 ${introVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6">
                 {t.intro.welcomeTitle}
               </h2>
-              <p className="text-base text-gray-600 leading-relaxed max-w-2xl mx-auto">
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl md:mx-auto">
                 {t.intro.welcomeDesc}
               </p>
             </div>
@@ -141,7 +158,7 @@ export default function Home() {
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             {/* Mobile Title - Only visible on small screens */}
             <div className="lg:hidden border-l-4 border-[#244d85] pl-6 mb-8">
-              <h2 className="font-display text-3xl font-medium text-[#0B0C0E]">
+              <h2 className="font-display text-3xl font-semibold text-[#0B0C0E]">
                 {t.aboutHome.heading}
               </h2>
             </div>
@@ -155,9 +172,8 @@ export default function Home() {
                 />
               </div>
               <div>
-                {/* Desktop Title - Only visible on large screens */}
                 <div className="hidden lg:block border-l-4 border-[#244d85] pl-6 mb-8">
-                  <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E]">
+                  <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E]">
                     {t.aboutHome.heading}
                   </h2>
                 </div>
@@ -213,10 +229,10 @@ export default function Home() {
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="flex items-end justify-between mb-12">
               <div>
-                <span className="font-mono text-base uppercase tracking-[0.14em] text-[#244d85] mb-3 block">
+                <span className="font-mono text-sm uppercase tracking-[0.14em] text-[#244d85] mb-3 block">
                   {t.equipment.title}
                 </span>
-                <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E]">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E]">
                   {t.equipment.heading}
                 </h2>
               </div>
@@ -242,7 +258,7 @@ export default function Home() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <h3 className="absolute bottom-3 left-4 font-display text-lg font-medium text-white md:hidden">
+                  <h3 className="absolute bottom-3 left-4 font-display text-lg font-bold text-white md:hidden">
                     {t.equipment.customSolutions}
                   </h3>
                 </div>
@@ -253,8 +269,9 @@ export default function Home() {
                   <p className="text-sm text-gray-600 md:text-gray-300 md:mb-4 line-clamp-2 md:line-clamp-none">
                     {t.equipment.customDesc}
                   </p>
-                  <span className="hidden md:inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#fdc15e] text-[#244d85] transition-transform group-hover:scale-110">
-                    <ChevronRight size={18} />
+                  <span className="hidden md:inline-flex items-center gap-2 text-[#fdc15e] font-medium transition-all group-hover:gap-3">
+                    {t.home.build.explore}
+                    <ChevronRight size={20} />
                   </span>
                 </div>
               </Link>
@@ -276,7 +293,7 @@ export default function Home() {
                 return (
                   <Link
                     key={category.id}
-                    to={`/catalog/${category.id}`}
+                    to={`/catalog?category=${category.id}`}
                     className="group flex flex-col bg-white overflow-hidden transition-all shadow-sm hover:shadow-xl"
                   >
                     <div className="relative h-48 overflow-hidden">
@@ -286,7 +303,7 @@ export default function Home() {
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent md:hidden" />
-                      <h3 className="absolute bottom-3 left-4 font-display text-lg font-medium text-white md:hidden">
+                      <h3 className="absolute bottom-3 left-4 font-display text-lg font-bold text-white md:hidden">
                         {catName}
                       </h3>
                     </div>
@@ -314,7 +331,7 @@ export default function Home() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent md:hidden" />
-                  <h3 className="absolute bottom-3 left-4 font-display text-lg font-medium text-white md:hidden">
+                  <h3 className="absolute bottom-3 left-4 font-display text-lg font-bold text-white md:hidden">
                     {t.categories?.['metal-structures']?.name || 'Metal Structures'}
                   </h3>
                 </div>
@@ -339,7 +356,7 @@ export default function Home() {
                 <span className="font-mono text-base uppercase tracking-[0.14em] text-[#244d85] mb-3 block">
                   {t.products.title}
                 </span>
-                <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E]">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E]">
                   {t.products.heading}
                 </h2>
               </div>
@@ -353,76 +370,154 @@ export default function Home() {
             </div>
 
             {/* Horizontal Scrollable Product Cards - One per Category */}
-            <div className="overflow-x-auto -mx-6 px-6 scrollbar-hide snap-x snap-mandatory">
-              <div className="flex gap-4 min-w-max pb-4">
-                {categories
-                  .filter(c => c.id !== 'custom-solutions' && c.id !== 'metal-structures')
-                  .map((category) => {
-                    // Get one product from this category
-                    const categoryProduct = products.find(p => p.categoryId === category.id);
-                    if (!categoryProduct) return null;
+            <div className="relative">
+              {/* Prev Arrow */}
+              <button
+                id="products-prev"
+                aria-label="Previous"
+                onClick={() => {
+                  const el = document.getElementById('products-scroll');
+                  if (el) el.scrollBy({ left: -400, behavior: 'smooth' });
+                }}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
+              >
+                <ChevronLeft size={20} />
+              </button>
 
-                    const specs = Object.entries(t.productsData?.[categoryProduct.id as keyof typeof t.productsData]?.specs || categoryProduct.specs);
-                    const modelSpec = specs[0];
-                    const otherSpecs = specs.slice(1, 3);
+              {/* Next Arrow */}
+              <button
+                id="products-next"
+                aria-label="Next"
+                onClick={() => {
+                  const el = document.getElementById('products-scroll');
+                  if (el) el.scrollBy({ left: 400, behavior: 'smooth' });
+                }}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
+              >
+                <ChevronRight size={20} />
+              </button>
 
-                    return (
-                      <Link
-                        key={categoryProduct.id}
-                        to={`/product/${categoryProduct.id}`}
-                        className="group bg-white rounded-lg transition-all overflow-hidden shadow-sm hover:shadow-xl flex w-[340px] md:w-[570px] flex-shrink-0 snap-center"
-                      >
-                        {/* Product Image - Clean, no overlays */}
-                        <div className="relative w-1/2 overflow-hidden bg-gray-50 rounded-l-lg flex-shrink-0">
-                          <img
-                            src={categoryProduct.image}
-                            alt={t.productsData?.[categoryProduct.id as keyof typeof t.productsData]?.name || categoryProduct.name}
-                            loading="lazy"
-                            className="w-full h-full object-contain p-3 md:p-6 transition-transform duration-300 group-hover:scale-105"
-                          />
+              <div
+                id="products-scroll"
+                className="overflow-x-auto -mx-6 px-6 scrollbar-hide snap-x snap-mandatory select-none"
+                style={{ cursor: 'grab' }}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  const el = e.currentTarget;
+                  el.style.cursor = 'grabbing';
+                  el.style.scrollSnapType = 'none';
+                  el.style.scrollBehavior = 'auto';
 
-                          {/* Model Name - Bottom Left */}
-                          {modelSpec && modelSpec[1] && (
-                            <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4">
-                              <p className="text-[#0B0C0E] text-xs md:text-sm font-semibold drop-shadow-sm">
-                                {modelSpec[1]}
-                              </p>
+                  const startX = e.clientX;
+                  const startScrollLeft = el.scrollLeft;
+                  let hasDragged = false;
+
+                  const onMove = (me: MouseEvent) => {
+                    const dx = me.clientX - startX;
+                    if (Math.abs(dx) > 4) {
+                      hasDragged = true;
+                    }
+                    el.scrollLeft = startScrollLeft - dx;
+                  };
+
+                  const onUp = (upEvent: MouseEvent) => {
+                    el.style.cursor = 'grab';
+
+                    const dx = upEvent.clientX - startX;
+                    const threshold = 50;
+
+                    if (Math.abs(dx) > threshold) {
+                      hasDragged = true;
+                      const scrollDir = dx > 0 ? -1 : 1;
+                      const cardWidth = el.querySelector('.group')?.clientWidth || 400;
+                      el.scrollBy({ left: scrollDir * cardWidth, behavior: 'smooth' });
+                    }
+
+                    // Briefly keep snapping off to allow the smooth scroll follow-through
+                    setTimeout(() => {
+                      el.style.scrollSnapType = '';
+                      el.style.scrollBehavior = '';
+                    }, 400);
+
+                    if (hasDragged) el.setAttribute('data-dragging', '1');
+                    window.removeEventListener('mousemove', onMove);
+                    window.removeEventListener('mouseup', onUp);
+                    setTimeout(() => el.removeAttribute('data-dragging'), 0);
+                  };
+
+                  window.addEventListener('mousemove', onMove);
+                  window.addEventListener('mouseup', onUp);
+                }}
+              >
+                <div className="flex gap-4 min-w-max pb-4">
+                  {categories
+                    .filter(c => c.id !== 'custom-solutions' && c.id !== 'metal-structures')
+                    .map((category) => {
+                      // Get one product from this category
+                      const categoryProduct = products.find(p => p.categoryId === category.id);
+                      if (!categoryProduct) return null;
+
+                      const specs = Object.entries(t.productsData?.[categoryProduct.id as keyof typeof t.productsData]?.specs || categoryProduct.specs);
+                      const modelSpec = specs[0];
+                      const otherSpecs = specs.slice(1, 3);
+
+                      return (
+                        <Link
+                          key={categoryProduct.id}
+                          to={`/product/${categoryProduct.id}`}
+                          className="group bg-white rounded-lg transition-all overflow-hidden shadow-sm hover:shadow-xl flex max-w-[340px] md:max-w-[570px] w-full flex-shrink-0 snap-center"
+                          onClick={(e) => {
+                            const scroll = document.getElementById('products-scroll');
+                            if (scroll?.getAttribute('data-dragging')) e.preventDefault();
+                          }}
+                        >
+                          {/* Product Image - Clean */}
+                          <div className="relative w-1/2 overflow-hidden bg-gray-50 rounded-l-lg flex-shrink-0">
+                            <img
+                              src={categoryProduct.image}
+                              alt={t.productsData?.[categoryProduct.id as keyof typeof t.productsData]?.name || categoryProduct.name}
+                              loading="lazy"
+                              draggable={false}
+                              className="w-full h-full object-contain p-3 md:p-6 transition-transform duration-300 group-hover:scale-105"
+                            />
+                          </div>
+
+                          {/* Product Info */}
+                          <div className="p-4 md:p-8 flex-1 flex flex-col justify-center">
+                            <div className="space-y-2 md:space-y-4">
+                              {otherSpecs.map(([key, value]) => (
+                                value && (
+                                  <div key={key} className="flex justify-between items-center gap-2">
+                                    <span className="text-gray-400 font-normal text-xs md:text-sm">
+                                      {t.specLabels?.[key as keyof typeof t.specLabels] || key.replace(/([A-Z])/g, ' $1')
+                                        .split(' ')
+                                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                                        .join(' ')
+                                        .trim()}
+                                    </span>
+                                    <span className="text-[#0B0C0E] font-medium text-xs md:text-sm">
+                                      {value}
+                                    </span>
+                                  </div>
+                                )
+                              ))}
                             </div>
-                          )}
-                        </div>
 
-                        {/* Product Info - 2 rows of specs on the side */}
-                        <div className="p-4 md:p-8 flex-1 flex flex-col justify-center">
-                          {/* Exactly 2 rows of information */}
-                          <div className="space-y-2 md:space-y-4">
-                            {otherSpecs.map(([key, value]) => (
-                              value && (
-                                <div key={key} className="flex justify-between items-center gap-2">
-                                  <span className="text-gray-400 font-normal text-xs md:text-sm">
-                                    {t.specLabels?.[key as keyof typeof t.specLabels] || key.replace(/([A-Z])/g, ' $1')
-                                      .split(' ')
-                                      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                                      .join(' ')
-                                      .trim()}
-                                  </span>
-                                  <span className="text-[#0B0C0E] font-medium text-xs md:text-sm">
-                                    {value}
-                                  </span>
-                                </div>
-                              )
-                            ))}
+                            {/* Footer: Model name left, Details link right */}
+                            <div className="mt-3 md:mt-6 pt-2 md:pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
+                              {modelSpec && modelSpec[1] && (
+                                <p className="text-[#0B0C0E] text-xs md:text-sm font-semibold truncate">
+                                  {modelSpec[1]}
+                                </p>
+                              )}
+                              <span className="text-xs md:text-sm font-medium text-[#244d85] flex items-center gap-1 group-hover:gap-2 transition-all flex-shrink-0 ml-auto">
+                                Details <ChevronRight size={14} />
+                              </span>
+                            </div>
                           </div>
-
-                          {/* View Details - Small link at bottom */}
-                          <div className="mt-3 md:mt-6 pt-2 md:pt-4 border-t border-gray-100">
-                            <span className="text-xs md:text-sm font-medium text-[#244d85] flex items-center gap-1 group-hover:gap-2 transition-all">
-                              Details <ChevronRight size={14} />
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    );
-                  })}
+                        </Link>
+                      );
+                    })}</div>
               </div>
             </div>
 

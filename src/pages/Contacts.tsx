@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import Hero from '../components/Hero';
 import ContactForm from '../components/ContactForm';
 
 export default function Contacts() {
@@ -31,9 +30,7 @@ export default function Contacts() {
 
   return (
     <div className="bg-white min-h-screen w-full flex-1 flex flex-col">
-      <Hero title={t.contacts.title} description={t.contacts.heroIntro} />
-
-      <div className="relative z-10 bg-white -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
+      <div className="relative z-10 bg-white w-full flex-1 flex flex-col">
 
 
         {/* Main Info Section - Grey Shade */}
@@ -42,7 +39,7 @@ export default function Contacts() {
             <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
               {/* Contact Details List */}
               <div>
-                <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E] mb-4">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-4">
                   {t.contacts.headquarters.title}
                 </h2>
                 <p className="text-[#0B0C0E] text-base mb-10 leading-relaxed max-w-lg">
@@ -97,7 +94,7 @@ export default function Contacts() {
         {/* Departments Section */}
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E] mb-10 text-center">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-10 text-left md:text-center">
               {t.contacts.departments}
             </h2>
 
@@ -161,16 +158,16 @@ export default function Contacts() {
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="max-w-4xl mx-auto">
               {/* Desktop View Title */}
-              <h2 className="hidden lg:block font-display text-5xl font-medium text-[#0B0C0E] mb-12 text-center">
+              <h2 className="hidden md:block font-display text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-12 text-center">
                 {t.contacts.formTitle}
               </h2>
 
               {/* Mobile View Accordion Header */}
               <button
                 onClick={() => setShowFormMobile(!showFormMobile)}
-                className="lg:hidden w-full flex items-center justify-between py-6 border-b border-gray-200 mb-8"
+                className="md:hidden w-full flex items-center justify-between py-6 border-b border-gray-200 mb-8"
               >
-                <h2 className="font-display text-2xl font-medium text-[#0B0C0E]">
+                <h2 className="font-display text-3xl font-semibold text-[#0B0C0E]">
                   {t.contacts.formTitle}
                 </h2>
                 <ChevronRight

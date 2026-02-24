@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, X } from 'lucide-react';
-import Hero from '../components/Hero';
 import { useLanguage } from '../contexts/LanguageContext';
 import ContactForm from '../components/ContactForm';
 import { teamMembers } from '../data/products';
-import Distributors from '../components/Distributors';
+
 
 
 
@@ -30,24 +29,24 @@ const partners = [
 export default function About() {
   const { t } = useLanguage();
   const [showForm, setShowForm] = useState(false);
-  const [activeYear, setActiveYear] = useState(1945);
+  const [activeIndex, setActiveIndex] = useState(0);
   const mobileYearScrollRef = useRef<HTMLDivElement>(null);
   // History Initialization
-  const historyEventsList = Object.values(t.about.historyEvents || {}).map((event: any, index) => ({
-    year: parseInt(Object.keys(t.about.historyEvents)[index]),
-    ...event
+  const historyEventsList = (t.about.historyEvents || []).map((event: any, index: number) => ({
+    ...event,
+    index
   }));
 
   useEffect(() => {
     if (historyEventsList.length > 0) {
-      setActiveYear(historyEventsList[0].year);
+      setActiveIndex(0);
     }
   }, [t.about.historyEvents]);
 
   // Auto-scroll mobile year selector to center active year
   useEffect(() => {
     if (mobileYearScrollRef.current) {
-      const activeBtn = document.getElementById(`year-btn-${activeYear}`);
+      const activeBtn = document.getElementById(`year-btn-${activeIndex}`);
       if (activeBtn) {
         const container = mobileYearScrollRef.current;
         const scrollLeft = activeBtn.offsetLeft - (container.clientWidth / 2) + (activeBtn.clientWidth / 2);
@@ -58,7 +57,7 @@ export default function About() {
         });
       }
     }
-  }, [activeYear]);
+  }, [activeIndex]);
 
 
 
@@ -66,9 +65,7 @@ export default function About() {
 
   return (
     <div className="bg-white w-full flex-1 flex flex-col">
-      <Hero title={t.about.heroTitle} description={t.about.heroIntro} />
-
-      <div className="bg-white relative z-10 -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
+      <div className="bg-white relative z-10 w-full flex-1 flex flex-col">
         {/* Story Section */}
         <section className="pt-12 lg:pt-16 pb-10 lg:pb-14 bg-white relative overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
@@ -82,7 +79,7 @@ export default function About() {
                 <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-[#244d85] opacity-20" />
               </div>
               <div>
-                <h2 className="font-display text-2xl lg:text-6xl font-medium text-[#0B0C0E] mb-8">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-8">
                   {t.about.story}
                 </h2>
                 <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
@@ -99,8 +96,8 @@ export default function About() {
         {/* Growth & Progress (Formerly History) */}
         <section className="pt-4 lg:pt-14 pb-20 lg:pb-28 bg-white overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-4">
-              <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E]">
+            <div className="text-left md:text-center mb-10 md:mb-16">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E]">
                 {t.about.history}
               </h2>
             </div>
@@ -111,10 +108,10 @@ export default function About() {
               <div className="lg:hidden flex flex-col gap-8">
                 {/* Mobile Content Display */}
                 <div className="min-h-[280px]">
-                  {historyEventsList.map((event) => {
-                    if (event.year !== activeYear) return null;
+                  {historyEventsList.map((event, index) => {
+                    if (index !== activeIndex) return null;
                     return (
-                      <div key={event.year} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                      <div key={index} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="w-full aspect-video rounded-lg overflow-hidden shadow-lg mb-6">
                           <img
                             src={event.image || "/about_factory.jpg"}
@@ -125,7 +122,7 @@ export default function About() {
                         <div>
                           <h3 className="font-display text-2xl font-medium text-[#0B0C0E] mb-3 flex items-center gap-3">
                             <span className="text-[#244d85] text-lg font-mono opacity-60">
-                              {String(historyEventsList.findIndex(e => e.year === event.year) + 1).padStart(2, '0')}
+                              {String(index + 1).padStart(2, '0')}
                             </span>
                             {event.title}
                           </h3>
@@ -144,12 +141,12 @@ export default function About() {
                   className="overflow-x-auto scrollbar-hide pb-2 -mx-6 px-[calc(50%-2rem)] snap-x snap-mandatory"
                 >
                   <div className="flex items-center gap-8 w-max mx-auto md:mx-0">
-                    {historyEventsList.map((event) => (
+                    {historyEventsList.map((event, index) => (
                       <button
-                        key={event.year}
-                        id={`year-btn-${event.year}`}
-                        onClick={() => setActiveYear(event.year)}
-                        className={`font-display font-bold text-4xl transition-all duration-300 snap-center flex-shrink-0 ${event.year === activeYear
+                        key={index}
+                        id={`year-btn-${index}`}
+                        onClick={() => setActiveIndex(index)}
+                        className={`font-display font-bold text-4xl transition-all duration-300 snap-center flex-shrink-0 ${index === activeIndex
                           ? 'text-[#244d85] scale-110 opacity-100'
                           : 'text-gray-300 hover:text-gray-400 opacity-50 scale-90'
                           }`}
@@ -175,15 +172,15 @@ export default function About() {
                       className="absolute left-0 right-0 transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
                       style={{
                         top: '50%',
-                        transform: `translateY(calc(-${historyEventsList.findIndex(e => e.year === activeYear) * 80}px - 40px))`
+                        transform: `translateY(calc(-${activeIndex * 80}px - 40px))`
                       }}
                     >
-                      {historyEventsList.map((event) => {
-                        const isActive = event.year === activeYear;
+                      {historyEventsList.map((event, index) => {
+                        const isActive = index === activeIndex;
                         return (
                           <button
-                            key={event.year}
-                            onClick={() => setActiveYear(event.year)}
+                            key={index}
+                            onClick={() => setActiveIndex(index)}
                             className={`w-full h-[80px] flex items-center justify-center transition-all duration-500 group relative select-none ${isActive ? 'scale-150 opacity-100 z-20' : 'scale-75 opacity-30 hover:opacity-60 z-10'
                               }`}
                           >
@@ -205,14 +202,14 @@ export default function About() {
                   <div
                     className="absolute w-full transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
                     style={{
-                      transform: `translateY(calc(-${historyEventsList.findIndex(e => e.year === activeYear) * 420}px))`
+                      transform: `translateY(calc(-${activeIndex * 420}px))`
                     }}
                   >
-                    {historyEventsList.map((event) => {
-                      const isActive = event.year === activeYear;
+                    {historyEventsList.map((event, index) => {
+                      const isActive = index === activeIndex;
                       return (
                         <div
-                          key={event.year}
+                          key={index}
                           className={`w-full h-[420px] flex items-center transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-20 blur-[2px]'
                             }`}
                         >
@@ -232,7 +229,7 @@ export default function About() {
                             <div className="lg:col-span-4 text-left">
                               <h3 className="font-display text-3xl font-medium text-[#0B0C0E] mb-4 flex items-center gap-4">
                                 <span className="text-[#244d85] text-lg font-mono opacity-60">
-                                  {String(historyEventsList.findIndex(e => e.year === event.year) + 1).padStart(2, '0')}
+                                  {String(index + 1).padStart(2, '0')}
                                 </span>
                                 {event.title}
                               </h3>
@@ -254,11 +251,11 @@ export default function About() {
         {/* Family of Krantas - Featured Stories */}
         <section className="py-10 lg:py-12 bg-gray-50">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-7">
-              <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E] mb-3">
+            <div className="text-left md:text-center mb-10 md:mb-16">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-4">
                 {t.about.family}
               </h2>
-              <p className="text-base text-gray-600 max-w-2xl mx-auto">
+              <p className="text-base md:text-lg text-gray-600 max-w-2xl md:mx-auto">
                 {t.about.familyDesc}
               </p>
             </div>
@@ -354,7 +351,7 @@ export default function About() {
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
               {/* Left Side: Mission Statement */}
               <div>
-                <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E] mb-8 leading-tight">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-8 leading-tight">
                   {t.mission.heading}
                 </h2>
                 <div className="h-1 w-20 bg-[#244d85] mb-8" />
@@ -366,7 +363,7 @@ export default function About() {
               {/* Right Side: Three Principles in Vertical Rows */}
               <div className="space-y-12">
                 <div className="group">
-                  <h3 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-4 group-hover:text-[#244d85] transition-colors">
+                  <h3 className="font-display text-xl lg:text-2xl font-semibold text-[#0B0C0E] mb-4 group-hover:text-[#244d85] transition-colors">
                     {t.mission.qualityFirst}
                   </h3>
                   <p className="text-gray-600 leading-relaxed border-l-2 border-gray-200 pl-6 group-hover:border-[#244d85] transition-colors">
@@ -375,7 +372,7 @@ export default function About() {
                 </div>
 
                 <div className="group">
-                  <h3 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-4 group-hover:text-[#244d85] transition-colors">
+                  <h3 className="font-display text-xl lg:text-2xl font-semibold text-[#0B0C0E] mb-4 group-hover:text-[#244d85] transition-colors">
                     {t.mission.localProduction}
                   </h3>
                   <p className="text-gray-600 leading-relaxed border-l-2 border-gray-200 pl-6 group-hover:border-[#244d85] transition-colors text-base">
@@ -384,7 +381,7 @@ export default function About() {
                 </div>
 
                 <div className="group">
-                  <h3 className="font-display text-2xl font-medium text-[#0B0C0E] mb-4 group-hover:text-[#244d85] transition-colors">
+                  <h3 className="font-display text-xl lg:text-2xl font-semibold text-[#0B0C0E] mb-4 group-hover:text-[#244d85] transition-colors">
                     {t.mission.globalStandards}
                   </h3>
                   <p className="text-gray-600 leading-relaxed border-l-2 border-gray-200 pl-6 group-hover:border-[#244d85] transition-colors">
@@ -403,12 +400,12 @@ export default function About() {
 
 
         {/* Chairman's Message - Redesigned to Light */}
-        <section className="py-10 lg:py-14 bg-gray-50 overflow-hidden">
+        <section className="py-8 lg:py-10 bg-gray-50 overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
               {/* Mobile-only Title & Quote */}
               <div className="lg:hidden order-1">
-                <h2 className="font-display text-2xl font-medium text-[#0B0C0E] mb-6">
+                <h2 className="font-display text-3xl font-semibold text-[#0B0C0E] mb-6">
                   {t.about.chairman}
                 </h2>
                 <div className="relative mb-8">
@@ -429,8 +426,8 @@ export default function About() {
                 />
                 <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-[#244d85]/5 -z-0" />
 
-                {/* Name and Position - moved under image */}
-                <div className="flex items-center gap-6 mt-12 relative z-10">
+                {/* Name and Position - mobile only (desktop shows it under the quote) */}
+                <div className="lg:hidden flex items-center gap-6 mt-8 relative z-10">
                   <div className="h-px w-12 bg-[#244d85]" />
                   <div>
                     <h4 className="font-display text-xl font-medium text-[#0B0C0E] mb-1">
@@ -445,19 +442,30 @@ export default function About() {
 
               {/* Text content - Order 3 on mobile, 2 on desktop */}
               <div className="order-3 lg:order-2">
-                {/* Desktop-only Title & Quote */}
+                {/* Desktop-only Title, Quote & Name */}
                 <div className="hidden lg:block">
-                  <h2 className="font-display text-3xl lg:text-5xl font-medium text-[#0B0C0E] mb-12">
+                  <h2 className="font-display text-3xl lg:text-5xl font-semibold text-[#0B0C0E] mb-8">
                     {t.about.chairman}
                   </h2>
-                  <div className="relative mb-12">
+                  <div className="relative mb-8">
                     <span className="absolute -top-10 -left-6 text-[8rem] font-serif text-[#244d85]/5 leading-none select-none">"</span>
                     <blockquote className="text-xl lg:text-2xl font-display text-[#0B0C0E] leading-relaxed relative z-10 italic">
                       {t.about.chairmanQuote}
                     </blockquote>
                   </div>
+                  {/* Name & Title — desktop, below the quote */}
+                  <div className="flex items-center gap-6">
+                    <div className="h-px w-12 bg-[#244d85]" />
+                    <div>
+                      <h4 className="font-display text-xl font-medium text-[#0B0C0E] mb-1">
+                        {t.about.chairmanName}
+                      </h4>
+                      <p className="text-[#244d85] font-mono text-sm uppercase tracking-widest">
+                        {t.about.chairmanTitle}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -466,8 +474,8 @@ export default function About() {
         {/* Leadership Section */}
         <section className="py-8 lg:py-14 bg-white">
           <div className="max-w-[1440px] mx-auto px-4 lg:px-12">
-            <div className="text-center mb-8 lg:mb-10">
-              <h2 className="font-display text-2xl lg:text-3xl font-medium text-[#0B0C0E] mb-2 lg:mb-3">
+            <div className="text-left md:text-center mb-8 lg:mb-14">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-4">
                 {t.about.team}
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
@@ -486,7 +494,7 @@ export default function About() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   <div className="px-3 lg:px-6">
-                    <h3 className="font-display text-lg lg:text-xl font-medium text-[#0B0C0E] mb-1 whitespace-nowrap truncate">
+                    <h3 className="font-display text-lg lg:text-xl font-semibold text-[#0B0C0E] mb-1 whitespace-nowrap truncate">
                       {member.name}
                     </h3>
                     <p className="text-xs lg:text-sm text-[#244d85] font-medium uppercase tracking-wider truncate">
@@ -502,8 +510,8 @@ export default function About() {
         {/* Partners Section */}
         <section className="py-10 lg:py-14 bg-gray-50">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-6">
-              <h2 className="font-display text-2xl lg:text-3xl font-medium text-[#0B0C0E] mb-3">
+            <div className="text-left md:text-center mb-10 lg:mb-16">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-4 leading-tight">
                 {t.about.partners}
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
@@ -528,16 +536,14 @@ export default function About() {
           </div>
         </section>
 
-        {/* Our Global Distributors */}
-        {/* Our Global Distributors */}
-        <Distributors />
+
 
 
         {/* CTA Section */}
         <section className="py-4 lg:py-14 bg-[#0B0C0E] mt-auto mb-[-4px] relative z-20">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="font-display text-2xl lg:text-5xl font-medium text-white mb-2">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4">
                 {t.cta.title}
               </h2>
               <p className="text-gray-400 mb-6">

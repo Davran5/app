@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ChevronRight, MapPin, Briefcase, Clock, X, Send } from 'lucide-react';
-import Hero from '../components/Hero';
 import { toast } from 'sonner';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -100,9 +99,7 @@ export default function Careers() {
 
   return (
     <div className="bg-white w-full flex-1 flex flex-col">
-      <Hero title={t.careers.title} description={t.careers.heroIntro} />
-
-      <div className="relative z-10 bg-white -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
+      <div className="relative z-10 bg-white w-full flex-1 flex flex-col">
 
 
         <div className="bg-white relative z-10">
@@ -118,7 +115,7 @@ export default function Careers() {
                   />
                 </div>
                 <div>
-                  <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E] mb-6">
+                  <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6">
                     {t.careers.whyWork}
                   </h2>
                   <p className="text-base text-gray-600 leading-relaxed mb-8">
@@ -133,8 +130,8 @@ export default function Careers() {
           {/* Honorable Team Members */}
           <section className="py-10 lg:py-14 bg-gray-50">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-              <div className="text-center mb-12">
-                <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E]">
+              <div className="text-left md:text-center mb-10 md:mb-16">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E]">
                   {t.careers.team}
                 </h2>
               </div>
@@ -163,7 +160,7 @@ export default function Careers() {
           {/* Open Positions */}
           <section className="py-10 lg:py-14">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-              <h2 className="font-display text-2xl lg:text-5xl font-medium text-[#0B0C0E] mb-10">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-10">
                 {t.careers.openPositions}
               </h2>
 

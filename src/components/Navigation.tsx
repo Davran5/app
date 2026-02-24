@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, MapPin } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const languages = [
@@ -90,20 +90,20 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
     <>
       {/* --- DESKTOP NAVIGATION (Unchanged) --- */}
       <nav
-        className={`hidden lg:block fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${!isScrolled
+        className={`hidden lg:block fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${(!isScrolled && isHome)
           ? 'bg-transparent'
-          : 'bg-white/95 backdrop-blur-md shadow-sm'
+          : 'bg-[#f6b947]/95 backdrop-blur-xl shadow-md'
           }`}
       >
         <div className="relative max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-center h-[68px]">
+          <div className="flex items-center justify-center h-[60px]">
             {/* Left Nav */}
-            <div className="flex items-center justify-end gap-6 w-[calc(50%-135px)] pr-8 h-full">
+            <div className="flex items-center justify-end gap-3 xl:gap-6 w-[calc(50%-144px)] pr-4 xl:pr-8 h-full">
               {navItems.left.map((link) => (
                 <Link
                   key={link.label}
                   to={link.href}
-                  className={`flex items-center h-full text-sm transition-colors ${getTextColor(isActive(link.href))}`}
+                  className={`flex items-center h-full text-[13px] xl:text-sm transition-colors ${getTextColor(isActive(link.href))}`}
                 >
                   {link.label}
                 </Link>
@@ -129,23 +129,38 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
             </div>
 
             {/* Right Nav */}
-            <div className="flex items-center justify-start gap-6 w-[calc(50%-135px)] pl-8 h-full">
+            <div className="flex items-center justify-start gap-3 xl:gap-6 w-[calc(50%-144px)] pl-4 xl:pr-20 h-full">
               {navItems.right.map((link) => (
                 <Link
                   key={link.label}
                   to={link.href}
-                  className={`flex items-center h-full text-sm transition-colors ${getTextColor(isActive(link.href))}`}
+                  className={`flex items-center h-full text-[13px] xl:text-sm transition-colors ${getTextColor(isActive(link.href))}`}
                 >
                   {link.label}
                 </Link>
               ))}
+            </div>
 
-              {/* Desktop Language Selector */}
-              <div
-                className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center"
-                onMouseLeave={() => setIsLangOpen(false)}
-                onMouseEnter={() => setIsLangOpen(true)}
-              >
+            {/* Find Dealer icon — left of language selector */}
+            <Link
+              to="/find-dealer"
+              title="Find a Dealer"
+              className={`absolute right-[calc(6rem+1.5rem)] lg:right-[calc(6rem+3rem)] top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${isScrolled || !isHome
+                  ? 'text-[#244d85] hover:bg-[#244d85]/10'
+                  : 'text-[#fdc15e] hover:bg-white/10'
+                } ${isActive('/find-dealer') ? 'ring-2 ring-current' : ''}`}
+            >
+              <MapPin size={18} strokeWidth={2} />
+            </Link>
+
+            {/* Desktop Language Selector - Dropdown */}
+            <div
+              className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2"
+              onMouseLeave={() => setIsLangOpen(false)}
+              onMouseEnter={() => setIsLangOpen(true)}
+            >
+              <div className="relative">
+                {/* Trigger Button - Pill background on hover */}
                 <div className={`flex items-center px-4 py-2 transition-all duration-300 rounded-full ${isLangOpen
                   ? (isScrolled || !isHome ? 'bg-[#244d85]/5' : 'bg-white/10')
                   : ''
@@ -159,28 +174,28 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                     <Globe size={14} />
                     <span className="font-bold">{currentLang.label}</span>
                   </button>
+                </div>
 
-                  <div
-                    className={`flex items-center overflow-hidden transition-all duration-300 ease-in-out ${isLangOpen ? 'max-w-[200px] opacity-100 ml-4' : 'max-w-0 opacity-0 ml-0 pointer-events-none'
-                      }`}
-                  >
-                    <div className="flex items-center gap-4 border-l border-gray-300/30 pl-4">
-                      {languages.filter(l => l.code !== language).map((lang) => (
-                        <button
-                          key={lang.code}
-                          onClick={() => {
-                            setLanguage(lang.code as typeof language);
-                            setIsLangOpen(false);
-                          }}
-                          className={`text-xs font-bold transition-colors ${isScrolled || !isHome
-                            ? 'text-[#244d85]/60 hover:text-[#244d85]'
-                            : 'text-[#fdc15e]/80 hover:text-white'
-                            }`}
-                        >
-                          {lang.label}
-                        </button>
-                      ))}
-                    </div>
+                {/* Vertical Dropdown Panel */}
+                <div
+                  className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-300 ease-in-out ${isLangOpen
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 -translate-y-2 pointer-events-none'
+                    }`}
+                >
+                  <div className={`flex flex-col items-center gap-0 py-0.5 px-3 rounded-2xl border border-white/10 backdrop-blur-xl shadow-2xl min-w-[64px] bg-[#f6b947]/95 shadow-black/20`}>
+                    {languages.filter(l => l.code !== language).map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => {
+                          setLanguage(lang.code as typeof language);
+                          setIsLangOpen(false);
+                        }}
+                        className="text-xs font-bold transition-colors w-full py-0.5 text-center text-[#244d85]/80 hover:text-white"
+                      >
+                        {lang.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -193,8 +208,8 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
 
 
 
-      {/* 2. Mobile Bottom Menu Bar (Fixed) */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 pb-[env(safe-area-inset-bottom)]">
+      {/* 2. Mobile Top Menu Bar (Fixed) */}
+      <div className="mobile-nav-bar lg:hidden fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)]">
         <div className="relative flex justify-center items-center h-16 px-6">
 
           {/* Centered Logo with Animation */}
@@ -234,11 +249,11 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
         onClick={() => setIsMobileMenuOpen(false)}
       />
 
-      {/* Drop-up Panel */}
+      {/* Dropdown Panel */}
       <div
-        className={`lg:hidden fixed bottom-16 left-0 right-0 z-40 bg-white rounded-t-2xl shadow-2xl transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] transform ${isMobileMenuOpen ? 'translate-y-0' : 'translate-y-full'
+        className={`mobile-menu-panel lg:hidden fixed top-16 left-0 right-0 z-[9998] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
           } max-h-[85vh] overflow-y-auto`}
-        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
       >
         <div className="flex flex-col p-6 pb-8">
 
@@ -249,12 +264,21 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                 key={link.label}
                 to={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block text-center text-lg font-medium py-3 rounded-lg active:bg-gray-50 text-[#0B0C0E] ${isActive(link.href) ? 'font-bold text-[#244d85] bg-blue-50/50' : ''
+                className={`mobile-menu-link block text-center text-lg font-medium py-3 rounded-lg active:bg-blue-100/50 text-[#0B0C0E] ${isActive(link.href) ? 'font-bold text-[#244d85] bg-blue-50/50' : ''
                   }`}
               >
                 {link.label}
               </Link>
             ))}
+            {/* Find Dealer link in mobile menu */}
+            <Link
+              to="/find-dealer"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`mobile-menu-link flex items-center justify-center gap-2 text-lg font-medium py-3 rounded-lg active:bg-blue-100/50 text-[#0B0C0E] ${isActive('/find-dealer') ? 'font-bold text-[#244d85] bg-blue-50/50' : ''}`}
+            >
+              <MapPin size={18} />
+              Find a Dealer
+            </Link>
           </div>
 
           <div className="h-px bg-gray-100 my-6 w-full" />

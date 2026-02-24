@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import Hero from '../components/Hero';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Products() {
@@ -8,15 +7,13 @@ export default function Products() {
 
     return (
         <div className="w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
-            <Hero title={t.productsPage.title} description={t.productsPage.heroIntro} />
-
-            <div className="relative z-10 -mt-12 lg:-mt-16 w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
+            <div className="relative z-10 w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <h2 className="font-display text-3xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6">
+                    <div className="max-w-4xl mx-auto text-left md:text-center">
+                        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6">
                             {t.productsPage.heading}
                         </h2>
-                        <p className="text-base text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                        <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl md:mx-auto">
                             {t.productsPage.description}
                         </p>
                     </div>
@@ -38,7 +35,7 @@ export default function Products() {
 
                         {/* Content Right */}
                         <div>
-                            <h3 className="font-display text-2xl lg:text-4xl font-medium text-[#0B0C0E] mb-6">
+                            <h3 className="font-display text-2xl md:text-3xl lg:text-4xl font-semibold text-[#0B0C0E] mb-6">
                                 {t.productsPage.customTitle}
                             </h3>
                             <p className="text-gray-600 text-lg leading-relaxed mb-6">
@@ -77,7 +74,7 @@ export default function Products() {
                     <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
                         {/* Content Left */}
                         <div className="order-2 lg:order-1">
-                            <h3 className="font-display text-2xl lg:text-4xl font-medium text-[#0B0C0E] mb-6">
+                            <h3 className="font-display text-2xl md:text-3xl lg:text-4xl font-semibold text-[#0B0C0E] mb-6">
                                 {t.productsPage.catalogTitle}
                             </h3>
                             <p className="text-gray-600 text-lg leading-relaxed mb-6">

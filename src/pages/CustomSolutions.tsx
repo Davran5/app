@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { X, ArrowRight } from 'lucide-react';
-import Hero from '../components/Hero';
 import ContactForm from '../components/ContactForm';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -41,16 +40,14 @@ export default function CustomSolutions() {
 
   return (
     <div className="min-h-screen w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
-      <Hero title={t.customSolutionsPage.heroTitle} description={t.customSolutionsPage.heroIntro} />
-
-      <div className="relative z-10 -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
+      <div className="relative z-10 w-full flex-1 flex flex-col">
 
         {/* Introduction with Image */}
         <section className="pt-12 lg:pt-16 pb-10 lg:pb-14 bg-white relative overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="font-display text-4xl lg:text-6xl font-medium text-[#0B0C0E] mb-8 whitespace-pre-line">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-6xl font-semibold text-[#0B0C0E] mb-8 whitespace-pre-line leading-tight">
                   {t.customSolutionsPage.intro.title}
                 </h2>
                 <p className="text-lg text-gray-600 leading-relaxed mb-6">
@@ -96,7 +93,7 @@ export default function CustomSolutions() {
                 <div className="absolute -top-8 -right-8 w-32 h-32 bg-[#244d85] opacity-10" />
               </div>
               <div className="order-1 lg:order-2">
-                <h2 className="font-display text-4xl lg:text-6xl font-medium text-[#0B0C0E] mb-8">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-6xl font-semibold text-[#0B0C0E] mb-8">
                   {t.customSolutionsPage.metalStructures?.title}
                 </h2>
                 <p className="text-xl text-gray-600 leading-relaxed">
@@ -110,11 +107,11 @@ export default function CustomSolutions() {
         {/* Customization Services - Image Grid */}
         <section className="py-10 lg:py-14 bg-white relative">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-16">
-              <h2 className="font-display text-4xl lg:text-6xl font-medium text-[#0B0C0E] mb-6">
+            <div className="text-left md:text-center mb-10 md:mb-16">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-6xl font-semibold text-[#0B0C0E] mb-6">
                 {t.customSolutionsPage.capabilities.title}
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-base md:text-xl text-gray-600 max-w-3xl md:mx-auto">
                 {t.customSolutionsPage.capabilities.subtitle}
               </p>
             </div>
@@ -151,7 +148,7 @@ export default function CustomSolutions() {
         <section className="py-10 lg:py-14" style={{ backgroundColor: '#f8f8f8' }}>
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="mb-16">
-              <h2 className="font-display text-2xl lg:text-6xl font-medium text-[#0B0C0E] mb-6">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-6xl font-semibold text-[#0B0C0E] mb-6">
                 {t.customSolutionsPage.production.title}
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl">
@@ -219,7 +216,7 @@ export default function CustomSolutions() {
         <section className="py-10 lg:py-14 bg-[#0B0C0E] mt-auto mb-[-4px] relative z-20">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="font-display text-3xl lg:text-5xl font-medium text-white mb-4">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4">
                 {t.customSolutionsPage.cta.title}
               </h2>
               <p className="text-gray-400 mb-8">

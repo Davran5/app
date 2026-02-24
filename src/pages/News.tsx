@@ -1,13 +1,21 @@
 import { useState } from 'react';
 import { Calendar, User, ChevronRight } from 'lucide-react';
-import Hero from '../components/Hero';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function News() {
   const { t, language } = useLanguage();
-  const [selectedPostId, setSelectedPostId] = useState(7);
+  const [selectedPostId, setSelectedPostId] = useState(8);
 
   const blogPosts = [
+    {
+      id: 8,
+      title: t.blog.posts[8].title,
+      excerpt: t.blog.posts[8].excerpt,
+      image: 'https://timesca.com/wp-content/uploads/2018/09/mirzi-rahmon-talco-uzpressservice-7f3.jpg',
+      date: '2018-09-28',
+      author: 'The Times of Central Asia',
+      link: 'https://timesca.com/presidents-of-tajikistan-and-uzbekistan-launch-jv-in-tajik-city/'
+    },
     {
       id: 7,
       title: t.blog.posts[7].title,
@@ -77,9 +85,7 @@ export default function News() {
 
   return (
     <div className="bg-white w-full flex-1 flex flex-col">
-      <Hero title={t.blog.title} description={t.blog.heroIntro} />
-
-      <div className="relative z-10 bg-white -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
+      <div className="relative z-10 bg-white w-full flex-1 flex flex-col">
 
 
         <div className="bg-white relative z-10">
@@ -97,7 +103,7 @@ export default function News() {
                         onClick={() => setSelectedPostId(selectedPostId === post.id ? 0 : post.id)}
                         className={`w-full text-left py-6 flex items-center justify-between transition-all duration-300 ${selectedPostId === post.id ? 'text-[#244d85]' : 'text-[#0B0C0E]'}`}
                       >
-                        <h4 className="font-display text-lg font-medium leading-tight pr-4">
+                        <h4 className="font-display text-lg font-semibold leading-tight pr-4">
                           {post.title}
                         </h4>
                         <div className={`transition-transform duration-300 flex-shrink-0 ${selectedPostId === post.id ? 'rotate-90 text-[#244d85]' : 'text-gray-300'}`}>
@@ -155,7 +161,7 @@ export default function News() {
               <div className="hidden lg:flex flex-row gap-8">
                 {/* Left - Article List (Scrollable) */}
                 <div className="lg:w-1/3">
-                  <h3 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-6">{t.blog.latest}</h3>
+                  <h3 className="font-display text-xl lg:text-2xl font-semibold text-[#0B0C0E] mb-6">{t.blog.latest}</h3>
                   <div className="space-y-3 max-h-[700px] overflow-y-auto pr-2">
                     {blogPosts.map((post) => (
                       <button
@@ -213,7 +219,7 @@ export default function News() {
                           {selectedPost.author}
                         </span>
                       </div>
-                      <h2 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-4">
+                      <h2 className="font-display text-xl md:text-2xl lg:text-3xl font-semibold text-[#0B0C0E] mb-4">
                         {selectedPost.title}
                       </h2>
                       <p className="text-base text-gray-600 leading-relaxed mb-6">

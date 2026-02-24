@@ -1,22 +1,67 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronRight, X } from 'lucide-react';
-import Hero from '../components/Hero';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ChevronRight, ChevronLeft, X } from 'lucide-react';
 import { categories, products } from '../data/products';
 import { useLanguage } from '../contexts/LanguageContext';
 import ContactForm from '../components/ContactForm';
 
 export default function Catalog() {
   const { t } = useLanguage();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [showForm, setShowForm] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    searchParams.get('category') || null
+  );
   const productGridRef = useRef<HTMLDivElement>(null);
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+
+  const handleScrollIndicators = () => {
+    if (mobileScrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = mobileScrollRef.current;
+      setShowLeftArrow(scrollLeft > 10);
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  useEffect(() => {
+    const el = mobileScrollRef.current;
+    if (el) {
+      el.addEventListener('scroll', handleScrollIndicators);
+      handleScrollIndicators();
+      return () => el.removeEventListener('scroll', handleScrollIndicators);
+    }
+  }, []);
+
+  // Sync filter when URL query param changes (e.g. browser back/forward)
+  useEffect(() => {
+    const cat = searchParams.get('category');
+    setSelectedCategory(cat || null);
+  }, [searchParams]);
+
+  // Update URL when user clicks a filter button
+  const handleCategorySelect = (catId: string | null) => {
+    if (catId) {
+      setSearchParams({ category: catId });
+    } else {
+      setSearchParams({});
+    }
+  };
 
   // Scroll to product grid top when category changes
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
+      return;
+    }
+
+    if (!selectedCategory) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
       return;
     }
 
@@ -38,21 +83,33 @@ export default function Catalog() {
 
   return (
     <div className="min-h-screen w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
-      <Hero title={t.catalog.title} description={t.catalog.heroIntro} />
-      <div className="relative z-10 -mt-12 lg:-mt-16 w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
+      <div className="relative z-10 w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
         {/* Main Content */}
         <section className="pt-12 lg:pt-16 pb-10 lg:pb-12">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
 
-            {/* Mobile: Horizontal Scrolling Category Chips */}
-            <div className="lg:hidden mb-6 -mx-6 px-6">
-              <div className="overflow-x-auto scrollbar-hide pb-2">
+            {/* Mobile: Horizontal Scrolling Category Chips with Navigation Buttons */}
+            <div className="lg:hidden mb-10 relative w-full flex items-center h-14">
+              <div className="absolute left-0 top-0 bottom-0 z-20 flex items-center pointer-events-none">
+                <button
+                  onClick={() => mobileScrollRef.current?.scrollBy({ left: -200, behavior: 'smooth' })}
+                  className={`pointer-events-auto w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-[#244d85] border border-gray-100 transition-all active:scale-95 -translate-x-1 ${showLeftArrow ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft size={28} />
+                </button>
+              </div>
+
+              <div
+                ref={mobileScrollRef}
+                className="flex-1 overflow-x-auto scrollbar-hide py-2 px-6"
+              >
                 <div className="flex gap-2 min-w-max">
                   <button
-                    onClick={() => setSelectedCategory(null)}
-                    className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap ${selectedCategory === null
-                      ? 'bg-[#244d85] text-white shadow-md'
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
+                    onClick={() => handleCategorySelect(null)}
+                    className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap shadow-sm ${selectedCategory === null
+                      ? 'bg-[#244d85] text-white'
+                      : 'bg-white text-gray-600'
                       }`}
                   >
                     {t.catalog.showAll}
@@ -60,10 +117,10 @@ export default function Catalog() {
                   {categories.filter(c => c.id !== 'custom-solutions' && c.id !== 'metal-structures').map((category) => (
                     <button
                       key={category.id}
-                      onClick={() => setSelectedCategory(category.id)}
-                      className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap ${selectedCategory === category.id
-                        ? 'bg-[#244d85] text-white shadow-md'
-                        : 'bg-white text-gray-600 hover:bg-gray-50'
+                      onClick={() => handleCategorySelect(category.id)}
+                      className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap shadow-sm ${selectedCategory === category.id
+                        ? 'bg-[#244d85] text-white'
+                        : 'bg-white text-gray-600'
                         }`}
                     >
                       {t.categories?.[category.id as keyof typeof t.categories]?.name || category.name}
@@ -71,19 +128,29 @@ export default function Catalog() {
                   ))}
                 </div>
               </div>
+
+              <div className="absolute right-0 top-0 bottom-0 z-20 flex items-center pointer-events-none">
+                <button
+                  onClick={() => mobileScrollRef.current?.scrollBy({ left: 200, behavior: 'smooth' })}
+                  className={`pointer-events-auto w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-[#244d85] border border-gray-100 transition-all active:scale-95 translate-x-1 ${showRightArrow ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight size={28} />
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Desktop: Fixed Sidebar */}
               <div className="hidden lg:block lg:w-72 lg:flex-shrink-0">
                 <div className="lg:sticky lg:top-24">
-                  <h3 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-4">{t.catalog.categories}</h3>
+                  <h3 className="font-display text-xl lg:text-2xl font-semibold text-[#0B0C0E] mb-4">{t.catalog.categories}</h3>
 
                   <div className="space-y-2">
                     {categories.filter(c => c.id !== 'custom-solutions' && c.id !== 'metal-structures').map((category) => (
                       <button
                         key={category.id}
-                        onClick={() => setSelectedCategory(selectedCategory === category.id ? null : category.id)}
+                        onClick={() => handleCategorySelect(selectedCategory === category.id ? null : category.id)}
                         className={`w-full py-2 text-left transition-all duration-300 transform origin-left text-sm ${selectedCategory === category.id
                           ? 'text-[#244d85] font-medium scale-[1.25] translate-x-2'
                           : 'text-[#0B0C0E] hover:text-[#244d85]'
@@ -110,7 +177,7 @@ export default function Catalog() {
               <div className="flex-1" ref={productGridRef}>
                 {/* Header with product count */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
-                  <h2 className="font-display text-xl md:text-2xl font-medium text-[#0B0C0E]">
+                  <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-semibold text-[#0B0C0E]">
                     {selectedCategory
                       ? t.categories?.[selectedCategory as keyof typeof t.categories]?.name || categories.find(c => c.id === selectedCategory)?.name
                       : t.catalog.showAll}
@@ -134,27 +201,18 @@ export default function Catalog() {
                         className="group bg-white md:rounded-lg transition-all overflow-hidden shadow-sm hover:shadow-xl md:block flex"
                       >
                         {/* Product Image - Clean, no overlays */}
-                        <div className="relative w-1/2 md:w-full md:aspect-square overflow-hidden bg-gray-50 md:rounded-t-lg flex-shrink-0">
+                        <div className="relative w-1/2 md:w-full md:aspect-[2/1] overflow-hidden bg-gray-50 md:rounded-t-lg flex-shrink-0">
                           <img
                             src={product.image}
                             alt={t.productsData?.[product.id as keyof typeof t.productsData]?.name || product.name}
                             loading="lazy"
                             className="w-full h-full object-contain p-2 md:p-4 transition-transform duration-300 group-hover:scale-105"
                           />
-
-                          {/* Model Name - Bottom Left */}
-                          {modelSpec && modelSpec[1] && (
-                            <div className="absolute bottom-2 left-2">
-                              <p className="text-[#0B0C0E] text-xs font-semibold drop-shadow-sm">
-                                {modelSpec[1]}
-                              </p>
-                            </div>
-                          )}
                         </div>
 
-                        {/* Product Info - 2 rows of specs on the side */}
+                        {/* Product Info */}
                         <div className="p-3 md:p-4 flex-1 flex flex-col justify-center">
-                          {/* Exactly 2 rows of information */}
+                          {/* Other specs (skip model — shown below) */}
                           <div className="space-y-2">
                             {otherSpecs.map(([key, value]) => (
                               value && (
@@ -174,9 +232,14 @@ export default function Catalog() {
                             ))}
                           </div>
 
-                          {/* View Details - Small link at bottom */}
-                          <div className="mt-3 pt-2 border-t border-gray-100">
-                            <span className="text-xs font-medium text-[#244d85] flex items-center gap-1 group-hover:gap-2 transition-all">
+                          {/* Footer: Model name left, Details link right */}
+                          <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between gap-2">
+                            {modelSpec && modelSpec[1] && (
+                              <p className="text-[#0B0C0E] text-xs font-semibold truncate">
+                                {modelSpec[1]}
+                              </p>
+                            )}
+                            <span className="text-xs font-medium text-[#244d85] flex items-center gap-1 group-hover:gap-2 transition-all flex-shrink-0 ml-auto">
                               Details <ChevronRight size={12} />
                             </span>
                           </div>
@@ -194,7 +257,7 @@ export default function Catalog() {
         <section className="py-12 lg:py-16 bg-[#0B0C0E] mt-auto mb-[-4px] relative z-20">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="font-display text-3xl lg:text-5xl font-medium text-white mb-4">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4">
                 {t.catalog.customSolution}
               </h2>
               <p className="text-gray-400 mb-8">

@@ -14,6 +14,44 @@ export const translations = {
       products: 'Products',
       customSolutions: 'Custom Solutions',
     },
+    distributors: {
+      title: 'Our Eco System',
+      searchPlaceholder: 'Search location or dealer...',
+      tabs: {
+        all: 'All',
+        uzbekistan: 'Uzbekistan',
+        international: 'International'
+      },
+      noResults: 'No Results found',
+      legend: {
+        hq: 'HQ',
+        dealer: 'Dealer'
+      },
+      info: {
+        hq: 'Headquarters',
+        dealer: 'Authorized Dealer',
+        directions: 'Get Directions'
+      },
+      regions: {
+        tashkent: 'Tashkent',
+        fergana: 'Fergana',
+        jizzakh: 'Jizzakh',
+        bukhara: 'Bukhara',
+        kashkadarya: 'Kashkadarya',
+        navoiy: 'Navoiy',
+        namangan: 'Namangan',
+        kokand: 'Kokand',
+        kagan: 'Kagan',
+        bukharaCity: 'Bukhara City'
+      },
+      countries: {
+        azerbaijan: 'Azerbaijan',
+        kazakhstan: 'Kazakhstan',
+        kyrgyzstan: 'Kyrgyzstan',
+        tajikistan: 'Tajikistan',
+        turkmenistan: 'Turkmenistan'
+      }
+    },
     cookieConsent: {
       title: 'Cookie Preferences',
       description: 'We use cookies to ensure you get the best experience on our website. Global Privacy Control (GPC) signal detected.',
@@ -347,16 +385,15 @@ export const translations = {
       chairmanTitle: 'Chairman, KRANTAS Group',
       team: 'Leadership that Builds',
       teamSubtitle: '',
-      historyEvents: {
-        1945: { title: 'Foundation', description: 'Founded as a mechanical repair plant for trucks and heavy machinery in Tashkent.' },
-        1963: { title: 'Expansion', description: 'Began producing steel structures and lifting equipment for construction.' },
-        1990: { title: 'Diversification', description: 'Expanded into special-purpose vehicles and truck crane manufacturing.' },
-        2000: { title: 'Modernization', description: 'Introduced CNC machining and automated welding systems.' },
-        2012: { title: 'Brand Launch', description: 'Launched the KRANTAS truck crane brand with full certification.' },
-        2015: { title: 'International Growth', description: 'Entered Kazakhstan and Turkmenistan markets with export certification.' },
-        2020: { title: 'New Facilities', description: 'Opened new assembly lines and expanded agricultural machinery production.' },
-        2024: { title: 'Future Forward', description: 'Engineering the next generation of reliable industrial vehicles.' },
-      },
+      historyEvents: [
+        { year: 1945, title: 'Foundation', description: 'Founded as a mechanical repair plant for trucks and heavy machinery in Tashkent.', image: '/1945.jpeg' },
+        { year: 1966, title: 'Reconstruction & Expansion', description: 'Following the 1966 earthquake, the factory pivoted to support rebuilding efforts and began producing steel structures and lifting equipment for construction.', image: '/1966.jpg' },
+        { year: 1991, title: 'Independence & Privatization', description: "Following Uzbekistan's historic declaration of independence, the company transitioned into a private entity. This pivotal shift marked the birth of a new era of industrial autonomy, fueling decades of unprecedented growth and regional leadership.", image: '/1991.png' },
+        { year: 2018, title: 'A Landmark Alliance', description: 'In a historic ceremony attended by the Presidents of Uzbekistan and Tajikistan, the TALCO-Krantas Joint Venture was inaugurated in Tursunzade. This strategic partnership stands as a testament to regional cooperation, driving innovation in specialized vehicle assembly.', image: '/2018.png' },
+        { year: 2019, title: 'Industrial Expansion', description: 'Opened the NURAFSHON-MAXSUS-TEXNIKA production site in the Nurafshon region, significantly expanding the group\'s manufacturing capacity and engineering possibilities.', image: '/about_factory.jpg' },
+        { year: 2021, title: 'National Defense & Heavy Industry', description: 'Initiated by the President, the company launched a strategic program for the domestic production of specialized military vehicles and heavy-duty mining trucks, marking a significant milestone in national industrial sovereignty.', image: '/2021.png' },
+        { year: 2024, title: 'Strategic Deployment', description: 'Marked by the successful delivery of the first locally produced mining trucks to AGMK. This year also saw the rollout of the first production batches of the Arslon and Tarlon armored vehicles, alongside a diverse range of specialized industrial solutions.', image: '/2024.png' },
+      ],
       teamMemberStories: {
         sergey: {
           name: 'Petrov Sergey',
@@ -453,6 +490,10 @@ export const translations = {
         7: {
           title: 'Significant Renovation and Infrastructure Development',
           excerpt: 'A major $333 million urban development project is proposed for our current Mirzo-Ulugbek location, paving the way for modern residential and social infrastructure.'
+        },
+        8: {
+          title: 'Presidents of Uzbekistan and Tajikistan Inaugurate TALCO-KRANTAS Joint Venture',
+          excerpt: 'In a significant step for industrial cooperation, the first phase of the TALCO-KRANTAS joint venture was inaugurated for assembling special construction and municipal vehicles.'
         }
       },
       featured: {
@@ -1028,6 +1069,44 @@ export const translations = {
       products: 'Продукция',
       customSolutions: 'Спецрешения',
     },
+    distributors: {
+      title: 'Наша Экосистема',
+      searchPlaceholder: 'Поиск локации или дилера...',
+      tabs: {
+        all: 'Все',
+        uzbekistan: 'Узбекистан',
+        international: 'Международные'
+      },
+      noResults: 'Результатов не найдено',
+      legend: {
+        hq: 'Головной офис',
+        dealer: 'Дилер'
+      },
+      info: {
+        hq: 'Головной офис',
+        dealer: 'Официальный дилер',
+        directions: 'Проложить маршрут'
+      },
+      regions: {
+        tashkent: 'Ташкент',
+        fergana: 'Фергана',
+        jizzakh: 'Джизак',
+        bukhara: 'Бухара',
+        kashkadarya: 'Кашкадарья',
+        navoiy: 'Навоий',
+        namangan: 'Наманган',
+        kokand: 'Коканд',
+        kagan: 'Каган',
+        bukharaCity: 'Бухара'
+      },
+      countries: {
+        azerbaijan: 'Азербайджан',
+        kazakhstan: 'Казахстан',
+        kyrgyzstan: 'Кыргызстан',
+        tajikistan: 'Таджикистан',
+        turkmenistan: 'Туркменистан'
+      }
+    },
     cookieConsent: {
       title: 'Настройки Cookie',
       description: 'Мы используем файлы cookie для улучшения работы сайта. Обнаружен сигнал Global Privacy Control (GPC).',
@@ -1362,16 +1441,15 @@ export const translations = {
       team: 'Руководство, которое строит',
       teamSubtitle: '',
       certificates: 'Стандарты Качества',
-      historyEvents: {
-        1945: { title: 'Основание', description: 'Основан как механический ремонтный завод для грузовиков и тяжелой техники в Ташкенте.' },
-        1963: { title: 'Расширение', description: 'Начало производства стальных конструкций и подъемного оборудования для строительства.' },
-        1990: { title: 'Диверсификация', description: 'Расширение в производство спецтехники и автокранов.' },
-        2000: { title: 'Модернизация', description: 'Внедрение ЧПУ-обработки и автоматизированных сварочных систем.' },
-        2012: { title: 'Запуск Бренда', description: 'Запуск бренда автокранов KRANTAS с полной сертификацией.' },
-        2015: { title: 'Международный Рост', description: 'Выход на рынки Казахстана и Туркменистана с экспортной сертификацией.' },
-        2020: { title: 'Новые Мощности', description: 'Открытие новых сборочных линий и расширение производства сельскохозяйственной техники.' },
-        2024: { title: 'Взгляд в Будущее', description: 'Разработка следующего поколения надежных промышленных автомобилей.' },
-      },
+      historyEvents: [
+        { year: 1945, title: 'Основание', description: 'Основан как механический ремонтный завод для грузовиков и тяжелой техники в Ташкенте.', image: '/1945.jpeg' },
+        { year: 1966, title: 'Восстановление и расширение', description: 'После землетрясения 1966 года завод переориентировался на поддержку восстановления города и начал производство стальных конструкций и подъемного оборудования.', image: '/1966.jpg' },
+        { year: 1991, title: 'Независимость и приватизация', description: 'После исторического провозглашения независимости Узбекистана предприятие перешло в частную собственность. Этот поворотный момент ознаменовал начало новой эры промышленной автономии, заложив фундамент для десятилетий роста и лидерства.', image: '/1991.png' },
+        { year: 2018, title: 'Знаковое партнерство', description: 'В ходе исторического визита президенты Узбекистана и Таджикистана торжественно открыли совместное предприятие «ТАЛКО-КРАНТАС» в Турсунзаде. Этот союз стал символом регионального сотрудничества и нового этапа в производстве спецтехники.', image: '/2018.png' },
+        { year: 2019, title: 'Промышленная экспансия', description: 'Открытие новой производственной площадки NURAFSHON-MAXSUS-TEXNIKA в Нурафшане. Это расширение значительно увеличило производственные мощности Группы и открыло новые горизонты для инжиниринга.', image: '/about_factory.jpg' },
+        { year: 2021, title: 'Оборонная и тяжелая промышленность', description: 'По инициативе Президента запущена стратегическая программа по производству отечественной военной и карьерной техники. Этот шаг стал фундаментом для создания современного флота тяжелых транспортных систем Узбекистана.', image: '/2021.png' },
+        { year: 2024, title: 'Стратегическое развертывание', description: 'Ознаменован успешной поставкой первых отечественных карьерных самосвалов на АГМК. Состоялся запуск первых серийных партий бронемашин Arslon, Tarlon и других моделей спецтехники.', image: '/2024.png' },
+      ],
       teamMemberStories: {
         sergey: {
           name: 'Петров Сергей',
@@ -1467,6 +1545,10 @@ export const translations = {
         7: {
           title: 'Крупный проект реновации и развития инфраструктуры',
           excerpt: 'Предложен масштабный проект городского развития стоимостью 333 млн долларов на нашей текущей площадке в Мирзо-Улугбекском районе, открывающий путь для современной жилой инфраструктуры.'
+        },
+        8: {
+          title: 'Президенты Узбекистана и Таджикистана открыли СП «ТАЛКО-КРАНТАС»',
+          excerpt: 'В рамках укрепления индустриальных связей президенты Шавкат Мирзиёев и Эмомали Рахмон открыли первую очередь совместного предприятия по сборке спецтехники.'
         }
       },
       featured: {
@@ -2043,6 +2125,44 @@ export const translations = {
       products: 'Mahsulotlar',
       customSolutions: 'Maxsus Yechimlar',
     },
+    distributors: {
+      title: 'Bizning Ekotizim',
+      searchPlaceholder: 'Manzil yoki dilerni qidirish...',
+      tabs: {
+        all: 'Barchasi',
+        uzbekistan: 'O\'zbekiston',
+        international: 'Xalqaro'
+      },
+      noResults: 'Natijalar topilmadi',
+      legend: {
+        hq: 'Bosh boshqarma',
+        dealer: 'Diler'
+      },
+      info: {
+        hq: 'Bosh boshqarma',
+        dealer: 'Rasmiy diler',
+        directions: 'Yo\'nalishni olish'
+      },
+      regions: {
+        tashkent: 'Toshkent',
+        fergana: 'Farg\'ona',
+        jizzakh: 'Jizzax',
+        bukhara: 'Buxoro',
+        kashkadarya: 'Qashqadaryo',
+        navoiy: 'Navoiy',
+        namangan: 'Namangan',
+        kokand: 'Qo\'qon',
+        kagan: 'Kogon',
+        bukharaCity: 'Buxoro shahri'
+      },
+      countries: {
+        azerbaijan: 'Ozarbayjon',
+        kazakhstan: 'Qozog\'iston',
+        kyrgyzstan: 'Qirg\'iziston',
+        tajikistan: 'Tojikiston',
+        turkmenistan: 'Turkmaniston'
+      }
+    },
     cookieConsent: {
       title: 'Cookie Sozlamalari',
       description: 'Biz saytimizning ishlashini yaxshilash uchun cookie fayllardan foydalanamiz. Global Privacy Control (GPC) signali aniqlandi.',
@@ -2388,16 +2508,15 @@ export const translations = {
       team: 'Bizning Jamoa',
       teamSubtitle: 'Quruvchi Rahbarlik',
       certificates: 'Sifat Standartlari',
-      historyEvents: {
-        1945: { title: 'Tashkil Topish', description: 'Toshkentda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan.' },
-        1963: { title: 'Kengayish', description: 'Qurilish uchun po\'lat konstruktsiyalar va yuk ko\'tarish uskunalari ishlab chiqarish boshlandi.' },
-        1990: { title: 'Diversifikatsiya', description: 'Maxsus texnika va avtokranlar ishlab chiqarishga kengaytirildi.' },
-        2000: { title: 'Modernizatsiya', description: 'CNC ishlov berish va avtomatlashtirilgan payvandlash tizimlari joriy etildi.' },
-        2012: { title: 'Brendni Ishga Tushirish', description: 'To\'liq sertifikatlangan KRANTAS avtokran brendi ishga tushirildi.' },
-        2015: { title: 'Xalqaro O\'sish', description: 'Qozog\'iston va Turkmaniston bozorlariga eksport sertifikati bilan kirib borildi.' },
-        2020: { title: 'Yangi Quvvatlar', description: 'Yangi yig\'uv liniyalari ochildi va qishloq xo\'jaligi texnikasi ishlab chiqarish kengaytirildi.' },
-        2024: { title: 'Kelajakka Nazar', description: 'Ishonchli sanoat transport vositalarining keyingi avlodini ishlab chiqish.' },
-      },
+      historyEvents: [
+        { year: 1945, title: 'Tashkil Topish', description: 'Toshkentda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan.', image: '/1945.jpeg' },
+        { year: 1966, title: 'Tiklanish va Kengayish', description: '1966 yilgi Toshkent zilziladan so\'ng zavod shaharni qayta qurish ishlarini qo\'llab-quvvatlashga o\'tdi va qurilish uchun po\'lat konstruktsiyalar ishlab chiqarishni boshladi.', image: '/1966.jpg' },
+        { year: 1991, title: 'Mustaqillik va Xususiylashtirish', description: 'Oʻzbekiston mustaqilligi eʼlon qilinganidan soʻng, korxona xususiy sektorga oʻtdi. Ushbu tarixiy burilish sanoat mustaqilligining yangi davrini boshlab berdi va kelgusi oʻn yilliklardagi ulkan oʻsishga zamin yaratdi.', image: '/1991.png' },
+        { year: 2018, title: 'Tarixiy Ittifoq', description: 'Oʻzbekiston va Tojikiston Prezidentlari ishtirokida Tursunzoda shahrida «TALCO-KRANTAS» qoʻshma korxonasidan tantanali ravishda ochildi. Ushbu strategik sheriklik mintaqaviy hamkorlikning yorqin namunasi boʻlib, maxsus texnika ishlab chiqarishda yangi ufqlar ochdi.', image: '/2018.png' },
+        { year: 2019, title: 'Sanoat Kengayishi', description: 'Nurafshon shahrida yangi NURAFSHON-MAXSUS-TEXNIKA ishlab chiqarish maydoni ochildi. Bu loyiha guruhning ishlab chiqarish quvvatlarini va muhandislik imkoniyatlarini yanada kengaytirdi.', image: '/about_factory.jpg' },
+        { year: 2021, title: 'Mudofaa va Ogʻir Sanoat', description: 'Prezident tashabbusi bilan mahalliy harbiy va kon texnikasini ishlab chiqarish strategik dasturi ishga tushirildi. Bu loyiha Oʻzbekiston sanoat suverenitetini mustahkamlashda muhim bosqich boʻldi.', image: '/2021.png' },
+        { year: 2024, title: 'Strategik Rivojlanish', description: 'Olmaliq kon-metallurgiya kombinatiga (OKMK) birinchi mahalliy kon samosvallari yetkazib berildi. Shuningdek, «Arslon», «Tarlon» va boshqa koʻplab maxsus texnika modellarining ilk seriyali partiyalari ishlab chiqarildi.', image: '/2024.png' },
+      ],
       teamMemberStories: {
         sergey: {
           name: 'Petrov Sergey',
@@ -2493,6 +2612,10 @@ export const translations = {
         7: {
           title: 'Katta renovatsiya va infratuzilmani rivojlantirish loyihasi',
           excerpt: 'Mirzo Ulug‘bek tumanidagi hozirgi maydonimizda zamonaviy turar-joy va ijtimoiy infratuzilma barpo etishga qaratilgan 333 million dollarlik yirik shaharsozlik loyihasi taklif etildi.'
+        },
+        8: {
+          title: 'O’zbekiston va Tojikiston Prezidentlari «TALCO-KRANTAS» qo’shma korxonasini ochdilar',
+          excerpt: 'Sanoat aloqalarini mustahkamlash maqsadida Prezidentlar maxsus texnika yig\'ishga ixtisoslashgan "TALCO-KRANTAS" qo\'shma korxonasining birinchi bosqichini ochdilar.'
         }
       },
       featured: {
@@ -2803,7 +2926,7 @@ export const translations = {
       'le-crane-50t': {
         name: 'Avtokran 50 t',
         description: 'Og\'ir sanoat ko\'tarish uchun maksimal sig\'imli avtokran.',
-        fullDescription: '50 tonnalik avtokran eng og\'ir sanoat va infratuzilma loyihalari uchun bizning eng kuchli mobil kranimizni ifodalaydi.',
+        fullDescription: '50 tonnalik avtokran — bizning eng kuchli mobil kranimizni ifodalaydi.',
         features: ['Maksimal sig\'im', 'Og\'ir sanoat', 'Uzun quloch', 'Infratuzilmaga tayyor', 'Professional ishlash'],
         specs: { model: 'KTC-50', liftingCapacity: '50 tonna', craneType: 'Teleskopik Strela', liftingHeight: '48m', outriggers: 'Gidravlik' }
       },
@@ -3066,6 +3189,44 @@ export const translations = {
       contacts: 'Kontakt',
       products: 'Produkte',
       customSolutions: 'Sonderlösungen',
+    },
+    distributors: {
+      title: 'Unser Ökosystem',
+      searchPlaceholder: 'Standort oder Händler suchen...',
+      tabs: {
+        all: 'Alle',
+        uzbekistan: 'Usbekistan',
+        international: 'International'
+      },
+      noResults: 'Keine Ergebnisse gefunden',
+      legend: {
+        hq: 'Hauptquartier',
+        dealer: 'Händler'
+      },
+      info: {
+        hq: 'Hauptquartier',
+        dealer: 'Autorisierter Händler',
+        directions: 'Wegbeschreibung'
+      },
+      regions: {
+        tashkent: 'Taschkent',
+        fergana: 'Fergana',
+        jizzakh: 'Dschizzak',
+        bukhara: 'Buchara',
+        kashkadarya: 'Kaschkadarja',
+        navoiy: 'Nawoij',
+        namangan: 'Namangan',
+        kokand: 'Kokand',
+        kagan: 'Kagan',
+        bukharaCity: 'Buchara Stadt'
+      },
+      countries: {
+        azerbaijan: 'Aserbaidschan',
+        kazakhstan: 'Kasachstan',
+        kyrgyzstan: 'Kirgisistan',
+        tajikistan: 'Tadschikistan',
+        turkmenistan: 'Turkmenistan'
+      }
     },
     cookieConsent: {
       title: 'Cookie-Einstellungen',
@@ -3412,16 +3573,15 @@ export const translations = {
       team: 'Unser Team',
       teamSubtitle: 'Führung, die Baut',
       certificates: 'Qualitätsstandards',
-      historyEvents: {
-        1945: { title: 'Gründung', description: 'Gegründet als mechanische Reparaturwerkstatt für Lkw und schwere Maschinen in Taschkent.' },
-        1963: { title: 'Expansion', description: 'Beginn der Produktion von Stahlkonstruktionen und Hebezeugen für das Bauwesen.' },
-        1990: { title: 'Diversifizierung', description: 'Expansion in die Herstellung von Spezialfahrzeugen und Autokränen.' },
-        2000: { title: 'Modernisierung', description: 'Einführung von CNC-Bearbeitung und automatisierten Schweißsystemen.' },
-        2012: { title: 'Markeneinführung', description: 'Einführung der Autokran-Marke KRANTAS mit vollständiger Zertifizierung.' },
-        2015: { title: 'Internationales Wachstum', description: 'Eintritt in die Märkte Kasachstan und Turkmenistan mit Exportzertifizierung.' },
-        2020: { title: 'Neue Anlagen', description: 'Eröffnung neuer Montagelinien und Erweiterung der Landmaschinenproduktion.' },
-        2024: { title: 'Zukunftsorientiert', description: 'Entwicklung der nächsten Generation zuverlässiger Industriefahrzeuge.' },
-      },
+      historyEvents: [
+        { year: 1945, title: 'Gründung', description: 'Gegründet als mechanische Reparaturwerkstatt für Lkw und schwere Maschinen in Taschkent.', image: '/1945.jpeg' },
+        { year: 1966, title: 'Wiederaufbau & Expansion', description: 'Nach dem Erdbeben von 1966 unterstützte das Werk den Wiederaufbau von Taschkent und begann mit der Produktion von Stahlkonstruktionen und Hebezeugen.', image: '/1966.jpg' },
+        { year: 1991, title: 'Unabhängigkeit & Privatisierung', description: 'Nach der historischen Unabhängigkeitserklärung Usbekistans wurde das Unternehmen privatisiert. Dieser entscheidende Wandel markierte den Beginn einer neuen Ära industrieller Autonomie und legte den Grundstein für Jahrzehnte beispiellosen Wachstums.', image: '/1991.png' },
+        { year: 2018, title: 'Ein wegweisendes Bündnis', description: 'In einer feierlichen Zeremonie im Beisein der Präsidenten von Usbekistan und Tadschikistan wurde das Joint Venture TALCO-Krantas in Tursunsoda eingeweiht. Diese strategische Partnerschaft ist ein Meilenstein regionaler Kooperation und Innovation.', image: '/2018.png' },
+        { year: 2019, title: 'Industrielle Expansion', description: 'Eröffnung des neuen Produktionsstandorts NURAFSHON-MAXSUS-TEXNIKA in der Region Nurafshon, was die Fertigungskapazitäten und technischen Möglichkeiten der Gruppe erheblich erweiterte.', image: '/about_factory.jpg' },
+        { year: 2021, title: 'Landesverteidigung & Schwerindustrie', description: 'Auf Initiative des Präsidenten startete das Unternehmen ein strategisches Programm zur einheimischen Produktion von militärischen Spezialfahrzeugen und Bergbau-LKWs, ein Meilenstein für die nationale industrielle Souveränität.', image: '/2021.png' },
+        { year: 2024, title: 'Strategische Bereitstellung', description: 'Gekennzeichnet durch die erste Auslieferung von lokal produzierten Bergbau-LKWs an AGMK sowie den Rollout der ersten Chargen der gepanzerten Fahrzeuge Arslon und Tarlon.', image: '/2024.png' },
+      ],
       teamMemberStories: {
         sergey: {
           name: 'Petrov Sergey',
@@ -3515,8 +3675,12 @@ export const translations = {
           excerpt: 'Unser neuer, nach internationalen Standards entwickelter Schützenpanzer „Arslon“ hat die staatliche Erprobung aufgenommen – ein Meilenstein für die heimische Verteidigungsindustrie.'
         },
         7: {
-          title: 'Bedeutendes Renovierungs- und Infrastrukturprojekt',
-          excerpt: 'Für unseren aktuellen Standort Mirzo-Ulugbek wurde ein 333 Millionen Dollar schweres Stadtentwicklungsprojekt vorgeschlagen, das den Weg für moderne Wohn- und Sozialinfrastruktur ebnet.'
+          title: 'Bedeutende Renovierung und Infrastrukturentwicklung',
+          excerpt: 'Ein großes Stadtentwicklungsprojekt in Höhe von 333 Millionen US-Dollar wird für unseren aktuellen Standort vorgeschlagen, um den Weg für eine moderne Infrastruktur zu ebnen.'
+        },
+        8: {
+          title: 'Präsidenten von Usbekistan und Tadschikistan eröffnen Joint Venture TALCO-KRANTAS',
+          excerpt: 'In einem bedeutenden Schritt für die industrielle Zusammenarbeit wurde die erste Phase des Joint Ventures TALCO-KRANTAS zur Montage von Spezialfahrzeugen eingeweiht.'
         }
       },
       featured: {

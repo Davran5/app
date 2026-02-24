@@ -4,7 +4,6 @@ import { ChevronRight, ArrowLeft, Download, Check, X } from 'lucide-react';
 import { getProductById } from '../data/products';
 import { toast } from 'sonner';
 import { useLanguage } from '../contexts/LanguageContext';
-import Hero from '../components/Hero';
 import ContactForm from '../components/ContactForm';
 export default function ProductDetail() {
   const { t } = useLanguage();
@@ -38,9 +37,7 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
-      <Hero title={t.productsData?.[product.id as keyof typeof t.productsData]?.name || product.name} />
-
-      <div className="relative z-10 bg-white -mt-12 lg:-mt-16 w-full flex-1 flex flex-col">
+      <div className="relative z-10 bg-white w-full flex-1 flex flex-col">
         {/* Breadcrumb */}
         <section className="pt-12 lg:pt-16 pb-6 border-b border-gray-200">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">

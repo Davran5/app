@@ -631,8 +631,8 @@ export const products: Product[] = [
 ];
 
 export const historyEvents = [
-  { year: 1945, title: 'Foundation', description: 'Founded as a mechanical repair plant for trucks and heavy machinery in Tashkent.', image: '/about_factory.jpg' },
-  { year: 1963, title: 'Expansion', description: 'Began producing steel structures and lifting equipment for construction.', image: '/product_crane.jpg' },
+  { year: 1945, title: 'Foundation', description: 'Founded as a mechanical repair plant for trucks and heavy machinery in Tashkent.', image: '/1945.jpeg' },
+  { year: 1966, title: 'Reconstruction & Expansion', description: 'Following the 1966 earthquake, the factory pivoted to support rebuilding efforts and began producing steel structures and lifting equipment for construction.', image: '/1966.jpg' },
   { year: 1990, title: 'Diversification', description: 'Expanded into special-purpose vehicles and truck crane manufacturing.', image: '/products/DT Dump Truck, 16 m³  20 t.jpeg' },
   { year: 2000, title: 'Modernization', description: 'Introduced CNC machining and automated welding systems.', image: '/tech_cnc.jpg' },
   { year: 2012, title: 'Brand Launch', description: 'Launched the KRANTAS truck crane brand with full certification.', image: '/products/LE Truck-Mounted Crane, 25 t.jpeg' },
@@ -651,6 +651,7 @@ export const teamMembers = [
 ];
 
 export const blogPosts = [
+  { id: 4, title: 'Presidents of Uzbekistan and Tajikistan Inaugurate TALCO-KRANTAS', excerpt: 'In a significant step for industrial cooperation, the first phase of the TALCO-KRANTAS joint venture was inaugurated.', image: 'https://www.gazeta.uz/media/img/2018/09/xKxTvx15381395349601_l.jpg', date: '2018-09-28', author: 'Anhor.uz' },
   { id: 1, title: 'Prototype of the Qulqon Armored Vehicle', excerpt: 'Testing advanced protection systems under real-world conditions for military and security applications.', image: '/blog_armored.jpg', date: '2024-01-15', author: 'Engineering Team' },
   { id: 2, title: 'New Assembly Line for Agricultural Tractors', excerpt: 'Faster delivery times with stricter quality gates and enhanced production capacity.', image: '/blog_line.jpg', date: '2024-01-10', author: 'Production Team' },
   { id: 3, title: 'Export Certification Updates', excerpt: 'Expanding service coverage across Central Asia with new international certifications.', image: '/blog_cert.jpg', date: '2024-01-05', author: 'Quality Assurance' }
