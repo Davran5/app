@@ -70,7 +70,7 @@ export default function About() {
         <section className="pt-12 lg:pt-16 pb-10 lg:pb-14 bg-white relative overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="relative">
+              <div className="relative overflow-hidden">
                 <img
                   src="/hq.jpeg"
                   alt="Krantas Factory History"
@@ -135,25 +135,28 @@ export default function About() {
                   })}
                 </div>
 
-                {/* Mobile Horizontal Year Selector */}
-                <div
-                  ref={mobileYearScrollRef}
-                  className="overflow-x-auto scrollbar-hide pb-2 -mx-6 px-[calc(50%-2rem)] snap-x snap-mandatory overflow-y-hidden"
-                >
-                  <div className="flex items-center gap-8 w-max mx-auto md:mx-0">
-                    {historyEventsList.map((event, index) => (
-                      <button
-                        key={index}
-                        id={`year-btn-${index}`}
-                        onClick={() => setActiveIndex(index)}
-                        className={`font-display font-bold text-4xl transition-all duration-300 snap-center flex-shrink-0 ${index === activeIndex
-                          ? 'text-[#244d85] scale-110 opacity-100'
-                          : 'text-gray-300 hover:text-gray-400 opacity-50 scale-90'
-                          }`}
-                      >
-                        {event.year}
-                      </button>
-                    ))}
+                {/* Mobile Horizontal Year Selector - wrapped in overflow-hidden to prevent page-level drag */}
+                <div className="relative overflow-hidden -mx-0">
+                  <div
+                    ref={mobileYearScrollRef}
+                    className="overflow-x-auto scrollbar-hide pb-2 -mx-6 px-[calc(50%-2rem)] snap-x snap-mandatory overflow-y-hidden"
+                    style={{ touchAction: 'pan-x' }}
+                  >
+                    <div className="flex items-center gap-8 w-max mx-auto md:mx-0">
+                      {historyEventsList.map((event, index) => (
+                        <button
+                          key={index}
+                          id={`year-btn-${index}`}
+                          onClick={() => setActiveIndex(index)}
+                          className={`font-display font-bold text-4xl transition-all duration-300 snap-center flex-shrink-0 ${index === activeIndex
+                            ? 'text-[#244d85] scale-110 opacity-100'
+                            : 'text-gray-300 hover:text-gray-400 opacity-50 scale-90'
+                            }`}
+                        >
+                          {event.year}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -417,7 +420,7 @@ export default function About() {
               </div>
 
               {/* Image Section - Order 2 on mobile, 1 on desktop */}
-              <div className="relative order-2 lg:order-1">
+              <div className="relative order-2 lg:order-1 overflow-hidden">
                 <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-[#244d85]/20" />
                 <img
                   src="/chairman_portrait.jpeg"

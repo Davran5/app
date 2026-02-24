@@ -79,8 +79,8 @@ export default function Home() {
   return (
     <div className="w-full flex-1 flex flex-col">
       {/* Hero Section */}
-      <div className="relative h-[50svh] md:h-[100svh] w-full z-0">
-        <section className="sticky top-0 left-0 h-[50svh] md:h-[100svh] w-full flex items-end overflow-hidden bg-black">
+      <div className="relative h-[100svh] w-full z-0">
+        <section className="sticky top-0 left-0 h-[100svh] w-full flex items-end overflow-hidden bg-black">
           {/* Background Video */}
           <div className="absolute inset-0 z-0">
             <video
@@ -370,7 +370,7 @@ export default function Home() {
             </div>
 
             {/* Horizontal Scrollable Product Cards - One per Category */}
-            <div className="relative">
+            <div className="relative overflow-hidden">
               {/* Prev Arrow */}
               <button
                 id="products-prev"
@@ -379,7 +379,7 @@ export default function Home() {
                   const el = document.getElementById('products-scroll');
                   if (el) el.scrollBy({ left: -400, behavior: 'smooth' });
                 }}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
               >
                 <ChevronLeft size={20} />
               </button>
@@ -392,7 +392,7 @@ export default function Home() {
                   const el = document.getElementById('products-scroll');
                   if (el) el.scrollBy({ left: 400, behavior: 'smooth' });
                 }}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
               >
                 <ChevronRight size={20} />
               </button>
@@ -400,7 +400,7 @@ export default function Home() {
               <div
                 id="products-scroll"
                 className="overflow-x-auto -mx-6 px-6 scrollbar-hide snap-x snap-mandatory select-none"
-                style={{ cursor: 'grab' }}
+                style={{ cursor: 'grab', touchAction: 'pan-x' }}
                 onMouseDown={(e) => {
                   e.preventDefault();
                   const el = e.currentTarget;

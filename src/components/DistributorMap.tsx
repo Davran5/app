@@ -133,7 +133,19 @@ export default function DistributorMap({
         // Smooth Pan
         map.panTo(centerOn);
 
-        // DELAYED ZOOM: This is the key to smoothness. 
+        // On mobile, the map is only 40dvh tall — after panTo, offset upward
+        // so the marker is visible in the top portion of the clipped map container.
+        const isMobile = window.innerWidth < 1024;
+        if (isMobile) {
+            setTimeout(() => {
+                // Shift up by ~25% of map container height in pixels
+                const mapDiv = map.getDiv();
+                const offsetY = mapDiv ? Math.round(mapDiv.clientHeight * 0.25) : 60;
+                map.panBy(0, offsetY);
+            }, 100);
+        }
+
+        // DELAYED ZOOM: This is the key to smoothness.
         const zoomTimeout = setTimeout(() => {
             const currentZoom = map.getZoom();
             if (currentZoom !== 13) {

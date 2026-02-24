@@ -335,6 +335,7 @@ export default function Distributors() {
 
     // Refs for scrolling sidebar cards into view
     const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+    const listRef = useRef<HTMLDivElement | null>(null);
 
     // Geolocation logic
     const handleFindNearest = () => {
@@ -425,7 +426,23 @@ export default function Distributors() {
     }, [allDealersList, geocodedCoords, tab, userLocation]);
 
     const handleCardClick = (id: string) => {
-        setExpandedId(expandedId === id ? null : id);
+        const isOpening = expandedId !== id;
+        // Accordion: only one open at a time
+        setExpandedId(isOpening ? id : null);
+
+        // Scroll the list container to show the card at the top
+        if (isOpening) {
+            setTimeout(() => {
+                const card = cardRefs.current[id];
+                const list = listRef.current;
+                if (card && list) {
+                    const cardRect = card.getBoundingClientRect();
+                    const listRect = list.getBoundingClientRect();
+                    const scrollTo = list.scrollTop + cardRect.top - listRect.top - 8;
+                    list.scrollTo({ top: scrollTo, behavior: 'smooth' });
+                }
+            }, 50);
+        }
     };
 
     const handleDealerSelect = (id: string, coords: { lat: number, lng: number }) => {
@@ -480,7 +497,7 @@ export default function Distributors() {
                         {t.distributors.title}
                     </h2>
 
-                    <div className="relative group">
+                    <div className="relative group hidden lg:block">
                         <input
                             type="text"
                             placeholder={t.distributors.searchPlaceholder}
@@ -530,7 +547,7 @@ export default function Distributors() {
                 </div>
 
                 {/* ─ List Content ─ */}
-                <div className="flex-1 overflow-y-auto scrollbar-hide border-t border-slate-50">
+                <div ref={listRef} className="flex-1 overflow-y-auto scrollbar-hide border-t border-slate-50">
                     {processedDealers.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-64 opacity-20">
                             <Navigation className="w-12 h-12 mb-4" />
@@ -555,22 +572,7 @@ export default function Distributors() {
                     )}
                 </div>
 
-                {/* ─ Footer ─ */}
-                <div className="flex-shrink-0 px-6 py-4 bg-slate-50/80 backdrop-blur-sm border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex gap-4">
-                        <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#C5A059]" />
-                            <span className="text-[9px] font-black text-slate-500 uppercase">{t.distributors.legend.hq}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#1E3A5F]" />
-                            <span className="text-[9px] font-black text-slate-500 uppercase">{t.distributors.legend.dealer}</span>
-                        </div>
-                    </div>
-                    <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">
-                        {processedDealers.reduce((acc, loc) => acc + loc.dealers.length, 0)} {t.catalog.title.toUpperCase()}
-                    </span>
-                </div>
+
             </aside>
         </section>
     );

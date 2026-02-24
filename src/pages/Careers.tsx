@@ -109,7 +109,7 @@ export default function Careers() {
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <div>
                   <img
-                    src="/about_factory.jpg"
+                    src="/work.jpeg"
                     alt="Krantas Workplace"
                     className="w-full h-[240px] lg:h-[300px] object-cover"
                   />
