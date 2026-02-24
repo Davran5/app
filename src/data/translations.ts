@@ -612,7 +612,7 @@ export const translations = {
       teamReady: 'Our team is ready to assist with any inquiries about our products, services, or industrial solutions.',
       headquarters: {
         title: 'KRANTAS Group Headquarters',
-        description: 'The office is located approximately 30 minutes from Tashkent International Airport and the city center.',
+        description: 'The office is located approximately 50 minutes from Tashkent International Airport.',
         officeLabel: 'Our Office',
         postalCodeLabel: 'Postal Code',
         contactInfoLabel: 'Contact Information'
@@ -1669,7 +1669,7 @@ export const translations = {
       teamReady: 'Наша команда готова помочь с любыми вопросами о продукции, услугах или инженерных решениях.',
       headquarters: {
         title: 'Головной Офис KRANTAS Group',
-        description: 'Офис расположен примерно в 30 минутах от международного аэропорта Ташкента и центра города.',
+        description: 'Офис расположен примерно в 50 минутах от международного аэропорта Ташкента.',
         officeLabel: 'Наш Офис',
         postalCodeLabel: 'Почтовый Индекс',
         contactInfoLabel: 'Контактная Информация'
@@ -2738,7 +2738,7 @@ export const translations = {
       teamReady: 'Bizning jamoamiz mahsulotlarimiz, xizmatlarimiz yoki sanoat yechimlari bo\'yicha har qanday so\'rovlar bilan yordam berishga tayyor.',
       headquarters: {
         title: 'KRANTAS Group Bosh Qarorgohi',
-        description: 'Ofis Toshkent xalqaro aeroportidan va shahar markazidan taxminan 30 daqiqalik masofada joylashgan.',
+        description: 'Ofis Toshkent xalqaro aeroportidan taxminan 50 daqiqalik masofada joylashgan.',
         officeLabel: 'Bizning Ofis',
         postalCodeLabel: 'Pochta Indeksi',
         contactInfoLabel: 'Aloqa Ma\'lumotlari'
@@ -3805,7 +3805,7 @@ export const translations = {
       teamReady: 'Unser Team steht bereit, um Sie bei Anfragen zu unseren Produkten oder Dienstleistungen zu unterstützen.',
       headquarters: {
         title: 'KRANTAS Group Hauptsitz',
-        description: 'Das Büro liegt ca. 30 Autominuten vom internationalen Flughafen Taschkent entfernt.',
+        description: 'Das Büro liegt ca. 50 minuten vom internationalen Flughafen Taschkent entfernt.',
         officeLabel: 'Unser Büro',
         postalCodeLabel: 'Postleitzahl',
         contactInfoLabel: 'Kontaktinformationen'
