@@ -51,8 +51,8 @@ const getMarkerIcon = (loc: typeof mapLocations[0], isActive: boolean, isHovered
     if (loc.isHQ) iconUrl = '/HQ.png';
     else if (loc.iconType === 'wrench') iconUrl = '/service.png';
 
-    // Simplified: Return raw PNG icons as requested, with a subtle scale on interaction
-    const size = isActive ? 48 : (isHovered ? 44 : 40);
+    // Base size increased from 40 to 48 for better visibility
+    const size = isActive ? 56 : (isHovered ? 52 : 48);
 
     return {
         url: iconUrl,
