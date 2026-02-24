@@ -3786,7 +3786,7 @@ export const translations = {
       info: 'Kontaktinformationen',
       form: 'Nachricht Senden',
       departments: 'Unsere Abteilungen',
-      address: 'Bezirk Mirzo-Ulugbek, Ziyolilar Straße 1,',
+      address: 'Bezirk Mirzo-Ulugbek, Ziyolilar Straße 1',
       phone: '+998 71 123 45 67',
       email: 'info@krantas.uz',
       sales: 'Vertriebsabteilung',

@@ -96,22 +96,22 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
           }`}
       >
         <div className="relative max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-center h-[60px]">
-            {/* Left Nav */}
-            <div className="flex items-center justify-end gap-3 xl:gap-6 w-[calc(50%-144px)] pr-4 xl:pr-8 h-full">
+          <div className="flex items-center justify-between h-[60px]">
+            {/* Left Column - Flex 1 to push logo to center */}
+            <div className="flex-1 flex items-center justify-end gap-2 xl:gap-8 pr-4 lg:pr-8 h-full">
               {navItems.left.map((link) => (
                 <Link
                   key={link.label}
                   to={link.href}
-                  className={`flex items-center h-full text-[13px] xl:text-sm transition-colors ${getTextColor(isActive(link.href))}`}
+                  className={`flex items-center h-full text-[12px] xl:text-sm tracking-tight xl:tracking-normal transition-colors ${getTextColor(isActive(link.href))}`}
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
 
-            {/* Center Logo */}
-            <div className="flex-shrink-0 w-72 flex justify-center">
+            {/* Center Column - Logo */}
+            <div className="flex-shrink-0 w-48 xl:w-72 flex justify-center px-4">
               <Link to="/" className="transition-all duration-500">
                 <img
                   src="/logo.png"
@@ -121,81 +121,80 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                     ? 'drop-shadow-[0_0_15px_rgba(253,193,94,0.5)]'
                     : ''
                     } ${isScrolled || location.pathname !== '/'
-                      ? 'h-[34px]'
-                      : 'h-[60px]'
+                      ? 'h-[28px] xl:h-[34px]'
+                      : 'h-[40px] xl:h-[60px]'
                     }`}
                 />
               </Link>
             </div>
 
-            {/* Right Nav */}
-            <div className="flex items-center justify-start gap-3 xl:gap-6 w-[calc(50%-144px)] pl-4 xl:pr-20 h-full">
+            {/* Right Column - Flex 1 to push logo to center, contains links + tools */}
+            <div className="flex-1 flex items-center justify-start gap-2 xl:gap-8 pl-4 lg:pl-8 h-full">
               {navItems.right.map((link) => (
                 <Link
                   key={link.label}
                   to={link.href}
-                  className={`flex items-center h-full text-[13px] xl:text-sm transition-colors ${getTextColor(isActive(link.href))}`}
+                  className={`flex items-center h-full text-[12px] xl:text-sm tracking-tight xl:tracking-normal transition-colors ${getTextColor(isActive(link.href))}`}
                 >
                   {link.label}
                 </Link>
               ))}
-            </div>
 
-            {/* Find Dealer icon — left of language selector */}
-            <Link
-              to="/find-dealer"
-              title="Find a Dealer"
-              className={`absolute right-[calc(6rem+1.5rem)] lg:right-[calc(6rem+3rem)] top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${isScrolled || !isHome
-                  ? 'text-[#244d85] hover:bg-[#244d85]/10'
-                  : 'text-[#fdc15e] hover:bg-white/10'
-                } ${isActive('/find-dealer') ? 'ring-2 ring-current' : ''}`}
-            >
-              <MapPin size={18} strokeWidth={2} />
-            </Link>
-
-            {/* Desktop Language Selector - Dropdown */}
-            <div
-              className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2"
-              onMouseLeave={() => setIsLangOpen(false)}
-              onMouseEnter={() => setIsLangOpen(true)}
-            >
-              <div className="relative">
-                {/* Trigger Button - Pill background on hover */}
-                <div className={`flex items-center px-4 py-2 transition-all duration-300 rounded-full ${isLangOpen
-                  ? (isScrolled || !isHome ? 'bg-[#244d85]/5' : 'bg-white/10')
-                  : ''
-                  }`}>
-                  <button
-                    className={`flex items-center gap-2 text-sm font-medium transition-colors ${isScrolled || !isHome
-                      ? 'text-[#244d85] hover:text-[#1a3a66]'
-                      : 'text-[#fdc15e] hover:text-white'
-                      }`}
-                  >
-                    <Globe size={14} />
-                    <span className="font-bold">{currentLang.label}</span>
-                  </button>
-                </div>
-
-                {/* Vertical Dropdown Panel */}
-                <div
-                  className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-300 ease-in-out ${isLangOpen
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 -translate-y-2 pointer-events-none'
-                    }`}
+              {/* Tools Group: Find Dealer + Language */}
+              <div className="flex items-center gap-1 xl:gap-4 ml-2 xl:ml-6">
+                <Link
+                  to="/find-dealer"
+                  title="Find a Dealer"
+                  className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${isScrolled || !isHome
+                    ? 'text-[#244d85] hover:bg-[#244d85]/10'
+                    : 'text-[#fdc15e] hover:bg-white/10'
+                    } ${isActive('/find-dealer') ? 'ring-2 ring-current' : ''}`}
                 >
-                  <div className={`flex flex-col items-center gap-0 py-0.5 px-3 rounded-2xl border border-white/10 backdrop-blur-xl shadow-2xl min-w-[64px] bg-[#f6b947]/95 shadow-black/20`}>
-                    {languages.filter(l => l.code !== language).map((lang) => (
+                  <MapPin size={18} strokeWidth={2} />
+                </Link>
+
+                <div
+                  className="relative h-full flex items-center"
+                  onMouseLeave={() => setIsLangOpen(false)}
+                  onMouseEnter={() => setIsLangOpen(true)}
+                >
+                  <div className="relative">
+                    <div className={`flex items-center px-2 xl:px-4 py-1.5 transition-all duration-300 rounded-full ${isLangOpen
+                      ? (isScrolled || !isHome ? 'bg-[#244d85]/5' : 'bg-white/10')
+                      : ''
+                      }`}>
                       <button
-                        key={lang.code}
-                        onClick={() => {
-                          setLanguage(lang.code as typeof language);
-                          setIsLangOpen(false);
-                        }}
-                        className="text-xs font-bold transition-colors w-full py-0.5 text-center text-[#244d85]/80 hover:text-white"
+                        className={`flex items-center gap-1 xl:gap-2 text-[12px] xl:text-sm font-medium transition-colors ${isScrolled || !isHome
+                          ? 'text-[#244d85] hover:text-[#1a3a66]'
+                          : 'text-[#fdc15e] hover:text-white'
+                          }`}
                       >
-                        {lang.label}
+                        <Globe size={14} />
+                        <span className="font-bold">{currentLang.label}</span>
                       </button>
-                    ))}
+                    </div>
+
+                    <div
+                      className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-300 ease-in-out ${isLangOpen
+                        ? 'opacity-100 translate-y-0'
+                        : 'opacity-0 -translate-y-2 pointer-events-none'
+                        }`}
+                    >
+                      <div className={`flex flex-col items-center gap-0 py-0.5 px-3 rounded-2xl border border-white/10 backdrop-blur-xl shadow-2xl min-w-[64px] bg-[#f6b947]/95 shadow-black/20`}>
+                        {languages.filter(l => l.code !== language).map((lang) => (
+                          <button
+                            key={lang.code}
+                            onClick={() => {
+                              setLanguage(lang.code as typeof language);
+                              setIsLangOpen(false);
+                            }}
+                            className="text-xs font-bold transition-colors w-full py-0.5 text-center text-[#244d85]/80 hover:text-white"
+                          >
+                            {lang.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
