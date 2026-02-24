@@ -175,7 +175,7 @@ const DealerCard = ({
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function Distributors() {
-    const { t } = useLanguage();
+    const { language, t } = useLanguage();
     const [geocodedCoords, setGeocodedCoords] = useState<Record<string, { lat: number, lng: number }>>({});
     const [activePin, setActivePin] = useState<string | null>(null);
     const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -504,7 +504,7 @@ export default function Distributors() {
                             <button
                                 key={tId}
                                 onClick={() => setTab(tId)}
-                                className={`py-2.5 text-[10px] flex-1 font-black uppercase tracking-wider transition-all border ${isActive
+                                className={`py-2.5 text-[10px] flex-1 ${language === 'ru' ? 'font-medium' : 'font-black'} uppercase tracking-wider transition-all border ${isActive
                                     ? 'bg-[#244d85] border-[#244d85] text-white shadow-md'
                                     : 'bg-white border-slate-100 text-slate-400 hover:bg-slate-50'
                                     }`}
