@@ -57,7 +57,7 @@ const getMarkerIcon = (loc: typeof mapLocations[0], isActive: boolean, isHovered
     return {
         url: iconUrl,
         scaledSize: new google.maps.Size(size, size),
-        anchor: new google.maps.Point(size / 2, size / 2),
+        anchor: new google.maps.Point(size / 2, size), // Anchor at the bottom-center
     };
 };
 
