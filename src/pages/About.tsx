@@ -138,7 +138,7 @@ export default function About() {
                 {/* Mobile Horizontal Year Selector */}
                 <div
                   ref={mobileYearScrollRef}
-                  className="overflow-x-auto scrollbar-hide pb-2 -mx-6 px-[calc(50%-2rem)] snap-x snap-mandatory"
+                  className="overflow-x-auto scrollbar-hide pb-2 -mx-6 px-[calc(50%-2rem)] snap-x snap-mandatory overflow-y-hidden"
                 >
                   <div className="flex items-center gap-8 w-max mx-auto md:mx-0">
                     {historyEventsList.map((event, index) => (

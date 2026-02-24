@@ -53,7 +53,7 @@ export default function GlobalBanner() {
 
     return (
         <section
-            className="hero-section w-full relative flex items-center justify-start mt-[64px] lg:mt-[60px] bg-white"
+            className="hero-section w-full relative flex items-center justify-start mt-[64px] lg:mt-[60px] bg-white overflow-hidden"
         >
             {/* Background Image - Defines the section height naturally */}
             <img

@@ -36,7 +36,7 @@ function AppContent({ isMobileMenuOpen, setIsMobileMenuOpen }: {
   const isFindDealer = location.pathname === '/find-dealer';
 
   return (
-    <div className="min-h-[100dvh] w-full bg-white flex flex-col supports-[min-height:100dvh]:min-h-[100dvh] transition-all duration-300 lg:pt-0">
+    <div className="min-h-[100dvh] w-full bg-white flex flex-col supports-[min-height:100dvh]:min-h-[100dvh] lg:pt-0">
       <ScrollToTop />
       <Navigation
         isMobileMenuOpen={isMobileMenuOpen}
