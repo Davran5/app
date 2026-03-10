@@ -636,7 +636,7 @@ export const historyEvents = [
   { year: 1990, title: 'Diversification', description: 'Expanded into special-purpose vehicles and truck crane manufacturing.', image: '/products/DT Dump Truck, 16 m³  20 t.jpeg' },
   { year: 2000, title: 'Modernization', description: 'Introduced CNC machining and automated welding systems.', image: '/tech_cnc.jpg' },
   { year: 2012, title: 'Brand Launch', description: 'Launched the KRANTAS truck crane brand with full certification.', image: '/products/LE Truck-Mounted Crane, 25 t.jpeg' },
-  { year: 2015, title: 'International Growth', description: 'Entered Kazakhstan and Turkmenistan markets with export certification.', image: '/production_aerial.jpg' },
+  { year: 2015, title: 'International Growth', description: 'Entered Kazakhstan and Turkmenistan markets with export certification.', image: '/full_cycle.jpeg' },
   { year: 2020, title: 'New Facilities', description: 'Opened new assembly lines and expanded agricultural machinery production.', image: '/products/AM Universal Tractor NURAFSHON N 81 (4×4, Belarus-based).jpeg' },
   { year: 2024, title: 'Future Forward', description: 'Engineering the next generation of reliable industrial vehicles.', image: '/tech_cnc.jpg' }
 ];
@@ -652,9 +652,9 @@ export const teamMembers = [
 
 export const blogPosts = [
   { id: 4, title: 'Presidents of Uzbekistan and Tajikistan Inaugurate TALCO-KRANTAS', excerpt: 'In a significant step for industrial cooperation, the first phase of the TALCO-KRANTAS joint venture was inaugurated.', image: 'https://www.gazeta.uz/media/img/2018/09/xKxTvx15381395349601_l.jpg', date: '2018-09-28', author: 'Anhor.uz' },
-  { id: 1, title: 'Prototype of the Qulqon Armored Vehicle', excerpt: 'Testing advanced protection systems under real-world conditions for military and security applications.', image: '/blog_armored.jpg', date: '2024-01-15', author: 'Engineering Team' },
-  { id: 2, title: 'New Assembly Line for Agricultural Tractors', excerpt: 'Faster delivery times with stricter quality gates and enhanced production capacity.', image: '/blog_line.jpg', date: '2024-01-10', author: 'Production Team' },
-  { id: 3, title: 'Export Certification Updates', excerpt: 'Expanding service coverage across Central Asia with new international certifications.', image: '/blog_cert.jpg', date: '2024-01-05', author: 'Quality Assurance' }
+  { id: 1, title: 'Prototype of the Qulqon Armored Vehicle', excerpt: 'Testing advanced protection systems under real-world conditions for military and security applications.', image: '/cover_spm.jpg', date: '2024-01-15', author: 'Engineering Team' },
+  { id: 2, title: 'New Assembly Line for Agricultural Tractors', excerpt: 'Faster delivery times with stricter quality gates and enhanced production capacity.', image: '/assembly_line.jpeg', date: '2024-01-10', author: 'Production Team' },
+  { id: 3, title: 'Export Certification Updates', excerpt: 'Expanding service coverage across Central Asia with new international certifications.', image: '/spec_eng.jpeg', date: '2024-01-05', author: 'Quality Assurance' }
 ];
 
 export function getProductById(id: string): Product | undefined {

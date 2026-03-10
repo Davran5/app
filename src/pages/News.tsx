@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import { Calendar, User, ChevronRight } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { ArrowUpDown, Calendar, User, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function News() {
   const { t, language } = useLanguage();
   const [selectedPostId, setSelectedPostId] = useState(8);
+  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
 
-  const blogPosts = [
+  const blogPosts = useMemo(() => [
     {
       id: 8,
       title: t.blog.posts[8].title,
@@ -44,15 +45,6 @@ export default function News() {
       link: 'https://agmk.uz/ru/news/okmkga-yana-2-dona-avtogigant-olib-kelindi'
     },
     {
-      id: 4,
-      title: t.blog.posts[4].title,
-      excerpt: t.blog.posts[4].excerpt,
-      image: 'https://storage.kun.uz/source/10/3R4Aqu-Op0JTgyB_EUUhA_-maxH4yBUi.jpg',
-      date: '2024-02-13',
-      author: 'Kun',
-      link: 'https://kun.uz/en/news/2024/02/13/minsk-tractor-works-to-start-assembling-tractors-in-uzbekistan'
-    },
-    {
       id: 3,
       title: t.blog.posts[3].title,
       excerpt: t.blog.posts[3].excerpt,
@@ -79,9 +71,17 @@ export default function News() {
       author: 'Gazeta',
       link: 'https://www.gazeta.uz/ru/2017/06/29/krantas/'
     }
-  ];
+  ], [t.blog.posts]);
 
-  const selectedPost = blogPosts.find(p => p.id === selectedPostId) || blogPosts[0];
+  const sortedPosts = useMemo(() => {
+    return [...blogPosts].sort((left, right) => {
+      const leftTime = new Date(left.date).getTime();
+      const rightTime = new Date(right.date).getTime();
+      return sortOrder === 'desc' ? rightTime - leftTime : leftTime - rightTime;
+    });
+  }, [blogPosts, sortOrder]);
+
+  const selectedPost = sortedPosts.find((post) => post.id === selectedPostId) || sortedPosts[0];
 
   return (
     <div className="bg-white w-full flex-1 flex flex-col">
@@ -96,8 +96,17 @@ export default function News() {
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
               {/* MOBILE VIEW: Accordion Style */}
               <div className="lg:hidden space-y-4">
+                <div className="mb-6">
+                  <button
+                    onClick={() => setSortOrder((current) => (current === 'desc' ? 'asc' : 'desc'))}
+                    className="inline-flex items-center gap-2 border border-black/10 bg-white px-4 py-2 text-sm font-medium text-[#0B0C0E] transition hover:bg-gray-50"
+                  >
+                    <ArrowUpDown size={16} />
+                    {sortOrder === 'desc' ? 'Newest first' : 'Oldest first'}
+                  </button>
+                </div>
                 <div className="flex flex-col border-t border-gray-100">
-                  {blogPosts.map((post) => (
+                  {sortedPosts.map((post) => (
                     <div key={post.id} className="border-b border-gray-100">
                       <button
                         onClick={() => setSelectedPostId(selectedPostId === post.id ? 0 : post.id)}
@@ -161,9 +170,20 @@ export default function News() {
               <div className="hidden lg:flex flex-row gap-8">
                 {/* Left - Article List (Scrollable) */}
                 <div className="lg:w-1/3">
-                  <h3 className="font-display text-xl lg:text-2xl font-semibold text-[#0B0C0E] mb-6">{t.blog.latest}</h3>
+                  <div className="mb-6 flex items-center gap-3">
+                    <h3 className="font-display text-xl lg:text-2xl font-semibold text-[#0B0C0E]">
+                      {t.blog.latest}
+                    </h3>
+                    <button
+                      onClick={() => setSortOrder((current) => (current === 'desc' ? 'asc' : 'desc'))}
+                      className="inline-flex items-center gap-2 border border-black/10 bg-white px-4 py-2 text-sm font-medium text-[#0B0C0E] transition hover:bg-gray-50"
+                    >
+                      <ArrowUpDown size={16} />
+                      {sortOrder === 'desc' ? 'Newest first' : 'Oldest first'}
+                    </button>
+                  </div>
                   <div className="space-y-3 max-h-[700px] overflow-y-auto pr-2">
-                    {blogPosts.map((post) => (
+                    {sortedPosts.map((post) => (
                       <button
                         key={post.id}
                         onClick={() => setSelectedPostId(post.id)}

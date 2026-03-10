@@ -1,301 +1,341 @@
-import { useState, useEffect, useCallback } from 'react';
-import { GoogleMap, useJsApiLoader, MarkerClusterer, InfoWindow, Marker } from '@react-google-maps/api';
-import { MapPin, Navigation } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { GoogleMap, InfoWindow, useJsApiLoader, type Libraries } from '@react-google-maps/api';
+import { MapPin, Navigation, Phone, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import type { DistributorLocation } from '../data/distributors';
+import { getDistributorKindLabel, getDistributorUiCopy } from '../lib/distributors';
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-export const mapLocations = [
-    // TASHKENT (HQ + 2 Dealers)
-    { id: 'hq', isHQ: true, name: 'ООО "Krantaslizing"', address: 'г. Ташкент, Мирзо Улугбекский район, ул. Зиёлилар, д. 1, Uzbekistan', city: 'Tashkent', coords: { lat: 41.3323, lng: 69.3400 } },
-    { id: 't2', isHQ: false, name: 'ООО «MAX NET PROFIT»', address: 'г. Ташкент, ул. Катта Хирмонтепа, дом 3 «А», Uzbekistan', city: 'Tashkent', iconType: 'wrench', coords: { lat: 41.2827, lng: 69.1856 } },
-    { id: 't3', isHQ: false, name: 'ООО «Imagine»', address: '100017 г. Ташкент, Юнусабадский р-н, ул. Янгишахар, дом 9 «А», Uzbekistan', city: 'Tashkent', iconType: 'briefcase', coords: { lat: 41.3662, lng: 69.2811 } },
-
-    // UZBEKISTAN REGIONS
-    { id: 'f1', isHQ: false, name: 'ООО «Автосанкомплект Транс Сервис»', address: 'г. Коканд, улица Ген. Захирова, 1, Uzbekistan', city: 'Kokand', iconType: 'wrench', coords: { lat: 40.5285, lng: 70.9425 } },
-    { id: 'j1', isHQ: false, name: 'ООО «MOPAR TECHNO GROUP»', address: 'г.Джизак, ул.Шароф Рашидова, автомагистраль, дом 92, Uzbekistan', city: 'Jizzakh', iconType: 'wrench', coords: { lat: 40.1158, lng: 67.8422 } },
-    { id: 'b1', isHQ: false, name: 'ООО «Автоленд-Сервис»', address: 'г. Каган, ул. Бухарская, шоссе 17, Uzbekistan', city: 'Kagan', iconType: 'wrench', coords: { lat: 39.7196, lng: 64.5367 } },
-    { id: 'b2', isHQ: false, name: 'ООО «Авто Arsenal»', address: 'Бухарская обл., г. Бухара, ул. А.Дониш, 11, Uzbekistan', city: 'Bukhara', iconType: 'store', coords: { lat: 39.7671, lng: 64.4552 } },
-    { id: 'k1', isHQ: false, name: 'ООО «Муборак-Ягуар»', address: 'Кашкадарьинская обл, ул. Муборак 1м/т Саноар, Uzbekistan', city: 'Mubarek', iconType: 'wrench', coords: { lat: 39.2558, lng: 65.1539 } },
-    { id: 'n1', isHQ: false, name: 'ООО «Navoiy Fast Trans Servise»', address: 'г. Навои, Навоийская обл, Uzbekistan', city: 'Navoiy', iconType: 'wrench', coords: { lat: 40.1039, lng: 65.3736 } },
-    { id: 'nam1', isHQ: false, name: 'ООО «NAM AVTO UNIVERSAL»', address: 'г. Наманган, ул. Кукумбой, дом №7, Uzbekistan', city: 'Namangan', iconType: 'store', coords: { lat: 41.0001, lng: 71.6726 } },
-
-    // INTERNATIONAL REGIONAL CENTERS
-    { id: 'az1', isHQ: false, name: 'Baku Regional Center', address: 'Baku, Azerbaijan', city: 'Baku', iconType: 'briefcase', coords: { lat: 40.4093, lng: 49.8671 } },
-    { id: 'kz1', isHQ: false, name: 'Almaty Regional Center', address: 'Almaty, Kazakhstan', city: 'Almaty', iconType: 'briefcase', coords: { lat: 43.2220, lng: 76.8512 } },
-    { id: 'kz2', isHQ: false, name: 'Astana Regional Center', address: 'Astana, Kazakhstan', city: 'Astana', iconType: 'briefcase', coords: { lat: 51.1694, lng: 71.4491 } },
-    { id: 'kg1', isHQ: false, name: 'Bishkek Regional Center', address: 'Bishkek, Kyrgyzstan', city: 'Bishkek', iconType: 'briefcase', coords: { lat: 42.8746, lng: 74.5698 } },
-    { id: 'kg2', isHQ: false, name: 'Osh Regional Center', address: 'Osh, Kyrgyzstan', city: 'Osh', iconType: 'briefcase', coords: { lat: 40.5140, lng: 72.8161 } },
-    { id: 'tj1', isHQ: false, name: 'Dushanbe Regional Center', address: 'Dushanbe, Tajikistan', city: 'Dushanbe', iconType: 'briefcase', coords: { lat: 38.5358, lng: 68.7791 } },
-    { id: 'tm1', isHQ: false, name: 'Ashgabat Regional Center', address: 'Ashgabat, Turkmenistan', city: 'Ashgabat', iconType: 'briefcase', coords: { lat: 37.9601, lng: 58.3261 } }
-];
-
-const MAP_STYLES = [
-    { elementType: "geometry", stylers: [{ color: "#ebf0f5" }] },
-    { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
-    { elementType: "labels.text.fill", stylers: [{ color: "#334155" }] },
-    { elementType: "labels.text.stroke", stylers: [{ color: "#ebf0f5" }] },
-    { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#94a3b8" }, { weight: 1 }] },
-    { featureType: "administrative.country", elementType: "geometry.stroke", stylers: [{ color: "#64748b" }, { weight: 1.2 }] },
-    { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
-    { featureType: "water", elementType: "geometry", stylers: [{ color: "#cbd5e1" }] }
-];
-
-const DEFAULT_CENTER = { lat: 45.0, lng: 63.0 };
+const DEFAULT_CENTER = { lat: 43.5, lng: 64.5 };
 const DEFAULT_ZOOM = 4;
+const FOCUSED_LOCATION_ZOOM = 11;
+const GOOGLE_MAPS_LIBRARIES: Libraries = ['marker'];
+const GOOGLE_MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID?.trim() || 'DEMO_MAP_ID';
 
-// ─── Marker Icon Generator ────────────────────────────────────────────────────
+const MARKER_COLORS = {
+  dealer: { fill: '#244d85', inner: '#ffffff' },
+  hq: { fill: '#c5a059', inner: '#ffffff' },
+  service: { fill: '#0b0c0e', inner: '#c5a059' },
+  regional: { fill: '#244d85', inner: '#c5a059' },
+} as const;
 
-const getMarkerIcon = (loc: typeof mapLocations[0], isActive: boolean, isHovered: boolean) => {
-    let iconUrl = '/Dealer.png';
-    if (loc.isHQ) iconUrl = '/HQ.png';
-    else if (loc.iconType === 'wrench') iconUrl = '/service.png';
+function buildMarkerSvg(fill: string, inner: string, width: number, height: number) {
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 64 72" fill="none">`,
+    `<path d="M32 70C32 70 56 46.15 56 28C56 13.64 45.26 2 32 2S8 13.64 8 28c0 18.15 24 42 24 42Z" fill="${fill}" stroke="rgba(15,23,42,0.16)" stroke-width="3"/>`,
+    `<circle cx="32" cy="28" r="10" fill="${inner}"/>`,
+    '</svg>',
+  ].join('');
+}
 
-    // Base size increased from 40 to 48 for better visibility
-    const size = isActive ? 56 : (isHovered ? 52 : 48);
+function getMarkerDimensions(isActive: boolean, isHovered: boolean) {
+  const width = isActive ? 50 : isHovered ? 46 : 42;
+  const height = Math.round(width * 1.125);
 
-    return {
-        url: iconUrl,
-        scaledSize: new google.maps.Size(size, size),
-        anchor: new google.maps.Point(size / 2, size), // Anchor at the bottom-center
-    };
-};
+  return { width, height };
+}
 
-// ─── Component ────────────────────────────────────────────────────────────────
+function createMarkerContent(location: DistributorLocation, isActive: boolean, isHovered: boolean) {
+  const colors = MARKER_COLORS[location.kind];
+  const { width, height } = getMarkerDimensions(isActive, isHovered);
+  const marker = document.createElement('div');
+
+  marker.innerHTML = buildMarkerSvg(colors.fill, colors.inner, width, height);
+  marker.style.width = `${width}px`;
+  marker.style.height = `${height}px`;
+  marker.style.transform = 'translateZ(0)';
+
+  return marker;
+}
+
+function getBoundsPadding(map: google.maps.Map) {
+  const container = map.getDiv();
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  if (width < 768 || height < 420) {
+    return 16;
+  }
+
+  return 24;
+}
+
+function getTelHref(phone: string) {
+  return `tel:${phone.replace(/[\s\-()]/g, '')}`;
+}
 
 interface DistributorMapProps {
-    onLocationClick?: (id: string, coords: { lat: number; lng: number }) => void;
-    onGeocoded?: (coords: Record<string, { lat: number, lng: number }>) => void;
-    activePin?: string | null;
-    hoveredPin?: string | null;
-    zoomed?: boolean;
-    centerOn?: { lat: number, lng: number } | null;
+  locations: DistributorLocation[];
+  activeLocationId?: string | null;
+  hoveredLocationId?: string | null;
+  centerOn?: { lat: number; lng: number } | null;
+  onLocationClick?: (location: DistributorLocation) => void;
+  onActiveLocationClose?: () => void;
 }
 
 export default function DistributorMap({
-    onLocationClick,
-    onGeocoded,
-    activePin,
-    hoveredPin,
-    zoomed = false,
-    centerOn,
+  locations,
+  activeLocationId,
+  hoveredLocationId,
+  centerOn,
+  onLocationClick,
+  onActiveLocationClose,
 }: DistributorMapProps) {
-    const { t } = useLanguage();
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-    });
+  const { language, t } = useLanguage();
+  const ui = getDistributorUiCopy(language);
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    libraries: GOOGLE_MAPS_LIBRARIES,
+  });
+  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const markerInstancesRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
+  const markerListenersRef = useRef<
+    Array<{ marker: google.maps.marker.AdvancedMarkerElement; listener: EventListener }>
+  >([]);
 
-    const [resolvedLocations, setResolvedLocations] = useState<Record<string, { lat: number, lng: number }>>({});
-    const [map, setMap] = useState<google.maps.Map | null>(null);
+  const activeLocation = useMemo(
+    () => locations.find((location) => location.id === activeLocationId) ?? null,
+    [activeLocationId, locations],
+  );
 
-    // Geocoding Logic
-    useEffect(() => {
-        if (!isLoaded || Object.keys(resolvedLocations).length > 0) return;
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(event.matches);
+    };
 
-        const geocoder = new google.maps.Geocoder();
-        const results: Record<string, { lat: number, lng: number }> = {};
-        let count = 0;
+    handleChange(mediaQuery);
+    mediaQuery.addEventListener('change', handleChange);
 
-        mapLocations.forEach(loc => {
-            if ((loc as any).coords) {
-                count++;
-                results[loc.id] = (loc as any).coords;
-                if (count === mapLocations.length) {
-                    setResolvedLocations(results);
-                    onGeocoded?.(results);
-                }
-                return;
-            }
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
 
-            geocoder.geocode({ address: loc.address }, (res, status) => {
-                count++;
-                if (status === 'OK' && res?.[0]) {
-                    const coords = {
-                        lat: res[0].geometry.location.lat(),
-                        lng: res[0].geometry.location.lng()
-                    };
-                    results[loc.id] = coords;
-                }
+  useEffect(() => {
+    return () => {
+      markerListenersRef.current.forEach(({ marker, listener }) => {
+        marker.removeEventListener('gmp-click', listener);
+      });
+      markerInstancesRef.current.forEach((marker) => {
+        marker.map = null;
+      });
+    };
+  }, []);
 
-                if (count === mapLocations.length) {
-                    setResolvedLocations(results);
-                    onGeocoded?.(results);
-                }
-            });
-        });
-    }, [isLoaded, onGeocoded, resolvedLocations]);
-
-    // Pan Logic — driven exclusively by centerOn for a premium, smooth transition
-    useEffect(() => {
-        if (!map || !centerOn) return;
-
-        // Smooth Pan
-        map.panTo(centerOn);
-
-        // On mobile, the map is only 40dvh tall — after panTo, offset upward
-        // so the marker is visible in the top portion of the clipped map container.
-        const isMobile = window.innerWidth < 1024;
-        if (isMobile) {
-            setTimeout(() => {
-                // Shift up by ~25% of map container height in pixels
-                const mapDiv = map.getDiv();
-                const offsetY = mapDiv ? Math.round(mapDiv.clientHeight * 0.25) : 60;
-                map.panBy(0, offsetY);
-            }, 100);
-        }
-
-        // DELAYED ZOOM: This is the key to smoothness.
-        const zoomTimeout = setTimeout(() => {
-            const currentZoom = map.getZoom();
-            if (currentZoom !== 13) {
-                map.setZoom(13);
-            }
-        }, 450);
-
-        return () => clearTimeout(zoomTimeout);
-    }, [map, centerOn]);
-
-    // Handle Reset / Global View (if needed)
-    useEffect(() => {
-        if (!map || centerOn || !zoomed) return;
-
-        map.panTo(DEFAULT_CENTER);
-        const zoomTimeout = setTimeout(() => {
-            map.setZoom(DEFAULT_ZOOM);
-        }, 450);
-        return () => clearTimeout(zoomTimeout);
-    }, [map, centerOn, zoomed]);
-
-    const onLoad = useCallback((m: google.maps.Map) => {
-        setMap(m);
-
-        // Highlight countries we operate in (Using ISO_A3 codes which are more reliable in world GeoJSONs)
-        const targetCountries = ['UZB', 'KAZ', 'AZE', 'KGZ', 'TJK', 'TKM'];
-
-        // Load comprehensive GeoJSON for boundaries
-        m.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json');
-
-        m.data.setStyle((feature) => {
-            const id = (feature.getProperty('id') || feature.getProperty('iso_a3') || '').toString().toUpperCase();
-            const isOperating = targetCountries.includes(id);
-
-            return {
-                fillColor: isOperating ? '#244d85' : 'transparent',
-                fillOpacity: isOperating ? 0.35 : 0, // Solid visibility
-                strokeWeight: isOperating ? 2 : 0.5,
-                strokeColor: isOperating ? '#244d85' : '#CBD5E1',
-                visible: true,
-                clickable: false,
-                zIndex: isOperating ? 2 : 1
-            };
-        });
-    }, []);
-
-    const onUnmount = useCallback(() => setMap(null), []);
-
-    if (!isLoaded) {
-        return (
-            <div className="w-full h-full bg-slate-50 flex flex-col items-center justify-center p-8 text-center">
-                <div className="w-12 h-12 border-4 border-[#244d85]/10 border-t-[#244d85] rounded-full animate-spin mb-4" />
-                <p className="text-sm font-black uppercase tracking-widest text-slate-400">
-                    {t.distributors.title}...
-                </p>
-            </div>
-        );
+  useEffect(() => {
+    if (!map) {
+      return;
     }
 
+    if (centerOn) {
+      map.panTo(centerOn);
+      map.setZoom(FOCUSED_LOCATION_ZOOM);
+      return;
+    }
+
+    if (locations.length === 0) {
+      map.setCenter(DEFAULT_CENTER);
+      map.setZoom(DEFAULT_ZOOM);
+      return;
+    }
+
+    if (locations.length === 1) {
+      map.setCenter(locations[0].coords);
+      map.setZoom(7);
+      return;
+    }
+
+    const bounds = new google.maps.LatLngBounds();
+    locations.forEach((location) => bounds.extend(location.coords));
+    map.fitBounds(bounds, getBoundsPadding(map));
+  }, [centerOn, locations, map]);
+
+  useEffect(() => {
+    let disposed = false;
+
+    if (!isLoaded || !map) {
+      return;
+    }
+
+    const renderMarkers = async () => {
+      const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+        'marker',
+      )) as google.maps.MarkerLibrary;
+
+      if (disposed) {
+        return;
+      }
+
+      markerListenersRef.current.forEach(({ marker, listener }) => {
+        marker.removeEventListener('gmp-click', listener);
+      });
+      markerInstancesRef.current.forEach((marker) => {
+        marker.map = null;
+      });
+
+      const nextMarkers: google.maps.marker.AdvancedMarkerElement[] = [];
+      const nextListeners: Array<{
+        marker: google.maps.marker.AdvancedMarkerElement;
+        listener: EventListener;
+      }> = [];
+
+      locations.forEach((location) => {
+        const isActive = activeLocationId === location.id;
+        const isHovered = hoveredLocationId === location.id;
+        const marker = new AdvancedMarkerElement({
+          map,
+          position: location.coords,
+          title: location.name,
+          content: createMarkerContent(location, isActive, isHovered),
+          gmpClickable: true,
+          zIndex: isActive ? 1000 : isHovered ? 900 : 1,
+        });
+
+        const handleMarkerClick: EventListener = () => {
+          onLocationClick?.(location);
+        };
+
+        marker.addEventListener('gmp-click', handleMarkerClick);
+        nextListeners.push({ marker, listener: handleMarkerClick });
+        nextMarkers.push(marker);
+      });
+
+      if (disposed) {
+        nextListeners.forEach(({ marker, listener }) => {
+          marker.removeEventListener('gmp-click', listener);
+        });
+        nextMarkers.forEach((marker) => {
+          marker.map = null;
+        });
+        return;
+      }
+
+      markerListenersRef.current = nextListeners;
+      markerInstancesRef.current = nextMarkers;
+    };
+
+    void renderMarkers();
+
+    return () => {
+      disposed = true;
+    };
+  }, [activeLocationId, hoveredLocationId, isLoaded, locations, map, onLocationClick]);
+
+  if (!isLoaded) {
     return (
-        <div className="w-full h-full relative" style={{ background: "#E8EDF4" }}>
-            <GoogleMap
-                mapContainerStyle={{ width: '100%', height: '100%' }}
-                center={DEFAULT_CENTER}
-                zoom={DEFAULT_ZOOM}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-                options={{
-                    styles: MAP_STYLES,
-                    disableDefaultUI: true,
-                    zoomControl: false,
-                    scrollwheel: true,
-                }}
-            >
-                <MarkerClusterer
-                    options={{
-                        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-                        gridSize: 50,
-                        maxZoom: 15,
-                    }}
-                >
-                    {(clusterer) => (
-                        <>
-                            {mapLocations.map((loc) => {
-                                const coords = resolvedLocations[loc.id];
-                                if (!coords) return null;
-
-                                const isActive = activePin === loc.id;
-                                const isHovered = hoveredPin === loc.id;
-
-                                return (
-                                    <Marker
-                                        key={loc.id}
-                                        position={coords}
-                                        clusterer={clusterer}
-                                        icon={getMarkerIcon(loc, isActive, isHovered)}
-                                        onClick={() => onLocationClick?.(loc.id, coords)}
-                                        zIndex={isActive ? 1000 : (isHovered ? 900 : 1)}
-                                    />
-                                );
-                            })}
-
-                            {activePin && (
-                                (() => {
-                                    const locData = mapLocations.find(l => l.id === activePin);
-                                    const pos = resolvedLocations[activePin];
-                                    if (!pos || !locData) return null;
-
-                                    return (
-                                        <InfoWindow
-                                            position={pos}
-                                            options={{ pixelOffset: new google.maps.Size(0, -35) }}
-                                        >
-                                            <div className="p-3 min-w-[220px] bg-white">
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-[#244d85] mb-1 opacity-60">
-                                                    {locData.isHQ ? t.distributors.info.hq : t.distributors.info.dealer}
-                                                </p>
-                                                <h3 className="text-xs font-black text-[#0F172A] uppercase leading-tight mb-1.5">
-                                                    {locData.name}
-                                                </h3>
-                                                <div className="flex items-start gap-1.5 py-2 border-t border-slate-50 mt-1 mb-3">
-                                                    <MapPin size={10} className="text-[#C5A059] mt-0.5 flex-shrink-0" />
-                                                    <p className="text-[9px] text-slate-500 leading-normal font-medium">
-                                                        {locData.address}
-                                                    </p>
-                                                </div>
-
-                                                <div className="space-y-2">
-                                                    <button
-                                                        onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}&travelmode=driving`, '_blank')}
-                                                        className="w-full flex items-center justify-center gap-2 py-2 bg-[#244d85] text-white text-[10px] font-black uppercase tracking-widest hover:bg-[#1a3a63] transition-colors rounded"
-                                                    >
-                                                        <Navigation size={10} className="fill-current" />
-                                                        {t.distributors.info.directions}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </InfoWindow>
-                                    );
-                                })()
-                            )}
-                        </>
-                    )}
-                </MarkerClusterer>
-            </GoogleMap>
-
-            <div className="absolute bottom-4 right-4 z-[1000] text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2 px-3 py-2 pointer-events-none bg-white/90 backdrop-blur-md border border-slate-100 shadow-sm">
-                <MapPin size={12} className="text-[#C5A059]" />
-                {zoomed ? 'Use scroll to zoom • drag to pan' : 'Scroll to zoom • Click a pin to explore'}
-            </div>
+      <div className="flex h-full min-h-0 items-center justify-center bg-[#f2f1eb]">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-[#244d85]/15 border-t-[#244d85]" />
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+            {ui.loadingMap}
+          </p>
         </div>
+      </div>
     );
+  }
+
+  return (
+    <div className="relative h-full min-h-0 overflow-hidden">
+      <GoogleMap
+        mapContainerStyle={{ width: '100%', height: '100%' }}
+        center={DEFAULT_CENTER}
+        zoom={DEFAULT_ZOOM}
+        onLoad={setMap}
+        onUnmount={() => setMap(null)}
+        options={{
+          disableDefaultUI: true,
+          zoomControl: true,
+          streetViewControl: false,
+          fullscreenControl: false,
+          mapTypeControl: false,
+          gestureHandling: 'cooperative',
+          clickableIcons: false,
+          mapId: GOOGLE_MAP_ID,
+        }}
+      >
+        {activeLocation && !isMobile && (
+          <InfoWindow
+            position={activeLocation.coords}
+            options={{ pixelOffset: new google.maps.Size(0, -36) }}
+            onCloseClick={onActiveLocationClose}
+          >
+            <div className="min-w-[240px] bg-white p-3">
+              <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#244d85]">
+                {getDistributorKindLabel(activeLocation.kind, t.distributors, language)}
+              </p>
+              <h3 className="text-sm font-semibold text-[#0B0C0E]">{activeLocation.name}</h3>
+              <div className="mt-3 flex items-start gap-2 border-t border-slate-100 pt-3">
+                <MapPin size={14} className="mt-0.5 flex-shrink-0 text-[#c5a059]" />
+                <p className="text-xs leading-relaxed text-neutral-600">{activeLocation.address}</p>
+              </div>
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${activeLocation.coords.lat},${activeLocation.coords.lng}&travelmode=driving`}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#244d85] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#1c3c69]"
+              >
+                <Navigation size={12} />
+                {t.distributors.info.directions}
+              </a>
+            </div>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+
+      <div className="pointer-events-none absolute left-4 top-4 hidden rounded-full border border-white/80 bg-white/90 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 shadow-sm backdrop-blur md:block">
+        {ui.mapHint}
+      </div>
+
+      {activeLocation && isMobile && (
+        <div className="absolute inset-x-3 bottom-3 z-10 rounded-[24px] border border-black/5 bg-white p-4 shadow-[0_20px_45px_rgba(15,23,42,0.18)]">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#244d85]">
+                {getDistributorKindLabel(activeLocation.kind, t.distributors, language)}
+              </p>
+              <h3 className="text-sm font-semibold text-[#0B0C0E]">{activeLocation.name}</h3>
+            </div>
+
+            <button
+              type="button"
+              onClick={onActiveLocationClose}
+              aria-label={ui.clearSelection}
+              className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition hover:border-[#244d85]/30 hover:text-[#244d85]"
+            >
+              <X size={14} />
+            </button>
+          </div>
+
+          <div className="mt-3 flex items-start gap-2 border-t border-slate-100 pt-3">
+            <MapPin size={14} className="mt-0.5 flex-shrink-0 text-[#c5a059]" />
+            <p className="text-xs leading-relaxed text-neutral-600">{activeLocation.address}</p>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a
+              href={`https://www.google.com/maps/dir/?api=1&destination=${activeLocation.coords.lat},${activeLocation.coords.lng}&travelmode=driving`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#244d85] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#1c3c69]"
+            >
+              <Navigation size={12} />
+              {t.distributors.info.directions}
+            </a>
+
+            {activeLocation.phones[0] && (
+              <a
+                href={getTelHref(activeLocation.phones[0])}
+                className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#0B0C0E] transition hover:border-[#244d85]/25 hover:text-[#244d85]"
+              >
+                <Phone size={12} />
+                {ui.call}
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

@@ -10,7 +10,7 @@ const Hero: React.FC<HeroProps> = ({ title }) => {
             <section className="fixed top-0 left-0 w-full h-[280px] lg:h-[360px] z-0 overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-top bg-no-repeat"
-                    style={{ backgroundImage: 'url(/hero_cover.jpg)' }}
+                    style={{ backgroundImage: 'url(/hero_cover.png)' }}
                 />
             </section>
             <div className="relative w-full h-[280px] lg:h-[360px] flex items-start pt-20 lg:pt-24 z-10 pointer-events-none">

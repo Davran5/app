@@ -2,10 +2,15 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 
 export default function Footer() {
   const { t } = useLanguage();
+  const { categories } = useCms();
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const footerCategories = categories
+    .filter((category) => category.id !== 'custom-solutions' && category.id !== 'metal-structures')
+    .slice(0, 3);
 
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
@@ -113,21 +118,16 @@ export default function Footer() {
                   {t.productsPage.customTitle}
                 </Link>
               </li>
-              <li>
-                <Link to="/catalog/dump-trucks" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  {t.categories['dump-trucks']?.name}
-                </Link>
-              </li>
-              <li>
-                <Link to="/catalog/overhead-cranes" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  {t.categories['overhead-gantry']?.name}
-                </Link>
-              </li>
-              <li>
-                <Link to="/catalog/agricultural" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  {t.categories['agricultural']?.name}
-                </Link>
-              </li>
+              {footerCategories.map((category) => (
+                <li key={category.id}>
+                  <Link
+                    to={`/catalog?category=${category.id}`}
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                  >
+                    {t.categories?.[category.id as keyof typeof t.categories]?.name || category.name}
+                  </Link>
+                </li>
+              ))}
               <li>
                 <Link to="/catalog" className="text-sm text-[#244d85] hover:text-[#fdc15e] transition-colors">
                   {t.footer.viewAll}
@@ -142,15 +142,15 @@ export default function Footer() {
                   <Link to="/custom-solutions" className="text-sm text-gray-400 hover:text-white transition-colors text-center">
                     {t.equipment.customSolutions}
                   </Link>
-                  <Link to="/catalog/dump-trucks" className="text-sm text-gray-400 hover:text-white transition-colors">
-                    {t.categories['dump-trucks']?.name}
-                  </Link>
-                  <Link to="/catalog/overhead-cranes" className="text-sm text-gray-400 hover:text-white transition-colors">
-                    {t.categories['overhead-gantry']?.name}
-                  </Link>
-                  <Link to="/catalog/agricultural" className="text-sm text-gray-400 hover:text-white transition-colors">
-                    {t.categories['agricultural']?.name}
-                  </Link>
+                  {footerCategories.map((category) => (
+                    <Link
+                      key={category.id}
+                      to={`/catalog?category=${category.id}`}
+                      className="text-sm text-gray-400 hover:text-white transition-colors"
+                    >
+                      {t.categories?.[category.id as keyof typeof t.categories]?.name || category.name}
+                    </Link>
+                  ))}
                 </div>
                 <Link to="/catalog" className="text-sm text-[#244d85] hover:text-[#fdc15e] transition-colors">
                   {t.footer.viewAll}
@@ -214,6 +214,9 @@ export default function Footer() {
             © {new Date().getFullYear()} KRANTAS Group. {t.footer.rights}
           </p>
           <div className="flex items-center gap-6">
+            <Link to="/admin" className="text-xs text-gray-500 hover:text-gray-400 transition-colors">
+              Admin
+            </Link>
             <a href="#" className="text-xs text-gray-500 hover:text-gray-400 transition-colors">
               {t.footer.privacy}
             </a>

@@ -113,7 +113,7 @@ export default function Products() {
                         <div className="relative h-[320px] lg:h-[400px] rounded-sm overflow-hidden shadow-2xl order-1 lg:order-2">
                             <div
                                 className="absolute inset-0 bg-cover bg-center"
-                                style={{ backgroundImage: 'url(/prod_catalog.jpg)' }}
+                                style={{ backgroundImage: 'url(/cover_le.jpg)' }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-br from-[#244d85]/20 to-transparent" />
                         </div>

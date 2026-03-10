@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ChevronRight, MapPin, Briefcase, Clock, X, Send } from 'lucide-react';
 import { toast } from 'sonner';
 import { useLanguage } from '../contexts/LanguageContext';
+import TeamMemberStoryCards from '../components/TeamMemberStoryCards';
 
 export default function Careers() {
   const { t } = useLanguage();
@@ -64,27 +65,6 @@ export default function Careers() {
     },
   ];
 
-  const teamMembers = [
-    {
-      name: t.careers.teamMembers.sergey.name,
-      role: t.careers.teamMembers.sergey.role,
-      story: t.careers.teamMembers.sergey.story,
-      image: '/Konstantinovich.jpeg',
-    },
-    {
-      name: t.careers.teamMembers.komil.name,
-      role: t.careers.teamMembers.komil.role,
-      story: t.careers.teamMembers.komil.story,
-      image: '/komil.png',
-    },
-    {
-      name: t.careers.teamMembers.elvira.name,
-      role: t.careers.teamMembers.elvira.role,
-      story: t.careers.teamMembers.elvira.story,
-      image: '/elvira.png',
-    },
-  ];
-
   const handleApply = (job: any) => {
     setSelectedJob(job);
     setShowApplication(true);
@@ -107,14 +87,14 @@ export default function Careers() {
           <section className="pt-12 lg:pt-16 pb-10 lg:pb-14">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <div>
+                <div className="order-2 lg:order-1">
                   <img
                     src="/work.jpeg"
                     alt="Krantas Workplace"
                     className="w-full h-[240px] lg:h-[300px] object-cover"
                   />
                 </div>
-                <div>
+                <div className="order-1 lg:order-2">
                   <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6">
                     {t.careers.whyWork}
                   </h2>
@@ -136,24 +116,7 @@ export default function Careers() {
                 </h2>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
-                {teamMembers.map((member, index) => (
-                  <div key={index} className="bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all">
-                    <div className="h-[179px] lg:h-64 overflow-hidden">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h4 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-1">{member.name}</h4>
-                      <p className="text-base text-[#244d85] mb-3">{member.role}</p>
-                      <p className="text-base text-gray-500">{member.story}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <TeamMemberStoryCards />
             </div>
           </section>
 

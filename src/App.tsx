@@ -1,50 +1,85 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { Toaster } from 'sonner';
-import { LanguageProvider } from './contexts/LanguageContext';
 import CookieConsent from './components/CookieConsent';
-import SecurityOverlay from './components/SecurityOverlay';
-import Navigation from './components/Navigation';
-import GlobalBanner from './components/GlobalBanner';
-import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop';
 import FloatingActions from './components/FloatingActions';
-import Home from './pages/Home';
+import Footer from './components/Footer';
+import GlobalBanner from './components/GlobalBanner';
+import ImageProtection from './components/ImageProtection';
+import Navigation from './components/Navigation';
+import ScrollToTop from './components/ScrollToTop';
+import SecurityOverlay from './components/SecurityOverlay';
+import SeoManager from './components/SeoManager';
+import { CmsProvider } from './contexts/CmsContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import About from './pages/About';
-import Products from './pages/Products';
+import AdminPanel from './pages/AdminPanel';
+import Careers from './pages/Careers';
 import Catalog from './pages/Catalog';
+import Contacts from './pages/Contacts';
+import CustomSolutions from './pages/CustomSolutions';
+import FindDealer from './pages/FindDealer';
+import Home from './pages/Home';
+import News from './pages/News';
 import ProductDetail from './pages/ProductDetail';
-import { Navigate, useParams } from 'react-router-dom';
+import Products from './pages/Products';
+import Services from './pages/Services';
 
-// Redirects /catalog/:categoryId → /catalog?category=:categoryId
 function CategoryRedirect() {
   const { categoryId } = useParams<{ categoryId: string }>();
   return <Navigate to={`/catalog?category=${categoryId}`} replace />;
 }
-import CustomSolutions from './pages/CustomSolutions';
-import Services from './pages/Services';
-import News from './pages/News';
-import Careers from './pages/Careers';
-import Contacts from './pages/Contacts';
-import FindDealer from './pages/FindDealer';
 
-function AppContent({ isMobileMenuOpen, setIsMobileMenuOpen }: {
+function AppContent({
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
+}: {
   isMobileMenuOpen: boolean;
-  setIsMobileMenuOpen: (val: boolean) => void
+  setIsMobileMenuOpen: (val: boolean) => void;
 }) {
   const location = useLocation();
   const isFindDealer = location.pathname === '/find-dealer';
+  const isAdmin = location.pathname.startsWith('/admin');
+  const isFixedViewportRoute = isFindDealer || isAdmin;
 
   return (
-    <div className="min-h-[100dvh] w-full bg-white flex flex-col supports-[min-height:100dvh]:min-h-[100dvh] lg:pt-0">
+      <div
+        className={`w-full flex flex-col lg:pt-0 ${
+          isFixedViewportRoute
+            ? 'h-[100dvh] overflow-hidden'
+            : 'min-h-[100dvh] supports-[min-height:100dvh]:min-h-[100dvh]'
+        } ${
+          'bg-white'
+        }`}
+      >
       <ScrollToTop />
-      <Navigation
-        isMobileMenuOpen={isMobileMenuOpen}
-        setIsMobileMenuOpen={setIsMobileMenuOpen}
-      />
-      <GlobalBanner />
-      <main className="flex-1 flex flex-col w-full">
+      <SeoManager />
+      {!isAdmin && <ImageProtection />}
+      {!isAdmin && (
+        <Navigation
+          isMobileMenuOpen={isMobileMenuOpen}
+          setIsMobileMenuOpen={setIsMobileMenuOpen}
+        />
+      )}
+      {!isAdmin && <GlobalBanner />}
+      <main
+        className={
+          isFindDealer
+            ? 'flex-1 min-h-0 w-full overflow-hidden pt-[calc(4rem+env(safe-area-inset-top))] lg:pt-[60px]'
+            : isAdmin
+              ? 'flex flex-1 min-h-0 w-full overflow-hidden'
+              : 'flex-1 flex flex-col w-full'
+        }
+      >
         <Routes>
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
@@ -59,10 +94,10 @@ function AppContent({ isMobileMenuOpen, setIsMobileMenuOpen }: {
           <Route path="/find-dealer" element={<FindDealer />} />
         </Routes>
       </main>
-      {!isFindDealer && <Footer />}
-      {!isMobileMenuOpen && <FloatingActions />}
+      {!isAdmin && !isFindDealer && <Footer />}
+      {!isAdmin && !isFindDealer && !isMobileMenuOpen && <FloatingActions />}
       <SecurityOverlay />
-      <CookieConsent />
+      {!isAdmin && <CookieConsent />}
       <Toaster
         position="bottom-right"
         toastOptions={{
@@ -81,14 +116,16 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <LanguageProvider>
-      <Router>
-        <AppContent
-          isMobileMenuOpen={isMobileMenuOpen}
-          setIsMobileMenuOpen={setIsMobileMenuOpen}
-        />
-      </Router>
-    </LanguageProvider>
+    <CmsProvider>
+      <LanguageProvider>
+        <Router>
+          <AppContent
+            isMobileMenuOpen={isMobileMenuOpen}
+            setIsMobileMenuOpen={setIsMobileMenuOpen}
+          />
+        </Router>
+      </LanguageProvider>
+    </CmsProvider>
   );
 }
 

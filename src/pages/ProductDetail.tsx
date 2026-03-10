@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, ArrowLeft, Download, Check, X } from 'lucide-react';
-import { getProductById } from '../data/products';
 import { toast } from 'sonner';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
+import { resolveMediaInputUrl } from '../lib/media';
 export default function ProductDetail() {
   const { t } = useLanguage();
+  const { getProductById } = useCms();
   const { productId } = useParams<{ productId: string }>();
   const [showForm, setShowForm] = useState(false);
   const product = getProductById(productId || '');
@@ -58,7 +60,7 @@ export default function ProductDetail() {
               {/* Image */}
               <div className="bg-white p-4 shadow-sm border border-gray-100">
                 <img
-                  src={product.image}
+                  src={resolveMediaInputUrl(product.image)}
                   alt={product.name}
                   className="w-full h-auto object-contain"
                 />

@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 
 /**
  * GlobalBanner Component
@@ -14,6 +15,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 export default function GlobalBanner() {
     const location = useLocation();
     const { t } = useLanguage();
+    const { getCategoryById, getProductById } = useCms();
 
     // Root homepage and full-screen app pages do not show this banner
     if (location.pathname === '/' || location.pathname === '/find-dealer') return null;
@@ -21,11 +23,19 @@ export default function GlobalBanner() {
     // Map current route to localized content
     const getPageData = () => {
         const path = location.pathname;
+        const params = new URLSearchParams(location.search);
+        const categoryId = params.get('category') || path.split('/').pop() || '';
 
         // Exact matches
         if (path === '/about') return { title: t.about.heroTitle, desc: t.about.heroIntro };
         if (path === '/products') return { title: t.productsPage.title, desc: t.productsPage.heroIntro };
-        if (path === '/catalog') return { title: t.catalog.title, desc: t.catalog.heroIntro };
+        if (path === '/catalog') {
+            const categoryName =
+                (categoryId && t.categories?.[categoryId as keyof typeof t.categories]?.name) ||
+                getCategoryById(categoryId)?.name ||
+                t.catalog.title;
+            return { title: categoryId ? categoryName : t.catalog.title, desc: t.catalog.heroIntro };
+        }
         if (path === '/custom-solutions') return { title: t.customSolutionsPage.heroTitle, desc: t.customSolutionsPage.heroIntro };
         if (path === '/services') return { title: t.nav.services, desc: t.production.heading };
         if (path === '/contacts') return { title: t.nav.contacts, desc: t.contacts?.heroIntro || '' };
@@ -34,12 +44,19 @@ export default function GlobalBanner() {
 
         // Dynamic path handling
         if (path.startsWith('/catalog/')) {
-            const categoryId = path.split('/').pop() || '';
-            const categoryName = t.categories?.[categoryId as keyof typeof t.categories]?.name || t.catalog.title;
+            const categoryName =
+                t.categories?.[categoryId as keyof typeof t.categories]?.name ||
+                getCategoryById(categoryId)?.name ||
+                t.catalog.title;
             return { title: categoryName, desc: '' };
         }
         if (path.startsWith('/product/')) {
-            return { title: t.products.title, desc: '' };
+            const productId = path.split('/').pop() || '';
+            const productName =
+                t.productsData?.[productId as keyof typeof t.productsData]?.name ||
+                getProductById(productId)?.name ||
+                t.products.title;
+            return { title: productName, desc: '' };
         }
 
         return { title: 'KRANTAS', desc: '' };
@@ -53,13 +70,13 @@ export default function GlobalBanner() {
 
     return (
         <section
-            className="hero-section w-full relative flex items-center justify-start mt-[64px] lg:mt-[60px] bg-white overflow-hidden"
+            className="hero-section w-full relative flex items-center justify-start mt-[64px] mb-[-3rem] lg:mt-[60px] lg:mb-0 bg-white overflow-hidden"
         >
             {/* Background Image - Defines the section height naturally */}
             <img
                 src="/hero_cover.png"
                 alt="Hero"
-                className="w-full h-auto block z-0 relative drop-shadow-[-10px_10px_30px_rgba(0,0,0,0.45)]"
+                className="w-full h-[180px] object-cover object-top block z-0 relative drop-shadow-[-10px_10px_30px_rgba(0,0,0,0.45)] md:h-auto md:object-fill"
             />
 
             {/* Dark Fade Overlay - Left to Middle focus */}

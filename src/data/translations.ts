@@ -172,7 +172,7 @@ export const translations = {
       title: 'About Us',
       heading: 'From Repair Shop to Industry Leader',
       description: 'Our factory was founded in 1945 as a mechanical repair plant. After the 1966 earthquake, we pivoted to steel construction and lifting equipment. Today, KRANTAS Group is a full-cycle manufacturer with modern CNC machining, welding, plasma/laser cutting, and assembly.',
-      points: ['Full-cycle manufacturing in-house', 'Export to Central Asia and beyond', 'International certifications'],
+      points: ['Full-cycle manufacturing in-house', 'Export to Central Asia and beyond'],
       learnMore: 'Learn More About Us',
     },
     mission: {
@@ -567,23 +567,6 @@ export const translations = {
           requirements: ['Bachelor\'s degree', 'B2B sales experience', 'Communication skills', 'Market knowledge']
         }
       },
-      teamMembers: {
-        sergey: {
-          name: 'Sergey Konstantinovich Petrov',
-          role: 'Deputy Director for Production',
-          story: 'Over 50 years at KRANTAS. Guided the company\'s transformation into a modern manufacturer.'
-        },
-        komil: {
-          name: 'Komil Khaitmatov',
-          role: 'Assembly Technician',
-          story: '45 years at KRANTAS. Master of crane assembly.'
-        },
-        elvira: {
-          name: 'Elvira',
-          role: 'Overhead Crane Operator',
-          story: 'Third-generation at KRANTAS. Operates overhead cranes with precision.'
-        }
-      }
     },
     contacts: {
       title: 'Contact Us',
@@ -1229,7 +1212,7 @@ export const translations = {
       title: 'О Нас',
       heading: 'От Ремонтной Мастерской к Лидеру Отрасли',
       description: 'Наш завод был основан в 1945 году как механический ремонтный завод. После землетрясения 1966 года мы перешли к производству стальных конструкций и подъемного оборудования. Сегодня KRANTAS Group — производитель полного цикла с современным оборудованием.',
-      points: ['Производство полного цикла', 'Экспорт в Центральную Азию', 'Международные сертификаты'],
+      points: ['Производство полного цикла', 'Экспорт в Центральную Азию'],
       learnMore: 'Узнать Больше О Нас',
     },
     mission: {
@@ -1624,23 +1607,6 @@ export const translations = {
           requirements: ['Высшее образование', 'Опыт в B2B продажах', 'Коммуникабельность', 'Знание рынка']
         }
       },
-      teamMembers: {
-        sergey: {
-          name: 'Сергей Петров',
-          role: 'Заместитель Директора по Производству',
-          story: 'Более 50 лет в KRANTAS. Руководил трансформацией завода в современного производителя.'
-        },
-        komil: {
-          name: 'Комил Хаитматов',
-          role: 'Мастер Сборки',
-          story: '45 лет в KRANTAS. Мастер сборки крановой техники.'
-        },
-        elvira: {
-          name: 'Эльвира',
-          role: 'Оператор Мостового Крана',
-          story: 'Третье поколение в KRANTAS. Управляет кранами с высочайшей точностью.'
-        }
-      }
     },
     contacts: {
       title: 'Контакты',
@@ -2298,7 +2264,7 @@ export const translations = {
       title: 'Biz Haqimizda',
       heading: 'Ta\'mirlash Uchastkasidan Sanoat Liderigacha',
       description: 'Zavodimiz 1945-yilda mexanik ta\'mirlash zavodi sifatida tashkil etilgan. 1966-yilgi zilziladan keyin po\'lat konstruktsiyalari va yuk ko\'tarish uskunalari ishlab chiqarishga o\'tdik. Bugun KRANTAS Group zamonaviy uskunalar bilan to\'liq sikl ishlab chiqaruvchi kompaniya.',
-      points: ['To\'liq sikl ishlab chiqarish', 'Markaziy Osiyoga eksport', 'Xalqaro sertifikatlar'],
+      points: ['To\'liq sikl ishlab chiqarish', 'Markaziy Osiyoga eksport'],
       learnMore: 'Biz Haqimizda Ko\'proq',
     },
     mission: {
@@ -2693,23 +2659,6 @@ export const translations = {
           requirements: ['Bakalavr darajasi', 'B2B sotuv tajribasi', 'Muloqot qobiliyatlari', 'Bozor bilimi']
         }
       },
-      teamMembers: {
-        sergey: {
-          name: 'Sergey Konstantinovich Petrov',
-          role: 'Ishlab Chiqarish Bo\'yicha Direktor O\'rinbosari',
-          story: 'KRANTASda 50 yildan ortiq. Kompaniyaning zamonaviy ishlab chiqaruvchiga aylanishiga rahbarlik qilgan.'
-        },
-        komil: {
-          name: 'Komil Xaitmatov',
-          role: 'Yig\'uvchi Texnik',
-          story: '45 yil KRANTASda. 1980 yilda haydovchi bo\'lib boshlagan. 16 dan 60 tonnagacha bo\'lgan kranlarni yig\'ish ustasi.'
-        },
-        elvira: {
-          name: 'Elvira',
-          role: 'Ko\'prikli Kran Operatori',
-          story: 'KRANTAS oilasining uchinchi avlodi. Ishlab chiqarish samaradorligi va xavfsizligiga bevosita ta\'sir qiluvchi operator.'
-        }
-      }
     },
     contacts: {
       title: 'Biz Bilan Bog\'laning',
@@ -3365,7 +3314,7 @@ export const translations = {
       title: 'Über Uns',
       heading: 'Von der Reparaturwerkstatt zum Branchenführer',
       description: 'Unsere Fabrik wurde 1945 als mechanische Reparaturwerkstatt gegründet. Nach dem Erdbeben von 1966 stiegen wir in den Stahlbau und Hebezeugbau ein. Heute ist KRANTAS Group ein Komplettanbieter mit moderner CNC-Bearbeitung, Schweißen, Plasma-/Laserschneiden und Montage.',
-      points: ['Komplettfertigung im Haus', 'Export nach Zentralasien und darüber hinaus', 'Internationale Zertifizierungen'],
+      points: ['Komplettfertigung im Haus', 'Export nach Zentralasien und darüber hinaus'],
       learnMore: 'Erfahren Sie Mehr Über Uns',
     },
     mission: {
@@ -3760,23 +3709,6 @@ export const translations = {
           requirements: ['Bachelor-Abschluss', 'B2B-Vertriebserfahrung', 'Kommunikationsfähigkeiten', 'Marktkenntnisse']
         }
       },
-      teamMembers: {
-        sergey: {
-          name: 'Sergey Konstantinovich Petrov',
-          role: 'Stellvertretender Produktionsleiter',
-          story: 'Über 50 Jahre bei KRANTAS. Leitete die Transformation des Unternehmens.'
-        },
-        komil: {
-          name: 'Komil Khaitmatov',
-          role: 'Montagetechniker',
-          story: '45 Jahre bei KRANTAS. Meister der Kranmontage.'
-        },
-        elvira: {
-          name: 'Elvira',
-          role: 'Kranführerin',
-          story: 'Dritte Generation bei KRANTAS. Bedient Brückenkrane mit Präzision.'
-        }
-      }
     },
     contacts: {
       title: 'Kontaktieren Sie Uns',

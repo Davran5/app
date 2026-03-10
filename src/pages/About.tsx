@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import ContactForm from '../components/ContactForm';
+import TeamMemberStoryCards from '../components/TeamMemberStoryCards';
 import { teamMembers } from '../data/products';
 
 
@@ -70,7 +71,7 @@ export default function About() {
         <section className="pt-12 lg:pt-16 pb-10 lg:pb-14 bg-white relative overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden order-2 lg:order-1">
                 <img
                   src="/hq.jpeg"
                   alt="Krantas Factory History"
@@ -78,7 +79,7 @@ export default function About() {
                 />
                 <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-[#244d85] opacity-20" />
               </div>
-              <div>
+              <div className="order-1 lg:order-2">
                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-8">
                   {t.about.story}
                 </h2>
@@ -112,13 +113,6 @@ export default function About() {
                     if (index !== activeIndex) return null;
                     return (
                       <div key={index} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="w-full aspect-video rounded-lg overflow-hidden shadow-lg mb-6">
-                          <img
-                            src={event.image || "/about_factory.jpg"}
-                            alt={event.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
                         <div>
                           <h3 className="font-display text-2xl font-medium text-[#0B0C0E] mb-3 flex items-center gap-3">
                             <span className="text-[#244d85] text-lg font-mono opacity-60">
@@ -129,6 +123,13 @@ export default function About() {
                           <p className="text-gray-600 leading-relaxed text-sm italic border-l-4 border-[#244d85] pl-4">
                             {event.description}
                           </p>
+                        </div>
+                        <div className="w-full aspect-video rounded-lg overflow-hidden shadow-lg mt-6">
+                          <img
+                            src={event.image || "/about_factory.jpg"}
+                            alt={event.title}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                       </div>
                     );
@@ -263,76 +264,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Sergey */}
-              <div className="bg-white shadow-lg overflow-hidden">
-                <div className="h-[205px] lg:h-64 overflow-hidden">
-                  <img
-                    src="/Konstantinovich.jpeg"
-                    alt="Petrov Sergey Konstantinovich"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-5">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-                    <h3 className="font-display text-xl font-medium text-[#0B0C0E]">
-                      {t.about.teamMemberStories.sergey.name}
-                    </h3>
-                    <p className="text-[#244d85] font-medium text-sm">{t.about.teamMemberStories.sergey.role}</p>
-                  </div>
-                  <p className="text-xs text-gray-600 mb-2">{t.about.teamMemberStories.sergey.years}</p>
-                  <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">
-                    {t.about.teamMemberStories.sergey.text}
-                  </p>
-                </div>
-              </div>
-
-              {/* Komil */}
-              <div className="bg-white shadow-lg overflow-hidden">
-                <div className="h-[205px] lg:h-64 overflow-hidden">
-                  <img
-                    src="/komil.png"
-                    alt="Komil Khaitmatov"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-5">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-                    <h3 className="font-display text-xl font-medium text-[#0B0C0E]">
-                      {t.about.teamMemberStories.komil.name}
-                    </h3>
-                    <p className="text-[#244d85] font-medium text-sm">{t.about.teamMemberStories.komil.role}</p>
-                  </div>
-                  <p className="text-xs text-gray-600 mb-2">{t.about.teamMemberStories.komil.years}</p>
-                  <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">
-                    {t.about.teamMemberStories.komil.text}
-                  </p>
-                </div>
-              </div>
-
-              {/* Elvira */}
-              <div className="bg-white shadow-lg overflow-hidden">
-                <div className="h-[205px] lg:h-64 overflow-hidden">
-                  <img
-                    src="/elvira.png"
-                    alt="Elvira"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-5">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-                    <h3 className="font-display text-xl font-medium text-[#0B0C0E]">
-                      {t.about.teamMemberStories.elvira.name}
-                    </h3>
-                    <p className="text-[#244d85] font-medium text-sm">{t.about.teamMemberStories.elvira.role}</p>
-                  </div>
-                  <p className="text-xs text-gray-600 mb-2">{t.about.teamMemberStories.elvira.years}</p>
-                  <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">
-                    {t.about.teamMemberStories.elvira.text}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <TeamMemberStoryCards />
 
             <div className="text-center mt-7">
               <Link
@@ -487,8 +419,8 @@ export default function About() {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
               {teamMembers.map((member) => (
-                <div key={member.id} className="group bg-gray-50 pb-4 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative mb-3 overflow-hidden aspect-[16/9] lg:aspect-[3/2]">
+                <div key={member.id} className="group bg-gray-50 pb-4 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+                  <div className="order-2 lg:order-1 relative mt-3 lg:mt-0 overflow-hidden aspect-[16/9] lg:aspect-[3/2]">
                     <img
                       src={member.image}
                       alt={member.name}
@@ -496,7 +428,7 @@ export default function About() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <div className="px-3 lg:px-6">
+                  <div className="order-1 lg:order-2 px-3 pt-4 lg:px-6 lg:pt-0">
                     <h3 className="font-display text-lg lg:text-xl font-semibold text-[#0B0C0E] mb-1 whitespace-nowrap truncate">
                       {member.name}
                     </h3>

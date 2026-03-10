@@ -4,6 +4,7 @@ import { ChevronRight, ArrowLeft, X } from 'lucide-react';
 import { getCategoryById, getProductsByCategory, categories } from '../data/products';
 import ContactForm from '../components/ContactForm';
 import { useLanguage } from '../contexts/LanguageContext';
+import { resolveMediaInputUrl } from '../lib/media';
 
 export default function CategoryPage() {
   const { t } = useLanguage();
@@ -57,7 +58,7 @@ export default function CategoryPage() {
                   >
                     <div className="h-48 overflow-hidden">
                       <img
-                        src={product.image}
+                        src={resolveMediaInputUrl(product.image)}
                         alt={product.name}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />

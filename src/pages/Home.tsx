@@ -1,9 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronRight, ChevronLeft, Check, X } from 'lucide-react';
-import { products, categories } from '../data/products';
+import {
+  ArrowRight,
+  ChevronRight,
+  ChevronLeft,
+  Check,
+  X,
+  Compass,
+  Factory,
+  Wrench,
+} from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
+import { resolveMediaInputUrl } from '../lib/media';
 
 // Internal CountUp component
 function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
@@ -52,8 +62,8 @@ function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
 
 export default function Home() {
   const { t } = useLanguage();
+  const { products, categories } = useCms();
   const [showForm, setShowForm] = useState(false);
-  const introRef = useRef<HTMLDivElement>(null);
   const [introVisible, setIntroVisible] = useState(false);
 
   useEffect(() => {
@@ -65,22 +75,25 @@ export default function Home() {
     {
       title: t.intro.fleetRecovery,
       desc: t.intro.fleetRecoveryDesc,
+      icon: Wrench,
     },
     {
       title: t.intro.fabrication,
       desc: t.intro.fabricationDesc,
+      icon: Factory,
     },
     {
       title: t.intro.advisory,
       desc: t.intro.advisoryDesc,
+      icon: Compass,
     },
   ];
 
   return (
-    <div className="w-full flex-1 flex flex-col">
+      <div className="w-full flex-1 flex flex-col">
       {/* Hero Section */}
-      <div className="relative h-[100svh] w-full z-0">
-        <section className="sticky top-0 left-0 h-[100svh] w-full flex items-end overflow-hidden bg-black">
+      <div className="relative h-[42svh] md:h-[100svh] w-full z-0">
+        <section className="sticky top-0 left-0 h-[42svh] md:h-[100svh] w-full flex items-end overflow-hidden bg-black">
           {/* Background Video */}
           <div className="absolute inset-0 z-0">
             <video
@@ -88,6 +101,10 @@ export default function Home() {
               muted
               loop
               playsInline
+              disablePictureInPicture
+              disableRemotePlayback
+              draggable={false}
+              onContextMenu={(event) => event.preventDefault()}
               className="w-full h-full object-cover opacity-75 md:opacity-100"
             >
               <source src="/herovid.mp4" type="video/mp4" />
@@ -118,45 +135,9 @@ export default function Home() {
       <div className="relative z-10 bg-white w-full flex-1 flex flex-col shadow-[0_-15px_30px_rgba(0,0,0,0.15)]">
 
 
-        {/* Intro Animation Section - White Background */}
-        <section ref={introRef} className="pt-16 lg:pt-14 pb-10 lg:pb-14 bg-white overflow-hidden">
-          <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className={`max-w-4xl mx-auto text-left md:text-center mb-16 transition-all duration-1000 ${introVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6">
-                {t.intro.welcomeTitle}
-              </h2>
-              <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl md:mx-auto">
-                {t.intro.welcomeDesc}
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {introItems.map((item, index) => (
-                <div
-                  key={index}
-                  className={`transform transition-all duration-1000 ${introVisible
-                    ? 'translate-y-0 opacity-100'
-                    : 'translate-y-20 opacity-0'
-                    }`}
-                  style={{ transitionDelay: `${index * 200}ms` }}
-                >
-                  <div className="border-l-2 border-[#244d85] pl-5">
-                    <h3 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-3">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed text-base">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
         {/* About Us Section */}
         <div className="py-10 lg:py-14">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            {/* Mobile Title - Only visible on small screens */}
             <div className="lg:hidden border-l-4 border-[#244d85] pl-6 mb-8">
               <h2 className="font-display text-3xl font-semibold text-[#0B0C0E]">
                 {t.aboutHome.heading}
@@ -199,6 +180,49 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Intro Section */}
+        <section className="bg-gray-50 py-10 lg:py-14 border-b border-gray-100">
+          <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div
+              className={`transition-all duration-700 ${
+                introVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+              }`}
+            >
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {introItems.map((item, index) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <div
+                      key={item.title}
+                      className={`transform transition-all duration-1000 ${
+                        introVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                      }`}
+                      style={{ transitionDelay: `${100 + index * 120}ms` }}
+                    >
+                      <div className="h-full border border-gray-200 bg-white px-5 py-5 shadow-sm transition-all duration-300 hover:border-[#244d85]/25 hover:shadow-md md:px-6 md:py-6">
+                        <div className="flex items-start gap-4">
+                          <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center bg-[#244d85]/10 text-[#244d85]">
+                            <Icon size={19} />
+                          </div>
+                          <div className="min-w-0">
+                            <h3 className="font-display text-xl md:text-2xl font-semibold text-[#0B0C0E] leading-tight">
+                              {item.title}
+                            </h3>
+                          </div>
+                        </div>
+                        <p className="mt-4 text-sm leading-7 text-gray-600 md:text-[15px]">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Stats Section */}
         <div className="py-6 lg:py-10 bg-white border-b border-gray-100">
@@ -298,7 +322,7 @@ export default function Home() {
                   >
                     <div className="relative h-48 overflow-hidden">
                       <img
-                        src={catImage}
+                        src={resolveMediaInputUrl(catImage)}
                         alt={catName}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
@@ -474,7 +498,7 @@ export default function Home() {
                           {/* Product Image - Clean */}
                           <div className="relative w-1/2 overflow-hidden bg-gray-50 rounded-l-lg flex-shrink-0">
                             <img
-                              src={categoryProduct.image}
+                              src={resolveMediaInputUrl(categoryProduct.image)}
                               alt={t.productsData?.[categoryProduct.id as keyof typeof t.productsData]?.name || categoryProduct.name}
                               loading="lazy"
                               draggable={false}

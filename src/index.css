@@ -94,6 +94,18 @@
     pointer-events: auto;
   }
 
+  body.image-protection-active img {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  body.image-protection-active video {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   h1 {
     font-family: 'Montreal', sans-serif;
     font-weight: 600;

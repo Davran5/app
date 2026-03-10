@@ -20,7 +20,7 @@ export default function Services() {
         t.services.items.afterSales.stages.parts,
         t.services.items.afterSales.stages.support,
       ],
-      image: '/careers_welder.jpg'
+      image: '/welding.jpeg'
     },
     {
       id: 2,
@@ -46,7 +46,7 @@ export default function Services() {
         t.services.items.localization.stages.integration,
         t.services.items.localization.stages.training,
       ],
-      image: '/production_aerial.jpg'
+      image: '/assembly_line.jpeg'
     },
     {
       id: 4,
@@ -72,7 +72,7 @@ export default function Services() {
         t.services.items.engineering.stages.prototyping,
         t.services.items.engineering.stages.implementation,
       ],
-      image: '/product_crane.jpg'
+      image: '/products/LE Truck-Mounted Crane, 25 t.jpeg'
     },
   ];
 

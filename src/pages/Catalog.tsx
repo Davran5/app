@@ -1,22 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, X } from 'lucide-react';
-import { categories, products } from '../data/products';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
+import { resolveMediaInputUrl } from '../lib/media';
 
 export default function Catalog() {
   const { t } = useLanguage();
+  const { categories, products } = useCms();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showForm, setShowForm] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(
-    searchParams.get('category') || null
-  );
   const productGridRef = useRef<HTMLDivElement>(null);
   const mobileScrollRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+  const selectedCategory = searchParams.get('category');
 
   const handleScrollIndicators = () => {
     if (mobileScrollRef.current) {
@@ -34,12 +34,6 @@ export default function Catalog() {
       return () => el.removeEventListener('scroll', handleScrollIndicators);
     }
   }, []);
-
-  // Sync filter when URL query param changes (e.g. browser back/forward)
-  useEffect(() => {
-    const cat = searchParams.get('category');
-    setSelectedCategory(cat || null);
-  }, [searchParams]);
 
   // Update URL when user clicks a filter button
   const handleCategorySelect = (catId: string | null) => {
@@ -162,7 +156,7 @@ export default function Catalog() {
                   </div>
 
                   <button
-                    onClick={() => setSelectedCategory(null)}
+                    onClick={() => handleCategorySelect(null)}
                     className={`w-full mt-3 py-2 text-left transition-all duration-300 transform origin-left text-sm ${selectedCategory === null
                       ? 'text-[#244d85] font-medium scale-[1.25] translate-x-2'
                       : 'text-gray-500 hover:text-[#244d85]'
@@ -203,7 +197,7 @@ export default function Catalog() {
                         {/* Product Image - Clean, no overlays */}
                         <div className="relative w-1/2 md:w-full md:aspect-[2/1] overflow-hidden bg-gray-50 md:rounded-t-lg flex-shrink-0">
                           <img
-                            src={product.image}
+                            src={resolveMediaInputUrl(product.image)}
                             alt={t.productsData?.[product.id as keyof typeof t.productsData]?.name || product.name}
                             loading="lazy"
                             className="w-full h-full object-contain p-2 md:p-4 transition-transform duration-300 group-hover:scale-105"

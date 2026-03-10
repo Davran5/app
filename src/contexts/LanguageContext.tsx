@@ -1,5 +1,7 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
 import { type Language, getTranslation } from '../data/translations';
+import { useCms } from './CmsContext';
+import { applyTranslationOverrides } from '../lib/cms';
 
 interface LanguageContextType {
   language: Language;
@@ -31,14 +33,18 @@ const detectInitialLanguage = (): Language => {
     if (cisTimezones.some(tz => timezone.includes(tz)) || browserLang.startsWith('ru')) return 'ru';
 
     return 'en';
-  } catch (e) {
+  } catch {
     return 'en';
   }
 };
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
+  const { translationOverrides } = useCms();
   const [language, setLanguage] = useState<Language>(detectInitialLanguage());
-  const t = getTranslation(language);
+  const t = useMemo(
+    () => applyTranslationOverrides(getTranslation(language), translationOverrides[language]),
+    [language, translationOverrides],
+  );
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
@@ -47,6 +53,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (context === undefined) {
