@@ -53,7 +53,7 @@ export default function Distributors() {
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
   const [hoveredLocationId, setHoveredLocationId] = useState<string | null>(null);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
-  const [centerOn, setCenterOn] = useState<{ lat: number; lng: number } | null>(null);
+  const [focusedLocationId, setFocusedLocationId] = useState<string | null>(null);
   const [tab, setTab] = useState<FilterTab>('all');
   const [expandedLocationId, setExpandedLocationId] = useState<string | null>(null);
   const [isLocating, setIsLocating] = useState(false);
@@ -96,6 +96,9 @@ export default function Distributors() {
 
   const selectedLocation =
     processedLocations.find((location) => location.id === selectedLocationId) ?? null;
+  const focusedLocation =
+    processedLocations.find((location) => location.id === focusedLocationId) ??
+    (userLocation ? processedLocations[0] ?? null : null);
 
   const handleLocationSelect = (
     location: DistributorLocation,
@@ -105,7 +108,9 @@ export default function Distributors() {
 
     setSelectedLocationId(location.id);
     setExpandedLocationId(location.id);
-    setCenterOn(focusMap ? { ...location.coords } : null);
+    if (focusMap) {
+      setFocusedLocationId(location.id);
+    }
     setLocationError(null);
 
     if (scrollCard) {
@@ -119,6 +124,8 @@ export default function Distributors() {
   const handleFindNearest = () => {
     if (userLocation && !isLocating) {
       setUserLocation(null);
+      setSelectedLocationId(null);
+      setFocusedLocationId(null);
       setLocationError(null);
       return;
     }
@@ -172,7 +179,6 @@ export default function Distributors() {
 
   const handleClearSelection = () => {
     setSelectedLocationId(null);
-    setCenterOn(null);
   };
 
   return (
@@ -184,7 +190,7 @@ export default function Distributors() {
               locations={processedLocations}
               activeLocationId={selectedLocation?.id ?? null}
               hoveredLocationId={hoveredLocationId}
-              centerOn={selectedLocation ? centerOn : null}
+              centerOn={focusedLocation ? { ...focusedLocation.coords } : null}
               onLocationClick={(location) =>
                 handleLocationSelect(location, { focusMap: false, scrollCard: true })
               }

@@ -53,9 +53,11 @@ export default function CustomSolutions() {
                 <p className="text-lg text-gray-600 leading-relaxed mb-6">
                   {t.customSolutionsPage.intro.desc1}
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                  {t.customSolutionsPage.intro.desc2}
-                </p>
+                {t.customSolutionsPage.intro.desc2 && (
+                  <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                    {t.customSolutionsPage.intro.desc2}
+                  </p>
+                )}
                 <div className="flex items-center gap-8">
                   <div>
                     <div className="text-4xl font-display font-bold text-[#244d85]">500+</div>
@@ -111,9 +113,11 @@ export default function CustomSolutions() {
               <h2 className="font-display text-3xl md:text-4xl lg:text-6xl font-semibold text-[#0B0C0E] mb-6">
                 {t.customSolutionsPage.capabilities.title}
               </h2>
-              <p className="text-base md:text-xl text-gray-600 max-w-3xl md:mx-auto">
-                {t.customSolutionsPage.capabilities.subtitle}
-              </p>
+              {t.customSolutionsPage.capabilities.subtitle && (
+                <p className="text-base md:text-xl text-gray-600 max-w-3xl md:mx-auto">
+                  {t.customSolutionsPage.capabilities.subtitle}
+                </p>
+              )}
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">

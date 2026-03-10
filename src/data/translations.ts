@@ -64,8 +64,8 @@ export const translations = {
       heroIntro: 'Bespoke engineering solutions tailored to your unique operational requirements. We transform complex visions into reliable industrial reality.',
       intro: {
         title: 'Your Vision,\nOur Expertise',
-        desc1: "For over 75 years, we've partnered with industries worldwide to develop custom machinery that pushes the boundaries of what's possible in heavy equipment manufacturing.",
-        desc2: 'From initial consultation through design, prototyping, and production, our engineering team delivers solutions that exceed expectations and stand the test of time.',
+        desc1: "For over 75 years, we've partnered with industries worldwide to develop custom machinery that pushes the boundaries of what's possible in heavy equipment manufacturing. From initial consultation through design, prototyping, and production, our engineering team delivers solutions that exceed expectations and stand the test of time.",
+        desc2: '',
         stats: {
           projects: 'Custom Projects',
           experience: 'Years Experience',
@@ -77,7 +77,7 @@ export const translations = {
       },
       capabilities: {
         title: 'Customization Capabilities',
-        subtitle: 'Comprehensive engineering and fabrication services tailored to your specifications',
+        subtitle: '',
         items: {
           chassis: {
             title: 'Chassis Modification',
@@ -111,7 +111,7 @@ export const translations = {
           },
           containers: {
             title: 'Non-Standard Containers',
-            description: 'Custom container fabrication for specialized cargo, including insulated tanks, pressure vessels, and unique geometric configurations.',
+            description: 'Custom container fabrication for specialized cargo, insulated tanks, pressure vessels, and unique geometric configurations fit for purpose.',
             capabilities: [
               'Pressure vessel fabrication',
               'Insulated tank systems',
@@ -123,7 +123,7 @@ export const translations = {
       },
       production: {
         title: 'Our Production Backbone',
-        subtitle: 'Advanced equipment and experienced specialists enable us to handle projects of any complexity',
+        subtitle: 'Vastly experienced specialists and advanced equipment enable us to handle projects of any complexity',
         items: {
           manufacturing: { title: 'Manufacturing Floor', desc: '15,000m² production facility' },
           cnc: { title: 'CNC Machining', desc: '±0.01mm precision' },
@@ -162,29 +162,29 @@ export const translations = {
       welcomeTitle: 'Welcome to KRANTAS Group',
       welcomeDesc: 'A legacy of engineering excellence since 1945. We design and manufacture high-performance industrial vehicles, cranes, and specialized equipment tailored for the most demanding environments.',
       fleetRecovery: 'Comprehensive Fleet Recovery',
-      fleetRecoveryDesc: 'Specializing in the complex restoration of trucks and heavy-duty cranes. Our facility handles everything from intricate milling and grinding to full-scale locksmith works.',
+      fleetRecoveryDesc: 'We specialize in the intricate restoration of trucks and heavy-duty cranes. Our facility manages everything from precise milling and grinding to full-scale locksmith works.',
       fabrication: 'Advanced Fabrication Standards',
-      fabricationDesc: 'We leverage a suite of modern technologies—including plasma cutting and CNC machining—to deliver structural integrity that exceeds industry standards.',
+      fabricationDesc: 'We adhere to advanced fabrication standards, using modern technologies like plasma cutting and CNC machining to ensure our structures meet the highest industry demands.',
       advisory: 'Strategic Equipment Advisory',
-      advisoryDesc: 'Minimize downtime with the right hardware. Our specialists provide deep-dive technical support to ensure your equipment matches your operational demands perfectly.',
+      advisoryDesc: 'Reduce downtime with the right hardware. Our specialists offer in-depth technical support to make sure your equipment perfectly aligns with your operational needs.',
     },
     aboutHome: {
       title: 'About Us',
-      heading: 'From Repair Shop to Industry Leader',
-      description: 'Our factory was founded in 1945 as a mechanical repair plant. After the 1966 earthquake, we pivoted to steel construction and lifting equipment. Today, KRANTAS Group is a full-cycle manufacturer with modern CNC machining, welding, plasma/laser cutting, and assembly.',
+      heading: 'From Humble Repair Shop To Industry Leader',
+      description: 'Our factory was founded in 1945 as a mechanical repair plant. After the 1966 earthquake, we set our focus to steel construction and producing lifting equipment. Today, KRANTAS Group is a full-cycle vehicle manufacturer with modern CNC machining, welding, plasma/laser cutting, and assembly.',
       points: ['Full-cycle manufacturing in-house', 'Export to Central Asia and beyond'],
       learnMore: 'Learn More About Us',
     },
     mission: {
       title: 'Our Mission',
       heading: 'Localization That Strengthens Industry',
-      description: 'We are building Uzbekistan\'s industrial independence by creating a network where national enterprises lead together. It\'s about more than business—it\'s about delivering local alternatives that outperform imports and finally cutting the cord on foreign dependence. We don\'t just supply parts; we partner with you to make your entire operation leaner and more profitable.',
+      description: 'We are contributing to Uzbekistan\'s industrial independence by creating a network where national enterprises lead together. It\'s about more than business - it\'s about delivering local alternatives that level imports and help build true local independence. We don\'t just supply parts; we partner with you to make your entire operation leaner and more profitable.',
       qualityFirst: 'Quality First',
-      qualityFirstDesc: 'International standards are our baseline, not an afterthought. We\'ve built a culture where precision is the only instinct because in this industry, there is no room for "close enough."',
+      qualityFirstDesc: 'International standards are our baseline, not an afterthought. We\'ve built a culture where precision is the only instinct, because "close enough" is never good enough for us.',
       localProduction: 'Local Production',
-      localProductionDesc: 'We are the engine behind the "Made in Uzbekistan" seal. By keeping production here, we offer a level of reliability and rapid response that is hard to match.',
+      localProductionDesc: 'We are a strong engine behind "Made in Uzbekistan". By operating from local facilities, we offer reliability and rapid response that are hard to match.',
       globalStandards: 'Global Standards',
-      globalStandardsDesc: 'We bridge the gap between local craftsmanship and high-quality engineering. You get the proximity of a local partner paired with the technical power of an advanced manufacturer.',
+      globalStandardsDesc: 'With deep local craftsmanship and high-quality engineering, we benchmark ourselves against the technical capabilities of international manufacturers.',
     },
     equipment: {
       title: 'Equipment Solutions',
@@ -204,7 +204,7 @@ export const translations = {
     production: {
       title: 'Production',
       heading: 'Full-Cycle Manufacturing',
-      description: 'Design → tooling → metal structures → assembly → testing → certification. All in-house with modern CNC machining, plasma/laser cutting, and automated welding.',
+      description: 'Design → tooling → metal structures → assembly → testing → certification. All operations in-house, with modern CNC machining, plasma/laser cutting, and automated welding.',
       modeling: '3D Modeling & Engineering',
       modelingDesc: 'Complete design and detailing using advanced CAD software for precision manufacturing.',
       cnc: 'CNC Machining',
@@ -220,7 +220,7 @@ export const translations = {
     },
     cta: {
       title: 'Ready to Discuss Your Project?',
-      description: 'Our specialists will help you choose the right equipment for your needs and provide a detailed quotation.',
+      description: 'Our specialists are at your disposal to choose the right equipment for your needs and provide a detailed technical guideline and quotation.',
       button: 'Get in Touch',
     },
     footer: {
@@ -273,9 +273,9 @@ export const translations = {
       heading: 'Comprehensive Support',
       welcomeTitle: 'Our Services',
       heroIntro: 'Comprehensive support for your industrial fleet. From expert maintenance and original parts to custom engineering and technical project support.',
-      introHeadline: 'Built for the Long Haul. \nBacked for a Lifetime.',
-      introP1: 'We know that in your world, there is no room for excuses. That’s why we’ve built a support structure as rugged as our machinery.',
-      introP2: 'When you choose Krantas, you aren\'t just buying an industrial asset; you’re gaining a dedicated team that stands behind every kilometer and every lift.',
+      introHeadline: 'Built to last the journey. \nBacked for a lifetime.',
+      introP1: 'We know that in your world, there is no room for excuses. That is why we have built a support structure as rugged as our machinery.',
+      introP2: 'Choosing KRANTAS is not just about buying an industrial asset. It is about gaining a dedicated team that stays with you through every kilometer and every lift.',
       stats: {
         centers: 'Service Centers',
         parts: 'Spare Parts',
@@ -290,43 +290,43 @@ export const translations = {
           shortTitle: 'Service',
           description: 'Technical maintenance, warranty, spare parts and dedicated support throughout the product lifecycle. Our service centers are equipped with advanced diagnostic tools to ensure your fleet remains operational in the most demanding environments. We provide rapid response teams for on-site repairs and maintain a comprehensive inventory of genuine components to minimize downtime.',
           stages: {
-            maintenance: { name: 'Maintenance', desc: 'Regular service' },
-            repairs: { name: 'Repairs', desc: 'Quick and reliable' },
-            parts: { name: 'Parts', desc: 'Original spare parts' },
-            support: { name: 'Support', desc: '24/7 assistance' }
+            maintenance: { name: 'Regular Maintenance', desc: 'Service' },
+            repairs: { name: 'Fast Response', desc: 'Emergency repair' },
+            parts: { name: 'Genuine Spare Parts', desc: 'Original components' },
+            support: { name: '24/7 Assistance', desc: 'Dedicated support' }
           }
         },
         quality: {
           title: 'Quality Control & Certification',
           shortTitle: 'Quality',
-          description: 'Quality assurance at every production stage and compliance with mandatory certification requirements. Every vehicle undergoes a rigorous multi-point inspection process, including structural stress testing and hydraulic system validation, to meet international safety standards. Our internal laboratories perform material analysis and precision checks to guarantee the longevity and reliability of every unit bearing the Krantas name.',
+          description: 'Quality assurance at every production stage and compliance with mandatory certification requirements. Every vehicle undergoes a rigorous multi-point inspection process, including structural stress testing and hydraulic system validation, to meet international standards. Our internal laboratories perform material analysis and precision checks to guarantee the longevity and reliability of every unit bearing the Krantas name.',
           stages: {
-            inspection: { name: 'Inspection', desc: 'Rigorous control' },
-            testing: { name: 'Testing', desc: 'Performance validation' },
-            certification: { name: 'Certification', desc: 'International standards' },
-            documentation: { name: 'Documentation', desc: 'Full documentation' }
+            inspection: { name: 'Stringent Controls', desc: 'Rigorous inspections' },
+            testing: { name: 'Validated Performance', desc: 'Stress and hydraulic testing' },
+            certification: { name: 'International Certification', desc: 'Standards compliance' },
+            documentation: { name: 'Full Documentation', desc: 'Complete records' }
           }
         },
         localization: {
           title: 'Localization & Integration',
           shortTitle: 'Localization',
-          description: 'Support for industrial localization projects and technology transfer for regional markets. We bridge the gap between global engineering excellence and local manufacturing capabilities, helping partners establish robust production lines within the region. Our team provides end-to-end consultancy on supply chain optimization and technical documentation adaptation to ensure seamless integration into local industrial ecosystems.',
+          description: 'Support for local industrial projects and technology transfer for regional markets. We bridge the gap between global engineering levels and local manufacturing standards, helping partners establish robust production lines within the region. Our team provides end-to-end consultancy on supply chain optimization and technical documentation adaptation to ensure seamless integration into local industrial ecosystems.',
           stages: {
-            analysis: { name: 'Analysis', desc: 'Requirements study' },
-            adaptation: { name: 'Adaptation', desc: 'Product localization' },
-            integration: { name: 'Integration', desc: 'System compatibility' },
-            training: { name: 'Training', desc: 'Knowledge transfer' }
+            analysis: { name: 'Requirement Analysis', desc: 'Project scoping' },
+            adaptation: { name: 'Product Localization', desc: 'Adapted production' },
+            integration: { name: 'System Compatibility', desc: 'Integration planning' },
+            training: { name: 'Know-How Transfer', desc: 'Training' }
           }
         },
         manufacturing: {
           title: 'Manufacturing & Assembly',
           shortTitle: 'Manufacturing',
-          description: 'Serial and project-based production providing a full-cycle platform across all key stages. From raw material processing to final assembly, our 15,000m² facility utilizes high-precision CNC machining and automated welding to deliver consistent structural integrity. We handle the entire manufacturing journey in-house, ensuring that every project—whether a standard unit or a complex industrial complex—is built to exact specifications.',
+          description: 'Serial and project-based production providing a full-cycle platform across all key stages. From raw material processing to final assembly, our 15,000 m² facility uses high-precision CNC machining and automated welding to deliver consistent structural integrity. We handle the entire manufacturing journey in-house, ensuring that every project - whether a standard unit or a complex industrial one-off - is built to exact specifications.',
           stages: {
             design: { name: 'Design', desc: '3D modeling' },
-            fabrication: { name: 'Fabrication', desc: 'Cutting & forming' },
-            assembly: { name: 'Assembly', desc: 'Component integration' },
-            testing: { name: 'Testing', desc: 'Quality validation' }
+            fabrication: { name: 'Cutting & Forming', desc: 'Fabrication' },
+            assembly: { name: 'Component Assembly', desc: 'Integration' },
+            testing: { name: 'Quality Testing', desc: 'Validation' }
           }
         },
         engineering: {
@@ -334,17 +334,17 @@ export const translations = {
           shortTitle: 'Engineering',
           description: 'Bespoke engineering solutions and product adaptation to meet specific operational requirements. Our design bureau utilizes advanced 3D modeling and structural simulation to develop machines that solve unique site-specific challenges. We specialize in transforming complex technical requirements into high-performance industrial assets, offering full structural and mechanical customization for specialized industries.',
           stages: {
-            consulting: { name: 'Consulting', desc: 'Technical expertise' },
-            design: { name: 'Design', desc: 'Custom solutions' },
+            consulting: { name: 'Technical Consulting', desc: 'Expert guidance' },
+            design: { name: 'Customized Solutions', desc: 'Custom engineering' },
             prototyping: { name: 'Prototyping', desc: 'Proof of concept' },
-            implementation: { name: 'Implementation', desc: 'Full-scale rollout' }
+            implementation: { name: 'Full-Scale Rollout', desc: 'Implementation' }
           }
         }
       },
       facilitiesList: {
         warehouse: {
           title: 'Warehouse',
-          description: 'Modern warehouse facilities for spare parts and component management. Over 5,000 sq.m of area.'
+          description: 'Modern 5,000 m² warehouse facilities for spare parts and component management.'
         },
         serviceStation: {
           title: 'Service Station',
@@ -352,7 +352,7 @@ export const translations = {
         },
         spareParts: {
           title: 'Spare Parts Center',
-          description: 'Large stock of original spare parts and fast delivery. Over 10,000 items in stock.'
+          description: 'Large stock of genuine spare parts and fast delivery. Over 10,000 items in stock.'
         }
       },
       inquiryForm: 'Inquiry Form'
@@ -369,8 +369,8 @@ export const translations = {
       storyP2: 'After the devastating 1966 earthquake, the factory was repurposed and began production of steel structures and lifting equipment for civil and industrial construction.',
       storyP3: 'Following Uzbekistan\'s independence and subsequent privatization, a new phase began. We invested in modern technology, expanded our product offerings, and began serving international markets.',
       storyP4: 'Today, KRANTAS Group is a full-cycle manufacturer with modern CNC machining, welding, plasma/laser cutting, and assembly capabilities.',
-      family: 'Family of KRANTAS',
-      familyDesc: 'Generations of dedication. Decades of expertise. The people who make KRANTAS more than a company.',
+      family: 'The KRANTAS Family',
+      familyDesc: 'Generations of dedication. Decades of expertise. The people who form the heart of KRANTAS as a company.',
       familyQuote: '"I have been working at KRANTAS for over 30 years. I have seen this company grow from a small repair shop to a major manufacturer. The pride I feel seeing our equipment working across the country is immeasurable."',
       familyQuoteAuthor: '— Rustam Khasanov, Chief Engineer',
       joinFamily: 'Join Our Family',
@@ -396,22 +396,22 @@ export const translations = {
       ],
       teamMemberStories: {
         sergey: {
-          name: 'Petrov Sergey',
+          name: 'Petrov Sergey Konstantinovich',
           role: 'Deputy Director',
           years: '50+ years with KRANTAS',
-          text: 'From a young specialist in 1972 to leading operations as Deputy Director today. Witnessed KRANTAS transform from experimental plant to modern manufacturer while preserving core values.'
+          text: 'Joining as a young specialist in 1972 and leading operations today as Deputy Director, he witnessed KRANTAS transform from an experimental plant into a modern manufacturer while upholding its core values.'
         },
         komil: {
           name: 'Komil Khaitmatov',
           role: 'Assembly Technician',
           years: '45 years with KRANTAS',
-          text: 'Started as a driver in 1980, grew to master crane assembly. From KamAZ trucks to 60-ton cranes — he\'s been part of every transformation.'
+          text: 'Started as a driver in 1980, grew to master crane assembly. From KamAZ trucks to 60-ton cranes - he has been part of every transformation.'
         },
         elvira: {
           name: 'Elvira',
           role: 'Overhead Crane Operator',
           years: 'Third-generation · 10+ years',
-          text: 'Parents, grandparents, and brothers all worked at KRANTAS. Father: 40 years as painter. Mother: 37 years as crane operator. A legacy of dedication.'
+          text: 'Parents, grandparents, and brothers all worked at KRANTAS. Father: 40 years as a painter. Mother: 37 years as a crane operator. A legacy of dedication.'
         }
       },
       certificatesList: {
@@ -488,8 +488,8 @@ export const translations = {
           excerpt: 'Developed to international standards, our new Armored Personnel Carrier "Arslon" has entered state trials, representing a major milestone in domestic defense manufacturing.'
         },
         7: {
-          title: 'Significant Renovation and Infrastructure Development',
-          excerpt: 'A major $333 million urban development project is proposed for our current Mirzo-Ulugbek location, paving the way for modern residential and social infrastructure.'
+          title: 'Significant Infrastructure Development',
+          excerpt: 'A major $1 billion urban mixed development project is proposed for our former Mirzo-Ulugbek factory site, covering 14 hectares and paving the way for modern residential and social infrastructure.'
         },
         8: {
           title: 'Presidents of Uzbekistan and Tajikistan Inaugurate TALCO-KRANTAS Joint Venture',
@@ -504,7 +504,7 @@ export const translations = {
     careers: {
       title: 'Careers at KRANTAS',
       welcomeTitle: 'Join Our Team',
-      heroIntro: 'Build the next generation of industrial technology with KRANTAS. We invite dedicated professionals to join our engineering and production teams.',
+      heroIntro: 'Be a part of the next generation of industrial technology by joining the KRANTAS Family. We invite dedicated professionals to join our engineering and production teams.',
       subtitle: 'Build the next generation of industrial vehicles. Join a team that values precision, safety, and growth.',
       whyWork: 'Why Work With Us?',
       team: 'Honored Team Members',
@@ -644,7 +644,7 @@ export const translations = {
       hydraulics: 'Hydraulics & Electronics',
       hydraulicsDesc: 'Advanced hydraulic system integration and electronic control systems for precision operation and automation capabilities.',
       containers: 'Non-Standard Containers',
-      containersDesc: 'Custom container fabrication for specialized cargo, including insulated tanks, pressure vessels, and unique geometric configurations.',
+      containersDesc: 'Custom container fabrication for specialized cargo, insulated tanks, pressure vessels, and unique geometric configurations fit for purpose.',
       discussProject: 'Discuss Your Project',
       customProject: 'Have a custom project in mind?',
       customProjectDesc: 'Our engineering team is ready to discuss your unique requirements and develop a tailored solution that fits your operational needs.',
@@ -654,7 +654,7 @@ export const translations = {
     categories: {
       'lifting-equipment': { name: 'Lifting Equipment', description: 'Truck cranes and lifting solutions for construction and industrial applications' },
       'dump-trucks': { name: 'Dump Trucks', description: 'Heavy-duty dump trucks for mining, construction, and material transport' },
-      'special-purpose': { name: 'Special-Purpose Machinery', description: 'Custom-built vehicles for specific industrial and municipal needs' },
+      'special-purpose': { name: 'Special-Purpose Machinery', description: 'Tailor-made vehicles for industrial and municipal challenges' },
       'agricultural': { name: 'Agricultural Machinery', description: 'Tractors, harvesters, and farming equipment for modern agriculture' },
       'tank-trucks': { name: 'Tank Trucks', description: 'Specialized tankers for fuel, water, and chemical transportation' },
       'overhead-gantry': { name: 'Overhead & Gantry Cranes', description: 'Industrial overhead bridge cranes and gantry systems for heavy lifting' },
@@ -1104,8 +1104,8 @@ export const translations = {
       heroIntro: 'Индивидуальные инженерные решения, адаптированные под ваши уникальные задачи. Мы превращаем сложные идеи в надежную промышленную реальность.',
       intro: {
         title: 'Ваше Видение,\nНаш Опыт',
-        desc1: 'Более 75 лет мы сотрудничаем с предприятиями по всему миру, разрабатывая технику, расширяющую границы возможного в тяжелом машиностроении.',
-        desc2: 'От консультации до проектирования и производства — наша команда предлагает решения, превосходящие ожидания.',
+        desc1: 'Более 75 лет мы сотрудничаем с предприятиями по всему миру, разрабатывая специальную технику, расширяющую границы возможного в тяжелом машиностроении. От первичной консультации и проектирования до прототипирования и производства наша инженерная команда создает решения, которые превосходят ожидания и выдерживают испытание временем.',
+        desc2: '',
         stats: {
           projects: 'Спецпроектов',
           experience: 'Лет Опыта',
@@ -1113,15 +1113,15 @@ export const translations = {
       },
       metalStructures: {
         title: 'Промышленные Металлоконструкции',
-        description: 'Проектирование и изготовление сложных промышленных металлоконструкций. Мы предлагаем полные решения от проектирования до финальной сборки, обеспечивая максимальную долговечность и соответствие международным стандартам.',
+        description: 'Проектирование и изготовление сложных металлоконструкций промышленного класса. Мы предоставляем комплексные решения от инженерного проектирования до финальной сборки, обеспечивая максимальную долговечность и соответствие международным стандартам.',
       },
       capabilities: {
         title: 'Возможности Кастомизации',
-        subtitle: 'Комплексные инженерные и производственные услуги под ваши требования',
+        subtitle: '',
         items: {
           chassis: {
             title: 'Модификация Шасси',
-            description: 'Полная модификация шасси, включая колесную базу и трансмиссию для спецзадач.',
+            description: 'Полная модификация шасси, включая изменение колесной базы, модернизацию трансмиссии и усиление конструкции для специализированного применения.',
             capabilities: [
               'Удлинение колесной базы',
               'Усиление рамы',
@@ -1130,8 +1130,8 @@ export const translations = {
             ]
           },
           complexes: {
-            title: 'Спецтранспорт',
-            description: 'Тяжелые транспортные комплексы и системы погрузки для экстремальных условий.',
+            title: 'Специализированный Транспортный Инжиниринг',
+            description: 'Индивидуально разработанные тяжелые транспортные комплексы и автоматизированные системы загрузки, рассчитанные на экстремальную прочность и точную работу.',
             capabilities: [
               'Многоосные тягачи',
               'Системы погрузки',
@@ -1141,7 +1141,7 @@ export const translations = {
           },
           hydraulics: {
             title: 'Гидравлика и Электроника',
-            description: 'Интеграция гидросистем и электронного управления для точности и автоматизации.',
+            description: 'Интеграция передовых гидравлических систем и электронного управления для точной работы и автоматизации.',
             capabilities: [
               'Автоматизация',
               'Гидроконтуры',
@@ -1151,7 +1151,7 @@ export const translations = {
           },
           containers: {
             title: 'Нестандартные Контейнеры',
-            description: 'Изготовление контейнеров и емкостей под заказ, включая термоцистерны.',
+            description: 'Изготовление контейнеров под специализированные грузы, включая изолированные резервуары, сосуды под давлением и уникальные геометрические конфигурации по назначению.',
             capabilities: [
               'Сосуды под давлением',
               'Термоцистерны',
@@ -1162,18 +1162,18 @@ export const translations = {
         }
       },
       production: {
-        title: 'Наше Производство',
-        subtitle: 'Передовое оборудование и опытные специалисты.',
+        title: 'Наша Производственная База',
+        subtitle: 'Высококвалифицированные специалисты и передовое оборудование позволяют нам реализовывать проекты любой сложности.',
         items: {
-          manufacturing: { title: 'Производственная Площадка', desc: '15,000м² цехов' },
-          cnc: { title: 'ЧПУ Обработка', desc: 'Точность ±0.01мм' },
-          welding: { title: 'Сварка', desc: 'MIG, TIG, Роботы' },
-          assembly: { title: 'Сборка и Тесты', desc: 'Строгий контроль качества' },
+          manufacturing: { title: 'Производственная Площадка', desc: 'Производственный комплекс площадью 15 000 м²' },
+          cnc: { title: 'ЧПУ Обработка', desc: 'Точность ±0,01 мм' },
+          welding: { title: 'Сертифицированная Сварка', desc: 'MIG, TIG, роботизированная' },
+          assembly: { title: 'Сборка и Тестирование', desc: 'Строгие протоколы контроля качества' },
         }
       },
       cta: {
-        title: 'Готовы Начать Проект?',
-        description: 'Свяжитесь с нами для обсуждения.',
+        title: 'Готовы Запустить Свой Индивидуальный Проект?',
+        description: 'Свяжитесь с нашей инженерной командой, чтобы обсудить ваши требования.',
         button: 'Запросить Консультацию',
       },
     },
@@ -1202,29 +1202,29 @@ export const translations = {
       welcomeTitle: 'Добро пожаловать в KRANTAS Group',
       welcomeDesc: 'Наследие инженерного совершенства с 1945 года. Мы проектируем и производим высокопроизводительные промышленные транспортные средства, краны и специализированное оборудование для самых сложных условий эксплуатации.',
       fleetRecovery: 'Комплексное Восстановление Парка',
-      fleetRecoveryDesc: 'Специализация на сложном восстановлении грузовиков и тяжелых кранов. Наше предприятие выполняет все — от сложного фрезерования и шлифовки до полномасштабных слесарных работ.',
+      fleetRecoveryDesc: 'Мы специализируемся на сложном восстановлении грузовых автомобилей и тяжелых кранов. Наше предприятие выполняет все работы — от точного фрезерования и шлифовки до полного комплекса слесарных операций.',
       fabrication: 'Передовые Стандарты Изготовления',
-      fabricationDesc: 'Мы используем современные технологии, включая плазменную резку и ЧПУ обработку, чтобы обеспечить структурную целостность, превышающую отраслевые стандарты.',
+      fabricationDesc: 'Мы придерживаемся передовых производственных стандартов, используя современные технологии, такие как плазменная резка и обработка на станках с ЧПУ, чтобы наши конструкции соответствовали самым высоким требованиям отрасли.',
       advisory: 'Стратегический Консалтинг по Оборудованию',
-      advisoryDesc: 'Минимизируйте простои с правильным оборудованием. Наши специалисты предоставляют углубленную техническую поддержку, чтобы ваше оборудование идеально соответствовало вашим эксплуатационным требованиям.',
+      advisoryDesc: 'Сократите простои, выбрав правильное оборудование. Наши специалисты предоставляют углубленную техническую поддержку, чтобы ваша техника полностью соответствовала вашим эксплуатационным задачам.',
     },
     aboutHome: {
       title: 'О Нас',
-      heading: 'От Ремонтной Мастерской к Лидеру Отрасли',
-      description: 'Наш завод был основан в 1945 году как механический ремонтный завод. После землетрясения 1966 года мы перешли к производству стальных конструкций и подъемного оборудования. Сегодня KRANTAS Group — производитель полного цикла с современным оборудованием.',
-      points: ['Производство полного цикла', 'Экспорт в Центральную Азию'],
+      heading: 'От Скромной Ремонтной Мастерской к Лидеру Отрасли',
+      description: 'Наш завод был основан в 1945 году как механический ремонтный завод. После землетрясения 1966 года мы сосредоточились на стальных конструкциях и производстве подъемного оборудования. Сегодня KRANTAS Group — это производитель транспортной техники полного цикла с современными возможностями ЧПУ-обработки, сварки, плазменной/лазерной резки и сборки.',
+      points: ['Производство полного цикла внутри компании', 'Экспорт в Центральную Азию и за её пределы'],
       learnMore: 'Узнать Больше О Нас',
     },
     mission: {
       title: 'Наша Миссия',
       heading: 'Локализация, Укрепляющая Промышленность',
-      description: 'Мы строим промышленную независимость Узбекистана, создавая сеть, где национальные предприятия лидируют вместе. Это больше, чем бизнес — это предоставление локальных альтернатив, которые превосходят импорт, и окончательный разрыв зависимости от зарубежных поставок. Мы не просто поставляем запчасти; мы партнеримся с вами, чтобы сделать всю вашу операцию более эффективной и прибыльной.',
+      description: 'Мы вносим вклад в промышленную независимость Узбекистана, создавая сеть, в которой национальные предприятия развиваются вместе. Это больше, чем бизнес - это локальные альтернативы, способные уравнять импорт и укрепить настоящую местную независимость. Мы не просто поставляем комплектующие; мы помогаем сделать всю вашу операцию более эффективной и прибыльной.',
       qualityFirst: 'Качество Прежде Всего',
-      qualityFirstDesc: 'Международные стандарты — наша базовая линия, а не дополнительная мысль. Мы создали культуру, где точность — единственный инстинкт, потому что в этой отрасли нет места для «достаточно близко».',
+      qualityFirstDesc: 'Международные стандарты для нас - это основа, а не дополнение. Мы выстроили культуру, в которой точность является единственным инстинктом, потому что «почти достаточно» для нас никогда не является достаточным.',
       localProduction: 'Местное Производство',
-      localProductionDesc: 'Мы — двигатель за печатью «Сделано в Узбекистане». Держать производство здесь, мы предлагаем уровень надежности и быстрого реагирования, который иностранные конкуренты просто не могут достичь.',
+      localProductionDesc: 'Мы - одна из движущих сил бренда «Сделано в Узбекистане». Работая на местных площадках, мы обеспечиваем надежность и скорость реакции, с которыми трудно конкурировать.',
       globalStandards: 'Мировые Стандарты',
-      globalStandardsDesc: 'Мы мостим разрыв между местным мастерством и высококачественной инженерией. Вы получаете близость местного партнера в сочетании с технической мощью передового производителя.',
+      globalStandardsDesc: 'Опираясь на глубокое местное мастерство и высококлассную инженерию, мы соизмеряем свои технические возможности с международными производителями.',
     },
     equipment: {
       title: 'Решения для Оборудования',
@@ -1244,7 +1244,7 @@ export const translations = {
     production: {
       title: 'Производство',
       heading: 'Производство Полного Цикла',
-      description: 'Проектирование → оснастка → металлоконструкции → сборка → тестирование → сертификация. Всё внутри компании с современным оборудованием.',
+      description: 'Проектирование → оснастка → металлоконструкции → сборка → испытания → сертификация. Все операции выполняются внутри компании с использованием современной ЧПУ-обработки, плазменной/лазерной резки и автоматизированной сварки.',
       modeling: '3D Моделирование и Инжиниринг',
       modelingDesc: 'Полное проектирование и детализация с использованием современного CAD программного обеспечения для точного производства.',
       cnc: 'ЧПУ Обработка',
@@ -1260,7 +1260,7 @@ export const translations = {
     },
     cta: {
       title: 'Готовы Обсудить Ваш Проект?',
-      description: 'Наши специалисты помогут выбрать подходящее оборудование и предоставят детальное коммерческое предложение.',
+      description: 'Наши специалисты помогут подобрать оборудование под ваши задачи и предоставят подробные технические рекомендации и коммерческое предложение.',
       button: 'Связаться',
     },
     footer: {
@@ -1313,9 +1313,9 @@ export const translations = {
       heading: 'Комплексная Поддержка',
       welcomeTitle: 'Наши Услуги',
       heroIntro: 'Комплексная поддержка вашего промышленного парка. От экспертного обслуживания и оригинальных запчастей до спецпроектов и технической поддержки.',
-      introHeadline: 'Создано для долгой службы. \nПоддержка на всю жизнь.',
-      introP1: 'Мы знаем, что в вашем мире нет места оправданиям. Вот почему мы создали структуру поддержки, такую же прочную, как и наше оборудование.',
-      introP2: 'Выбирая Krantas, вы не просто покупаете промышленный актив; вы обретаете преданную команду, которая стоит за каждым километром и каждым подъемом.',
+      introHeadline: 'Создано, чтобы выдержать путь. \nПоддержка на весь срок службы.',
+      introP1: 'Мы знаем, что в вашей работе нет места оправданиям. Поэтому мы выстроили систему поддержки, столь же надежную, как и наша техника.',
+      introP2: 'Выбирая KRANTAS, вы покупаете не просто промышленный актив. Вы получаете команду, которая остается с вами на каждом километре и каждом подъеме.',
       stats: {
         centers: 'Сервис-центров',
         parts: 'Запчастей в наличии',
@@ -1330,61 +1330,61 @@ export const translations = {
           shortTitle: 'Сервис',
           description: 'Техническое обслуживание, гарантия, запасные части и специализированная поддержка на протяжении всего жизненного цикла продукта. Наши сервисные центры оснащены передовыми диагностическими инструментами, чтобы ваш автопарк оставался работоспособным в самых сложных условиях. Мы предоставляем группы быстрого реагирования для ремонта на месте и поддерживаем полный запас оригинальных компонентов для минимизации простоев.',
           stages: {
-            maintenance: { name: 'Обслуживание', desc: 'Регулярный сервис' },
-            repairs: { name: 'Ремонт', desc: 'Быстро и надежно' },
-            parts: { name: 'Запчасти', desc: 'Оригинальные детали' },
-            support: { name: 'Поддержка', desc: 'Помощь 24/7' }
+            maintenance: { name: 'Регламентный сервис', desc: 'Плановое обслуживание' },
+            repairs: { name: 'Быстрый выезд', desc: 'Аварийный ремонт' },
+            parts: { name: 'Оригинальные запчасти', desc: 'Складской запас' },
+            support: { name: 'Поддержка 24/7', desc: 'Постоянная связь' }
           }
         },
         quality: {
           title: 'Контроль Качества и Сертификация',
           shortTitle: 'Качество',
-          description: 'Обеспечение качества на каждом этапе производства и соответствие обязательным сертификационным требованиям. Каждое транспортное средство проходит строгий многоточечный контроль, включая испытания конструкций на нагрузку и проверку гидравлических систем на соответствие международным стандартам безопасности. Наши лаборатории проводят анализ материалов и прецизионные проверки, гарантируя долговечность и надежность каждого изделия под маркой Krantas.',
+          description: 'Обеспечение качества на каждом этапе производства и соответствие обязательным сертификационным требованиям. Каждая машина проходит строгий многоэтапный контроль, включая испытания конструкции на нагрузку и проверку гидравлических систем, чтобы соответствовать международным стандартам. Наши внутренние лаборатории проводят анализ материалов и прецизионные проверки, гарантируя долговечность и надежность каждой единицы техники KRANTAS.',
           stages: {
-            inspection: { name: 'Инспекция', desc: 'Строгий контроль' },
-            testing: { name: 'Тестирование', desc: 'Проверка параметров' },
-            certification: { name: 'Сертификация', desc: 'Мировые стандарты' },
-            documentation: { name: 'Документация', desc: 'Полный пакет' }
+            inspection: { name: 'Жесткий контроль', desc: 'Многоэтапная проверка' },
+            testing: { name: 'Подтвержденные испытания', desc: 'Стресс- и гидроиспытания' },
+            certification: { name: 'Международная сертификация', desc: 'Соответствие стандартам' },
+            documentation: { name: 'Полная документация', desc: 'Технический пакет' }
           }
         },
         localization: {
           title: 'Локализация и Интеграция',
           shortTitle: 'Локализация',
-          description: 'Поддержка проектов промышленной локализации и трансфер технологий для региональных рынков. Мы преодолеваем разрыв между мировым инженерным совершенством и местными производственными возможностями, помогая партнерам создавать надежные производственные линии в регионе. Наша команда предоставляет комплексные консультации по оптимизации цепочки поставок и адаптации технической документации для бесшовной интеграции в местные промышленные экосистемы.',
+          description: 'Поддержка проектов локализации промышленности и трансфера технологий для региональных рынков. Мы соединяем глобальный уровень инженерии с местными производственными стандартами, помогая партнерам выстраивать устойчивые производственные линии в регионе. Наша команда оказывает сквозную поддержку по адаптации документации и оптимизации цепочек поставок для бесшовной интеграции в локальные промышленные экосистемы.',
           stages: {
-            analysis: { name: 'Анализ', desc: 'Изучение требований' },
-            adaptation: { name: 'Адаптация', desc: 'Локализация продукта' },
-            integration: { name: 'Интеграция', desc: 'Совместимость систем' },
-            training: { name: 'Обучение', desc: 'Передача знаний' }
+            analysis: { name: 'Анализ требований', desc: 'Оценка проекта' },
+            adaptation: { name: 'Локализация продукта', desc: 'Адаптация производства' },
+            integration: { name: 'Совместимость систем', desc: 'План интеграции' },
+            training: { name: 'Передача know-how', desc: 'Обучение' }
           }
         },
         manufacturing: {
           title: 'Производство и Сборка',
           shortTitle: 'Производство',
-          description: 'Серийное и проектное производство, обеспечивающее платформу полного цикла на всех ключевых этапах. Наше предприятие площадью 15 000 м² — от обработки сырья до окончательной сборки — использует высокоточную обработку на станках с ЧПУ и автоматизированную сварку для обеспечения стабильной целостности конструкции. Мы осуществляем весь производственный цикл собственными силами, гарантируя, что каждый проект — будь то стандартная единица или сложный промышленный комплекс — будет выполнен точно по спецификациям.',
+          description: 'Серийное и проектное производство на платформе полного цикла по всем ключевым этапам. От обработки сырья до финальной сборки наше предприятие площадью 15 000 м² использует высокоточную ЧПУ-обработку и автоматизированную сварку, обеспечивая стабильную конструктивную прочность. Мы ведем весь производственный цикл внутри компании, чтобы каждый проект - стандартная единица или сложный индивидуальный промышленный проект - был выполнен точно по спецификации.',
           stages: {
             design: { name: 'Проектирование', desc: '3D-моделирование' },
-            fabrication: { name: 'Изготовление', desc: 'Резка и формовка' },
-            assembly: { name: 'Сборка', desc: 'Интеграция узлов' },
-            testing: { name: 'Испытания', desc: 'Проверка качества' }
+            fabrication: { name: 'Резка и формовка', desc: 'Изготовление' },
+            assembly: { name: 'Сборка узлов', desc: 'Интеграция' },
+            testing: { name: 'Контроль качества', desc: 'Валидация' }
           }
         },
         engineering: {
           title: 'Инжиниринг и Кастомизация',
           shortTitle: 'Инжиниринг',
-          description: 'Индивидуальные инженерные решения и адаптация продукции под конкретные эксплуатационные требования. Наше конструкторское бюро использует передовое 3D-моделирование и моделирование конструкций для разработки машин, решающих уникальные задачи на объектах. Мы специализируемся на преобразовании сложных технических требований в высокопроизводительные промышленные активы, предлагая полную конструктивную и механическую настройку для специализированных отраслей.',
+          description: 'Индивидуальные инженерные решения и адаптация продукции под конкретные эксплуатационные задачи. Наше конструкторское бюро использует продвинутое 3D-моделирование и структурные симуляции для разработки машин под уникальные условия эксплуатации. Мы превращаем сложные технические требования в высокоэффективные промышленные решения, обеспечивая полную конструктивную и механическую кастомизацию для специализированных отраслей.',
           stages: {
-            consulting: { name: 'Консалтинг', desc: 'Техэкспертиза' },
-            design: { name: 'Дизайн', desc: 'Спецрешения' },
+            consulting: { name: 'Технический консалтинг', desc: 'Экспертная поддержка' },
+            design: { name: 'Кастомные решения', desc: 'Инженерная настройка' },
             prototyping: { name: 'Прототипирование', desc: 'Проверка концепции' },
-            implementation: { name: 'Внедрение', desc: 'Полный запуск' }
+            implementation: { name: 'Полноценный запуск', desc: 'Внедрение' }
           }
         }
       },
       facilitiesList: {
         warehouse: {
           title: 'Склад',
-          description: 'Современные складские помещения для управления запчастями и комплектующими. Площадь более 5000 кв.м.'
+          description: 'Современный склад площадью 5 000 м² для управления запасами запчастей и комплектующих.'
         },
         serviceStation: {
           title: 'Сервисная Станция',
@@ -1392,7 +1392,7 @@ export const translations = {
         },
         spareParts: {
           title: 'Центр Запасных Частей',
-          description: 'Большой склад оригинальных запчастей и быстрая доставка. Более 10 000 наименований в наличии.'
+          description: 'Большой запас оригинальных запчастей и быстрая доставка. В наличии более 10 000 позиций.'
         }
       },
       inquiryForm: 'Форма Запроса'
@@ -1410,7 +1410,7 @@ export const translations = {
       storyP3: 'После обретения Узбекистаном независимости и последующей приватизации начался новый этап. Мы инвестировали в современные технологии, расширили ассортимент продукции и вышли на международные рынки.',
       storyP4: 'Сегодня KRANTAS Group — это производитель полного цикла с современными возможностями ЧПУ-обработки, сварки, плазменной/лазерной резки и сборки.',
       family: 'Семья KRANTAS',
-      familyDesc: 'Поколения, преданные делу. Десятилетия опыта. Люди, которые делают KRANTAS больше, чем просто компанией.',
+      familyDesc: 'Поколения преданности. Десятилетия опыта. Люди, которые составляют сердце KRANTAS как компании.',
       familyQuote: '"Я работаю в KRANTAS более 30 лет. Я видел, как эта компания выросла из небольшой мастерской в крупного производителя. Гордость, которую я испытываю, видя нашу технику работающей по всей стране, неизмерима."',
       familyQuoteAuthor: '— Рустам Хасанов, Главный Инженер',
       joinFamily: 'Присоединяйтесь к Нашей Семье',
@@ -1437,22 +1437,22 @@ export const translations = {
       ],
       teamMemberStories: {
         sergey: {
-          name: 'Петров Сергей',
-          role: 'Заместитель Директора',
+          name: 'Петров Сергей Константинович',
+          role: 'Заместитель директора',
           years: '50+ лет с KRANTAS',
-          text: 'От молодого специалиста в 1972 году до руководства операциями на посту заместителя директора сегодня. Свидетель трансформации KRANTAS из экспериментального завода в современного производителя с сохранением ключевых ценностей.'
+          text: 'Придя молодым специалистом в 1972 году, сегодня он руководит операциями в должности заместителя директора. Он стал свидетелем того, как KRANTAS превратился из экспериментального завода в современного производителя, сохранив свои ключевые ценности.'
         },
         komil: {
           name: 'Комил Хаитматов',
-          role: 'Мастер Сборки',
+          role: 'Специалист по сборке',
           years: '45 лет с KRANTAS',
-          text: 'Начал водителем в 1980 году, вырос до мастера по сборке кранов. От грузовиков КАМАЗ до 60-тонных кранов — он был частью каждой трансформации.'
+          text: 'Начал водителем в 1980 году, вырос до мастера по сборке кранов. От грузовиков КамАЗ до 60-тонных кранов - он был частью каждой трансформации.'
         },
         elvira: {
           name: 'Эльвира',
           role: 'Оператор Мостового Крана',
           years: 'Третье поколение · 10+ лет',
-          text: 'Родители, бабушки, дедушки и братья работали в KRANTAS. Отец: 40 лет маляром. Мать: 37 лет крановщицей. Наследие преданности делу.'
+          text: 'Родители, бабушки, дедушки и братья - все работали в KRANTAS. Отец: 40 лет маляром. Мать: 37 лет оператором крана. Наследие преданности.'
         }
       },
       certificatesList: {
@@ -1528,8 +1528,8 @@ export const translations = {
           excerpt: 'Разработанный по международным стандартам, наш новый БТР «Арслон» поступил на государственные испытания, став важной вехой в отечественном оборонном производстве.'
         },
         7: {
-          title: 'Крупный проект реновации и развития инфраструктуры',
-          excerpt: 'Предложен масштабный проект городского развития стоимостью 333 млн долларов на нашей текущей площадке в Мирзо-Улугбекском районе, открывающий путь для современной жилой инфраструктуры.'
+          title: 'Значимое инфраструктурное развитие',
+          excerpt: 'Для нашего бывшего заводского участка в Мирзо-Улугбекском районе площадью 14 гектаров предложен крупный смешанный городской проект стоимостью $1 млрд, открывающий путь к современной жилой и социальной инфраструктуре.'
         },
         8: {
           title: 'Президенты Узбекистана и Таджикистана открыли СП «ТАЛКО-КРАНТАС»',
@@ -1544,7 +1544,7 @@ export const translations = {
     careers: {
       title: 'Карьера в KRANTAS',
       welcomeTitle: 'Присоединяйтесь к Нам',
-      heroIntro: 'Создавайте следующее поколение промышленных технологий вместе с KRANTAS. Мы приглашаем преданных делу профессионалов в нашу инженерную и производственную команду.',
+      heroIntro: 'Станьте частью нового поколения промышленной техники, присоединившись к семье KRANTAS. Мы приглашаем преданных своему делу специалистов в наши инженерные и производственные команды.',
       subtitle: 'Создавайте новое поколение промышленной техники. Присоединяйтесь к команде, которая ценит точность, безопасность и рост.',
       whyWork: 'Почему Стоит Работать у Нас?',
       team: 'Почетные Сотрудники',
@@ -1684,7 +1684,7 @@ export const translations = {
       hydraulics: 'Гидравлика и Электроника',
       hydraulicsDesc: 'Интеграция передовых гидравлических систем и электронного управления для точности и автоматизации.',
       containers: 'Нестандартные Контейнеры',
-      containersDesc: 'Изготовление контейнеров для спецгрузов, включая термоцистерны, сосуды под давлением и уникальную геометрию.',
+      containersDesc: 'Изготовление контейнеров для специализированных грузов, включая изолированные резервуары, сосуды под давлением и уникальные геометрические конфигурации по назначению.',
       discussProject: 'Обсудить Проект',
       customProject: 'Есть проект на примете?',
       customProjectDesc: 'Наши инженеры готовы обсудить ваши требования и разработать решение, идеально подходящее для вашего бизнеса.',
@@ -1694,7 +1694,7 @@ export const translations = {
     categories: {
       'lifting-equipment': { name: 'Подъемное Оборудование', description: 'Автокраны и подъемные решения для строительства и промышленности' },
       'dump-trucks': { name: 'Самосвалы', description: 'Тяжелые самосвалы для горнодобывающей промышленности, строительства и перевозки материалов' },
-      'special-purpose': { name: 'Спецтехника', description: 'Специализированные транспортные средства для промышленных и муниципальных нужд' },
+      'special-purpose': { name: 'Спецтехника', description: 'Индивидуально разработанные машины для промышленных и муниципальных задач' },
       'agricultural': { name: 'Сельхозтехника', description: 'Тракторы, комбайны и оборудование для современного сельского хозяйства' },
       'tank-trucks': { name: 'Автоцистерны', description: 'Специализированные цистерны для перевозки топлива, воды и химикатов' },
       'overhead-gantry': { name: 'Мостовые и Козловые Краны', description: 'Промышленные мостовые и козловые краны для тяжелых грузов' },
@@ -2145,8 +2145,8 @@ export const translations = {
       heroIntro: 'Sizning noyob talablaringizga moslashtirilgan maxsus muhandislik yechimlari. Biz murakkab g\'oyalarni ishonchli sanoat haqiqatiga aylantiramiz.',
       intro: {
         title: 'Sizning Tasavvuringiz,\nBizning Tajribamiz',
-        desc1: '75 yildan ortiq vaqt davomida biz butun dunyo bo\'ylab sanoat korxonalari bilan hamkorlik qilib, og\'ir texnika chegaralarini kengaytiruvchi yechimlarni ishlab chiqdik.',
-        desc2: 'Maslahatlashuvdan to loyihalash va ishlab chiqarishgacha jamoamiz kutilganidan a\'lo natijalarni taqdim etadi.',
+        desc1: '75 yildan ortiq vaqt davomida biz butun dunyo bo\'ylab sanoat korxonalari bilan hamkorlik qilib, og\'ir texnika ishlab chiqarishida imkoniyatlar chegarasini kengaytiradigan maxsus texnikalarni yaratib kelmoqdamiz. Dastlabki maslahatlashuvdan tortib loyihalash, prototiplash va ishlab chiqarishgacha bo\'lgan bosqichlarda muhandislik jamoamiz kutilganidan yuqori natija beradigan va vaqt sinovidan o\'tadigan yechimlarni taqdim etadi.',
+        desc2: '',
         stats: {
           projects: 'Maxsus Loyihalar',
           experience: 'Yillik Tajriba',
@@ -2158,11 +2158,11 @@ export const translations = {
       },
       capabilities: {
         title: 'Moslashtirish Imkoniyatlari',
-        subtitle: 'Sizning talablaringizga moslashtirilgan muhandislik xizmatlari',
+        subtitle: '',
         items: {
           chassis: {
             title: 'Shassi Modifikatsiyasi',
-            description: 'Shassini to\'liq o\'zgartirish, jumladan g\'ildirak bazasi va uzatmalar.',
+            description: 'Shassini to\'liq o\'zgartirish, jumladan g\'ildirak bazasini moslashtirish, transmissiyani takomillashtirish va maxsus qo\'llanilish uchun konstruktiv mustahkamlash.',
             capabilities: [
               'Uzaytirilgan baza',
               'Ramani kuchaytirish',
@@ -2171,8 +2171,8 @@ export const translations = {
             ]
           },
           complexes: {
-            title: 'Maxsus Transport',
-            description: 'O\'ta chidamlilik uchun mo\'ljallangan og\'ir yuk tashish komplekslari.',
+            title: 'Maxsus Transport Muhandisligi',
+            description: 'Ekstremal chidamlilik va aniq ishlash uchun mo\'ljallangan buyurtma asosidagi og\'ir yuk tashish komplekslari va avtomatlashtirilgan yuklash tizimlari.',
             capabilities: [
               'Ko\'p o\'qli tirkamalar',
               'Yuklash tizimlari',
@@ -2182,7 +2182,7 @@ export const translations = {
           },
           hydraulics: {
             title: 'Gidravlika va Elektronika',
-            description: 'Aniq ishlash uchun ilg\'or gidravlik va elektron tizimlar.',
+            description: 'Aniq ishlash va avtomatlashtirish imkoniyatlari uchun ilg\'or gidravlik tizim integratsiyasi hamda elektron boshqaruv tizimlari.',
             capabilities: [
               'Avtomatlashtirish',
               'Gidrokonturlar',
@@ -2192,7 +2192,7 @@ export const translations = {
           },
           containers: {
             title: 'Nostandart Konteynerlar',
-            description: 'Maxsus yuklar uchun konteynerlar va rezervuarlar.',
+            description: 'Maxsus yuklar, izolyatsiyalangan tanklar, bosim ostidagi idishlar va vazifaga mos noyob geometrik shakllar uchun konteyner ishlab chiqarish.',
             capabilities: [
               'Bosim ostidagi idishlar',
               'Izolyatsiyalangan tanklar',
@@ -2204,17 +2204,17 @@ export const translations = {
       },
       production: {
         title: 'Ishlab Chiqarish Bazasi',
-        subtitle: 'Ilg\'or uskunalar va tajribali mutaxassislar.',
+        subtitle: 'Yuksak tajribaga ega mutaxassislar va ilg\'or uskunalar bizga istalgan murakkablikdagi loyihalarni bajarish imkonini beradi.',
         items: {
-          manufacturing: { title: 'Ishlab Chiqarish Maydoni', desc: '15,000m²' },
-          cnc: { title: 'CNC Ishlov Berish', desc: '±0.01mm aniqlik' },
-          welding: { title: 'Payvandlash', desc: 'MIG, TIG, Robotlar' },
-          assembly: { title: 'Yig\'ish va Sinash', desc: 'Sifat nazorati' },
+          manufacturing: { title: 'Ishlab Chiqarish Maydoni', desc: '15 000 m² ishlab chiqarish majmuasi' },
+          cnc: { title: 'CNC Ishlov Berish', desc: '±0.01 mm aniqlik' },
+          welding: { title: 'Sertifikatlangan Payvandlash', desc: 'MIG, TIG, robotlashtirilgan' },
+          assembly: { title: 'Yig\'ish va Sinash', desc: 'Qattiq sifat nazorati protokollari' },
         }
       },
       cta: {
-        title: 'Loyihani Boshlashga Tayyormisiz?',
-        description: 'Talablaringizni muhokama qilish uchun bog\'laning.',
+        title: 'Maxsus Loyihangizni Boshlashga Tayyormisiz?',
+        description: 'Talablaringizni muhokama qilish uchun muhandislik jamoamiz bilan bog\'laning.',
         button: 'Maslahat So\'rash',
       },
     },
@@ -2254,29 +2254,29 @@ export const translations = {
       welcomeTitle: 'KRANTAS Groupga Xush Kelibsiz',
       welcomeDesc: '1945-yildan beri muhandislik mukammalligi merosi. Biz eng talabchan sharoitlar uchun mo\'ljallangan yuqori unumdorlikdagi sanoat avtomobillari, kranlar va maxsus uskunalarni loyihalashtiramiz va ishlab chiqaramiz.',
       fleetRecovery: 'Kompleks Parkni Tiklash',
-      fleetRecoveryDesc: 'Yuk mashinalari va og\'ir yuk ko\'tarish kranlarini murakkab tiklashga ixtisoslashgan. Bizning korxonamiz murakkab frezerlash va silliqlashdan tortib to\'liq miqyosdagi chilangarlik ishlari qilishadi.',
+      fleetRecoveryDesc: 'Biz yuk mashinalari va og\'ir yuk ko\'taruvchi kranlarni murakkab tiklashga ixtisoslashganmiz. Korxonamiz aniq frezalash va silliqlashdan tortib to\'liq chilangarlik ishlarigacha bo\'lgan barcha jarayonlarni bajaradi.',
       fabrication: 'Ilg\'or Ishlab Chiqarish Standartlari',
-      fabricationDesc: 'Biz sanoat standartlaridan oshib ketuvchi strukturaviy yaxlitlikni ta\'minlash uchun plazma kesish va CNC ishlov berish kabi zamonaviy texnologiyalardan foydalanamiz.',
+      fabricationDesc: 'Biz ilg\'or ishlab chiqarish standartlariga amal qilamiz va konstruksiyalarimiz sanoatning eng yuqori talablariga javob berishini ta\'minlash uchun plazma kesish hamda CNC ishlov berish kabi zamonaviy texnologiyalardan foydalanamiz.',
       advisory: 'Strategik Uskuna Maslahati',
-      advisoryDesc: 'To\'g\'ri uskunalar bilan yuklamalarni kamaytiring. Bizning mutaxassislarimiz sizning uskunalaringiz sizning ekspluatatsiya talablaringizga mukammal mos kelishini ta\'minlash uchun chuqur texnik qo\'llab-quvvatlashni taqdim etadi.',
+      advisoryDesc: 'To\'g\'ri uskunani tanlash orqali to\'xtab qolishlarni kamaytiring. Mutaxassislarimiz uskunangiz operatsion ehtiyojlaringizga to\'liq mos kelishini ta\'minlash uchun chuqur texnik ko\'mak beradi.',
     },
     aboutHome: {
       title: 'Biz Haqimizda',
-      heading: 'Ta\'mirlash Uchastkasidan Sanoat Liderigacha',
-      description: 'Zavodimiz 1945-yilda mexanik ta\'mirlash zavodi sifatida tashkil etilgan. 1966-yilgi zilziladan keyin po\'lat konstruktsiyalari va yuk ko\'tarish uskunalari ishlab chiqarishga o\'tdik. Bugun KRANTAS Group zamonaviy uskunalar bilan to\'liq sikl ishlab chiqaruvchi kompaniya.',
-      points: ['To\'liq sikl ishlab chiqarish', 'Markaziy Osiyoga eksport'],
+      heading: 'Kamtarona Ta\'mirlash Ustaxonasidan Sanoat Yetakchisigacha',
+      description: 'Zavodimiz 1945-yilda mexanik ta\'mirlash korxonasi sifatida tashkil etilgan. 1966-yilgi zilziladan so\'ng e\'tiborimizni po\'lat konstruksiyalar va yuk ko\'tarish uskunalarini ishlab chiqarishga qaratdik. Bugun KRANTAS Group zamonaviy CNC ishlov berish, payvandlash, plazma/lazer kesish va yig\'ish imkoniyatlariga ega bo\'lgan to\'liq siklli transport texnikasi ishlab chiqaruvchisidir.',
+      points: ['To\'liq siklli ishlab chiqarish o\'z ichimizda', 'Markaziy Osiyo va undan tashqariga eksport'],
       learnMore: 'Biz Haqimizda Ko\'proq',
     },
     mission: {
       title: 'Bizning Vazifamiz',
       heading: 'Sanoatni Mustahkamlaydigan Lokallashtirish',
-      description: 'Biz milliy korxonalar birgalikda yetakchi bo\'ladigan tarmoq yaratib, O\'zbekistonning sanoatiy mustaqilligini qurmoqdamiz. Bu biznesdan ko\'ra ko\'proq narsa — bu importdan ustun keladigan mahalliy muqobil variantlarni taqdim etish va nihoyat xorijiy qaramlikdan uzilish. Biz shunchaki ehtiyot qismlarni yetkazib bermaymiz; biz sizning butun operatsiyangizni samaraliroq va foydaliroq qilish uchun siz bilan hamkorlik qilamiz.',
+      description: 'Biz milliy korxonalar birgalikda yetakchilik qiladigan tarmoqni yaratib, O\'zbekistonning sanoat mustaqilligiga hissa qo\'shmoqdamiz. Bu shunchaki biznes emas - bu importga tenglasha oladigan mahalliy alternativalarni yaratish va haqiqiy mahalliy mustaqillikni mustahkamlashdir. Biz faqat qismlar yetkazib bermaymiz; butun operatsiyangizni yanada samarali va foydaliroq qilish uchun siz bilan hamkorlik qilamiz.',
       qualityFirst: 'Sifat Birinchi',
-      qualityFirstDesc: 'Xalqaro standartlar bizning asosiy chizig\'imiz, keyingi o\'ylash emas. Biz aniqlik yagona instinkt bo\'lgan madaniyatni yaratdik, chunki bu sanoatda "yetarlicha yaqin" uchun joy yo\'q.',
+      qualityFirstDesc: 'Xalqaro standartlar biz uchun qo\'shimcha emas, balki asosdir. Bizda aniqlik yagona tamoyilga aylangan, chunki "deyarli yetarli" biz uchun hech qachon yetarli emas.',
       localProduction: 'Mahalliy Ishlab Chiqarish',
-      localProductionDesc: 'Biz "O\'zbekistonda Ishlab Chiqarilgan" muhrining ortidagi dvigatelimiz. Ishlab chiqarishni shu yerda saqlash orqali biz xorijiy raqobatchilar oddiygina erisha olmaydigan ishonchlilik va tezkor javob berish darajasini taklif qilamiz.',
+      localProductionDesc: 'Biz "O\'zbekistonda ishlab chiqarilgan" tamg\'asini kuchaytiruvchi asosiy harakatlantiruvchi kuchlardanmiz. Mahalliy maydonlarda ishlaganimiz uchun ishonchlilik va tezkor javob taklif qilamiz.',
       globalStandards: 'Jahon Standartlari',
-      globalStandardsDesc: 'Biz mahallik hunarmandchilik va yuqori sifatli muhandislik o\'rtasidagi bo\'shliqni to\'ldiramiz. Siz mahalliy hamkoringizning yaqinligi bilan birga ilg\'or ishlab chiqaruvchining texnik kuchini olasiz.',
+      globalStandardsDesc: 'Chuqur mahalliy mahorat va yuqori sifatli muhandislikka tayangan holda, biz o\'z texnik imkoniyatlarimizni xalqaro ishlab chiqaruvchilar darajasi bilan solishtiramiz.',
     },
     equipment: {
       title: 'Uskuna Yechimlari',
@@ -2296,7 +2296,7 @@ export const translations = {
     production: {
       title: 'Ishlab Chiqarish',
       heading: 'To\'liq Siklli Ishlab Chiqarish',
-      description: 'Loyihalash → asbob-uskunalar → metall konstruktsiyalar → yig\'ish → sinash → sertifikatlash. Zamonaviy uskunalar bilan to\'liq sikl.',
+      description: 'Loyihalash → asboblash → metall konstruksiyalar → yig\'ish → sinov → sertifikatlash. Barcha jarayonlar korxonaning o\'zida, zamonaviy CNC ishlov berish, plazma/lazer kesish va avtomatlashtirilgan payvandlash bilan bajariladi.',
       modeling: '3D Modellashtirish va Muhandislik',
       modelingDesc: 'Aniq ishlab chiqarish uchun ilg\'or CAD dasturiy ta\'minotidan foydalanib, to\'liq loyihalash va tafsilotlash.',
       cnc: 'CNC Ishlov Berish',
@@ -2312,7 +2312,7 @@ export const translations = {
     },
     cta: {
       title: 'Loyihangizni Muhokama Qilishga Tayyormisiz?',
-      description: 'Mutaxassislarimiz sizga mos uskunani tanlashga yordam beradi va batafsil taklif beradi.',
+      description: 'Mutaxassislarimiz ehtiyojlaringiz uchun to\'g\'ri uskunani tanlashga yordam beradi hamda batafsil texnik tavsiyalar va tijorat taklifini taqdim etadi.',
       button: 'Aloqa',
     },
     footer: {
@@ -2364,10 +2364,10 @@ export const translations = {
       title: 'Bizning Xizmatlar',
       heading: 'Keng Ko\'lamli Xizmat',
       welcomeTitle: 'Bizning Xizmatlar',
-      heroIntro: 'Sanoat texnikangiz uchun har tomonlama qo\'llab-quvvatlash. Mutaxassislar xizmati va original qismlardan tortib, maxsus loyihalargacha.',
-      introHeadline: 'Uzoq xizmat uchun yaratilgan. \nButun umr davomida qo\'llab-quvvatlanadi.',
-      introP1: 'Biz bilamizki, sizning dunyongizda bahonalarga o\'rin yo\'qligini bilamiz. Shuning uchun biz uskunalarimiz kabi mustahkam qo\'llab-quvvatlash tizimini yaratdik.',
-      introP2: 'Krantasni tanlab, siz shunchaki sanoat aktivini sotib olmaysiz; har bir kilometr va har bir ko\'tarish ortida turgan sodiq jamoaga ega bo\'lasiz.',
+      heroIntro: 'Sanoat texnikangiz uchun har tomonlama qo\'llab-quvvatlash. Mutaxassislar xizmati, original ehtiyot qismlar, maxsus muhandislik va texnik loyiha yordami.',
+      introHeadline: 'Uzoq yo\'l uchun qurilgan. \nButun umr qo\'llab-quvvatlanadi.',
+      introP1: 'Biz sizning sohangizda bahonaga o\'rin yo\'qligini bilamiz. Shu sababli texnikamiz kabi mustahkam qo\'llab-quvvatlash tizimini yaratdik.',
+      introP2: 'KRANTASni tanlash faqat sanoat aktivini xarid qilish emas. Bu har bir kilometr va har bir ko\'tarishda yoningizda turadigan jamoaga ega bo\'lishdir.',
       stats: {
         centers: 'Servis markazlari',
         parts: 'Ehtiyot qismlari',
@@ -2382,61 +2382,61 @@ export const translations = {
           shortTitle: 'Xizmat',
           description: 'Texnik xizmat ko\'rsatish, kafolat, ehtiyot qismlar va mahsulotning butun hayotiy tsikli davomida maxsus qo\'llab-quvvatlash. Xizmat ko\'rsatish markazlarimiz eng qiyin sharoitlarda flotingiz ishchi holatda qolishini ta\'minlash uchun ilg\'or diagnostika asboblari bilan jihozlangan. Biz joylarda ta\'mirlash uchun tezkor javob guruhlarini taqdim etamiz va ishlamay qolish vaqtini minimallashtirish uchun original qismlarning to\'liq inventarizatsiyasini saqlaymiz.',
           stages: {
-            maintenance: { name: 'Xizmat', desc: 'Doimiy xizmat' },
-            repairs: { name: 'Ta\'mirlash', desc: 'Tez va ishonchli' },
-            parts: { name: 'Qismlar', desc: 'Asl ehtiyot qismlar' },
-            support: { name: 'Qo\'llab-quvvatlash', desc: '24/7 yordam' }
+            maintenance: { name: 'Rejali servis', desc: 'Doimiy xizmat' },
+            repairs: { name: 'Tezkor chiqish', desc: 'Favqulodda ta\'mirlash' },
+            parts: { name: 'Original ehtiyot qismlar', desc: 'Zaxira ombori' },
+            support: { name: '24/7 yordam', desc: 'Doimiy aloqa' }
           }
         },
         quality: {
           title: 'Sifat Nazorati va Sertifikatlash',
           shortTitle: 'Sifat',
-          description: 'Ishlab chiqarishning har bir bosqichida sifat kafolati va majburiy sertifikatlashtirish talablariga muvofiqligi. Har bir transport vositasi xalqaro xavfsizlik standartlariga javob berish uchun ko\'p nuqtali tekshiruvdan o\'tadi, shu jumladan tuzilmani stressga sinash va gidravlik tizimni tekshirish. Bizning laboratoriyalarimiz materiallar tahlili va aniq tekshiruvlarni amalga oshirib, Krantas brendi ostidagi har bir birlikning uzoq umr ko\'rishi va ishonchliligini kafolatlaydi.',
+          description: 'Ishlab chiqarishning har bir bosqichida sifat kafolati va majburiy sertifikatlash talablariga muvofiqlik ta\'minlanadi. Har bir texnika xalqaro standartlarga mos bo\'lishi uchun yuklama sinovlari va gidravlik tizim tekshiruvlarini o\'z ichiga olgan qat\'iy ko\'p bosqichli nazoratdan o\'tadi. Ichki laboratoriyalarimiz materiallar tahlili va nozik tekshiruvlarni olib borib, KRANTAS texnikasining uzoq xizmat qilishini va ishonchliligini kafolatlaydi.',
           stages: {
-            inspection: { name: 'Tekshirish', desc: 'Qattiq nazorat' },
-            testing: { name: 'Sinov', desc: 'Samaradorlikni tekshirish' },
-            certification: { name: 'Sertifikatlash', desc: 'Xalqaro standartlar' },
-            documentation: { name: 'Hujjatlar', desc: 'To\'liq hujjatlar' }
+            inspection: { name: 'Qattiq nazorat', desc: 'Ko\'p bosqichli tekshiruv' },
+            testing: { name: 'Tasdiqlangan sinovlar', desc: 'Stress va gidrosinov' },
+            certification: { name: 'Xalqaro sertifikat', desc: 'Standartlarga moslik' },
+            documentation: { name: 'To\'liq hujjatlar', desc: 'Texnik paket' }
           }
         },
         localization: {
           title: 'Mahalliylashtirish va Integratsiya',
           shortTitle: 'Mahalliylashtirish',
-          description: 'Sanoatni mahalliylashtirish loyihalarini va mintaqaviy bozorlar uchun texnologiya transferini qo\'llab-quvvatlash. Biz jahon muhandislik mukammalligi va mahalliy ishlab chiqarish imkoniyatlari o\'rtasidagi tafovutni bartaraf etamiz, hamkorlarga mintaqada mustahkam ishlab chiqarish liniyalarini yaratishda yordam beramiz. Jamoamiz mahalliy sanoat ekotizimlariga uzluksiz integratsiyani ta\'minlash uchun yetkazib berish zanjirini optimallashtirish va texnik hujjatlarni moslashtirish bo\'yicha konsalting xizmatlarini ko\'rsatadi.',
+          description: 'Mahalliy sanoat loyihalari va mintaqaviy bozorlar uchun texnologiya transferini qo\'llab-quvvatlaymiz. Biz global muhandislik darajasi bilan mahalliy ishlab chiqarish standartlari o\'rtasidagi farqni yopib, hamkorlarga mintaqada barqaror ishlab chiqarish liniyalarini yo\'lga qo\'yishda yordam beramiz. Jamoamiz ta\'minot zanjirini optimallashtirish va texnik hujjatlarni moslashtirish bo\'yicha boshidan oxirigacha maslahat beradi.',
           stages: {
-            analysis: { name: 'Tahlil', desc: 'Talablarni o\'rganish' },
-            adaptation: { name: 'Moslashtirish', desc: 'Mahsulotni mahalliylashtirish' },
-            integration: { name: 'Integratsiya', desc: 'Tizim mosligi' },
-            training: { name: 'O\'qitish', desc: 'Bilim berish' }
+            analysis: { name: 'Talablar tahlili', desc: 'Loyiha bahosi' },
+            adaptation: { name: 'Mahsulotni mahalliylashtirish', desc: 'Ishlab chiqarishni moslashtirish' },
+            integration: { name: 'Tizim mosligi', desc: 'Integratsiya rejasi' },
+            training: { name: 'Know-how transferi', desc: 'O\'qitish' }
           }
         },
         manufacturing: {
           title: 'Ishlab Chiqarish va Yig\'ish',
           shortTitle: 'Ishlab Chiqarish',
-          description: 'Barcha asosiy bosqichlarda to\'liq tsiklli platformani ta\'minlaydigan seriyali va loyihaga asoslangan ishlab chiqarish. Xom ashyoni qayta ishlashdan yakuniy yig\'ishgacha, bizning 15 000 m² maydonli korxonamiz barqaror strukturaviy yaxlitlikni ta\'minlash uchun yuqori aniqlikdagi CNC ishlov berish va avtomatlashtirilgan payvandlashdan foydalanadi. Biz butun ishlab chiqarish jarayonini o\'zimiz amalga oshiramiz, har bir loyiha — xoh u standart birlik bo\'lsin, xoh murakkab sanoat majmuasi — aniq texnik talablarga muvofiq qurilishini ta\'minlaymiz.',
+          description: 'Barcha asosiy bosqichlarni qamrab oladigan to\'liq siklli platformada seriyali va loyiha asosidagi ishlab chiqarishni olib boramiz. Xom ashyoni qayta ishlashdan yakuniy yig\'ishgacha bo\'lgan 15 000 m² maydonli korxonamiz yuqori aniqlikdagi CNC ishlov berish va avtomatlashtirilgan payvandlash orqali barqaror konstruktiv mustahkamlikni ta\'minlaydi. Biz butun ishlab chiqarish jarayonini o\'zimiz boshqarib, har bir loyiha - standart birlik bo\'ladimi yoki murakkab individual sanoat yechimi bo\'ladimi - aniq texnik talab bo\'yicha bajarilishini kafolatlaymiz.',
           stages: {
             design: { name: 'Dizayn', desc: '3D modellashtirish' },
-            fabrication: { name: 'Tayyorlash', desc: 'Kesish va shakllantirish' },
-            assembly: { name: 'Yig\'ish', desc: 'Komponentlarni integratsiyalash' },
-            testing: { name: 'Sinov', desc: 'Sifatni tasdiqlash' }
+            fabrication: { name: 'Kesish va shakllantirish', desc: 'Tayyorlash' },
+            assembly: { name: 'Komponentlarni yig\'ish', desc: 'Integratsiya' },
+            testing: { name: 'Sifat sinovi', desc: 'Tasdiqlash' }
           }
         },
         engineering: {
           title: 'Muhandislik va Moslashtirish',
           shortTitle: 'Muhandislik',
-          description: 'Maxsus muhandislik yechimlari va mahsulotni aniq operatsion talablarga moslashtirish. Bizning dizayn byuromiz noyob ob\'ektlardagi qiyinchiliklarni hal qiladigan mashinalarni ishlab chiqish uchun ilg\'or 3D modellashtirish va strukturaviy simulyatsiyadan foydalanadi. Biz murakkab texnik talablarni yuqori samarali sanoat aktivlariga aylantirishga ixtisoslashganmiz, ixtisoslashtirilgan tarmoqlar uchun to\'liq strukturaviy va mexanik moslashtirishni taklif etamiz.',
+          description: 'Maxsus muhandislik yechimlari va mahsulotni aniq operatsion vazifalarga moslashtiramiz. Dizayn byuromiz noyob obyekt sharoitlari uchun mashinalar yaratishda ilg\'or 3D modellashtirish va konstruktiv simulyatsiyadan foydalanadi. Biz murakkab texnik talablarni yuqori samarali sanoat yechimlariga aylantirib, ixtisoslashgan tarmoqlar uchun to\'liq konstruktiv va mexanik moslashtirishni taqdim etamiz.',
           stages: {
-            consulting: { name: 'Maslahat', desc: 'Texnik ekspertiza' },
-            design: { name: 'Dizayn', desc: 'Maxsus yechimlar' },
+            consulting: { name: 'Texnik konsalting', desc: 'Ekspert yordami' },
+            design: { name: 'Moslashtirilgan yechimlar', desc: 'Muhandislik sozlamasi' },
             prototyping: { name: 'Prototip', desc: 'Konsepsiyani tekshirish' },
-            implementation: { name: 'Joriy etish', desc: 'To\'liq o\'rnatish' }
+            implementation: { name: 'To\'liq ishga tushirish', desc: 'Joriy etish' }
           }
         }
       },
       facilitiesList: {
         warehouse: {
           title: 'Ombor',
-          description: 'Ehtiyot qismlar va butlovchi qismlarni boshqarish uchun zamonaviy omborxonalar. 5000 kv.m dan ortiq maydon.'
+          description: 'Ehtiyot qismlar va butlovchi qismlar boshqaruvi uchun 5 000 m² zamonaviy ombor maydoni.'
         },
         serviceStation: {
           title: 'Xizmat Ko\'rsatish Stantsiyasi',
@@ -2444,7 +2444,7 @@ export const translations = {
         },
         spareParts: {
           title: 'Ehtiyot Qismlar Markazi',
-          description: 'Asl ehtiyot qismlarning katta zaxirasi va tez yetkazib berish. 10 000 dan ortiq nomlar mavjud.'
+          description: 'Original ehtiyot qismlarning katta zaxirasi va tez yetkazib berish. Omborda 10 000 dan ortiq pozitsiya mavjud.'
         }
       },
       inquiryForm: 'So\'rov Shakli'
@@ -2462,7 +2462,7 @@ export const translations = {
       storyP3: 'O\'zbekiston mustaqilligidan va keyingi xususiyalashtirishdan so\'ng yangi bosqich boshlandi. Biz zamonaviy texnologiyalarga sarmoya kiritdik, mahsulotlar assortimentini kengaytirdik va xalqaro bozorlarga xizmat ko\'rsatishni boshladik.',
       storyP4: 'Bugun KRANTAS Group zamonaviy CNC ishlov berish, payvandlash, plazma/lazer kesish va yig\'ish imkoniyatlariga ega to\'liq sikl ishlab chiqaruvchi.',
       family: 'KRANTAS Oilasi',
-      familyDesc: 'Fidoyilik avlodlari. O\'n yillik tajriba. KRANTASni shunchaki kompaniya emas, balki buyuk oila qiladigan insonlar.',
+      familyDesc: 'Sadoqat avlodlari. O\'nlab yillik tajriba. KRANTASning kompaniya sifatidagi yuragini tashkil qiladigan insonlar.',
       familyQuote: '"Men KRANTASda 30 yildan ortiq vaqt davomida ishlayman. Men bu kompaniyaning kichik ta\'mirlash ustaxonasidan katta ishlab chiqaruvchigacha o\'sganini ko\'rdim. Mamlakat bo\'ylab bizning uskunalarimiz ishlayotganini ko\'rishdan his qiladigan g\'urur o\'lchovsiz."',
       familyQuoteAuthor: '— Rustam Khasanov, Bosh Muhandis',
       joinFamily: 'Bizning oilamizga qo\'shiling',
@@ -2489,22 +2489,22 @@ export const translations = {
       ],
       teamMemberStories: {
         sergey: {
-          name: 'Petrov Sergey',
+          name: 'Petrov Sergey Konstantinovich',
           role: 'Direktor O\'rinbosari',
           years: 'KRANTAS bilan 50 yildan ortiq',
-          text: '1972-yilda yosh mutaxassis sifatida kelib, bugungi kunda Direktor o\'rinbosari sifatida operatsiyalarni boshqarmoqda. KRANTASning tajriba zavodidan zamonaviy ishlab chiqaruvchigacha bo\'lgan o\'zgarishiga guvoh bo\'lgan.'
+          text: '1972-yilda yosh mutaxassis sifatida ish boshlagan va bugun Direktor o\'rinbosari sifatida operatsiyalarni boshqaradi. U KRANTASning tajriba zavodidan zamonaviy ishlab chiqaruvchigacha bo\'lgan yo\'lini asosiy qadriyatlarni saqlagan holda ko\'rdi.'
         },
         komil: {
           name: 'Komil Xaitmatov',
-          role: 'Yig\'ish Ustasi',
+          role: 'Yig\'ish mutaxassisi',
           years: 'KRANTAS bilan 45 yil',
-          text: '1980-yilda haydovchi sifatida boshlagan, kran yig\'ish ustasi darajasiga ko\'tarilgan. KamAZ yuk mashinalaridan 60 tonnalik kranlargacha — u har bir o\'zgarishning bir qismi bo\'lgan.'
+          text: '1980-yilda haydovchi sifatida boshlagan, keyin kran yig\'ish ustasiga aylangan. KamAZ yuk mashinalaridan 60 tonnalik kranlargacha - u har bir o\'zgarishning bir qismi bo\'lgan.'
         },
         elvira: {
           name: 'Elvira',
           role: 'Ko\'prik Krani Operatori',
           years: 'Uchinchi avlod · 10+ yil',
-          text: 'Ota-onasi, bobo-buvisi va aka-uka barchasi KRANTASda ishlagan. Otasi: 40 yil bo\'yoqchi. Onasi: 37 yil kran operatori. Sadoqat merosi.'
+          text: 'Ota-onasi, bobo-buvisi va aka-ukalari ham KRANTASda ishlagan. Otasi: 40 yil bo\'yoqchi. Onasi: 37 yil kran operatori. Sadoqat merosi.'
         }
       },
       certificatesList: {
@@ -2580,8 +2580,8 @@ export const translations = {
           excerpt: 'Xalqaro standartlar asosida ishlab chiqilgan yangi "Arslon" zirhli transportyorimiz davlat sinovlaridan o‘tmoqda va mahalliy mudofaa sanoatida muhim qadam bo‘ldi.'
         },
         7: {
-          title: 'Katta renovatsiya va infratuzilmani rivojlantirish loyihasi',
-          excerpt: 'Mirzo Ulug‘bek tumanidagi hozirgi maydonimizda zamonaviy turar-joy va ijtimoiy infratuzilma barpo etishga qaratilgan 333 million dollarlik yirik shaharsozlik loyihasi taklif etildi.'
+          title: 'Muhim infratuzilmaviy rivojlanish',
+          excerpt: 'Mirzo Ulug\'bekdagi sobiq zavod hududimizning 14 gektar maydonida zamonaviy turar joy va ijtimoiy infratuzilmani yaratishga qaratilgan 1 milliard dollarlik yirik aralash shaharsozlik loyihasi taklif qilindi.'
         },
         8: {
           title: 'O’zbekiston va Tojikiston Prezidentlari «TALCO-KRANTAS» qo’shma korxonasini ochdilar',
@@ -2596,7 +2596,7 @@ export const translations = {
     careers: {
       title: 'KRANTASda Karyera',
       welcomeTitle: 'Bizga Qo\'shiling',
-      heroIntro: 'KRANTAS bilan sanoat texnologiyalarining yangi avlodini yarating. Biz muhandislik va ishlab chiqarish jamoamizga mutaxassislarni taklif qilamiz.',
+      heroIntro: 'KRANTAS oilasiga qo\'shilib, sanoat texnologiyalarining yangi avlodining bir qismi bo\'ling. Biz muhandislik va ishlab chiqarish jamoalarimizga fidoyi mutaxassislarni taklif qilamiz.',
       subtitle: 'Sanoat avtomobillarining keyingi avlodini yarating. Aniqlik, xavfsizlik va o\'sishni qadrlaydigan jamoaga qo\'shiling.',
       whyWork: 'Nima Uchun Biz Bilan Ishlash Kerak?',
       team: 'Hurmatli Jamoa A\'zolari',
@@ -2736,7 +2736,7 @@ export const translations = {
       hydraulics: 'Gidraulika va Elektronika',
       hydraulicsDesc: 'Aniq ishlash va avtomatlashtirish imkoniyatlari uchun ilg\'or gidravlik tizim integratsiyasi va elektron boshqaruv tizimlari.',
       containers: 'Standartga Mos Kelmaydigan Konteynerlar',
-      containersDesc: 'Izolyatsiyalangan baklar, bosim idishlari va noyob geometrik konfiguratsiyalarni o\'z ichiga olgan maxsus yuklar uchun maxsus konteyner ishlab chiqarish.',
+      containersDesc: 'Maxsus yuklar, izolyatsiyalangan tanklar, bosim ostidagi idishlar va vazifaga mos noyob geometrik shakllar uchun konteyner ishlab chiqarish.',
       discussProject: 'Loyihangizni Muhokama Qiling',
       customProject: 'Maxsus Loyihangiz Bormi?',
       customProjectDesc: 'Bizning muhandislik jamoamiz sizning noyob talablaringizni muhokama qilishga va sizning ekspluatatsiya ehtiyojlaringizga mos keladigan moslashtirilgan yechimni ishlab chiqishga tayyor.',
@@ -2746,7 +2746,7 @@ export const translations = {
     categories: {
       'lifting-equipment': { name: 'Yuk Ko\'tarish Uskunalari', description: 'Qurilish va sanoat uchun avtokranlar va yuk ko\'tarish yechimlari' },
       'dump-trucks': { name: 'Samosvallar', description: 'Tog\'-kon, qurilish va material tashish uchun og\'ir yuk samosvallari' },
-      'special-purpose': { name: 'Maxsus Texnika', description: 'Sanoat va kommunal ehtiyojlar uchun maxsus transport vositalari' },
+      'special-purpose': { name: 'Maxsus Texnika', description: 'Sanoat va kommunal vazifalar uchun tayyorlangan maxsus texnikalar' },
       'agricultural': { name: 'Qishloq Xo\'jaligi Texnikasi', description: 'Zamonaviy qishloq xo\'jaligi uchun traktorlar, kombaynlar va uskunalar' },
       'tank-trucks': { name: 'Avtositsernalar', description: 'Yoqilg\'i, suv va kimyoviy moddalar tashish uchun maxsus sisternalar' },
       'overhead-gantry': { name: 'Ko\'prik va Kozlovoy Kranlar', description: 'Og\'ir yuklarni ko\'tarish uchun sanoat ko\'prik va kozlovoy kran tizimlari' },
@@ -3195,8 +3195,8 @@ export const translations = {
       heroIntro: 'Maßgeschneiderte Engineering-Lösungen für Ihre spezifischen Anforderungen. Wir verwandeln komplexe Visionen in zuverlässige industrielle Realität.',
       intro: {
         title: 'Ihre Vision,\nUnsere Expertise',
-        desc1: 'Seit über 75 Jahren entwickeln wir mit Partnern weltweit maßgeschneiderte Maschinen, die Grenzen im Schwermaschinenbau verschieben.',
-        desc2: 'Von der Beratung bis zur Fertigung liefert unser Ingenieurteam Lösungen, die überdauern.',
+        desc1: 'Seit über 75 Jahren arbeiten wir mit Industriepartnern weltweit zusammen, um maßgeschneiderte Maschinen zu entwickeln, die die Grenzen des Schwermaschinenbaus verschieben. Von der ersten Beratung über Konstruktion und Prototyping bis hin zur Fertigung liefert unser Engineering-Team Lösungen, die Erwartungen übertreffen und langfristig bestehen.',
+        desc2: '',
         stats: {
           projects: 'Spezialprojekte',
           experience: 'Jahre Erfahrung',
@@ -3204,15 +3204,15 @@ export const translations = {
       },
       metalStructures: {
         title: 'Industrielle Metallkonstruktionen',
-        description: 'Entwurf und Fertigung komplexer Metallkonstruktionen in Industriequalität. Wir bieten Komplettlösungen vom Baumanagement bis zur Endmontage und gewährleisten maximale Haltbarkeit sowie die Einhaltung internationaler Standards.',
+        description: 'Entwurf und Fertigung komplexer industrieller Metallkonstruktionen. Wir bieten Komplettlösungen vom konstruktiven Engineering bis zur Endmontage und gewährleisten maximale Haltbarkeit sowie die Einhaltung internationaler Standards.',
       },
       capabilities: {
         title: 'Anpassungsmöglichkeiten',
-        subtitle: 'Ingenieur- und Fertigungsdienstleistungen nach Ihren Spezifikationen',
+        subtitle: '',
         items: {
           chassis: {
             title: 'Fahrgestellmodifikation',
-            description: 'Komplette Fahrgestellmodifikationen inklusive Radstand und Antrieb.',
+            description: 'Komplette Fahrgestellmodifikationen einschließlich Anpassung des Radstands, Optimierung des Antriebsstrangs und struktureller Verstärkungen für spezialisierte Anwendungen.',
             capabilities: [
               'Verlängerter Radstand',
               'Rahmenverstärkung',
@@ -3222,7 +3222,7 @@ export const translations = {
           },
           complexes: {
             title: 'Spezialtransporttechnik',
-            description: 'Maßgeschneiderte Transportsysteme für extreme Belastungen.',
+            description: 'Maßgeschneiderte Schwertransportkomplexe und automatisierte Ladesysteme, ausgelegt auf extreme Belastbarkeit und präzise Leistung.',
             capabilities: [
               'Vielachsige Schwerlasttransporter',
               'Ladesysteme',
@@ -3232,7 +3232,7 @@ export const translations = {
           },
           hydraulics: {
             title: 'Hydraulik & Elektronik',
-            description: 'Integration von Hydraulik und Elektronik für Präzision.',
+            description: 'Integration fortschrittlicher Hydrauliksysteme und elektronischer Steuerungen für präzisen Betrieb und Automatisierung.',
             capabilities: [
               'Automatisierung',
               'Hydraulikkreise',
@@ -3242,7 +3242,7 @@ export const translations = {
           },
           containers: {
             title: 'Sondercontainer',
-            description: 'Fertigung von Spezialcontainern und Druckbehältern.',
+            description: 'Fertigung von Containern für Spezialfracht, isolierten Tanks, Druckbehältern und einzigartigen geometrischen Konfigurationen passend zum Einsatzzweck.',
             capabilities: [
               'Druckbehälter',
               'Isoliertanks',
@@ -3253,18 +3253,18 @@ export const translations = {
         }
       },
       production: {
-        title: 'Produktionsbasis',
-        subtitle: 'Fortschrittliche Ausrüstung für komplexe Projekte.',
+        title: 'Unser Produktionsrückgrat',
+        subtitle: 'Sehr erfahrene Spezialisten und moderne Ausrüstung ermöglichen uns, Projekte jeder Komplexität umzusetzen.',
         items: {
-          manufacturing: { title: 'Fertigungshalle', desc: '15.000m²' },
-          cnc: { title: 'CNC-Bearbeitung', desc: '±0,01mm Präzision' },
-          welding: { title: 'Schweißen', desc: 'MIG, TIG, Roboter' },
-          assembly: { title: 'Montage & Test', desc: 'Qualitätskontrolle' },
+          manufacturing: { title: 'Fertigungshalle', desc: 'Produktionsanlage mit 15.000 m²' },
+          cnc: { title: 'CNC-Bearbeitung', desc: '±0,01 mm Präzision' },
+          welding: { title: 'Zertifiziertes Schweißen', desc: 'MIG, TIG, robotergestützt' },
+          assembly: { title: 'Montage & Prüfung', desc: 'Strenge Qualitätskontrollprotokolle' },
         }
       },
       cta: {
-        title: 'Bereit für Ihr Projekt?',
-        description: 'Kontaktieren Sie uns für eine Beratung.',
+        title: 'Bereit, Ihr individuelles Projekt zu starten?',
+        description: 'Sprechen Sie mit unserem Engineering-Team über Ihre Anforderungen.',
         button: 'Beratung Anfordern',
       },
     },
@@ -3304,29 +3304,29 @@ export const translations = {
       welcomeTitle: 'Willkommen bei der KRANTAS Group',
       welcomeDesc: 'Ein Erbe technischer Exzellenz seit 1945. Wir entwickeln und fertigen Hochleistungs-Nutzfahrzeuge, Krane und Spezialausrüstung für anspruchsvollste Einsatzbedingungen.',
       fleetRecovery: 'Umfassende Flottenwiederherstellung',
-      fleetRecoveryDesc: 'Spezialisierung auf die komplexe Wiederherstellung von Lkw und schweren Kränen. Unsere Einrichtung bewältigt alles – von komplexem Fräsen und Schleifen bis hin zu umfassenden Schlosserarbeiten.',
+      fleetRecoveryDesc: 'Wir sind auf die komplexe Instandsetzung von Lkw und schweren Kranen spezialisiert. Unser Werk übernimmt alles – von präzisem Fräsen und Schleifen bis hin zu umfassenden Schlosserarbeiten.',
       fabrication: 'Fortschrittliche Fertigungsstandards',
-      fabricationDesc: 'Wir nutzen moderne Technologien – einschließlich Plasmaschneiden und CNC-Bearbeitung – um strukturelle Integrität zu liefern, die die Industriestandards übertrifft.',
+      fabricationDesc: 'Wir arbeiten nach fortschrittlichen Fertigungsstandards und nutzen moderne Technologien wie Plasmaschneiden und CNC-Bearbeitung, damit unsere Strukturen den höchsten Anforderungen der Branche entsprechen.',
       advisory: 'Strategische Geräteberatung',
-      advisoryDesc: 'Minimieren Sie Ausfallzeiten mit der richtigen Hardware. Unsere Spezialisten bieten fundierte technische Unterstützung, um sicherzustellen, dass Ihre Ausrüstung perfekt zu Ihren Betriebsanforderungen passt.',
+      advisoryDesc: 'Reduzieren Sie Ausfallzeiten mit der richtigen Ausrüstung. Unsere Spezialisten bieten tiefgehende technische Unterstützung, damit Ihre Technik exakt auf Ihre betrieblichen Anforderungen abgestimmt ist.',
     },
     aboutHome: {
       title: 'Über Uns',
-      heading: 'Von der Reparaturwerkstatt zum Branchenführer',
-      description: 'Unsere Fabrik wurde 1945 als mechanische Reparaturwerkstatt gegründet. Nach dem Erdbeben von 1966 stiegen wir in den Stahlbau und Hebezeugbau ein. Heute ist KRANTAS Group ein Komplettanbieter mit moderner CNC-Bearbeitung, Schweißen, Plasma-/Laserschneiden und Montage.',
+      heading: 'Von der Bescheidenen Reparaturwerkstatt zum Branchenführer',
+      description: 'Unser Werk wurde 1945 als mechanischer Reparaturbetrieb gegründet. Nach dem Erdbeben von 1966 verlagerten wir unseren Fokus auf Stahlkonstruktionen und die Herstellung von Hebetechnik. Heute ist die KRANTAS Group ein Komplettanbieter für Fahrzeugfertigung mit moderner CNC-Bearbeitung, Schweißen, Plasma-/Laserschneiden und Montage.',
       points: ['Komplettfertigung im Haus', 'Export nach Zentralasien und darüber hinaus'],
       learnMore: 'Erfahren Sie Mehr Über Uns',
     },
     mission: {
       title: 'Unsere Mission',
       heading: 'Lokalisierung, die die Industrie Stärkt',
-      description: 'Wir bauen die industrielle Unabhängigkeit Usbekistans auf, indem wir ein Netzwerk schaffen, in dem nationale Unternehmen gemeinsam führen. Es geht um mehr als Geschäft – es geht darum, lokale Alternativen zu liefern, die Importe übertreffen, und endlich die Abhängigkeit von ausländischen Quellen zu beenden. Wir liefern nicht nur Teile; wir arbeiten mit Ihnen zusammen, um Ihre gesamte Operation schlanker und profitabler zu machen.',
+      description: 'Wir tragen zur industriellen Unabhängigkeit Usbekistans bei, indem wir ein Netzwerk schaffen, in dem nationale Unternehmen gemeinsam führen. Es geht um mehr als Geschäft - es geht darum, lokale Alternativen zu schaffen, die Importe auf Augenhöhe bringen und echte lokale Unabhängigkeit stärken. Wir liefern nicht nur Teile; wir arbeiten mit Ihnen zusammen, um Ihren gesamten Betrieb schlanker und profitabler zu machen.',
       qualityFirst: 'Qualität Zuerst',
-      qualityFirstDesc: 'Internationale Standards sind unsere Grundlinie, keine Nachgedanke. Wir haben eine Kultur aufgebaut, in der Präzision der einzige Instinkt ist, denn in dieser Branche gibt es keinen Raum für "gut genug".',
+      qualityFirstDesc: 'Internationale Standards sind für uns die Grundlage, nicht der Nachgedanke. Wir haben eine Kultur aufgebaut, in der Präzision der einzige Instinkt ist, denn "nahe genug" ist für uns nie gut genug.',
       localProduction: 'Lokale Produktion',
-      localProductionDesc: 'Wir sind der Motor hinter dem Siegel "Hergestellt in Usbekistan". Indem wir die Produktion hier halten, bieten wir ein Maß an Zuverlässigkeit und schneller Reaktion, das ausländische Wettbewerber einfach nicht erreichen können.',
+      localProductionDesc: 'Wir sind eine starke Triebkraft hinter "Made in Uzbekistan". Durch unsere lokalen Standorte bieten wir Zuverlässigkeit und schnelle Reaktionszeiten, die schwer zu übertreffen sind.',
       globalStandards: 'Globale Standards',
-      globalStandardsDesc: 'Wir schließen die Lücke zwischen lokalem Handwerk und hochwertiger Ingenieurskunst. Sie erhalten die Nähe eines lokalen Partners gepaart mit der technischen Kraft eines fortschrittlichen Herstellers.',
+      globalStandardsDesc: 'Mit tief verwurzelter lokaler Handwerkskunst und hochwertiger Ingenieurskunst messen wir uns an den technischen Fähigkeiten internationaler Hersteller.',
     },
     equipment: {
       title: 'Ausrüstungslösungen',
@@ -3346,7 +3346,7 @@ export const translations = {
     production: {
       title: 'Produktion',
       heading: 'Komplettfertigung',
-      description: 'Konstruktion → Werkzeuge → Stahlkonstruktionen → Montage → Prüfung → Zertifizierung. Alles im Haus mit moderner CNC-Bearbeitung, Plasma-/Laserschneiden und automatisierter Schweißtechnik.',
+      description: 'Konstruktion → Werkzeugbau → Stahlkonstruktionen → Montage → Prüfung → Zertifizierung. Alle Arbeitsschritte erfolgen im eigenen Haus mit moderner CNC-Bearbeitung, Plasma-/Laserschneiden und automatisierter Schweißtechnik.',
       modeling: '3D-Modellierung & Engineering',
       modelingDesc: 'Vollständige Konstruktion und Detaillierung mit fortschrittlicher CAD-Software für präzise Fertigung.',
       cnc: 'CNC-Bearbeitung',
@@ -3362,7 +3362,7 @@ export const translations = {
     },
     cta: {
       title: 'Bereit, Ihr Projekt zu Besprechen?',
-      description: 'Lassen Sie uns über Ihre Anforderungen sprechen und gemeinsam die perfekte Lösung finden.',
+      description: 'Unsere Spezialisten unterstützen Sie bei der Auswahl der richtigen Ausrüstung für Ihre Anforderungen und erstellen eine detaillierte technische Empfehlung samt Angebot.',
       button: 'Kontakt Aufnehmen',
     },
     footer: {
@@ -3415,9 +3415,9 @@ export const translations = {
       heading: 'Umfassende Unterstützung',
       welcomeTitle: 'Unsere Dienstleistungen',
       heroIntro: 'Umfassende Unterstützung für Ihren Fuhrpark. Von fachmännischer Wartung und Originalteilen bis hin zu kundenspezifischem Engineering und technischem Support.',
-      introHeadline: 'Für die Ewigkeit gebaut. \nEin Leben lang unterstützt.',
-      introP1: 'Wir wissen, dass es in Ihrer Welt keinen Platz für Entschuldigungen gibt. Deshalb haben wir eine Support-Struktur aufgebaut, die so robust ist wie unsere Maschinen.',
-      introP2: 'Wenn Sie sich für Krantas entscheiden, kaufen Sie nicht nur ein Industriegut; Sie gewinnen ein engagiertes Team, das hinter jedem Kilometer und jedem Hub steht.',
+      introHeadline: 'Für lange Einsätze gebaut. \nFür die gesamte Lebensdauer begleitet.',
+      introP1: 'Wir wissen, dass es in Ihrer Welt keinen Raum für Ausreden gibt. Deshalb haben wir eine Support-Struktur aufgebaut, die so robust ist wie unsere Maschinen.',
+      introP2: 'Sich für KRANTAS zu entscheiden bedeutet mehr als den Kauf eines Industrieassets. Es bedeutet, ein engagiertes Team an Ihrer Seite zu haben - auf jedem Kilometer und bei jedem Hub.',
       stats: {
         centers: 'Servicezentren',
         parts: 'Ersatzteile auf Lager',
@@ -3432,61 +3432,61 @@ export const translations = {
           shortTitle: 'Kundendienst',
           description: 'Technische Wartung, Garantie, Ersatzteile und engagierte Unterstützung während des gesamten Produktlebenszyklus. Unsere Servicezentren sind mit fortschrittlichen Diagnosewerkzeugen ausgestattet, um sicherzustellen, dass Ihre Flotte auch unter schwierigsten Bedingungen einsatzbereit bleibt. Wir stellen schnelle Eingreiftruppen für Reparaturen vor Ort bereit und führen einen vollständigen Bestand an Originalkomponenten, um Ausfallzeiten zu minimieren.',
           stages: {
-            maintenance: { name: 'Wartung', desc: 'Regelmäßiger Service' },
-            repairs: { name: 'Reparaturen', desc: 'Schnelle Lösungen' },
-            parts: { name: 'Ersatzteile', desc: 'Originalteile' },
-            support: { name: 'Support', desc: '24/7 Technische Hilfe' }
+            maintenance: { name: 'Regelmäßige Wartung', desc: 'Service' },
+            repairs: { name: 'Schnelle Reaktion', desc: 'Notfallreparatur' },
+            parts: { name: 'Originalersatzteile', desc: 'Originalkomponenten' },
+            support: { name: '24/7 Unterstützung', desc: 'Begleitender Support' }
           }
         },
         quality: {
           title: 'Qualitätskontrolle & Zertifizierung',
           shortTitle: 'Qualität',
-          description: 'Qualitätssicherung in jeder Produktionsphase und Einhaltung der obligatorischen Zertifizierungsanforderungen. Jedes Fahrzeug wird einer strengen Mehrpunktkontrolle unterzogen, einschließlich Belastungstests der Strukturen und Überprüfung der Hydrauliksysteme nach internationalen Sicherheitsstandards. Unsere Labore führen Materialanalysen und Präzisionsprüfungen durch, um die Langlebigkeit und Zuverlässigkeit jeder Einheit unter dem Markennamen Krantas zu garantieren.',
+          description: 'Qualitätssicherung in jeder Produktionsphase und Einhaltung der obligatorischen Zertifizierungsanforderungen. Jedes Fahrzeug durchläuft eine strenge Mehrpunktkontrolle, einschließlich Belastungstests der Strukturen und Überprüfung der Hydrauliksysteme, um internationalen Standards zu entsprechen. Unsere internen Labore führen Materialanalysen und Präzisionsprüfungen durch, um die Langlebigkeit und Zuverlässigkeit jeder KRANTAS-Einheit zu garantieren.',
           stages: {
-            inspection: { name: 'Inspektion', desc: 'Strenge Kontrollen' },
-            testing: { name: 'Prüfung', desc: 'Leistungsvalidierung' },
-            certification: { name: 'Zertifizierung', desc: 'Internationale Standards' },
-            documentation: { name: 'Dokumentation', desc: 'Vollständige Unterlagen' }
+            inspection: { name: 'Strenge Kontrollen', desc: 'Mehrpunktprüfung' },
+            testing: { name: 'Validierte Leistung', desc: 'Belastungs- und Hydrauliktests' },
+            certification: { name: 'Internationale Zertifizierung', desc: 'Normenkonformität' },
+            documentation: { name: 'Vollständige Dokumentation', desc: 'Technischer Satz' }
           }
         },
         localization: {
           title: 'Lokalisierung & Integration',
           shortTitle: 'Lokalisierung',
-          description: 'Unterstützung von industriellen Lokalisierungsprojekten und Technologietransfer für regionale Märkte. Wir schließen die Lücke zwischen globaler technischer Exzellenz und lokalen Fertigungsmöglichkeiten und helfen Partnern beim Aufbau robuster Produktionslinien in der Region. Unser Team bietet umfassende Beratung zur Optimierung der Lieferkette und zur Anpassung der technischen Dokumentation für eine nahtlose Integration in lokale industrielle Ökosysteme.',
+          description: 'Unterstützung lokaler Industrieprojekte und des Technologietransfers für regionale Märkte. Wir schließen die Lücke zwischen globalem Engineering-Niveau und lokalen Fertigungsstandards und helfen Partnern beim Aufbau belastbarer Produktionslinien in der Region. Unser Team bietet End-to-End-Beratung zur Optimierung der Lieferkette und zur Anpassung technischer Dokumentation für eine nahtlose Integration in lokale industrielle Ökosysteme.',
           stages: {
-            analysis: { name: 'Analyse', desc: 'Marktanforderungen' },
-            adaptation: { name: 'Anpassung', desc: 'Produktlokalisierung' },
-            integration: { name: 'Integration', desc: 'Systemkompatibilität' },
-            training: { name: 'Schulung', desc: 'Wissenstransfer' }
+            analysis: { name: 'Anforderungsanalyse', desc: 'Projektprüfung' },
+            adaptation: { name: 'Produktlokalisierung', desc: 'Produktionsanpassung' },
+            integration: { name: 'Systemkompatibilität', desc: 'Integrationsplanung' },
+            training: { name: 'Know-how-Transfer', desc: 'Schulung' }
           }
         },
         manufacturing: {
           title: 'Fertigung & Montage',
           shortTitle: 'Fertigung',
-          description: 'Serien- und Projektfertigung, die eine Full-Cycle-Plattform über alle wichtigen Phasen hinweg bietet. Von der Rohmaterialverarbeitung bis zur Endmontage nutzt unser 15.000 m² großes Werk hochpräzise CNC-Bearbeitung und automatisiertes Schweißen, um eine konsistente strukturelle Integrität zu gewährleisten. Wir führen den gesamten Produktionsprozess intern durch und stellen sicher, dass jedes Projekt – ob Standardeinheit oder komplexer Industriekomplex – genau nach Spezifikation gebaut wird.',
+          description: 'Serien- und Projektfertigung auf einer Komplettplattform über alle wichtigen Phasen hinweg. Von der Rohmaterialverarbeitung bis zur Endmontage nutzt unser 15.000 m² großes Werk hochpräzise CNC-Bearbeitung und automatisiertes Schweißen, um eine konstant hohe strukturelle Integrität sicherzustellen. Wir führen den gesamten Produktionsprozess intern durch und gewährleisten, dass jedes Projekt - ob Standardeinheit oder komplexe individuelle Industrielösung - exakt nach Spezifikation gebaut wird.',
           stages: {
             design: { name: 'Design', desc: '3D-Engineering' },
-            fabrication: { name: 'Herstellung', desc: 'Schneiden & Formen' },
-            assembly: { name: 'Montage', desc: 'Komponentenintegration' },
-            testing: { name: 'Prüfung', desc: 'Qualitätsvalidierung' }
+            fabrication: { name: 'Schneiden & Formen', desc: 'Fertigung' },
+            assembly: { name: 'Komponentenmontage', desc: 'Integration' },
+            testing: { name: 'Qualitätsprüfung', desc: 'Validierung' }
           }
         },
         engineering: {
           title: 'Engineering & Anpassung',
           shortTitle: 'Engineering',
-          description: 'Maßgeschneiderte technische Lösungen und Produktanpassungen an spezifische betriebliche Anforderungen. Unser Designbüro nutzt fortschrittliche 3D-Modellierung und strukturelle Simulation, um Maschinen zu entwickeln, die einzigartige Herausforderungen vor Ort lösen. Wir sind darauf spezialisiert, komplexe technische Anforderungen in leistungsstarke Industrieanlagen umzusetzen und bieten vollständige strukturelle und mechanische Anpassungen für spezialisierte Branchen.',
+          description: 'Maßgeschneiderte technische Lösungen und Produktanpassungen für konkrete betriebliche Anforderungen. Unser Designbüro nutzt fortschrittliche 3D-Modellierung und strukturelle Simulation, um Maschinen für einzigartige Einsatzbedingungen zu entwickeln. Wir verwandeln komplexe technische Anforderungen in leistungsstarke Industrielösungen und bieten vollständige strukturelle und mechanische Anpassungen für spezialisierte Branchen.',
           stages: {
-            consulting: { name: 'Beratung', desc: 'Technische Expertise' },
-            design: { name: 'Entwicklung', desc: 'Sonderlösungen' },
+            consulting: { name: 'Technische Beratung', desc: 'Expertenbegleitung' },
+            design: { name: 'Maßgeschneiderte Lösungen', desc: 'Engineering-Anpassung' },
             prototyping: { name: 'Prototyping', desc: 'Konzeptnachweis' },
-            implementation: { name: 'Implementierung', desc: 'Vollständige Umsetzung' }
+            implementation: { name: 'Vollständiger Rollout', desc: 'Implementierung' }
           }
         }
       },
       facilitiesList: {
         warehouse: {
           title: 'Lager',
-          description: 'Moderne Lagereinrichtungen mit organisiertem Bestandsmanagement. Unser Lager umfasst über 5.000 m² mit Klimatisierung.'
+          description: 'Moderne Lagerflächen mit 5.000 m² für Ersatzteile und Komponentenmanagement.'
         },
         serviceStation: {
           title: 'Servicestation',
@@ -3494,7 +3494,7 @@ export const translations = {
         },
         spareParts: {
           title: 'Ersatzteilzentrum',
-          description: 'Umfassender Bestand an Originalersatzteilen mit schnellen Lieferoptionen. Über 10.000 Artikel auf Lager.'
+          description: 'Großer Bestand an Originalersatzteilen mit schneller Lieferung. Über 10.000 Artikel auf Lager.'
         }
       },
       inquiryForm: 'Anfrageformular'
@@ -3512,7 +3512,7 @@ export const translations = {
       storyP3: 'Nach der Unabhängigkeit Usbekistans und der anschließenden Privatisierung begann eine neue Phase. Wir investierten in moderne Technologie, erweiterten unser Produktangebot und begannen, internationale Märkte zu bedienen.',
       storyP4: 'Heute ist KRANTAS Group ein Komplettanbieter mit modernen CNC-Bearbeitungs-, Schweiß-, Plasma-/Laserschneid- und Montagefähigkeiten.',
       family: 'KRANTAS Familie',
-      familyDesc: 'Generationen von Hingabe. Jahrzehnte der Expertise. Die Menschen, die KRANTAS zu mehr als einem Unternehmen machen.',
+      familyDesc: 'Generationen der Hingabe. Jahrzehnte der Erfahrung. Die Menschen, die das Herz von KRANTAS als Unternehmen bilden.',
       familyQuote: '"Ich arbeite seit über 30 Jahren bei KRANTAS. Ich habe gesehen, wie dieses Unternehmen von einer kleinen Reparaturwerkstatt zu einem großen Hersteller gewachsen ist. Der Stolz, den ich empfinde, wenn ich unsere Ausrüstung im ganzen Land arbeiten sehe, ist unermesslich."',
       familyQuoteAuthor: '— Rustam Khasanov, Chefingenieur',
       joinFamily: 'Werden Sie Teil Unserer Familie',
@@ -3539,16 +3539,16 @@ export const translations = {
       ],
       teamMemberStories: {
         sergey: {
-          name: 'Petrov Sergey',
+          name: 'Petrov Sergey Konstantinovich',
           role: 'Stellvertretender Direktor',
           years: '50+ Jahre bei KRANTAS',
-          text: 'Voni einem jungen Spezialisten im Jahr 1972 bis zur Leitung des Betriebs als stellvertretender Direktor heute. Zeuge der Transformation von KRANTAS vom Versuchswerk zum modernen Hersteller unter Bewahrung der Grundwerte.'
+          text: 'Seit seinem Einstieg als junger Spezialist im Jahr 1972 leitet er heute als stellvertretender Direktor die operativen Abläufe. Er erlebte, wie sich KRANTAS vom Versuchswerk zum modernen Hersteller entwickelte und dabei seine Kernwerte bewahrte.'
         },
         komil: {
           name: 'Komil Khaitmatov',
           role: 'Montagetechniker',
           years: '45 Jahre bei KRANTAS',
-          text: 'Begann 1980 als Fahrer, entwickelte sich zum Meister der Kranmontage. Von KamAZ-Lkw bis zu 60-Tonnen-Kränen – er war Teil jeder Transformation.'
+          text: 'Begann 1980 als Fahrer und wurde später Meister der Kranmontage. Von KamAZ-Lkw bis zu 60-Tonnen-Kränen - er war Teil jeder Transformation.'
         },
         elvira: {
           name: 'Elvira',
@@ -3630,8 +3630,8 @@ export const translations = {
           excerpt: 'Unser neuer, nach internationalen Standards entwickelter Schützenpanzer „Arslon“ hat die staatliche Erprobung aufgenommen – ein Meilenstein für die heimische Verteidigungsindustrie.'
         },
         7: {
-          title: 'Bedeutende Renovierung und Infrastrukturentwicklung',
-          excerpt: 'Ein großes Stadtentwicklungsprojekt in Höhe von 333 Millionen US-Dollar wird für unseren aktuellen Standort vorgeschlagen, um den Weg für eine moderne Infrastruktur zu ebnen.'
+          title: 'Bedeutende Infrastrukturentwicklung',
+          excerpt: 'Für unseren früheren Werksstandort im Mirzo-Ulugbek-Gebiet auf 14 Hektar ist ein großes gemischt genutztes Stadtentwicklungsprojekt im Wert von 1 Milliarde US-Dollar vorgeschlagen, das moderne Wohn- und Sozialinfrastruktur schaffen soll.'
         },
         8: {
           title: 'Präsidenten von Usbekistan und Tadschikistan eröffnen Joint Venture TALCO-KRANTAS',
@@ -3646,7 +3646,7 @@ export const translations = {
     careers: {
       title: 'Karriere bei KRANTAS',
       welcomeTitle: 'Werden Sie Teil unseres Teams',
-      heroIntro: 'Bauen Sie mit KRANTAS die nächste Generation der Industrietechnik. Wir suchen engagierte Fachkräfte für unsere Engineering- und Produktionsteams.',
+      heroIntro: 'Werden Sie Teil der nächsten Generation industrieller Technologie, indem Sie sich der KRANTAS-Familie anschließen. Wir laden engagierte Fachkräfte ein, unsere Engineering- und Produktionsteams zu verstärken.',
       subtitle: 'Bauen Sie die nächste Generation von Nutzfahrzeugen. Schließen Sie sich einem Team an, das Präzision, Sicherheit und Wachstum schätzt.',
       whyWork: 'Warum Mit Uns Arbeiten?',
       team: 'Ehrenwerte Teammitglieder',
@@ -3786,7 +3786,7 @@ export const translations = {
       hydraulics: 'Hydraulik und Elektronik',
       hydraulicsDesc: 'Fortschrittliche Hydrauliksystem-Integration und elektronische Steuerungssysteme für präzisen Betrieb und Automatisierungsfähigkeiten.',
       containers: 'Nicht-Standard-Container',
-      containersDesc: 'Individuelle Containerfertigung für spezialisierte Ladung, einschließlich isolierter Tanks, Druckbehälter und einzigartiger geometrischer Konfigurationen.',
+      containersDesc: 'Fertigung von Containern für Spezialfracht, isolierten Tanks, Druckbehältern und einzigartigen geometrischen Konfigurationen passend zum Einsatzzweck.',
       discussProject: 'Ihr Projekt Besprechen',
       customProject: 'Haben Sie ein individuelles Projekt im Sinn?',
       customProjectDesc: 'Unser Ingenieurteam ist bereit, Ihre einzigartigen Anforderungen zu besprechen und eine maßgeschneiderte Lösung zu entwickeln, die Ihren betrieblichen Anforderungen entspricht.',
@@ -3796,7 +3796,7 @@ export const translations = {
     categories: {
       'lifting-equipment': { name: 'Hebetechnik', description: 'Mobilkrane und Hebelösungen für Bau und Industrie' },
       'dump-trucks': { name: 'Muldenkipper', description: 'Schwere Muldenkipper für Bergbau, Bauwesen und Materialtransport' },
-      'special-purpose': { name: 'Spezialfahrzeuge', description: 'Spezialtransportfahrzeuge für industrielle und kommunale Anforderungen' },
+      'special-purpose': { name: 'Spezialfahrzeuge', description: 'Maßgeschneiderte Fahrzeuge für industrielle und kommunale Aufgaben' },
       'agricultural': { name: 'Landtechnik', description: 'Traktoren, Erntemaschinen und Geräte für die moderne Landwirtschaft' },
       'tank-trucks': { name: 'Tankwagen', description: 'Spezialtankwagen für Kraftstoff, Wasser und Chemikalien' },
       'overhead-gantry': { name: 'Brücken- und Portalkrane', description: 'Industrielle Brücken- und Portalkransysteme für das Heben schwerer Lasten' },
