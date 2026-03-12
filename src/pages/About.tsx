@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type WheelEvent as ReactWheelEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -32,6 +32,8 @@ export default function About() {
   const [showForm, setShowForm] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const mobileYearScrollRef = useRef<HTMLDivElement>(null);
+  const desktopWheelAccumulatorRef = useRef(0);
+  const desktopWheelLastStepRef = useRef(0);
   // History Initialization
   const historyEventsList = (t.about.historyEvents || []).map((event: any, index: number) => ({
     ...event,
@@ -59,6 +61,65 @@ export default function About() {
       }
     }
   }, [activeIndex]);
+
+  const getClampedHistoryIndex = (index: number) => {
+    if (historyEventsList.length === 0) {
+      return 0;
+    }
+
+    return Math.max(0, Math.min(historyEventsList.length - 1, index));
+  };
+
+  const handleMobileYearWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+    const container = mobileYearScrollRef.current;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!container) {
+      return;
+    }
+
+    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+
+    if (delta === 0) {
+      return;
+    }
+
+    container.scrollBy({ left: delta * 0.45, behavior: 'auto' });
+  };
+
+  const handleDesktopYearWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (historyEventsList.length === 0) {
+      return;
+    }
+
+    const dominantDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+    if (dominantDelta === 0) {
+      return;
+    }
+
+    desktopWheelAccumulatorRef.current += dominantDelta;
+
+    const now = Date.now();
+
+    if (now - desktopWheelLastStepRef.current < 320) {
+      return;
+    }
+
+    if (Math.abs(desktopWheelAccumulatorRef.current) < 70) {
+      return;
+    }
+
+    const direction = desktopWheelAccumulatorRef.current > 0 ? 1 : -1;
+    desktopWheelAccumulatorRef.current = 0;
+    desktopWheelLastStepRef.current = now;
+    setActiveIndex((currentIndex) => getClampedHistoryIndex(currentIndex + direction));
+  };
 
 
 
@@ -140,8 +201,9 @@ export default function About() {
                 <div className="relative overflow-hidden -mx-0">
                   <div
                     ref={mobileYearScrollRef}
+                    onWheelCapture={handleMobileYearWheel}
                     className="overflow-x-auto scrollbar-hide pb-2 -mx-6 px-[calc(50%-2rem)] snap-x snap-mandatory overflow-y-hidden"
-                    style={{ touchAction: 'pan-x' }}
+                    style={{ touchAction: 'pan-x', overscrollBehavior: 'contain' }}
                   >
                     <div className="flex items-center gap-8 w-max mx-auto md:mx-0">
                       {historyEventsList.map((event, index) => (
@@ -165,7 +227,14 @@ export default function About() {
               {/* === Desktop Layout (Vertical Wheel) === */}
               <div className="hidden lg:grid lg:grid-cols-12 gap-12 items-center">
                 {/* Left: Year Selector (3 units) */}
-                <div className="lg:col-span-3 h-[240px] relative flex flex-col items-center justify-center overflow-hidden">
+                <div
+                  className="lg:col-span-3 h-[240px] relative flex flex-col items-center justify-center overflow-hidden"
+                  onWheelCapture={handleDesktopYearWheel}
+                  onMouseLeave={() => {
+                    desktopWheelAccumulatorRef.current = 0;
+                  }}
+                  style={{ overscrollBehavior: 'contain' }}
+                >
                   {/* Gradient overlays for fade effect */}
                   <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none" />
                   <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
