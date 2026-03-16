@@ -1,139 +1,146 @@
 import { useMemo, useState } from 'react';
 import { ArrowUpDown, Calendar, User, ChevronRight } from 'lucide-react';
+import { useCms } from '../contexts/CmsContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { getNewsItemLocalization } from '../lib/cms';
 
 export default function News() {
   const { t, language } = useLanguage();
-  const [selectedPostId, setSelectedPostId] = useState(8);
+  const { newsItems } = useCms();
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
 
-  const blogPosts = useMemo(() => [
-    {
-      id: 8,
-      title: t.blog.posts[8].title,
-      excerpt: t.blog.posts[8].excerpt,
-      image: 'https://timesca.com/wp-content/uploads/2018/09/mirzi-rahmon-talco-uzpressservice-7f3.jpg',
-      date: '2018-09-28',
-      author: 'The Times of Central Asia',
-      link: 'https://timesca.com/presidents-of-tajikistan-and-uzbekistan-launch-jv-in-tajik-city/'
-    },
-    {
-      id: 7,
-      title: t.blog.posts[7].title,
-      excerpt: t.blog.posts[7].excerpt,
-      image: 'https://www.spot.uz/media/img/2025/05/dOcWxi17473091207912_l.jpg',
-      date: '2025-05-15',
-      author: 'Spot',
-      link: 'https://www.spot.uz/ru/2025/05/15/renovation-krantas/'
-    },
-    {
-      id: 6,
-      title: t.blog.posts[6].title,
-      excerpt: t.blog.posts[6].excerpt,
-      image: 'https://www.spot.uz/media/img/2024/07/m5TVxw17211275895782_l.jpg',
-      date: '2024-07-16',
-      author: 'Spot',
-      link: 'https://www.spot.uz/ru/2024/07/16/arms-industry/'
-    },
-    {
-      id: 5,
-      title: t.blog.posts[5].title,
-      excerpt: t.blog.posts[5].excerpt,
-      image: 'https://agmk.uz/uploads/news/236088321ac0abe73c75ef80ec63b8b5.JPG',
-      date: '2024-05-28',
-      author: 'AGMK',
-      link: 'https://agmk.uz/ru/news/okmkga-yana-2-dona-avtogigant-olib-kelindi'
-    },
-    {
-      id: 3,
-      title: t.blog.posts[3].title,
-      excerpt: t.blog.posts[3].excerpt,
-      image: 'https://storage.kun.uz/source/9/cgLbGkvOhvDMBmDUvQ4EO3Gqe9uuwjE-.jpg',
-      date: '2023-02-25',
-      author: 'Kun',
-      link: 'https://kun.uz/news/2023/02/25/krantas-group-jahon-bozorida-yengil-bronlangan-avtoni-taqdim-etdi'
-    },
-    {
-      id: 2,
-      title: t.blog.posts[2].title,
-      excerpt: t.blog.posts[2].excerpt,
-      image: 'https://www.gazeta.uz/media/img/2021/01/f11B6V16104622858626_l.jpg',
-      date: '2021-01-12',
-      author: 'Gazeta',
-      link: 'https://www.gazeta.uz/ru/2021/01/12/equipment/'
-    },
-    {
-      id: 1,
-      title: t.blog.posts[1].title,
-      excerpt: t.blog.posts[1].excerpt,
-      image: 'https://www.gazeta.uz/media/img/2017/04/oBWirl14920003414464_b.jpg?r=1498751454',
-      date: '2017-06-29',
-      author: 'Gazeta',
-      link: 'https://www.gazeta.uz/ru/2017/06/29/krantas/'
+  const locale = useMemo(() => {
+    switch (language) {
+      case 'ru':
+        return 'ru-RU';
+      case 'uz':
+        return 'uz-UZ';
+      case 'de':
+        return 'de-DE';
+      default:
+        return 'en-US';
     }
-  ], [t.blog.posts]);
+  }, [language]);
+
+  const blogPosts = useMemo(
+    () =>
+      newsItems
+        .filter((newsItem) => newsItem.isActive)
+        .map((newsItem) => {
+          const localization = getNewsItemLocalization(newsItem, language);
+
+          return {
+            id: newsItem.id,
+            title: localization.title.trim(),
+            excerpt: localization.excerpt.trim(),
+            image: newsItem.image.trim(),
+            imagePosition: newsItem.imagePosition,
+            date: newsItem.date.trim(),
+            author: newsItem.author.trim(),
+            link: newsItem.link.trim(),
+          };
+        })
+        .filter((post) => post.title),
+    [language, newsItems],
+  );
+
+  const formatDate = (
+    value: string,
+    options: Intl.DateTimeFormatOptions,
+  ) => {
+    if (!value) {
+      return 'No date';
+    }
+
+    const parsedDate = new Date(value);
+
+    if (Number.isNaN(parsedDate.getTime())) {
+      return 'No date';
+    }
+
+    return parsedDate.toLocaleDateString(locale, options);
+  };
 
   const sortedPosts = useMemo(() => {
     return [...blogPosts].sort((left, right) => {
-      const leftTime = new Date(left.date).getTime();
-      const rightTime = new Date(right.date).getTime();
+      const leftTime = Number.isNaN(new Date(left.date).getTime()) ? 0 : new Date(left.date).getTime();
+      const rightTime = Number.isNaN(new Date(right.date).getTime()) ? 0 : new Date(right.date).getTime();
       return sortOrder === 'desc' ? rightTime - leftTime : leftTime - rightTime;
     });
   }, [blogPosts, sortOrder]);
 
-  const selectedPost = sortedPosts.find((post) => post.id === selectedPostId) || sortedPosts[0];
+  const resolvedSelectedPostId = sortedPosts.some((post) => post.id === selectedPostId)
+    ? selectedPostId
+    : sortedPosts[0]?.id ?? null;
+
+  const selectedPost = resolvedSelectedPostId
+    ? sortedPosts.find((post) => post.id === resolvedSelectedPostId) || sortedPosts[0]
+    : sortedPosts[0];
+
+  const emptyState = (
+    <div className="rounded-[28px] border border-black/10 bg-neutral-50 px-6 py-12 text-center lg:px-10">
+      <h3 className="font-display text-xl font-semibold text-[#0B0C0E]">No news published yet</h3>
+      <p className="mt-3 text-sm leading-relaxed text-neutral-500">
+        Publish articles from the admin panel to populate this page.
+      </p>
+    </div>
+  );
 
   return (
     <div className="bg-white w-full flex-1 flex flex-col">
       <div className="relative z-10 bg-white w-full flex-1 flex flex-col">
-
-
         <div className="bg-white relative z-10">
-
-
           {/* Magazine Layout */}
           <section className="pt-12 lg:pt-16 pb-10 lg:pb-14">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+              {sortedPosts.length === 0 ? (
+                emptyState
+              ) : (
+                <>
               {/* MOBILE VIEW: Accordion Style */}
               <div className="lg:hidden space-y-4">
-                <div className="mb-6">
+                <div className="mb-6 flex justify-end">
                   <button
                     onClick={() => setSortOrder((current) => (current === 'desc' ? 'asc' : 'desc'))}
                     className="inline-flex items-center gap-2 border border-black/10 bg-white px-4 py-2 text-sm font-medium text-[#0B0C0E] transition hover:bg-gray-50"
                   >
                     <ArrowUpDown size={16} />
-                    {sortOrder === 'desc' ? 'Newest first' : 'Oldest first'}
+                    {sortOrder === 'desc' ? t.blog.newestFirst : t.blog.oldestFirst}
                   </button>
                 </div>
                 <div className="flex flex-col border-t border-gray-100">
                   {sortedPosts.map((post) => (
                     <div key={post.id} className="border-b border-gray-100">
                       <button
-                        onClick={() => setSelectedPostId(selectedPostId === post.id ? 0 : post.id)}
-                        className={`w-full text-left py-6 flex items-center justify-between transition-all duration-300 ${selectedPostId === post.id ? 'text-[#244d85]' : 'text-[#0B0C0E]'}`}
+                        onClick={() => setSelectedPostId(resolvedSelectedPostId === post.id ? null : post.id)}
+                        className={`w-full text-left py-6 flex items-center justify-between transition-all duration-300 ${resolvedSelectedPostId === post.id ? 'text-[#244d85]' : 'text-[#0B0C0E]'}`}
                       >
                         <h4 className="font-display text-lg font-semibold leading-tight pr-4">
                           {post.title}
                         </h4>
-                        <div className={`transition-transform duration-300 flex-shrink-0 ${selectedPostId === post.id ? 'rotate-90 text-[#244d85]' : 'text-gray-300'}`}>
+                        <div className={`transition-transform duration-300 flex-shrink-0 ${resolvedSelectedPostId === post.id ? 'rotate-90 text-[#244d85]' : 'text-gray-300'}`}>
                           <ChevronRight size={20} />
                         </div>
                       </button>
 
-                      {selectedPostId === post.id && (
+                      {resolvedSelectedPostId === post.id && (
                         <div className="pb-8 animate-in fade-in slide-in-from-top-2 duration-300">
                           <div className="aspect-video w-full overflow-hidden mb-6">
                             <img
                               src={post.image}
                               alt={post.title}
                               className="w-full h-full object-cover"
+                              style={{
+                                objectPosition: `${post.imagePosition.x}% ${post.imagePosition.y}%`,
+                              }}
                             />
                           </div>
 
                           <div className="flex items-center gap-4 mb-4 text-xs text-gray-500">
                             <span className="flex items-center gap-1">
                               <Calendar size={12} />
-                              {new Date(post.date).toLocaleDateString(language || 'en-US', {
+                              {formatDate(post.date, {
                                 month: 'short',
                                 day: 'numeric',
                                 year: 'numeric',
@@ -141,7 +148,7 @@ export default function News() {
                             </span>
                             <span className="flex items-center gap-1">
                               <User size={12} />
-                              {post.author}
+                              {post.author || 'KRANTAS Group'}
                             </span>
                           </div>
 
@@ -170,7 +177,7 @@ export default function News() {
               <div className="hidden lg:flex flex-row gap-8">
                 {/* Left - Article List (Scrollable) */}
                 <div className="lg:w-1/3">
-                  <div className="mb-6 flex items-center gap-3">
+                  <div className="mb-6 flex items-center justify-between gap-3">
                     <h3 className="font-display text-xl lg:text-2xl font-semibold text-[#0B0C0E]">
                       {t.blog.latest}
                     </h3>
@@ -179,7 +186,7 @@ export default function News() {
                       className="inline-flex items-center gap-2 border border-black/10 bg-white px-4 py-2 text-sm font-medium text-[#0B0C0E] transition hover:bg-gray-50"
                     >
                       <ArrowUpDown size={16} />
-                      {sortOrder === 'desc' ? 'Newest first' : 'Oldest first'}
+                      {sortOrder === 'desc' ? t.blog.newestFirst : t.blog.oldestFirst}
                     </button>
                   </div>
                   <div className="space-y-3 max-h-[700px] overflow-y-auto pr-2">
@@ -187,7 +194,7 @@ export default function News() {
                       <button
                         key={post.id}
                         onClick={() => setSelectedPostId(post.id)}
-                        className={`w-full text-left p-4 transition-all ${selectedPostId === post.id
+                        className={`w-full text-left p-4 transition-all ${resolvedSelectedPostId === post.id
                           ? 'bg-[#244d85]/5'
                           : ''
                           }`}
@@ -195,7 +202,7 @@ export default function News() {
                         <div className="flex items-center gap-3 mb-2 text-base text-gray-400">
                           <span className="flex items-center gap-1">
                             <Calendar size={12} />
-                            {new Date(post.date).toLocaleDateString(language || 'en-US', {
+                            {formatDate(post.date, {
                               month: 'short',
                               day: 'numeric',
                               year: 'numeric',
@@ -203,10 +210,10 @@ export default function News() {
                           </span>
                           <span className="flex items-center gap-1">
                             <User size={12} />
-                            {post.author}
+                            {post.author || 'KRANTAS Group'}
                           </span>
                         </div>
-                        <h4 className={`font-medium text-base ${selectedPostId === post.id ? 'text-[#244d85]' : 'text-[#0B0C0E]'}`}>
+                        <h4 className={`font-medium text-base ${resolvedSelectedPostId === post.id ? 'text-[#244d85]' : 'text-[#0B0C0E]'}`}>
                           {post.title}
                         </h4>
                       </button>
@@ -217,18 +224,25 @@ export default function News() {
                 {/* Right - Featured Article (Fixed) */}
                 <div className="lg:w-2/3 lg:sticky lg:top-24 lg:self-start">
                   <div className="bg-white overflow-hidden">
-                    <div className="h-72 lg:h-80 overflow-hidden">
+                    <div className="h-[20.7rem] lg:h-[23rem] overflow-hidden">
                       <img
-                        src={selectedPost.image}
-                        alt={selectedPost.title}
+                        src={selectedPost?.image}
+                        alt={selectedPost?.title}
                         className="w-full h-full object-cover"
+                        style={
+                          selectedPost
+                            ? {
+                                objectPosition: `${selectedPost.imagePosition.x}% ${selectedPost.imagePosition.y}%`,
+                              }
+                            : undefined
+                        }
                       />
                     </div>
                     <div className="p-8">
                       <div className="flex items-center gap-4 mb-4 text-base text-gray-500">
                         <span className="flex items-center gap-1">
                           <Calendar size={14} />
-                          {new Date(selectedPost.date).toLocaleDateString(language || 'en-US', {
+                          {formatDate(selectedPost?.date || '', {
                             month: 'long',
                             day: 'numeric',
                             year: 'numeric',
@@ -236,16 +250,16 @@ export default function News() {
                         </span>
                         <span className="flex items-center gap-1">
                           <User size={14} />
-                          {selectedPost.author}
+                          {selectedPost?.author || 'KRANTAS Group'}
                         </span>
                       </div>
                       <h2 className="font-display text-xl md:text-2xl lg:text-3xl font-semibold text-[#0B0C0E] mb-4">
-                        {selectedPost.title}
+                        {selectedPost?.title}
                       </h2>
                       <p className="text-base text-gray-600 leading-relaxed mb-6">
-                        {selectedPost.excerpt}
+                        {selectedPost?.excerpt}
                       </p>
-                      {selectedPost.link && (
+                      {selectedPost?.link && (
                         <div className="mt-8 pt-8 border-t border-gray-100">
                           <a
                             href={selectedPost.link}
@@ -261,6 +275,8 @@ export default function News() {
                   </div>
                 </div>
               </div>
+                </>
+              )}
             </div>
           </section>
         </div>

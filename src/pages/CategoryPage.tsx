@@ -3,11 +3,14 @@ import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, ArrowLeft, X } from 'lucide-react';
 import { getCategoryById, getProductsByCategory, categories } from '../data/products';
 import ContactForm from '../components/ContactForm';
+import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl } from '../lib/media';
 
 export default function CategoryPage() {
   const { t } = useLanguage();
+  const { trackEvent } = useAnalytics();
   const [showForm, setShowForm] = useState(false);
   const { categoryId } = useParams<{ categoryId: string }>();
   const category = getCategoryById(categoryId || '');
@@ -55,6 +58,21 @@ export default function CategoryPage() {
                     key={product.id}
                     to={`/product/${product.id}`}
                     className="group bg-white transition-all overflow-hidden shadow-sm hover:shadow-xl"
+                    onClick={() =>
+                      trackEvent('select_item', {
+                        item_list_name: category.name,
+                        ecommerce: {
+                          items: [
+                            buildProductAnalyticsItem({
+                              item_id: product.id,
+                              item_name: product.name,
+                              item_category: product.category,
+                              item_variant: typeof product.specs.model === 'string' ? product.specs.model : undefined,
+                            }),
+                          ],
+                        },
+                      })
+                    }
                   >
                     <div className="h-48 overflow-hidden">
                       <img

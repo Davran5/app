@@ -35,10 +35,10 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
+  const closeMenus = () => {
     setIsMobileMenuOpen(false);
     setIsLangOpen(false);
-  }, [location.pathname]);
+  };
 
   const isActive = (href: string) => {
     if (href === '/') return location.pathname === '/';
@@ -103,6 +103,7 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                 <Link
                   key={link.label}
                   to={link.href}
+                  onClick={closeMenus}
                   className={`flex items-center h-full text-[12px] xl:text-sm tracking-tight xl:tracking-normal transition-colors ${getTextColor(isActive(link.href))}`}
                 >
                   {link.label}
@@ -112,7 +113,7 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
 
             {/* Center Column - Logo */}
             <div className="flex-shrink-0 w-48 xl:w-72 flex justify-center px-4">
-              <Link to="/" className="transition-all duration-500">
+              <Link to="/" onClick={closeMenus} className="transition-all duration-500">
                 <img
                   src="/logo.png"
                   alt="KRANTAS"
@@ -122,7 +123,7 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                     : ''
                     } ${isScrolled || location.pathname !== '/'
                       ? 'h-[28px] xl:h-[34px]'
-                      : 'h-[40px] xl:h-[60px]'
+                      : 'h-[38px] xl:h-[57px]'
                     }`}
                 />
               </Link>
@@ -134,6 +135,7 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                 <Link
                   key={link.label}
                   to={link.href}
+                  onClick={closeMenus}
                   className={`flex items-center h-full text-[12px] xl:text-sm tracking-tight xl:tracking-normal transition-colors ${getTextColor(isActive(link.href))}`}
                 >
                   {link.label}
@@ -145,6 +147,7 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                 <Link
                   to="/find-dealer"
                   title="Find a Dealer"
+                  onClick={closeMenus}
                   className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${isScrolled || !isHome
                     ? 'text-[#244d85] hover:bg-[#244d85]/10'
                     : 'text-[#fdc15e] hover:bg-white/10'
@@ -215,6 +218,7 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
           <Link
             to="/"
             onClick={() => setIsMobileMenuOpen(false)}
+            onClickCapture={() => setIsLangOpen(false)}
             className={`transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isMobileMenuOpen ? 'scale-150' : 'scale-100'
               }`}
           >
@@ -246,6 +250,7 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
       <div
         className={`lg:hidden fixed inset-0 bg-black/50 z-[9997] transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsMobileMenuOpen(false)}
+        onClickCapture={() => setIsLangOpen(false)}
       />
 
       {/* Dropdown Panel */}

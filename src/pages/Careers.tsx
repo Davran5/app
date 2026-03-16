@@ -1,14 +1,33 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ChevronRight, MapPin, Briefcase, Clock, X, Send } from 'lucide-react';
 import { toast } from 'sonner';
+import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 import TeamMemberStoryCards from '../components/TeamMemberStoryCards';
+import { getVacancyLocalization } from '../lib/cms';
+
+interface OpenPosition {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  experience: string;
+  age: string;
+  description: string;
+  requirements: string[];
+}
 
 export default function Careers() {
-  const { t } = useLanguage();
-  const [expandedJob, setExpandedJob] = useState<number | null>(null);
+  const { t, language } = useLanguage();
+  const { trackEvent } = useAnalytics();
+  const { vacancies, createLead } = useCms();
+  const location = useLocation();
+  const [expandedJob, setExpandedJob] = useState<string | null>(null);
   const [showApplication, setShowApplication] = useState(false);
-  const [selectedJob, setSelectedJob] = useState<any>(null); // Type 'any' for simplicity with dynamic data
+  const [selectedJob, setSelectedJob] = useState<OpenPosition | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,60 +37,74 @@ export default function Careers() {
     message: '',
   });
 
-  const openPositions = [
-    {
-      id: 1,
-      title: t.careers.positions[1].title,
-      department: t.careers.positions[1].department,
-      location: t.careers.positions[1].location,
-      type: t.careers.fullTime,
-      experience: t.careers.positions[1].experience,
-      age: t.careers.positions[1].age,
-      description: t.careers.positions[1].description,
-      requirements: t.careers.positions[1].requirements,
-    },
-    {
-      id: 2,
-      title: t.careers.positions[2].title,
-      department: t.careers.positions[2].department,
-      location: t.careers.positions[2].location,
-      type: t.careers.fullTime,
-      experience: t.careers.positions[2].experience,
-      age: t.careers.positions[2].age,
-      description: t.careers.positions[2].description,
-      requirements: t.careers.positions[2].requirements,
-    },
-    {
-      id: 3,
-      title: t.careers.positions[3].title,
-      department: t.careers.positions[3].department,
-      location: t.careers.positions[3].location,
-      type: t.careers.fullTime,
-      experience: t.careers.positions[3].experience,
-      age: t.careers.positions[3].age,
-      description: t.careers.positions[3].description,
-      requirements: t.careers.positions[3].requirements,
-    },
-    {
-      id: 4,
-      title: t.careers.positions[4].title,
-      department: t.careers.positions[4].department,
-      location: t.careers.positions[4].location,
-      type: t.careers.fullTime,
-      experience: t.careers.positions[4].experience,
-      age: t.careers.positions[4].age,
-      description: t.careers.positions[4].description,
-      requirements: t.careers.positions[4].requirements,
-    },
-  ];
+  const openPositions = useMemo<OpenPosition[]>(
+    () =>
+      vacancies
+        .filter((vacancy) => vacancy.isActive)
+        .map((vacancy) => {
+          const localized = getVacancyLocalization(vacancy, language);
 
-  const handleApply = (job: any) => {
+          return {
+            id: vacancy.id,
+            title: localized.title,
+            department: localized.department,
+            location: localized.location,
+            type: localized.type || t.careers.fullTime,
+            experience: localized.experience,
+            age: localized.age,
+            description: localized.description,
+            requirements: localized.requirements,
+          };
+        })
+        .filter((vacancy) => vacancy.title.trim()),
+    [language, t.careers.fullTime, vacancies],
+  );
+
+  const handleApply = (job: OpenPosition) => {
     setSelectedJob(job);
     setShowApplication(true);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!selectedJob) {
+      return;
+    }
+
+    createLead({
+      source: 'careers',
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      subject: `Application: ${selectedJob.title}`,
+      message: formData.message,
+      language,
+      originPage: location.pathname,
+      metadata: {
+        vacancyId: selectedJob.id,
+        vacancyTitle: selectedJob.title,
+        department: selectedJob.department,
+        location: selectedJob.location,
+        employmentType: selectedJob.type,
+        experienceRequired: selectedJob.experience,
+        ageRequirement: selectedJob.age,
+        candidateAge: formData.age,
+        candidateExperience: formData.experience,
+      },
+    });
+
+    trackEvent('generate_lead', {
+      form_type: 'vacancy_application',
+      lead_source: 'careers',
+      page_path: location.pathname,
+      language,
+      vacancy_id: selectedJob.id,
+      vacancy_title: selectedJob.title,
+      department: selectedJob.department,
+      location: selectedJob.location,
+    });
+
     toast.success(`Application submitted for ${selectedJob?.title}! We will contact you soon.`);
     setShowApplication(false);
     setFormData({ name: '', email: '', phone: '', age: '', experience: '', message: '' });
@@ -127,76 +160,82 @@ export default function Careers() {
                 {t.careers.openPositions}
               </h2>
 
-              <div className="space-y-4">
-                {openPositions.map((position) => (
-                  <div
-                    key={position.id}
-                    className="bg-white overflow-hidden shadow-sm hover:shadow-md transition-all rounded-sm"
-                  >
-                    <button
-                      onClick={() => setExpandedJob(expandedJob === position.id ? null : position.id)}
-                      className="w-full p-6 text-left"
+              {openPositions.length > 0 ? (
+                <div className="space-y-4">
+                  {openPositions.map((position) => (
+                    <div
+                      key={position.id}
+                      className="bg-white overflow-hidden shadow-sm hover:shadow-md transition-all rounded-sm"
                     >
-                      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                        <div>
-                          <h3 className="font-display text-lg font-medium text-[#0B0C0E] mb-2">
-                            {position.title}
-                          </h3>
-                          <div className="flex flex-wrap items-center gap-4 text-base text-gray-500">
-                            <span className="flex items-center gap-1">
-                              <Briefcase size={14} />
-                              {position.department}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <MapPin size={14} />
-                              {position.location}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Clock size={14} />
-                              {position.type}
-                            </span>
+                      <button
+                        onClick={() => setExpandedJob(expandedJob === position.id ? null : position.id)}
+                        className="w-full p-6 text-left"
+                      >
+                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                          <div>
+                            <h3 className="font-display text-lg font-medium text-[#0B0C0E] mb-2">
+                              {position.title}
+                            </h3>
+                            <div className="flex flex-wrap items-center gap-4 text-base text-gray-500">
+                              <span className="flex items-center gap-1">
+                                <Briefcase size={14} />
+                                {position.department}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <MapPin size={14} />
+                                {position.location}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Clock size={14} />
+                                {position.type}
+                              </span>
+                            </div>
                           </div>
+                          <ChevronRight
+                            size={20}
+                            className={`text-gray-400 transition-transform ${expandedJob === position.id ? 'rotate-90' : ''}`}
+                          />
                         </div>
-                        <ChevronRight
-                          size={20}
-                          className={`text-gray-400 transition-transform ${expandedJob === position.id ? 'rotate-90' : ''}`}
-                        />
-                      </div>
-                    </button>
+                      </button>
 
-                    {expandedJob === position.id && (
-                      <div className="px-6 pb-6 pt-4 bg-gray-50/50">
-                        <p className="text-base text-gray-600 mb-4">{position.description}</p>
-                        <div className="mb-4">
-                          <span className="text-base text-gray-500">{t.careers.experienceLabel} </span>
-                          <span className="text-base text-[#0B0C0E] font-medium">{position.experience}</span>
-                          <span className="text-base text-gray-500 ml-4">{t.careers.ageLabel} </span>
-                          <span className="text-base text-[#0B0C0E] font-medium">{position.age}</span>
-                        </div>
-                        <div className="mb-6">
-                          <h4 className="font-medium text-[#0B0C0E] mb-2">{t.careers.requirementsLabel}</h4>
-                          <ul className="space-y-1">
-                            {position.requirements.map((req: string, i: number) => (
-                              <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
-                                <span className="text-[#244d85]">•</span>
-                                {req}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <button
-                          onClick={() => handleApply(position)}
-                          className="inline-flex items-center gap-2 bg-[#244d85] text-white px-6 py-3 font-medium
+                      {expandedJob === position.id && (
+                        <div className="px-6 pb-6 pt-4 bg-gray-50/50">
+                          <p className="text-base text-gray-600 mb-4">{position.description}</p>
+                          <div className="mb-4">
+                            <span className="text-base text-gray-500">{t.careers.experienceLabel} </span>
+                            <span className="text-base text-[#0B0C0E] font-medium">{position.experience}</span>
+                            <span className="text-base text-gray-500 ml-4">{t.careers.ageLabel} </span>
+                            <span className="text-base text-[#0B0C0E] font-medium">{position.age}</span>
+                          </div>
+                          <div className="mb-6">
+                            <h4 className="font-medium text-[#0B0C0E] mb-2">{t.careers.requirementsLabel}</h4>
+                            <ul className="space-y-1">
+                              {position.requirements.map((req: string, i: number) => (
+                                <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                                  <span className="text-[#244d85]">•</span>
+                                  {req}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <button
+                            onClick={() => handleApply(position)}
+                            className="inline-flex items-center gap-2 bg-[#244d85] text-white px-6 py-3 font-medium
                                transition-all duration-200 hover:bg-[#1E4ECC]"
-                        >
-                          {t.careers.apply}
-                          <ChevronRight size={16} />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+                          >
+                            {t.careers.apply}
+                            <ChevronRight size={16} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-sm border border-dashed border-gray-200 bg-gray-50 px-6 py-10 text-base text-gray-500">
+                  No open vacancies available right now.
+                </div>
+              )}
             </div>
           </section>
 

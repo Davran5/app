@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -10,9 +10,11 @@ import {
   Factory,
   Wrench,
 } from 'lucide-react';
+import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
+import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl } from '../lib/media';
 
 // Internal CountUp component
@@ -62,7 +64,8 @@ function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
 
 export default function Home() {
   const { t } = useLanguage();
-  const { products, categories } = useCms();
+  const { trackEvent } = useAnalytics();
+  const { products, categories, featuredProductIds } = useCms();
   const [showForm, setShowForm] = useState(false);
   const [introVisible, setIntroVisible] = useState(false);
 
@@ -89,6 +92,14 @@ export default function Home() {
     },
   ];
 
+  const featuredProducts = useMemo(
+    () =>
+      featuredProductIds
+        .map((productId) => products.find((product) => product.id === productId))
+        .filter((product): product is NonNullable<typeof product> => Boolean(product)),
+    [featuredProductIds, products],
+  );
+
   return (
       <div className="w-full flex-1 flex flex-col">
       {/* Hero Section */}
@@ -101,13 +112,15 @@ export default function Home() {
               muted
               loop
               playsInline
+              preload="metadata"
+              poster="/hero-poster.webp"
               disablePictureInPicture
               disableRemotePlayback
               draggable={false}
               onContextMenu={(event) => event.preventDefault()}
-              className="w-full h-full object-cover opacity-75 md:opacity-100"
+              className="h-full w-full object-cover opacity-100"
             >
-              <source src="/herovid.mp4" type="video/mp4" />
+              <source src="/herovid-desktop.mp4" type="video/mp4" />
             </video>
             {/* Overlay for mobile readability */}
             <div className="absolute inset-0 bg-black/25 md:hidden" />
@@ -202,8 +215,8 @@ export default function Home() {
                       style={{ transitionDelay: `${100 + index * 120}ms` }}
                     >
                       <div className="h-full border border-gray-200 bg-white px-5 py-5 shadow-sm transition-all duration-300 hover:border-[#244d85]/25 hover:shadow-md md:px-6 md:py-6">
-                        <div className="flex items-start gap-4">
-                          <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center bg-[#244d85]/10 text-[#244d85]">
+                        <div className="flex items-start gap-4 md:items-center">
+                          <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center self-start bg-[#244d85]/10 text-[#244d85] md:self-center">
                             <Icon size={19} />
                           </div>
                           <div className="min-w-0">
@@ -231,8 +244,8 @@ export default function Home() {
               {[
                 { value: 60, suffix: '+', label: t.stats.equipment },
                 { value: 10000, suffix: '+', label: t.stats.projects },
-                { value: 600, suffix: '+', label: t.stats.employees },
-                { value: 79, suffix: '', label: t.stats.experience },
+                { value: 700, suffix: '+', label: t.stats.employees },
+                { value: 81, suffix: '', label: t.stats.experience },
               ].map((stat, idx) => (
                 <div key={idx} className="text-center lg:text-left">
                   <span className="font-display text-3xl md:text-5xl lg:text-7xl font-medium text-[#244d85] block mb-1 md:mb-2">
@@ -373,151 +386,170 @@ export default function Home() {
         </section>
 
         {/* Featured Products */}
-        <section className="py-10 lg:py-14 bg-gray-50">
-          <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className="flex items-end justify-between mb-8">
-              <div>
-                <span className="font-mono text-base uppercase tracking-[0.14em] text-[#244d85] mb-3 block">
-                  {t.products.title}
-                </span>
-                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E]">
-                  {t.products.heading}
-                </h2>
+        {featuredProducts.length > 0 && (
+          <section className="py-10 lg:py-14 bg-gray-50">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+              <div className="flex items-end justify-between mb-8">
+                <div>
+                  <span className="font-mono text-base uppercase tracking-[0.14em] text-[#244d85] mb-3 block">
+                    {t.products.title}
+                  </span>
+                  <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E]">
+                    {t.products.heading}
+                  </h2>
+                </div>
+                <Link
+                  to="/catalog"
+                  className="hidden md:inline-flex items-center gap-2 text-[#244d85] hover:text-[#1E4ECC] transition-colors font-medium"
+                >
+                  {t.products.viewAll}
+                  <ChevronRight size={18} />
+                </Link>
               </div>
-              <Link
-                to="/catalog"
-                className="hidden md:inline-flex items-center gap-2 text-[#244d85] hover:text-[#1E4ECC] transition-colors font-medium"
-              >
-                {t.products.viewAll}
-                <ChevronRight size={18} />
-              </Link>
-            </div>
 
-            {/* Horizontal Scrollable Product Cards - One per Category */}
-            <div className="relative overflow-hidden">
-              {/* Prev Arrow */}
-              <button
-                id="products-prev"
-                aria-label="Previous"
-                onClick={() => {
-                  const el = document.getElementById('products-scroll');
-                  if (el) el.scrollBy({ left: -400, behavior: 'smooth' });
-                }}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
-              >
-                <ChevronLeft size={20} />
-              </button>
+              <div className="relative overflow-hidden">
+                <button
+                  id="products-prev"
+                  aria-label="Previous"
+                  onClick={() => {
+                    const el = document.getElementById('products-scroll');
+                    if (el) el.scrollBy({ left: -400, behavior: 'smooth' });
+                  }}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
+                >
+                  <ChevronLeft size={20} />
+                </button>
 
-              {/* Next Arrow */}
-              <button
-                id="products-next"
-                aria-label="Next"
-                onClick={() => {
-                  const el = document.getElementById('products-scroll');
-                  if (el) el.scrollBy({ left: 400, behavior: 'smooth' });
-                }}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
-              >
-                <ChevronRight size={20} />
-              </button>
+                <button
+                  id="products-next"
+                  aria-label="Next"
+                  onClick={() => {
+                    const el = document.getElementById('products-scroll');
+                    if (el) el.scrollBy({ left: 400, behavior: 'smooth' });
+                  }}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 text-[#244d85] hover:bg-[#244d85] hover:text-white transition-all flex items-center justify-center scale-90 md:scale-100"
+                >
+                  <ChevronRight size={20} />
+                </button>
 
-              <div
-                id="products-scroll"
-                className="overflow-x-auto -mx-6 px-6 scrollbar-hide snap-x snap-mandatory select-none"
-                style={{ cursor: 'grab', touchAction: 'pan-x' }}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  const el = e.currentTarget;
-                  el.style.cursor = 'grabbing';
-                  el.style.scrollSnapType = 'none';
-                  el.style.scrollBehavior = 'auto';
+                <div
+                  id="products-scroll"
+                  className="overflow-x-auto -mx-6 px-6 scrollbar-hide snap-x snap-mandatory select-none"
+                  style={{ cursor: 'grab', touchAction: 'pan-x' }}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    const el = e.currentTarget;
+                    el.style.cursor = 'grabbing';
+                    el.style.scrollSnapType = 'none';
+                    el.style.scrollBehavior = 'auto';
 
-                  const startX = e.clientX;
-                  const startScrollLeft = el.scrollLeft;
-                  let hasDragged = false;
+                    const startX = e.clientX;
+                    const startScrollLeft = el.scrollLeft;
+                    let hasDragged = false;
 
-                  const onMove = (me: MouseEvent) => {
-                    const dx = me.clientX - startX;
-                    if (Math.abs(dx) > 4) {
-                      hasDragged = true;
-                    }
-                    el.scrollLeft = startScrollLeft - dx;
-                  };
+                    const onMove = (me: MouseEvent) => {
+                      const dx = me.clientX - startX;
+                      if (Math.abs(dx) > 4) {
+                        hasDragged = true;
+                      }
+                      el.scrollLeft = startScrollLeft - dx;
+                    };
 
-                  const onUp = (upEvent: MouseEvent) => {
-                    el.style.cursor = 'grab';
+                    const onUp = (upEvent: MouseEvent) => {
+                      el.style.cursor = 'grab';
 
-                    const dx = upEvent.clientX - startX;
-                    const threshold = 50;
+                      const dx = upEvent.clientX - startX;
+                      const threshold = 50;
 
-                    if (Math.abs(dx) > threshold) {
-                      hasDragged = true;
-                      const scrollDir = dx > 0 ? -1 : 1;
-                      const cardWidth = el.querySelector('.group')?.clientWidth || 400;
-                      el.scrollBy({ left: scrollDir * cardWidth, behavior: 'smooth' });
-                    }
+                      if (Math.abs(dx) > threshold) {
+                        hasDragged = true;
+                        const scrollDir = dx > 0 ? -1 : 1;
+                        const cardWidth = el.querySelector('.group')?.clientWidth || 400;
+                        el.scrollBy({ left: scrollDir * cardWidth, behavior: 'smooth' });
+                      }
 
-                    // Briefly keep snapping off to allow the smooth scroll follow-through
-                    setTimeout(() => {
-                      el.style.scrollSnapType = '';
-                      el.style.scrollBehavior = '';
-                    }, 400);
+                      setTimeout(() => {
+                        el.style.scrollSnapType = '';
+                        el.style.scrollBehavior = '';
+                      }, 400);
 
-                    if (hasDragged) el.setAttribute('data-dragging', '1');
-                    window.removeEventListener('mousemove', onMove);
-                    window.removeEventListener('mouseup', onUp);
-                    setTimeout(() => el.removeAttribute('data-dragging'), 0);
-                  };
+                      if (hasDragged) el.setAttribute('data-dragging', '1');
+                      window.removeEventListener('mousemove', onMove);
+                      window.removeEventListener('mouseup', onUp);
+                      setTimeout(() => el.removeAttribute('data-dragging'), 0);
+                    };
 
-                  window.addEventListener('mousemove', onMove);
-                  window.addEventListener('mouseup', onUp);
-                }}
-              >
-                <div className="flex gap-4 min-w-max pb-4">
-                  {categories
-                    .filter(c => c.id !== 'custom-solutions' && c.id !== 'metal-structures')
-                    .map((category) => {
-                      // Get one product from this category
-                      const categoryProduct = products.find(p => p.categoryId === category.id);
-                      if (!categoryProduct) return null;
-
-                      const specs = Object.entries(t.productsData?.[categoryProduct.id as keyof typeof t.productsData]?.specs || categoryProduct.specs);
+                    window.addEventListener('mousemove', onMove);
+                    window.addEventListener('mouseup', onUp);
+                  }}
+                >
+                  <div className="flex gap-4 min-w-max pb-4">
+                    {featuredProducts.map((featuredProduct) => {
+                      const specs = Object.entries(
+                        t.productsData?.[featuredProduct.id as keyof typeof t.productsData]?.specs ||
+                          featuredProduct.specs,
+                      );
                       const modelSpec = specs[0];
                       const otherSpecs = specs.slice(1, 3);
 
-                      return (
-                        <Link
-                          key={categoryProduct.id}
-                          to={`/product/${categoryProduct.id}`}
-                          className="group bg-white rounded-lg transition-all overflow-hidden shadow-sm hover:shadow-xl flex max-w-[340px] md:max-w-[570px] w-full flex-shrink-0 snap-center"
-                          onClick={(e) => {
-                            const scroll = document.getElementById('products-scroll');
-                            if (scroll?.getAttribute('data-dragging')) e.preventDefault();
-                          }}
-                        >
-                          {/* Product Image - Clean */}
+                        return (
+                          <Link
+                            key={featuredProduct.id}
+                            to={`/product/${featuredProduct.id}`}
+                            className="group bg-white rounded-lg transition-all overflow-hidden shadow-sm hover:shadow-lg flex max-w-[340px] md:max-w-[570px] w-full flex-shrink-0 snap-center"
+                            onClick={(e) => {
+                              const scroll = document.getElementById('products-scroll');
+                              if (scroll?.getAttribute('data-dragging')) {
+                                e.preventDefault();
+                                return;
+                              }
+
+                              trackEvent('select_item', {
+                                item_list_name: 'homepage_featured_products',
+                                ecommerce: {
+                                  items: [
+                                    buildProductAnalyticsItem({
+                                      item_id: featuredProduct.id,
+                                      item_name:
+                                        t.productsData?.[featuredProduct.id as keyof typeof t.productsData]?.name ||
+                                        featuredProduct.name,
+                                      item_category: featuredProduct.category,
+                                      item_variant:
+                                        typeof featuredProduct.specs.model === 'string'
+                                          ? featuredProduct.specs.model
+                                          : undefined,
+                                    }),
+                                  ],
+                                },
+                              });
+                            }}
+                          >
                           <div className="relative w-1/2 overflow-hidden bg-gray-50 rounded-l-lg flex-shrink-0">
                             <img
-                              src={resolveMediaInputUrl(categoryProduct.image)}
-                              alt={t.productsData?.[categoryProduct.id as keyof typeof t.productsData]?.name || categoryProduct.name}
+                              src={resolveMediaInputUrl(featuredProduct.image)}
+                              alt={
+                                t.productsData?.[featuredProduct.id as keyof typeof t.productsData]?.name ||
+                                featuredProduct.name
+                              }
                               loading="lazy"
                               draggable={false}
                               className="w-full h-full object-contain p-3 md:p-6 transition-transform duration-300 group-hover:scale-105"
                             />
                           </div>
 
-                          {/* Product Info */}
                           <div className="p-4 md:p-8 flex-1 flex flex-col justify-center">
                             <div className="space-y-2 md:space-y-4">
                               {otherSpecs.map(([key, value]) => (
                                 value && (
                                   <div key={key} className="flex justify-between items-center gap-2">
                                     <span className="text-gray-400 font-normal text-xs md:text-sm">
-                                      {t.specLabels?.[key as keyof typeof t.specLabels] || key.replace(/([A-Z])/g, ' $1')
-                                        .split(' ')
-                                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                                        .join(' ')
-                                        .trim()}
+                                      {t.specLabels?.[key as keyof typeof t.specLabels] ||
+                                        key
+                                          .replace(/([A-Z])/g, ' $1')
+                                          .split(' ')
+                                          .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                                          .join(' ')
+                                          .trim()}
                                     </span>
                                     <span className="text-[#0B0C0E] font-medium text-xs md:text-sm">
                                       {value}
@@ -527,7 +559,6 @@ export default function Home() {
                               ))}
                             </div>
 
-                            {/* Footer: Model name left, Details link right */}
                             <div className="mt-3 md:mt-6 pt-2 md:pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
                               {modelSpec && modelSpec[1] && (
                                 <p className="text-[#0B0C0E] text-xs md:text-sm font-semibold truncate">
@@ -541,20 +572,21 @@ export default function Home() {
                           </div>
                         </Link>
                       );
-                    })}</div>
+                    })}
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Mobile: View All Link */}
-            <Link
-              to="/catalog"
-              className="md:hidden inline-flex items-center gap-2 text-[#244d85] hover:text-[#1E4ECC] transition-colors font-medium mt-4"
-            >
-              {t.products.viewAll}
-              <ChevronRight size={18} />
-            </Link>
-          </div>
-        </section>
+              <Link
+                to="/catalog"
+                className="md:hidden inline-flex items-center gap-2 text-[#244d85] hover:text-[#1E4ECC] transition-colors font-medium mt-4"
+              >
+                {t.products.viewAll}
+                <ChevronRight size={18} />
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* Production Section */}
         <section className="py-10 lg:py-14 bg-gray-50">

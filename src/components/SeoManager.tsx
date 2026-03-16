@@ -1,67 +1,88 @@
-import { useEffect, useMemo } from 'react';
+import {
+  createContext,
+  useContext,
+  useMemo,
+  type ReactNode,
+} from 'react';
 import { useLocation } from 'react-router-dom';
-import { useCms } from '../contexts/CmsContext';
-import { useLanguage } from '../contexts/LanguageContext';
-import { interpolateSeoValue, resolveSeoPageKey } from '../lib/cms';
+import { Helmet } from 'react-helmet-async';
+import {
+  EMPTY_SEO_PAYLOAD,
+  usePageSeoData,
+  type SeoPayload,
+} from '../hooks/usePageSeoData';
 
-function upsertMeta(name: string, content: string, property?: boolean) {
-  const selector = property ? `meta[property="${name}"]` : `meta[name="${name}"]`;
-  let tag = document.head.querySelector<HTMLMetaElement>(selector);
-
-  if (!tag) {
-    tag = document.createElement('meta');
-    if (property) {
-      tag.setAttribute('property', name);
-    } else {
-      tag.setAttribute('name', name);
-    }
-    document.head.appendChild(tag);
-  }
-
-  tag.setAttribute('content', content);
+interface SeoManagerProps {
+  children: ReactNode;
 }
 
-export default function SeoManager() {
+interface SeoContextValue {
+  seo: SeoPayload;
+  isLoading: boolean;
+  requestPath: string;
+  currentUrl: string;
+}
+
+const SeoDataContext = createContext<SeoContextValue>({
+  seo: EMPTY_SEO_PAYLOAD,
+  isLoading: false,
+  requestPath: '',
+  currentUrl: '',
+});
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function useSeoData() {
+  return useContext(SeoDataContext);
+}
+
+export default function SeoManager({ children }: SeoManagerProps) {
   const location = useLocation();
-  const { seo, getProductById, getCategoryById } = useCms();
-  const { t } = useLanguage();
+  const { seo, isLoading, requestPath } = usePageSeoData(location.pathname, location.search);
+  const currentUrl = useMemo(
+    () => (typeof window !== 'undefined' ? window.location.href : requestPath),
+    [requestPath],
+  );
+  const shouldRenderHelmet =
+    !isLoading ||
+    Boolean(
+      seo.title ||
+        seo.description ||
+        seo.keywords ||
+        seo.ogTitle ||
+        seo.ogDescription ||
+        seo.ogImage ||
+        seo.canonicalUrl ||
+        seo.robots,
+    );
+  const canonicalUrl = seo.canonicalUrl || currentUrl;
 
-  const replacements = useMemo(() => {
-    const params = new URLSearchParams(location.search);
-    const categoryId = params.get('category') || location.pathname.split('/').pop() || '';
-    const productId = location.pathname.startsWith('/product/')
-      ? location.pathname.split('/').pop() || ''
-      : '';
+  const contextValue = useMemo(
+    () => ({
+      seo,
+      isLoading,
+      requestPath,
+      currentUrl,
+    }),
+    [currentUrl, isLoading, requestPath, seo],
+  );
 
-    const category = getCategoryById(categoryId);
-    const product = getProductById(productId);
-
-    return {
-      brand: 'KRANTAS Group',
-      categoryName:
-        (categoryId && t.categories?.[categoryId as keyof typeof t.categories]?.name) ||
-        category?.name ||
-        t.catalog.title,
-      productName:
-        (productId && t.productsData?.[productId as keyof typeof t.productsData]?.name) ||
-        product?.name ||
-        t.products.title,
-    };
-  }, [getCategoryById, getProductById, location.pathname, location.search, t]);
-
-  useEffect(() => {
-    const pageKey = resolveSeoPageKey(location.pathname);
-    const pageSeo = seo[pageKey];
-    const title = interpolateSeoValue(pageSeo.title, replacements).trim();
-    const description = interpolateSeoValue(pageSeo.description, replacements).trim();
-    const keywords = interpolateSeoValue(pageSeo.keywords, replacements).trim();
-
-    document.title = title;
-    upsertMeta('description', description);
-    upsertMeta('keywords', keywords);
-    upsertMeta('og:title', title, true);
-    upsertMeta('og:description', description, true);
-  }, [location.pathname, replacements, seo]);
-
-  return null;
+  return (
+    <SeoDataContext.Provider value={contextValue}>
+      {shouldRenderHelmet ? (
+        <Helmet prioritizeSeoTags>
+          {seo.title ? <title>{seo.title}</title> : null}
+          {seo.description ? <meta name="description" content={seo.description} /> : null}
+          {seo.keywords ? <meta name="keywords" content={seo.keywords} /> : null}
+          {seo.robots ? <meta name="robots" content={seo.robots} /> : null}
+          {canonicalUrl ? <link rel="canonical" href={canonicalUrl} /> : null}
+          {seo.ogTitle ? <meta property="og:title" content={seo.ogTitle} /> : null}
+          {seo.ogDescription ? <meta property="og:description" content={seo.ogDescription} /> : null}
+          {seo.ogImage ? <meta property="og:image" content={seo.ogImage} /> : null}
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={canonicalUrl} />
+        </Helmet>
+      ) : null}
+      {children}
+    </SeoDataContext.Provider>
+  );
 }

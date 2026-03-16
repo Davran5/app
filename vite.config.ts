@@ -5,11 +5,53 @@ import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [inspectAttr(), react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) {
+            return undefined;
+          }
+
+          if (
+            id.includes('@react-google-maps') ||
+            id.includes('@googlemaps') ||
+            id.includes('leaflet') ||
+            id.includes('react-leaflet')
+          ) {
+            return 'vendor-maps';
+          }
+
+          if (id.includes('gsap')) {
+            return 'vendor-motion';
+          }
+
+          return 'vendor-core';
+        },
+      },
+    },
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
+      },
+      '/robots.txt': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
+      },
+      '/sitemap.xml': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
+      },
     },
   },
 });

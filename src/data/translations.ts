@@ -125,7 +125,7 @@ export const translations = {
         title: 'Our Production Backbone',
         subtitle: 'Vastly experienced specialists and advanced equipment enable us to handle projects of any complexity',
         items: {
-          manufacturing: { title: 'Manufacturing Floor', desc: '15,000m² production facility' },
+          manufacturing: { title: 'Manufacturing Floor', desc: '390,000m² production facility' },
           cnc: { title: 'CNC Machining', desc: '±0.01mm precision' },
           welding: { title: 'Certified Welding', desc: 'MIG, TIG, Robotic' },
           assembly: { title: 'Assembly & Testing', desc: 'Rigorous quality control protocols' },
@@ -233,6 +233,18 @@ export const translations = {
       terms: 'Terms of Service',
       viewAll: 'View All →',
     },
+    notFound: {
+      badge: 'Error Response Team',
+      title: 'Requested page is unavailable.',
+      description: 'The route you opened is no longer active or has been moved. KRANTAS support is guiding you back to an available section of the website.',
+      primaryAction: 'Return Home',
+      secondaryAction: 'View Equipment',
+      cards: {
+        diagnostics: { label: 'Diagnostics', value: 'Link unavailable' },
+        dispatch: { label: 'Dispatch', value: 'KRANTAS support' },
+        recovery: { label: 'Recovery', value: 'Active routes ready' },
+      },
+    },
     productsPage: {
       title: 'Our Products & Solutions',
       heroIntro: 'A full spectrum of engineering excellence. Discover our tailor-made industrial vehicles and our comprehensive catalog of proven machinery.',
@@ -321,7 +333,7 @@ export const translations = {
         manufacturing: {
           title: 'Manufacturing & Assembly',
           shortTitle: 'Manufacturing',
-          description: 'Serial and project-based production providing a full-cycle platform across all key stages. From raw material processing to final assembly, our 15,000 m² facility uses high-precision CNC machining and automated welding to deliver consistent structural integrity. We handle the entire manufacturing journey in-house, ensuring that every project - whether a standard unit or a complex industrial one-off - is built to exact specifications.',
+          description: 'Serial and project-based production providing a full-cycle platform across all key stages. From raw material processing to final assembly, our 390,000 m² facility uses high-precision CNC machining and automated welding to deliver consistent structural integrity. We handle the entire manufacturing journey in-house, ensuring that every project - whether a standard unit or a complex industrial one-off - is built to exact specifications.',
           stages: {
             design: { name: 'Design', desc: '3D modeling' },
             fabrication: { name: 'Cutting & Forming', desc: 'Fabrication' },
@@ -391,7 +403,7 @@ export const translations = {
         { year: 1991, title: 'Independence & Privatization', description: "Following Uzbekistan's historic declaration of independence, the company transitioned into a private entity. This pivotal shift marked the birth of a new era of industrial autonomy, fueling decades of unprecedented growth and regional leadership.", image: '/1991.png' },
         { year: 2018, title: 'A Landmark Alliance', description: 'In a historic ceremony attended by the Presidents of Uzbekistan and Tajikistan, the TALCO-Krantas Joint Venture was inaugurated in Tursunzade. This strategic partnership stands as a testament to regional cooperation, driving innovation in specialized vehicle assembly.', image: '/2018.png' },
         { year: 2019, title: 'Industrial Expansion', description: 'Opened the NURAFSHON-MAXSUS-TEXNIKA production site in the Nurafshon region, significantly expanding the group\'s manufacturing capacity and engineering possibilities.', image: '/about_factory.jpg' },
-        { year: 2021, title: 'National Defense & Heavy Industry', description: 'Initiated by the President, the company launched a strategic program for the domestic production of specialized military vehicles and heavy-duty mining trucks, marking a significant milestone in national industrial sovereignty.', image: '/2021.png' },
+        { year: 2021, title: 'National Defense & Heavy Industry', description: 'The President of Uzbekistan, together with Chairman Karimov Mukhtar Akbarovich, inspected the first prototypes of specialized military vehicles and strategic heavy-duty platforms, marking a defining step in KRANTAS Group’s expansion into national defense engineering and advanced industrial production.', image: '/2021.png' },
         { year: 2024, title: 'Strategic Deployment', description: 'Marked by the successful delivery of the first locally produced mining trucks to AGMK. This year also saw the rollout of the first production batches of the Arslon and Tarlon armored vehicles, alongside a diverse range of specialized industrial solutions.', image: '/2024.png' },
       ],
       teamMemberStories: {
@@ -462,6 +474,8 @@ export const translations = {
       explore: 'Explore Newsroom',
       newsTeam: 'News Team',
       readOriginal: 'Read Original News',
+      newestFirst: 'Newest First',
+      oldestFirst: 'Oldest First',
       posts: {
         1: {
           title: 'Presidential Visit to Krantas Group Plant',
@@ -585,8 +599,8 @@ export const translations = {
       service: 'Service Center',
       hr: 'Human Resources',
       export: 'Export Department',
-      telegramService: 'Telegram (Service)',
-      telegramKrantas: 'Telegram (Krantas)',
+      telegramService: 'Krantas TG Bot',
+      telegramKrantas: 'Krantas Group TG',
       name: 'Your Name',
       emailLabel: 'Your Email',
       messageLabel: 'Your Message',
@@ -1165,7 +1179,7 @@ export const translations = {
         title: 'Наша Производственная База',
         subtitle: 'Высококвалифицированные специалисты и передовое оборудование позволяют нам реализовывать проекты любой сложности.',
         items: {
-          manufacturing: { title: 'Производственная Площадка', desc: 'Производственный комплекс площадью 15 000 м²' },
+          manufacturing: { title: 'Производственная Площадка', desc: 'Производственный комплекс площадью 390 000 м²' },
           cnc: { title: 'ЧПУ Обработка', desc: 'Точность ±0,01 мм' },
           welding: { title: 'Сертифицированная Сварка', desc: 'MIG, TIG, роботизированная' },
           assembly: { title: 'Сборка и Тестирование', desc: 'Строгие протоколы контроля качества' },
@@ -1273,6 +1287,18 @@ export const translations = {
       terms: 'Условия Использования',
       viewAll: 'Смотреть Все →',
     },
+    notFound: {
+      badge: 'Служба восстановления',
+      title: 'Запрошенная страница недоступна.',
+      description: 'Открытый адрес больше не активен или был перемещен. Команда KRANTAS направит вас обратно в рабочий раздел сайта.',
+      primaryAction: 'На главную',
+      secondaryAction: 'Каталог техники',
+      cards: {
+        diagnostics: { label: 'Диагностика', value: 'Ссылка недоступна' },
+        dispatch: { label: 'Поддержка', value: 'Команда KRANTAS' },
+        recovery: { label: 'Восстановление', value: 'Активные разделы' },
+      },
+    },
     productsPage: {
       title: 'Наша Продукция и Решения',
       heroIntro: 'Полный спектр инженерного совершенства. Откройте для себя нашу спецтехнику по индивидуальным заказам и обширный каталог проверенных машин.',
@@ -1361,7 +1387,7 @@ export const translations = {
         manufacturing: {
           title: 'Производство и Сборка',
           shortTitle: 'Производство',
-          description: 'Серийное и проектное производство на платформе полного цикла по всем ключевым этапам. От обработки сырья до финальной сборки наше предприятие площадью 15 000 м² использует высокоточную ЧПУ-обработку и автоматизированную сварку, обеспечивая стабильную конструктивную прочность. Мы ведем весь производственный цикл внутри компании, чтобы каждый проект - стандартная единица или сложный индивидуальный промышленный проект - был выполнен точно по спецификации.',
+          description: 'Серийное и проектное производство на платформе полного цикла по всем ключевым этапам. От обработки сырья до финальной сборки наше предприятие площадью 390 000 м² использует высокоточную ЧПУ-обработку и автоматизированную сварку, обеспечивая стабильную конструктивную прочность. Мы ведем весь производственный цикл внутри компании, чтобы каждый проект - стандартная единица или сложный индивидуальный промышленный проект - был выполнен точно по спецификации.',
           stages: {
             design: { name: 'Проектирование', desc: '3D-моделирование' },
             fabrication: { name: 'Резка и формовка', desc: 'Изготовление' },
@@ -1432,7 +1458,7 @@ export const translations = {
         { year: 1991, title: 'Независимость и приватизация', description: 'После исторического провозглашения независимости Узбекистана предприятие перешло в частную собственность. Этот поворотный момент ознаменовал начало новой эры промышленной автономии, заложив фундамент для десятилетий роста и лидерства.', image: '/1991.png' },
         { year: 2018, title: 'Знаковое партнерство', description: 'В ходе исторического визита президенты Узбекистана и Таджикистана торжественно открыли совместное предприятие «ТАЛКО-КРАНТАС» в Турсунзаде. Этот союз стал символом регионального сотрудничества и нового этапа в производстве спецтехники.', image: '/2018.png' },
         { year: 2019, title: 'Промышленная экспансия', description: 'Открытие новой производственной площадки NURAFSHON-MAXSUS-TEXNIKA в Нурафшане. Это расширение значительно увеличило производственные мощности Группы и открыло новые горизонты для инжиниринга.', image: '/about_factory.jpg' },
-        { year: 2021, title: 'Оборонная и тяжелая промышленность', description: 'По инициативе Президента запущена стратегическая программа по производству отечественной военной и карьерной техники. Этот шаг стал фундаментом для создания современного флота тяжелых транспортных систем Узбекистана.', image: '/2021.png' },
+        { year: 2021, title: 'Оборонная и тяжелая промышленность', description: 'Президент Узбекистана совместно с председателем Каримовым Мухтаром Акбаровичем осмотрел первые прототипы специализированной военной техники и стратегических тяжелых платформ. Этот момент стал важным этапом выхода KRANTAS Group на новый уровень оборонного машиностроения и современной промышленной инженерии.', image: '/2021.png' },
         { year: 2024, title: 'Стратегическое развертывание', description: 'Ознаменован успешной поставкой первых отечественных карьерных самосвалов на АГМК. Состоялся запуск первых серийных партий бронемашин Arslon, Tarlon и других моделей спецтехники.', image: '/2024.png' },
       ],
       teamMemberStories: {
@@ -1502,6 +1528,8 @@ export const translations = {
       explore: 'Перейти в Раздел Новостей',
       newsTeam: 'Пресс-служба',
       readOriginal: 'Читать Оригинал',
+      newestFirst: 'Сначала новые',
+      oldestFirst: 'Сначала старые',
       posts: {
         1: {
           title: 'Визит Президента на завод Krantas Group',
@@ -1625,8 +1653,8 @@ export const translations = {
       service: 'Сервисный Центр',
       hr: 'Отдел Кадров',
       export: 'Отдел Экспорта',
-      telegramService: 'Telegram (Сервис)',
-      telegramKrantas: 'Telegram (Krantas)',
+      telegramService: 'Krantas TG Bot',
+      telegramKrantas: 'Krantas Group TG',
       name: 'Ваше Имя',
       emailLabel: 'Ваш Email',
       messageLabel: 'Ваше Сообщение',
@@ -2206,7 +2234,7 @@ export const translations = {
         title: 'Ishlab Chiqarish Bazasi',
         subtitle: 'Yuksak tajribaga ega mutaxassislar va ilg\'or uskunalar bizga istalgan murakkablikdagi loyihalarni bajarish imkonini beradi.',
         items: {
-          manufacturing: { title: 'Ishlab Chiqarish Maydoni', desc: '15 000 m² ishlab chiqarish majmuasi' },
+          manufacturing: { title: 'Ishlab Chiqarish Maydoni', desc: '390 000 m² ishlab chiqarish majmuasi' },
           cnc: { title: 'CNC Ishlov Berish', desc: '±0.01 mm aniqlik' },
           welding: { title: 'Sertifikatlangan Payvandlash', desc: 'MIG, TIG, robotlashtirilgan' },
           assembly: { title: 'Yig\'ish va Sinash', desc: 'Qattiq sifat nazorati protokollari' },
@@ -2325,6 +2353,18 @@ export const translations = {
       terms: 'Foydalanish Shartlari',
       viewAll: 'Barchasini Ko\'rish →',
     },
+    notFound: {
+      badge: 'Tiklash xizmati',
+      title: 'So\'ralgan sahifa mavjud emas.',
+      description: 'Ochilgan manzil endi faol emas yoki boshqa joyga ko\'chirilgan. KRANTAS jamoasi sizni saytning faol bo\'limiga qaytaradi.',
+      primaryAction: 'Bosh sahifa',
+      secondaryAction: 'Texnikani ko\'rish',
+      cards: {
+        diagnostics: { label: 'Diagnostika', value: 'Havola topilmadi' },
+        dispatch: { label: 'Yordam', value: 'KRANTAS jamoasi' },
+        recovery: { label: 'Tiklash', value: 'Faol bo\'limlar' },
+      },
+    },
     productsPage: {
       title: 'Mahsulotlar',
       heroIntro: 'Muhandislik mukammalligining to\'liq spektri. Maxsus buyurtma asosidagi texnikalarimiz va sinalgan mashinalarimizning keng katalogi bilan tanishing.',
@@ -2413,7 +2453,7 @@ export const translations = {
         manufacturing: {
           title: 'Ishlab Chiqarish va Yig\'ish',
           shortTitle: 'Ishlab Chiqarish',
-          description: 'Barcha asosiy bosqichlarni qamrab oladigan to\'liq siklli platformada seriyali va loyiha asosidagi ishlab chiqarishni olib boramiz. Xom ashyoni qayta ishlashdan yakuniy yig\'ishgacha bo\'lgan 15 000 m² maydonli korxonamiz yuqori aniqlikdagi CNC ishlov berish va avtomatlashtirilgan payvandlash orqali barqaror konstruktiv mustahkamlikni ta\'minlaydi. Biz butun ishlab chiqarish jarayonini o\'zimiz boshqarib, har bir loyiha - standart birlik bo\'ladimi yoki murakkab individual sanoat yechimi bo\'ladimi - aniq texnik talab bo\'yicha bajarilishini kafolatlaymiz.',
+          description: 'Barcha asosiy bosqichlarni qamrab oladigan to\'liq siklli platformada seriyali va loyiha asosidagi ishlab chiqarishni olib boramiz. Xom ashyoni qayta ishlashdan yakuniy yig\'ishgacha bo\'lgan 390 000 m² maydonli korxonamiz yuqori aniqlikdagi CNC ishlov berish va avtomatlashtirilgan payvandlash orqali barqaror konstruktiv mustahkamlikni ta\'minlaydi. Biz butun ishlab chiqarish jarayonini o\'zimiz boshqarib, har bir loyiha - standart birlik bo\'ladimi yoki murakkab individual sanoat yechimi bo\'ladimi - aniq texnik talab bo\'yicha bajarilishini kafolatlaymiz.',
           stages: {
             design: { name: 'Dizayn', desc: '3D modellashtirish' },
             fabrication: { name: 'Kesish va shakllantirish', desc: 'Tayyorlash' },
@@ -2484,7 +2524,7 @@ export const translations = {
         { year: 1991, title: 'Mustaqillik va Xususiylashtirish', description: 'Oʻzbekiston mustaqilligi eʼlon qilinganidan soʻng, korxona xususiy sektorga oʻtdi. Ushbu tarixiy burilish sanoat mustaqilligining yangi davrini boshlab berdi va kelgusi oʻn yilliklardagi ulkan oʻsishga zamin yaratdi.', image: '/1991.png' },
         { year: 2018, title: 'Tarixiy Ittifoq', description: 'Oʻzbekiston va Tojikiston Prezidentlari ishtirokida Tursunzoda shahrida «TALCO-KRANTAS» qoʻshma korxonasidan tantanali ravishda ochildi. Ushbu strategik sheriklik mintaqaviy hamkorlikning yorqin namunasi boʻlib, maxsus texnika ishlab chiqarishda yangi ufqlar ochdi.', image: '/2018.png' },
         { year: 2019, title: 'Sanoat Kengayishi', description: 'Nurafshon shahrida yangi NURAFSHON-MAXSUS-TEXNIKA ishlab chiqarish maydoni ochildi. Bu loyiha guruhning ishlab chiqarish quvvatlarini va muhandislik imkoniyatlarini yanada kengaytirdi.', image: '/about_factory.jpg' },
-        { year: 2021, title: 'Mudofaa va Ogʻir Sanoat', description: 'Prezident tashabbusi bilan mahalliy harbiy va kon texnikasini ishlab chiqarish strategik dasturi ishga tushirildi. Bu loyiha Oʻzbekiston sanoat suverenitetini mustahkamlashda muhim bosqich boʻldi.', image: '/2021.png' },
+        { year: 2021, title: 'Mudofaa va Ogʻir Sanoat', description: 'Oʻzbekiston Prezidenti hamda rais Karimov Muxtor Akbarovich birgalikda maxsus harbiy texnikalar va strategik ogʻir platformalarning ilk prototiplarini koʻzdan kechirdi. Bu voqea KRANTAS Group uchun mudofaa muhandisligi va zamonaviy ogʻir sanoat ishlab chiqarishidagi yangi bosqichning muhim ramziga aylandi.', image: '/2021.png' },
         { year: 2024, title: 'Strategik Rivojlanish', description: 'Olmaliq kon-metallurgiya kombinatiga (OKMK) birinchi mahalliy kon samosvallari yetkazib berildi. Shuningdek, «Arslon», «Tarlon» va boshqa koʻplab maxsus texnika modellarining ilk seriyali partiyalari ishlab chiqarildi.', image: '/2024.png' },
       ],
       teamMemberStories: {
@@ -2554,6 +2594,8 @@ export const translations = {
       explore: 'Yangiliklar xonasi',
       newsTeam: 'Yangiliklar Jamoasi',
       readOriginal: 'Asl nusxani o\'qish',
+      newestFirst: 'Avval yangilari',
+      oldestFirst: 'Avval eskilari',
       posts: {
         1: {
           title: 'O‘zbekiston Prezidentining Krantas zavodiga tashrifi',
@@ -2677,8 +2719,8 @@ export const translations = {
       service: 'Xizmat Ko\'rsatish Markazi',
       hr: 'Kadrlar Bo\'limi',
       export: 'Eksport bo\'limi',
-      telegramService: 'Telegram (Xizmat)',
-      telegramKrantas: 'Telegram (Krantas)',
+      telegramService: 'Krantas TG Bot',
+      telegramKrantas: 'Krantas Group TG',
       name: 'Ismingiz',
       emailLabel: 'Sizning Emailingiz',
       messageLabel: 'Sizning Xabaringiz',
@@ -3256,7 +3298,7 @@ export const translations = {
         title: 'Produktions-Ausstattung',
         subtitle: 'Zeitgemäßes Equipment für komplexe Projekte.',
         items: {
-          manufacturing: { title: 'Fertigungshalle', desc: '15.000 m²' },
+          manufacturing: { title: 'Fertigungshalle', desc: '390.000 m²' },
           cnc: { title: 'CNC-Bearbeitung', desc: '±0,01 mm Präzision' },
           welding: { title: 'Schweißen', desc: 'MIG, TIG, Roboter' },
           assembly: { title: 'Montage & Test', desc: 'Qualitätskontrolle' },
@@ -3288,7 +3330,7 @@ export const translations = {
         metalStructures: 'Metallkonstruktionen',
       },
       since: 'Seit 1945',
-      title: 'Ingenieur\nStärke',
+      title: 'Ingenieurskunst',
       subtitle: 'Die treibende Kraft des Fortschritts. Komplettfertigung von Nutzfahrzeugen, Kränen und Landmaschinen für die härtesten Bedingungen.',
       exploreCatalog: 'Katalog Erkunden',
       contactUs: 'Kontaktieren Sie Uns',
@@ -3374,6 +3416,18 @@ export const translations = {
       privacy: 'Datenschutzerklärung',
       terms: 'Nutzungsbedingungen',
       viewAll: 'Alle Anzeigen →',
+    },
+    notFound: {
+      badge: 'Störungsdienst',
+      title: 'Die angeforderte Seite ist nicht verfügbar.',
+      description: 'Die aufgerufene Adresse ist nicht mehr aktiv oder wurde verschoben. Das KRANTAS Team bringt Sie zurück in einen verfügbaren Bereich der Website.',
+      primaryAction: 'Zur Startseite',
+      secondaryAction: 'Maschinen ansehen',
+      cards: {
+        diagnostics: { label: 'Diagnose', value: 'Link nicht verfügbar' },
+        dispatch: { label: 'Support', value: 'KRANTAS Team' },
+        recovery: { label: 'Rückführung', value: 'Bereiche verfügbar' },
+      },
     },
     productsPage: {
       title: 'Unsere Produkte und Lösungen',
@@ -3463,7 +3517,7 @@ export const translations = {
         manufacturing: {
           title: 'Fertigung & Montage',
           shortTitle: 'Fertigung',
-          description: 'Serien- und Projektfertigung, die eine Full-Cycle-Plattform über alle wichtigen Phasen hinweg bietet. Von der Rohmaterialverarbeitung bis zur Endmontage nutzt unser 15.000 m² großes Werk hochpräzise CNC-Bearbeitung und automatisiertes Schweißen, um eine konsistente strukturelle Integrität zu gewährleisten. Wir führen den gesamten Produktionsprozess im eigenen Haus durch und stellen sicher, dass jedes Projekt – ob Standard oder komplexer Sonderbau – genau nach Spezifikation gebaut wird.',
+          description: 'Serien- und Projektfertigung, die eine Full-Cycle-Plattform über alle wichtigen Phasen hinweg bietet. Von der Rohmaterialverarbeitung bis zur Endmontage nutzt unser 390.000 m² großes Werk hochpräzise CNC-Bearbeitung und automatisiertes Schweißen, um eine konsistente strukturelle Integrität zu gewährleisten. Wir führen den gesamten Produktionsprozess im eigenen Haus durch und stellen sicher, dass jedes Projekt – ob Standard oder komplexer Sonderbau – genau nach Spezifikation gebaut wird.',
           stages: {
             design: { name: '3D-Design-Engineering', desc: '3D-Engineering' },
             fabrication: { name: 'Herstellung Schneiden & Formen', desc: 'Fertigung' },
@@ -3521,7 +3575,7 @@ export const translations = {
       manufacturing: 'Komplettfertigung',
       manufacturingDesc: 'Das Werk verfügt über ein eigenes Konstruktionsbüro für die unabhängige Entwicklung von Projekten und Arbeitszeichnungen neuer Sonderfahrzeugtypen entsprechend den neuesten globalen Trends in der Branchenentwicklung.',
       manufacturingFeatures: ['3D-Modellierung & Detaillierung', 'Werkzeugentwicklung', 'Stahlkonstruktionen', 'Montage & Prüfung', 'Qualitätskontrolle', 'Zertifizierung'],
-      chairman: 'Vorsitzendenbotschaft',
+      chairman: 'Zitat',
       chairmanQuote: '"KRANTAS Group hat ihre Wurzeln in Ingenieurtradition sowie lokaler Fertigung und hat eine klare Vision für die Zukunft. KRANTAS ist nicht nur ein Fahrzeug – es ist eine zuverlässige Ingenieurlösung."',
       chairmanName: 'Karimov Mukhtor Akbarovich',
       chairmanTitle: 'Vorsitzender, KRANTAS Group',
@@ -3534,7 +3588,7 @@ export const translations = {
         { year: 1991, title: 'Unabhängigkeit & Privatisierung', description: 'Nach der historischen Unabhängigkeitserklärung Usbekistans wurde das Unternehmen privatisiert. Dieser entscheidende Wandel markierte den Beginn einer neuen Ära industrieller Autonomie und legte den Grundstein für Jahrzehnte beispiellosen Wachstums.', image: '/1991.png' },
         { year: 2018, title: 'Ein wegweisendes Bündnis', description: 'In einer feierlichen Zeremonie im Beisein der Präsidenten von Usbekistan und Tadschikistan wurde das Joint Venture TALCO-Krantas in Tursunsoda eingeweiht. Diese strategische Partnerschaft ist ein Meilenstein regionaler Kooperation und Innovation.', image: '/2018.png' },
         { year: 2019, title: 'Industrielle Expansion', description: 'Eröffnung des neuen Produktionsstandorts NURAFSHON-MAXSUS-TEXNIKA in der Region Nurafshon, was die Fertigungskapazitäten und technischen Möglichkeiten der Gruppe erheblich erweiterte.', image: '/about_factory.jpg' },
-        { year: 2021, title: 'Landesverteidigung & Schwerindustrie', description: 'Auf Initiative des Präsidenten startete das Unternehmen ein strategisches Programm zur einheimischen Produktion von militärischen Spezialfahrzeugen und Bergbau-LKWs, ein Meilenstein für die nationale industrielle Souveränität.', image: '/2021.png' },
+        { year: 2021, title: 'Landesverteidigung & Schwerindustrie', description: 'Der Präsident Usbekistans inspizierte gemeinsam mit dem Vorsitzenden Karimov Mukhtar Akbarovich die ersten Prototypen spezialisierter Militärfahrzeuge und strategischer Schwerlastplattformen. Damit begann für die KRANTAS Group ein prägender neuer Abschnitt in der Verteidigungstechnik und in der modernen industriellen Fertigung.', image: '/2021.png' },
         { year: 2024, title: 'Strategische Bereitstellung', description: 'Gekennzeichnet durch die erste Auslieferung von lokal produzierten Bergbau-LKWs an AGMK sowie den Rollout der ersten Chargen der gepanzerten Fahrzeuge Arslon und Tarlon.', image: '/2024.png' },
       ],
       teamMemberStories: {
@@ -3604,6 +3658,8 @@ export const translations = {
       explore: 'Newsroom erkunden',
       newsTeam: 'Nachrichten-Team',
       readOriginal: 'Originalnachrichten lesen',
+      newestFirst: 'Neueste zuerst',
+      oldestFirst: 'Älteste zuerst',
       posts: {
         1: {
           title: 'Präsidentenbesuch im Krantas Group Werk',
@@ -3727,8 +3783,8 @@ export const translations = {
       service: 'Servicezentrum',
       hr: 'Personalabteilung',
       export: 'Exportabteilung',
-      telegramService: 'Telegram (Service)',
-      telegramKrantas: 'Telegram (Krantas)',
+      telegramService: 'Krantas TG Bot',
+      telegramKrantas: 'Krantas Group TG',
       name: 'Ihr Name',
       emailLabel: 'Ihre E-Mail',
       messageLabel: 'Ihre Nachricht',

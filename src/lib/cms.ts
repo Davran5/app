@@ -4,6 +4,10 @@ import {
   type Category,
   type Product,
 } from '../data/products';
+import {
+  distributorLocations as baseDistributorLocations,
+  type DistributorLocation,
+} from '../data/distributors';
 import { translations, type Language } from '../data/translations';
 import { createUploadedMediaUrl, type UploadedMediaInput } from './media';
 
@@ -27,6 +31,96 @@ export interface SeoSettings {
   keywords: string;
 }
 
+export interface CmsVacancyLocalization {
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  experience: string;
+  age: string;
+  description: string;
+  requirements: string[];
+}
+
+export interface CmsVacancy {
+  id: string;
+  isActive: boolean;
+  localizations: Record<Language, CmsVacancyLocalization>;
+}
+
+export interface CmsNewsItemLocalization {
+  title: string;
+  excerpt: string;
+}
+
+export interface CmsImagePosition {
+  x: number;
+  y: number;
+}
+
+export interface CmsNewsItem {
+  id: string;
+  isActive: boolean;
+  date: string;
+  author: string;
+  image: string;
+  imagePosition: CmsImagePosition;
+  link: string;
+  localizations: Record<Language, CmsNewsItemLocalization>;
+}
+
+export type CmsLeadSource = 'contact' | 'careers';
+export type CmsLeadStatus =
+  | 'new'
+  | 'inReview'
+  | 'contacted'
+  | 'qualified'
+  | 'proposal'
+  | 'won'
+  | 'lost'
+  | 'archived';
+export type CmsLeadPriority = 'low' | 'normal' | 'high' | 'urgent';
+
+export interface CmsLeadNote {
+  id: string;
+  text: string;
+  createdAt: string;
+}
+
+export interface CmsLead {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  source: CmsLeadSource;
+  status: CmsLeadStatus;
+  priority: CmsLeadPriority;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  subject: string;
+  message: string;
+  language: Language;
+  originPage: string;
+  assignee: string;
+  followUpAt: string;
+  internalNotes: CmsLeadNote[];
+  metadata: Record<string, string>;
+}
+
+export interface CmsLeadInput {
+  source: CmsLeadSource;
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  subject: string;
+  message?: string;
+  language: Language;
+  originPage: string;
+  metadata?: Record<string, string>;
+}
+
 export type TranslationOverrideMap = Record<Language, Record<string, string>>;
 
 export interface CmsSnapshot {
@@ -34,6 +128,11 @@ export interface CmsSnapshot {
   updatedAt: string;
   products: Product[];
   categories: Category[];
+  featuredProductIds: string[];
+  distributorLocations: DistributorLocation[];
+  vacancies: CmsVacancy[];
+  newsItems: CmsNewsItem[];
+  leads: CmsLead[];
   mediaItems: UploadedMediaInput[];
   translationOverrides: TranslationOverrideMap;
   seo: Record<SeoPageKey, SeoSettings>;
@@ -66,7 +165,7 @@ export interface TranslationFieldMeta {
 }
 
 export const CMS_STORAGE_KEY = 'krantas.cms.v1';
-export const CMS_EXPORT_VERSION = 1;
+export const CMS_EXPORT_VERSION = 6;
 
 export const SEO_PAGE_LABELS: Record<SeoPageKey, string> = {
   home: 'Home',
@@ -169,6 +268,7 @@ const TRANSLATION_SECTION_LABELS: Record<string, string> = {
   nav: 'Navigation',
   distributors: 'Dealer Network',
   cookieConsent: 'Cookie Banner',
+  notFound: '404 Page',
   customSolutionsPage: 'Custom Solutions Page',
   home: 'Home Hero',
   stats: 'Home Stats',
@@ -196,6 +296,7 @@ const TRANSLATION_SECTION_DESCRIPTIONS: Record<string, string> = {
   nav: 'Header and navigation labels used across the site.',
   distributors: 'Dealer map content, location labels, and map UI strings.',
   cookieConsent: 'Cookie and privacy consent copy.',
+  notFound: '404 page messaging, recovery actions, and error-state labels.',
   customSolutionsPage: 'Custom solutions landing page text.',
   home: 'Homepage hero copy and main banner labels.',
   stats: 'Homepage metrics and numbers section.',
@@ -286,6 +387,12 @@ const TRANSLATION_PAGE_DEFINITIONS: TranslationPageMeta[] = [
     description: 'Dealer network UI, map labels, and dealer-page text.',
     sectionIds: ['distributors'],
   },
+  {
+    id: 'notFound',
+    label: '404 Page',
+    description: 'Not found page content, actions, and recovery messaging.',
+    sectionIds: ['notFound'],
+  },
 ];
 
 const TRANSLATION_SECTION_TO_PAGE = TRANSLATION_PAGE_DEFINITIONS.reduce<Record<string, string>>(
@@ -311,6 +418,10 @@ const COMMON_TRANSLATION_LABELS: Record<string, string> = {
 
 export function cloneCmsValue<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
+}
+
+function createCmsEntityId(prefix: string) {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -341,6 +452,100 @@ export function createEmptyCategory(): Category {
   };
 }
 
+export function createEmptyDistributorLocation(): DistributorLocation {
+  return {
+    id: '',
+    name: '',
+    address: '',
+    city: '',
+    coords: { lat: 41.3111, lng: 69.2797 },
+    phones: [],
+    email: '',
+    market: 'uzbekistan',
+    kind: 'dealer',
+  };
+}
+
+export function createEmptyVacancyLocalization(): CmsVacancyLocalization {
+  return {
+    title: '',
+    department: '',
+    location: '',
+    type: '',
+    experience: '',
+    age: '',
+    description: '',
+    requirements: [],
+  };
+}
+
+export function createEmptyVacancy(): CmsVacancy {
+  return {
+    id: '',
+    isActive: true,
+    localizations: {
+      en: createEmptyVacancyLocalization(),
+      ru: createEmptyVacancyLocalization(),
+      uz: createEmptyVacancyLocalization(),
+      de: createEmptyVacancyLocalization(),
+    },
+  };
+}
+
+export function createEmptyNewsItemLocalization(): CmsNewsItemLocalization {
+  return {
+    title: '',
+    excerpt: '',
+  };
+}
+
+export function createEmptyNewsItem(): CmsNewsItem {
+  return {
+    id: '',
+    isActive: true,
+    date: '',
+    author: '',
+    image: '',
+    imagePosition: { x: 50, y: 50 },
+    link: '',
+    localizations: {
+      en: createEmptyNewsItemLocalization(),
+      ru: createEmptyNewsItemLocalization(),
+      uz: createEmptyNewsItemLocalization(),
+      de: createEmptyNewsItemLocalization(),
+    },
+  };
+}
+
+export function createLeadFromInput(input: CmsLeadInput): CmsLead {
+  const timestamp = new Date().toISOString();
+
+  return {
+    id: createCmsEntityId('lead'),
+    createdAt: timestamp,
+    updatedAt: timestamp,
+    source: input.source,
+    status: 'new',
+    priority: input.source === 'careers' ? 'high' : 'normal',
+    name: input.name.trim(),
+    email: input.email.trim(),
+    phone: input.phone?.trim() ?? '',
+    company: input.company?.trim() ?? '',
+    subject: input.subject.trim(),
+    message: input.message?.trim() ?? '',
+    language: input.language,
+    originPage: input.originPage.trim(),
+    assignee: '',
+    followUpAt: '',
+    internalNotes: [],
+    metadata: Object.fromEntries(
+      Object.entries(input.metadata ?? {}).filter(
+        ([key, value]) => key.trim() && typeof value === 'string' && value.trim(),
+      ),
+    ),
+  };
+}
+
 export function slugifyProductId(value: string) {
   return value
     .toLowerCase()
@@ -349,12 +554,172 @@ export function slugifyProductId(value: string) {
     .slice(0, 80);
 }
 
+function createDefaultVacancies(): CmsVacancy[] {
+  return [1, 2, 3, 4].map((index) => {
+    const localizations = (['en', 'ru', 'uz', 'de'] as Language[]).reduce<
+      Record<Language, CmsVacancyLocalization>
+    >((acc, language) => {
+      const languageTranslation = translations[language] as {
+        careers?: {
+          fullTime?: string;
+          positions?: Record<
+            number,
+            {
+              title?: string;
+              department?: string;
+              location?: string;
+              experience?: string;
+              age?: string;
+              description?: string;
+              requirements?: string[];
+            }
+          >;
+        };
+      };
+      const position = languageTranslation.careers?.positions?.[index];
+
+      acc[language] = {
+        title: position?.title ?? '',
+        department: position?.department ?? '',
+        location: position?.location ?? '',
+        type: languageTranslation.careers?.fullTime ?? '',
+        experience: position?.experience ?? '',
+        age: position?.age ?? '',
+        description: position?.description ?? '',
+        requirements: Array.isArray(position?.requirements) ? [...position.requirements] : [],
+      };
+
+      return acc;
+    }, {
+      en: createEmptyVacancyLocalization(),
+      ru: createEmptyVacancyLocalization(),
+      uz: createEmptyVacancyLocalization(),
+      de: createEmptyVacancyLocalization(),
+    });
+
+    return {
+      id: `vacancy-${index}`,
+      isActive: true,
+      localizations,
+    };
+  });
+}
+
+function getDefaultFeaturedProductIds(products: Product[], categories: Category[]) {
+  return categories
+    .filter((category) => category.id !== 'custom-solutions' && category.id !== 'metal-structures')
+    .map((category) => products.find((product) => product.categoryId === category.id)?.id)
+    .filter((productId): productId is string => Boolean(productId));
+}
+
+const DEFAULT_NEWS_META = [
+  {
+    id: 'news-8',
+    translationId: 8,
+    date: '2018-09-28',
+    author: 'The Times of Central Asia',
+    image: 'https://timesca.com/wp-content/uploads/2018/09/mirzi-rahmon-talco-uzpressservice-7f3.jpg',
+    link: 'https://timesca.com/presidents-of-tajikistan-and-uzbekistan-launch-jv-in-tajik-city/',
+  },
+  {
+    id: 'news-7',
+    translationId: 7,
+    date: '2025-05-15',
+    author: 'Spot',
+    image: 'https://www.spot.uz/media/img/2025/05/dOcWxi17473091207912_l.jpg',
+    link: 'https://www.spot.uz/ru/2025/05/15/renovation-krantas/',
+  },
+  {
+    id: 'news-6',
+    translationId: 6,
+    date: '2024-07-16',
+    author: 'Spot',
+    image: 'https://www.spot.uz/media/img/2024/07/m5TVxw17211275895782_l.jpg',
+    link: 'https://www.spot.uz/ru/2024/07/16/arms-industry/',
+  },
+  {
+    id: 'news-5',
+    translationId: 5,
+    date: '2024-05-28',
+    author: 'AGMK',
+    image: 'https://agmk.uz/uploads/news/236088321ac0abe73c75ef80ec63b8b5.JPG',
+    link: 'https://agmk.uz/ru/news/okmkga-yana-2-dona-avtogigant-olib-kelindi',
+  },
+  {
+    id: 'news-3',
+    translationId: 3,
+    date: '2023-02-25',
+    author: 'Kun',
+    image: 'https://storage.kun.uz/source/9/cgLbGkvOhvDMBmDUvQ4EO3Gqe9uuwjE-.jpg',
+    link: 'https://kun.uz/news/2023/02/25/krantas-group-jahon-bozorida-yengil-bronlangan-avtoni-taqdim-etdi',
+  },
+  {
+    id: 'news-2',
+    translationId: 2,
+    date: '2021-01-12',
+    author: 'Gazeta',
+    image: 'https://www.gazeta.uz/media/img/2021/01/f11B6V16104622858626_l.jpg',
+    link: 'https://www.gazeta.uz/ru/2021/01/12/equipment/',
+  },
+  {
+    id: 'news-1',
+    translationId: 1,
+    date: '2017-06-29',
+    author: 'Gazeta',
+    image: 'https://www.gazeta.uz/media/img/2017/04/oBWirl14920003414464_b.jpg?r=1498751454',
+    link: 'https://www.gazeta.uz/ru/2017/06/29/krantas/',
+  },
+] as const;
+
+function createDefaultNewsItems(): CmsNewsItem[] {
+  return DEFAULT_NEWS_META.map((meta) => {
+    const localizations = (['en', 'ru', 'uz', 'de'] as Language[]).reduce<
+      Record<Language, CmsNewsItemLocalization>
+    >((acc, language) => {
+      const languageTranslation = translations[language] as {
+        blog?: {
+          posts?: Record<number, { title?: string; excerpt?: string }>;
+        };
+      };
+      const post = languageTranslation.blog?.posts?.[meta.translationId];
+
+      acc[language] = {
+        title: post?.title ?? '',
+        excerpt: post?.excerpt ?? '',
+      };
+
+      return acc;
+    }, {
+      en: createEmptyNewsItemLocalization(),
+      ru: createEmptyNewsItemLocalization(),
+      uz: createEmptyNewsItemLocalization(),
+      de: createEmptyNewsItemLocalization(),
+    });
+
+    return {
+      id: meta.id,
+      isActive: true,
+      date: meta.date,
+      author: meta.author,
+      image: meta.image,
+      imagePosition: { x: 50, y: 50 },
+      link: meta.link,
+      localizations,
+    };
+  });
+}
+
 export function getDefaultCmsSnapshot(): CmsSnapshot {
   return {
     version: CMS_EXPORT_VERSION,
     updatedAt: new Date().toISOString(),
     products: cloneCmsValue(baseProducts),
     categories: cloneCmsValue(baseCategories),
+    featuredProductIds: getDefaultFeaturedProductIds(baseProducts, baseCategories),
+    distributorLocations: cloneCmsValue(baseDistributorLocations),
+    vacancies: createDefaultVacancies(),
+    newsItems: createDefaultNewsItems(),
+    leads: [],
     mediaItems: [],
     translationOverrides: cloneCmsValue(EMPTY_TRANSLATION_OVERRIDES),
     seo: cloneCmsValue(DEFAULT_SEO),
@@ -450,6 +815,304 @@ function normalizeMediaItems(raw: unknown): UploadedMediaInput[] {
   });
 }
 
+function normalizeVacancyLocalization(raw: unknown): CmsVacancyLocalization {
+  const defaults = createEmptyVacancyLocalization();
+
+  if (!isRecord(raw)) {
+    return defaults;
+  }
+
+  return {
+    title: typeof raw.title === 'string' ? raw.title : defaults.title,
+    department: typeof raw.department === 'string' ? raw.department : defaults.department,
+    location: typeof raw.location === 'string' ? raw.location : defaults.location,
+    type: typeof raw.type === 'string' ? raw.type : defaults.type,
+    experience: typeof raw.experience === 'string' ? raw.experience : defaults.experience,
+    age: typeof raw.age === 'string' ? raw.age : defaults.age,
+    description: typeof raw.description === 'string' ? raw.description : defaults.description,
+    requirements: Array.isArray(raw.requirements)
+      ? raw.requirements.filter((item): item is string => typeof item === 'string')
+      : defaults.requirements,
+  };
+}
+
+function normalizeVacancies(raw: unknown): CmsVacancy[] {
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+
+  return raw.flatMap((item, index) => {
+    if (!isRecord(item)) {
+      return [];
+    }
+
+    const localizationsRaw = isRecord(item.localizations) ? item.localizations : {};
+    const localizations = (['en', 'ru', 'uz', 'de'] as Language[]).reduce<
+      Record<Language, CmsVacancyLocalization>
+    >((acc, language) => {
+      acc[language] = normalizeVacancyLocalization(localizationsRaw[language]);
+      return acc;
+    }, {
+      en: createEmptyVacancyLocalization(),
+      ru: createEmptyVacancyLocalization(),
+      uz: createEmptyVacancyLocalization(),
+      de: createEmptyVacancyLocalization(),
+    });
+
+    return [
+      {
+        id: typeof item.id === 'string' && item.id.trim() ? item.id : `vacancy-${index + 1}`,
+        isActive: typeof item.isActive === 'boolean' ? item.isActive : true,
+        localizations,
+      },
+    ];
+  });
+}
+
+function normalizeNewsItemLocalization(raw: unknown): CmsNewsItemLocalization {
+  const defaults = createEmptyNewsItemLocalization();
+
+  if (!isRecord(raw)) {
+    return defaults;
+  }
+
+  return {
+    title: typeof raw.title === 'string' ? raw.title : defaults.title,
+    excerpt: typeof raw.excerpt === 'string' ? raw.excerpt : defaults.excerpt,
+  };
+}
+
+function normalizeNewsItems(raw: unknown): CmsNewsItem[] {
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+
+  return raw.flatMap((item, index) => {
+    if (!isRecord(item)) {
+      return [];
+    }
+
+    const localizationsRaw = isRecord(item.localizations) ? item.localizations : {};
+    const localizations = (['en', 'ru', 'uz', 'de'] as Language[]).reduce<
+      Record<Language, CmsNewsItemLocalization>
+    >((acc, language) => {
+      acc[language] = normalizeNewsItemLocalization(localizationsRaw[language]);
+      return acc;
+    }, {
+      en: createEmptyNewsItemLocalization(),
+      ru: createEmptyNewsItemLocalization(),
+      uz: createEmptyNewsItemLocalization(),
+      de: createEmptyNewsItemLocalization(),
+    });
+
+    return [
+      {
+        id: typeof item.id === 'string' && item.id.trim() ? item.id : `news-${index + 1}`,
+        isActive: typeof item.isActive === 'boolean' ? item.isActive : true,
+        date: typeof item.date === 'string' ? item.date : '',
+        author: typeof item.author === 'string' ? item.author : '',
+        image: typeof item.image === 'string' ? item.image : '',
+        imagePosition: {
+          x:
+            isRecord(item.imagePosition) &&
+            typeof item.imagePosition.x === 'number' &&
+            Number.isFinite(item.imagePosition.x)
+              ? Math.min(100, Math.max(0, item.imagePosition.x))
+              : 50,
+          y:
+            isRecord(item.imagePosition) &&
+            typeof item.imagePosition.y === 'number' &&
+            Number.isFinite(item.imagePosition.y)
+              ? Math.min(100, Math.max(0, item.imagePosition.y))
+              : 50,
+        },
+        link: typeof item.link === 'string' ? item.link : '',
+        localizations,
+      },
+    ];
+  });
+}
+
+function normalizeLeadNote(raw: unknown, index: number): CmsLeadNote | null {
+  if (!isRecord(raw)) {
+    return null;
+  }
+
+  const text = typeof raw.text === 'string' ? raw.text.trim() : '';
+  if (!text) {
+    return null;
+  }
+
+  return {
+    id:
+      typeof raw.id === 'string' && raw.id.trim()
+        ? raw.id
+        : createCmsEntityId(`lead-note-${index + 1}`),
+    text,
+    createdAt:
+      typeof raw.createdAt === 'string' && raw.createdAt.trim()
+        ? raw.createdAt
+        : new Date().toISOString(),
+  };
+}
+
+function normalizeLeads(raw: unknown): CmsLead[] {
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+
+  return raw.flatMap((item, index) => {
+    if (!isRecord(item)) {
+      return [];
+    }
+
+    const source = item.source === 'careers' ? 'careers' : 'contact';
+    const status: CmsLeadStatus =
+      item.status === 'inReview' ||
+      item.status === 'contacted' ||
+      item.status === 'qualified' ||
+      item.status === 'proposal' ||
+      item.status === 'won' ||
+      item.status === 'lost' ||
+      item.status === 'archived'
+        ? item.status
+        : 'new';
+    const priority: CmsLeadPriority =
+      item.priority === 'low' ||
+      item.priority === 'high' ||
+      item.priority === 'urgent'
+        ? item.priority
+        : 'normal';
+    const language: Language =
+      item.language === 'ru' || item.language === 'uz' || item.language === 'de'
+        ? item.language
+        : 'en';
+    const metadata = isRecord(item.metadata)
+      ? Object.fromEntries(
+          Object.entries(item.metadata).flatMap(([key, value]) =>
+            typeof value === 'string' && key.trim() ? [[key, value]] : [],
+          ),
+        )
+      : {};
+    const internalNotes = Array.isArray(item.internalNotes)
+      ? item.internalNotes
+          .map((note, noteIndex) => normalizeLeadNote(note, noteIndex))
+          .filter((note): note is CmsLeadNote => Boolean(note))
+      : [];
+
+    return [
+      {
+        id: typeof item.id === 'string' && item.id.trim() ? item.id : `lead-${index + 1}`,
+        createdAt:
+          typeof item.createdAt === 'string' && item.createdAt.trim()
+            ? item.createdAt
+            : new Date().toISOString(),
+        updatedAt:
+          typeof item.updatedAt === 'string' && item.updatedAt.trim()
+            ? item.updatedAt
+            : typeof item.createdAt === 'string' && item.createdAt.trim()
+              ? item.createdAt
+              : new Date().toISOString(),
+        source,
+        status,
+        priority,
+        name: typeof item.name === 'string' ? item.name : '',
+        email: typeof item.email === 'string' ? item.email : '',
+        phone: typeof item.phone === 'string' ? item.phone : '',
+        company: typeof item.company === 'string' ? item.company : '',
+        subject: typeof item.subject === 'string' ? item.subject : '',
+        message: typeof item.message === 'string' ? item.message : '',
+        language,
+        originPage: typeof item.originPage === 'string' ? item.originPage : '',
+        assignee: typeof item.assignee === 'string' ? item.assignee : '',
+        followUpAt: typeof item.followUpAt === 'string' ? item.followUpAt : '',
+        internalNotes,
+        metadata,
+      },
+    ];
+  });
+}
+
+function normalizeDistributorLocations(raw: unknown): DistributorLocation[] {
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+
+  return raw.flatMap((item, index) => {
+    if (!isRecord(item) || !isRecord(item.coords)) {
+      return [];
+    }
+
+    const market = item.market === 'international' ? 'international' : 'uzbekistan';
+    const kind =
+      item.kind === 'hq' || item.kind === 'dealer' || item.kind === 'service' || item.kind === 'regional'
+        ? item.kind
+        : 'dealer';
+    const regionKey =
+      item.regionKey === 'tashkent' ||
+      item.regionKey === 'fergana' ||
+      item.regionKey === 'jizzakh' ||
+      item.regionKey === 'bukhara' ||
+      item.regionKey === 'kashkadarya' ||
+      item.regionKey === 'navoiy' ||
+      item.regionKey === 'namangan'
+        ? item.regionKey
+        : undefined;
+    const countryKey =
+      item.countryKey === 'azerbaijan' ||
+      item.countryKey === 'kazakhstan' ||
+      item.countryKey === 'kyrgyzstan' ||
+      item.countryKey === 'tajikistan' ||
+      item.countryKey === 'turkmenistan'
+        ? item.countryKey
+        : undefined;
+
+    return [
+      {
+        id: typeof item.id === 'string' && item.id.trim() ? item.id : `dealer-${index + 1}`,
+        name: typeof item.name === 'string' ? item.name : '',
+        address: typeof item.address === 'string' ? item.address : '',
+        city: typeof item.city === 'string' ? item.city : '',
+        coords: {
+          lat:
+            typeof item.coords.lat === 'number' && Number.isFinite(item.coords.lat)
+              ? item.coords.lat
+              : 41.3111,
+          lng:
+            typeof item.coords.lng === 'number' && Number.isFinite(item.coords.lng)
+              ? item.coords.lng
+              : 69.2797,
+        },
+        phones: Array.isArray(item.phones)
+          ? item.phones.filter((phone): phone is string => typeof phone === 'string')
+          : [],
+        email: typeof item.email === 'string' ? item.email : '',
+        market,
+        kind,
+        regionKey,
+        countryKey,
+      },
+    ];
+  });
+}
+
+function normalizeFeaturedProductIds(raw: unknown, products: Product[]) {
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+
+  const availableProductIds = new Set(products.map((product) => product.id));
+
+  return Array.from(
+    new Set(
+      raw.filter(
+        (productId): productId is string =>
+          typeof productId === 'string' && availableProductIds.has(productId),
+      ),
+    ),
+  );
+}
+
 export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
   const defaults = getDefaultCmsSnapshot();
 
@@ -457,15 +1120,28 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
     return defaults;
   }
 
+  const products = Array.isArray(raw.products)
+    ? cloneCmsValue(raw.products as Product[])
+    : defaults.products;
+  const categories = Array.isArray(raw.categories)
+    ? cloneCmsValue(raw.categories as Category[])
+    : defaults.categories;
+  const hasFeaturedProductIds = Object.prototype.hasOwnProperty.call(raw, 'featuredProductIds');
+
   return {
     version: typeof raw.version === 'number' ? raw.version : defaults.version,
     updatedAt: typeof raw.updatedAt === 'string' ? raw.updatedAt : defaults.updatedAt,
-    products: Array.isArray(raw.products)
-      ? cloneCmsValue(raw.products as Product[])
-      : defaults.products,
-    categories: Array.isArray(raw.categories)
-      ? cloneCmsValue(raw.categories as Category[])
-      : defaults.categories,
+    products,
+    categories,
+    featuredProductIds: hasFeaturedProductIds
+      ? normalizeFeaturedProductIds(raw.featuredProductIds, products)
+      : getDefaultFeaturedProductIds(products, categories),
+    distributorLocations: Array.isArray(raw.distributorLocations)
+      ? normalizeDistributorLocations(raw.distributorLocations)
+      : defaults.distributorLocations,
+    vacancies: Array.isArray(raw.vacancies) ? normalizeVacancies(raw.vacancies) : defaults.vacancies,
+    newsItems: Array.isArray(raw.newsItems) ? normalizeNewsItems(raw.newsItems) : defaults.newsItems,
+    leads: Array.isArray(raw.leads) ? normalizeLeads(raw.leads) : defaults.leads,
     mediaItems: normalizeMediaItems(raw.mediaItems),
     translationOverrides: normalizeTranslationOverrides(raw.translationOverrides),
     seo: normalizeSeo(raw.seo),
@@ -541,6 +1217,35 @@ export function applyTranslationOverrides<T>(baseTranslation: T, overrides: Reco
   });
 
   return clonedTranslation;
+}
+
+export function getVacancyLocalization(vacancy: CmsVacancy, language: Language) {
+  const requested = vacancy.localizations[language];
+
+  if (
+    requested.title ||
+    requested.department ||
+    requested.location ||
+    requested.type ||
+    requested.experience ||
+    requested.age ||
+    requested.description ||
+    requested.requirements.length > 0
+  ) {
+    return requested;
+  }
+
+  return vacancy.localizations.en;
+}
+
+export function getNewsItemLocalization(newsItem: CmsNewsItem, language: Language) {
+  const requested = newsItem.localizations[language];
+
+  if (requested.title || requested.excerpt) {
+    return requested;
+  }
+
+  return newsItem.localizations.en;
 }
 
 export function flattenTranslationStrings(

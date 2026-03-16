@@ -1,17 +1,55 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, ArrowLeft, Download, Check, X } from 'lucide-react';
 import { toast } from 'sonner';
+import ProductStructuredData from '../components/ProductStructuredData';
+import { useSeoData } from '../components/SeoManager';
+import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
+import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl } from '../lib/media';
 export default function ProductDetail() {
   const { t } = useLanguage();
+  const { trackEvent, trackEventOnce } = useAnalytics();
   const { getProductById } = useCms();
+  const { seo, currentUrl } = useSeoData();
   const { productId } = useParams<{ productId: string }>();
   const [showForm, setShowForm] = useState(false);
   const product = getProductById(productId || '');
+  const localizedProduct =
+    product ? t.productsData?.[product.id as keyof typeof t.productsData] : undefined;
+  const productName = localizedProduct?.name || product?.name || '';
+  const productDescription =
+    localizedProduct?.fullDescription ||
+    localizedProduct?.description ||
+    product?.fullDescription ||
+    product?.description ||
+    '';
+  const productImages = product
+    ? [...new Set([product.image, ...product.gallery].map(resolveMediaInputUrl))]
+    : [];
+
+  useEffect(() => {
+    if (!product) {
+      return;
+    }
+
+    trackEventOnce(`view_item:${product.id}`, 'view_item', {
+      page_path: currentUrl,
+      ecommerce: {
+        items: [
+          buildProductAnalyticsItem({
+            item_id: product.id,
+            item_name: productName,
+            item_category: product.category,
+            item_variant: typeof product.specs.model === 'string' ? product.specs.model : undefined,
+          }),
+        ],
+      },
+    });
+  }, [currentUrl, product, productName, trackEventOnce]);
 
   if (!product) {
     return (
@@ -34,11 +72,30 @@ export default function ProductDetail() {
   }
 
   const handleDownload = () => {
+    trackEvent('file_download', {
+      file_name: `${product.id}-specifications.pdf`,
+      file_extension: 'pdf',
+      page_path: currentUrl,
+      item_id: product.id,
+      item_name: productName,
+    });
     toast.info('Specification sheet download will be available soon.');
   };
 
   return (
     <div className="min-h-screen w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
+      <ProductStructuredData
+        name={productName}
+        description={productDescription}
+        image={productImages}
+        category={product.category}
+        sku={product.id}
+        model={typeof product.specs.model === 'string' ? product.specs.model : undefined}
+        url={currentUrl}
+        specs={product.specs}
+        specLabels={t.specLabels}
+        seo={seo}
+      />
       <div className="relative z-10 bg-white w-full flex-1 flex flex-col">
         {/* Breadcrumb */}
         <section className="pt-12 lg:pt-16 pb-6 border-b border-gray-200">
@@ -48,7 +105,7 @@ export default function ProductDetail() {
               <ChevronRight size={14} className="text-gray-400" />
               <Link to="/catalog" className="text-gray-400 hover:text-gray-600 transition-colors">{t.nav.catalog}</Link>
               <ChevronRight size={14} className="text-gray-400" />
-              <span className="text-[#0B0C0E]">{t.productsData?.[product.id as keyof typeof t.productsData]?.name || product.name}</span>
+              <span className="text-[#0B0C0E]">{productName}</span>
             </div>
           </div>
         </section>
@@ -61,7 +118,7 @@ export default function ProductDetail() {
               <div className="bg-white p-4 shadow-sm border border-gray-100">
                 <img
                   src={resolveMediaInputUrl(product.image)}
-                  alt={product.name}
+                  alt={productName}
                   className="w-full h-auto object-contain"
                 />
               </div>
@@ -69,7 +126,7 @@ export default function ProductDetail() {
               {/* Info */}
               <div className="flex flex-col justify-center">
                 <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                  {t.productsData?.[product.id as keyof typeof t.productsData]?.fullDescription || product.fullDescription}
+                  {productDescription}
                 </p>
 
                 {/* Features */}

@@ -1,26 +1,46 @@
 import { useCallback, useMemo, useState } from 'react';
 import {
+  BriefcaseBusiness,
   Globe2,
+  House,
+  MapPinned,
+  Inbox,
   Images,
   Languages,
   LayoutDashboard,
+  Newspaper,
   PackagePlus,
   PanelLeftClose,
   PanelLeftOpen,
   Save,
 } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import AdminDashboard from '../components/admin/AdminDashboard';
+import AdminDealers from '../components/admin/AdminDealers';
+import AdminHomepage from '../components/admin/AdminHomepage';
+import AdminLeads from '../components/admin/AdminLeads';
 import AdminMedia from '../components/admin/AdminMedia';
+import AdminNews from '../components/admin/AdminNews';
 import AdminProducts from '../components/admin/AdminProducts';
 import AdminSeo from '../components/admin/AdminSeo';
 import AdminTranslations from '../components/admin/AdminTranslations';
+import AdminVacancies from '../components/admin/AdminVacancies';
 import { adminPrimaryButtonClass } from '../components/admin/styles';
 import type { AdminPrimaryAction } from '../components/admin/types';
 import { useCms } from '../contexts/CmsContext';
 import { getMediaLibrary } from '../lib/media';
 
-type AdminTab = 'dashboard' | 'products' | 'translations' | 'seo' | 'media';
+type AdminTab =
+  | 'dashboard'
+  | 'homepage'
+  | 'leads'
+  | 'dealers'
+  | 'products'
+  | 'vacancies'
+  | 'news'
+  | 'translations'
+  | 'seo'
+  | 'media';
 
 const tabs: {
   id: AdminTab;
@@ -33,9 +53,34 @@ const tabs: {
     icon: LayoutDashboard,
   },
   {
+    id: 'homepage',
+    label: 'Featured Products',
+    icon: House,
+  },
+  {
+    id: 'leads',
+    label: 'Leads',
+    icon: Inbox,
+  },
+  {
+    id: 'dealers',
+    label: 'Dealers',
+    icon: MapPinned,
+  },
+  {
     id: 'products',
     label: 'Products',
     icon: PackagePlus,
+  },
+  {
+    id: 'vacancies',
+    label: 'Vacancies',
+    icon: BriefcaseBusiness,
+  },
+  {
+    id: 'news',
+    label: 'News',
+    icon: Newspaper,
   },
   {
     id: 'translations',
@@ -107,9 +152,12 @@ export default function AdminPanel() {
       >
         <div className="flex h-14 shrink-0 items-center justify-between border-b border-black/10 px-3">
           {!isSidebarCollapsed && (
-            <p className="truncate text-sm font-semibold uppercase tracking-[0.12em] text-neutral-500">
-              Admin
-            </p>
+            <Link
+              to="/"
+              className="truncate text-sm font-semibold uppercase tracking-[0.12em] text-neutral-500 transition hover:text-black"
+            >
+              KRANTAS Group
+            </Link>
           )}
 
           <button
@@ -169,12 +217,22 @@ export default function AdminPanel() {
               <AdminDashboard
                 productsCount={cms.products.length}
                 categoriesCount={cms.categories.length}
+                featuredCount={cms.featuredProductIds.length}
+                leadsCount={cms.leads.length}
+                dealerCount={cms.distributorLocations.length}
+                vacanciesCount={cms.vacancies.length}
+                newsCount={cms.newsItems.length}
                 overridesCount={totalOverrides}
                 seoCount={Object.keys(cms.seo).length}
                 mediaCount={mediaLibrary.length}
                 latestProducts={cms.products.slice(0, 5)}
                 updatedAt={cms.updatedAt}
+                onOpenHomepage={() => handleTabChange('homepage')}
+                onOpenLeads={() => handleTabChange('leads')}
+                onOpenDealers={() => handleTabChange('dealers')}
                 onOpenProducts={() => handleTabChange('products')}
+                onOpenVacancies={() => handleTabChange('vacancies')}
+                onOpenNews={() => handleTabChange('news')}
                 onOpenTranslations={() => handleTabChange('translations')}
                 onOpenSeo={() => handleTabChange('seo')}
                 onOpenMedia={() => handleTabChange('media')}
@@ -186,6 +244,7 @@ export default function AdminPanel() {
             <AdminProducts
               products={cms.products}
               categories={cms.categories}
+              featuredProductIds={cms.featuredProductIds}
               getProductById={cms.getProductById}
               getCategoryById={cms.getCategoryById}
               upsertProduct={cms.upsertProduct}
@@ -197,11 +256,56 @@ export default function AdminPanel() {
             />
           )}
 
+          {activeTab === 'homepage' && (
+            <AdminHomepage
+              products={cms.products}
+              featuredProductIds={cms.featuredProductIds}
+              setFeaturedProductIds={cms.setFeaturedProductIds}
+              onPrimaryActionChange={handlePrimaryActionChange}
+            />
+          )}
+
+          {activeTab === 'leads' && (
+            <AdminLeads
+              leads={cms.leads}
+              upsertLead={cms.upsertLead}
+              deleteLead={cms.deleteLead}
+              onPrimaryActionChange={handlePrimaryActionChange}
+            />
+          )}
+
+          {activeTab === 'dealers' && (
+            <AdminDealers
+              distributorLocations={cms.distributorLocations}
+              upsertDistributorLocation={cms.upsertDistributorLocation}
+              deleteDistributorLocation={cms.deleteDistributorLocation}
+              onPrimaryActionChange={handlePrimaryActionChange}
+            />
+          )}
+
           {activeTab === 'translations' && (
             <AdminTranslations
               translationOverrides={cms.translationOverrides}
               setTranslationOverride={cms.setTranslationOverride}
               clearTranslationOverride={cms.clearTranslationOverride}
+              onPrimaryActionChange={handlePrimaryActionChange}
+            />
+          )}
+
+          {activeTab === 'vacancies' && (
+            <AdminVacancies
+              vacancies={cms.vacancies}
+              upsertVacancy={cms.upsertVacancy}
+              deleteVacancy={cms.deleteVacancy}
+              onPrimaryActionChange={handlePrimaryActionChange}
+            />
+          )}
+
+          {activeTab === 'news' && (
+            <AdminNews
+              newsItems={cms.newsItems}
+              upsertNewsItem={cms.upsertNewsItem}
+              deleteNewsItem={cms.deleteNewsItem}
               onPrimaryActionChange={handlePrimaryActionChange}
             />
           )}

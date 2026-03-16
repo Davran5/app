@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type WheelEvent as ReactWheelEvent } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -32,24 +32,28 @@ export default function About() {
   const [showForm, setShowForm] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const mobileYearScrollRef = useRef<HTMLDivElement>(null);
+  const desktopYearWheelRef = useRef<HTMLDivElement>(null);
   const desktopWheelAccumulatorRef = useRef(0);
   const desktopWheelLastStepRef = useRef(0);
-  // History Initialization
-  const historyEventsList = (t.about.historyEvents || []).map((event: any, index: number) => ({
+  const historyEventsList: Array<{
+    year: number;
+    title: string;
+    description: string;
+    image?: string;
+    index: number;
+  }> = (t.about.historyEvents || []).map((event, index) => ({
     ...event,
-    index
+    index,
   }));
-
-  useEffect(() => {
-    if (historyEventsList.length > 0) {
-      setActiveIndex(0);
-    }
-  }, [t.about.historyEvents]);
+  const resolvedActiveIndex =
+    historyEventsList.length === 0
+      ? 0
+      : Math.max(0, Math.min(historyEventsList.length - 1, activeIndex));
 
   // Auto-scroll mobile year selector to center active year
   useEffect(() => {
     if (mobileYearScrollRef.current) {
-      const activeBtn = document.getElementById(`year-btn-${activeIndex}`);
+      const activeBtn = document.getElementById(`year-btn-${resolvedActiveIndex}`);
       if (activeBtn) {
         const container = mobileYearScrollRef.current;
         const scrollLeft = activeBtn.offsetLeft - (container.clientWidth / 2) + (activeBtn.clientWidth / 2);
@@ -60,17 +64,17 @@ export default function About() {
         });
       }
     }
-  }, [activeIndex]);
+  }, [resolvedActiveIndex]);
 
-  const getClampedHistoryIndex = (index: number) => {
+  const getClampedHistoryIndex = useCallback((index: number) => {
     if (historyEventsList.length === 0) {
       return 0;
     }
 
     return Math.max(0, Math.min(historyEventsList.length - 1, index));
-  };
+  }, [historyEventsList.length]);
 
-  const handleMobileYearWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+  const handleMobileYearWheel = useCallback((event: WheelEvent) => {
     const container = mobileYearScrollRef.current;
 
     event.preventDefault();
@@ -87,9 +91,9 @@ export default function About() {
     }
 
     container.scrollBy({ left: delta * 0.45, behavior: 'auto' });
-  };
+  }, []);
 
-  const handleDesktopYearWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+  const handleDesktopYearWheel = useCallback((event: WheelEvent) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -119,7 +123,37 @@ export default function About() {
     desktopWheelAccumulatorRef.current = 0;
     desktopWheelLastStepRef.current = now;
     setActiveIndex((currentIndex) => getClampedHistoryIndex(currentIndex + direction));
-  };
+  }, [getClampedHistoryIndex, historyEventsList.length]);
+
+  useEffect(() => {
+    const container = mobileYearScrollRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const listener = (event: WheelEvent) => handleMobileYearWheel(event);
+    container.addEventListener('wheel', listener, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', listener);
+    };
+  }, [handleMobileYearWheel]);
+
+  useEffect(() => {
+    const container = desktopYearWheelRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const listener = (event: WheelEvent) => handleDesktopYearWheel(event);
+    container.addEventListener('wheel', listener, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', listener);
+    };
+  }, [handleDesktopYearWheel]);
 
 
 
@@ -171,7 +205,7 @@ export default function About() {
                 {/* Mobile Content Display */}
                 <div className="min-h-[280px]">
                   {historyEventsList.map((event, index) => {
-                    if (index !== activeIndex) return null;
+                    if (index !== resolvedActiveIndex) return null;
                     return (
                       <div key={index} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div>
@@ -201,7 +235,6 @@ export default function About() {
                 <div className="relative overflow-hidden -mx-0">
                   <div
                     ref={mobileYearScrollRef}
-                    onWheelCapture={handleMobileYearWheel}
                     className="overflow-x-auto scrollbar-hide pb-2 -mx-6 px-[calc(50%-2rem)] snap-x snap-mandatory overflow-y-hidden"
                     style={{ touchAction: 'pan-x', overscrollBehavior: 'contain' }}
                   >
@@ -211,7 +244,7 @@ export default function About() {
                           key={index}
                           id={`year-btn-${index}`}
                           onClick={() => setActiveIndex(index)}
-                          className={`font-display font-bold text-4xl transition-all duration-300 snap-center flex-shrink-0 ${index === activeIndex
+                          className={`font-display font-bold text-4xl transition-all duration-300 snap-center flex-shrink-0 ${index === resolvedActiveIndex
                             ? 'text-[#244d85] scale-110 opacity-100'
                             : 'text-gray-300 hover:text-gray-400 opacity-50 scale-90'
                             }`}
@@ -228,8 +261,8 @@ export default function About() {
               <div className="hidden lg:grid lg:grid-cols-12 gap-12 items-center">
                 {/* Left: Year Selector (3 units) */}
                 <div
+                  ref={desktopYearWheelRef}
                   className="lg:col-span-3 h-[240px] relative flex flex-col items-center justify-center overflow-hidden"
-                  onWheelCapture={handleDesktopYearWheel}
                   onMouseLeave={() => {
                     desktopWheelAccumulatorRef.current = 0;
                   }}
@@ -245,11 +278,11 @@ export default function About() {
                       className="absolute left-0 right-0 transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
                       style={{
                         top: '50%',
-                        transform: `translateY(calc(-${activeIndex * 80}px - 40px))`
+                        transform: `translateY(calc(-${resolvedActiveIndex * 80}px - 40px))`
                       }}
                     >
                       {historyEventsList.map((event, index) => {
-                        const isActive = index === activeIndex;
+                        const isActive = index === resolvedActiveIndex;
                         return (
                           <button
                             key={index}
@@ -275,11 +308,11 @@ export default function About() {
                   <div
                     className="absolute w-full transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
                     style={{
-                      transform: `translateY(calc(-${activeIndex * 420}px))`
+                      transform: `translateY(calc(-${resolvedActiveIndex * 420}px))`
                     }}
                   >
                     {historyEventsList.map((event, index) => {
-                      const isActive = index === activeIndex;
+                      const isActive = index === resolvedActiveIndex;
                       return (
                         <div
                           key={index}
@@ -407,15 +440,15 @@ export default function About() {
         <section className="py-8 lg:py-10 bg-gray-50 overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
             <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
-              {/* Mobile-only Title & Quote */}
-              <div className="lg:hidden order-1">
-                <h2 className="font-display text-3xl font-semibold text-[#0B0C0E] mb-6">
-                  {t.about.chairman}
-                </h2>
-                <div className="relative mb-8">
-                  <span className="absolute -top-10 -left-6 text-[8rem] font-serif text-[#244d85]/5 leading-none select-none">"</span>
-                  <blockquote className="text-xl font-display text-[#0B0C0E] leading-relaxed relative z-10 italic">
-                    {t.about.chairmanQuote}
+                {/* Mobile-only Title & Quote */}
+                <div className="lg:hidden order-1">
+                  <h2 className="font-display text-3xl font-semibold text-[#0B0C0E] mb-6">
+                    {t.about.chairman}
+                  </h2>
+                  <div className="relative mb-8">
+                    <span className="absolute -top-10 -left-6 text-[8rem] font-serif text-[#244d85]/5 leading-none select-none">"</span>
+                    <blockquote className="text-xl font-display text-[#0B0C0E] leading-relaxed relative z-10 italic">
+                      {t.about.chairmanQuote}
                   </blockquote>
                 </div>
               </div>
@@ -444,17 +477,17 @@ export default function About() {
                 </div>
               </div>
 
-              {/* Text content - Order 3 on mobile, 2 on desktop */}
-              <div className="order-3 lg:order-2">
-                {/* Desktop-only Title, Quote & Name */}
-                <div className="hidden lg:block">
-                  <h2 className="font-display text-3xl lg:text-5xl font-semibold text-[#0B0C0E] mb-8">
-                    {t.about.chairman}
-                  </h2>
-                  <div className="relative mb-8">
-                    <span className="absolute -top-10 -left-6 text-[8rem] font-serif text-[#244d85]/5 leading-none select-none">"</span>
-                    <blockquote className="text-xl lg:text-2xl font-display text-[#0B0C0E] leading-relaxed relative z-10 italic">
-                      {t.about.chairmanQuote}
+                {/* Text content - Order 3 on mobile, 2 on desktop */}
+                <div className="order-3 lg:order-2">
+                  {/* Desktop-only Title, Quote & Name */}
+                  <div className="hidden lg:block">
+                    <h2 className="font-display text-3xl lg:text-5xl font-semibold text-[#0B0C0E] mb-8">
+                      {t.about.chairman}
+                    </h2>
+                    <div className="relative mb-8">
+                      <span className="absolute -top-10 -left-6 text-[8rem] font-serif text-[#244d85]/5 leading-none select-none">"</span>
+                      <blockquote className="text-xl lg:text-2xl font-display text-[#0B0C0E] leading-relaxed relative z-10 italic">
+                        {t.about.chairmanQuote}
                     </blockquote>
                   </div>
                   {/* Name & Title — desktop, below the quote */}

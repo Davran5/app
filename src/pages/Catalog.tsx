@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, X } from 'lucide-react';
+import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
+import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl } from '../lib/media';
 
 export default function Catalog() {
   const { t } = useLanguage();
+  const { trackEvent } = useAnalytics();
   const { categories, products } = useCms();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showForm, setShowForm] = useState(false);
@@ -193,6 +196,22 @@ export default function Catalog() {
                         key={product.id}
                         to={`/product/${product.id}`}
                         className="group bg-white md:rounded-lg transition-all overflow-hidden shadow-sm hover:shadow-xl md:block flex"
+                        onClick={() =>
+                          trackEvent('select_item', {
+                            item_list_name: selectedCategory || 'catalog',
+                            ecommerce: {
+                              items: [
+                                buildProductAnalyticsItem({
+                                  item_id: product.id,
+                                  item_name:
+                                    t.productsData?.[product.id as keyof typeof t.productsData]?.name || product.name,
+                                  item_category: product.category,
+                                  item_variant: typeof product.specs.model === 'string' ? product.specs.model : undefined,
+                                }),
+                              ],
+                            },
+                          })
+                        }
                       >
                         {/* Product Image - Clean, no overlays */}
                         <div className="relative w-1/2 md:w-full md:aspect-[2/1] overflow-hidden bg-gray-50 md:rounded-t-lg flex-shrink-0">

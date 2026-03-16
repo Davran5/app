@@ -1,4 +1,11 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
 import { type Language, getTranslation } from '../data/translations';
 import { useCms } from './CmsContext';
 import { applyTranslationOverrides } from '../lib/cms';
@@ -9,7 +16,18 @@ interface LanguageContextType {
   t: ReturnType<typeof getTranslation>;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const fallbackLanguageContext: LanguageContextType = {
+  language: 'en',
+  setLanguage: () => undefined,
+  t: getTranslation('en'),
+};
+
+const LanguageContext = createContext<LanguageContextType>(fallbackLanguageContext);
+const PREFERRED_LANGUAGE_KEY = 'preferredLang';
+
+function isLanguage(value: string | null): value is Language {
+  return value === 'en' || value === 'ru' || value === 'uz' || value === 'de';
+}
 
 const detectInitialLanguage = (): Language => {
   try {
@@ -40,7 +58,28 @@ const detectInitialLanguage = (): Language => {
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const { translationOverrides } = useCms();
-  const [language, setLanguage] = useState<Language>(detectInitialLanguage());
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window === 'undefined') {
+      return 'en';
+    }
+
+    const savedLanguage = window.localStorage.getItem(PREFERRED_LANGUAGE_KEY);
+
+    if (isLanguage(savedLanguage)) {
+      return savedLanguage;
+    }
+
+    return detectInitialLanguage();
+  });
+
+  const setLanguage = useCallback((lang: Language) => {
+    setLanguageState(lang);
+
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(PREFERRED_LANGUAGE_KEY, lang);
+    }
+  }, []);
+
   const t = useMemo(
     () => applyTranslationOverrides(getTranslation(language), translationOverrides[language]),
     [language, translationOverrides],
@@ -55,9 +94,5 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useLanguage() {
-  const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
+  return useContext(LanguageContext);
 }

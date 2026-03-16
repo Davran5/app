@@ -1,13 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, ChevronDown } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
+import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useLanguage } from '../contexts/LanguageContext';
-
+import { useCms } from '../contexts/CmsContext';
 import { pseudonymizeData } from '../utils/privacy';
 import { securityAgent } from '../utils/securityAgent';
 
 export default function ContactForm({ dark = false }: { dark?: boolean }) {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+    const { trackEvent } = useAnalytics();
+    const { createLead } = useCms();
+    const location = useLocation();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -56,6 +61,29 @@ export default function ContactForm({ dark = false }: { dark?: boolean }) {
 
         const secureData = await pseudonymizeData(formData);
         console.log('Secure Contact Submission:', secureData);
+
+        createLead({
+            source: 'contact',
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            subject: selectedSubjectLabel || formData.subject || 'Website Inquiry',
+            message: formData.message,
+            language,
+            originPage: location.pathname,
+            metadata: {
+                subjectCode: formData.subject,
+            },
+        });
+
+        trackEvent('generate_lead', {
+            form_type: 'contact',
+            lead_source: 'contact',
+            page_path: location.pathname,
+            language,
+            subject: selectedSubjectLabel || formData.subject || 'Website Inquiry',
+        });
 
         toast.success(t.contacts.successMessage || 'Message sent! We will contact you within 1-2 business days.');
         setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' });

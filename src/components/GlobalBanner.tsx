@@ -14,15 +14,32 @@ import { useCms } from '../contexts/CmsContext';
  */
 export default function GlobalBanner() {
     const location = useLocation();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const { getCategoryById, getProductById } = useCms();
+    const path = location.pathname;
 
     // Root homepage and full-screen app pages do not show this banner
-    if (location.pathname === '/' || location.pathname === '/find-dealer') return null;
+    if (path === '/' || path === '/find-dealer') return null;
+
+    const isKnownStaticPage = [
+        '/about',
+        '/products',
+        '/catalog',
+        '/custom-solutions',
+        '/services',
+        '/contacts',
+        '/news',
+        '/careers',
+    ].includes(path);
+    const isCatalogCategoryPage = path.startsWith('/catalog/');
+    const isProductPage = path.startsWith('/product/');
+
+    if (!isKnownStaticPage && !isCatalogCategoryPage && !isProductPage) {
+        return null;
+    }
 
     // Map current route to localized content
     const getPageData = () => {
-        const path = location.pathname;
         const params = new URLSearchParams(location.search);
         const categoryId = params.get('category') || path.split('/').pop() || '';
 
@@ -62,7 +79,8 @@ export default function GlobalBanner() {
         return { title: 'KRANTAS', desc: '' };
     };
 
-    const { title, desc } = getPageData();
+    const { title } = getPageData();
+    const useCompactMobileTitle = language === 'de' && path === '/custom-solutions';
 
 
 
@@ -88,14 +106,15 @@ export default function GlobalBanner() {
             {/* Content Container - Aligned with main site body */}
             <div className="absolute inset-0 z-20 flex items-center">
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-12 w-full flex flex-col items-start">
-                    <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight leading-[0.95] text-[#f6b947]">
+                    <h1
+                        className={`font-display font-bold uppercase leading-[0.95] text-[#f6b947] ${
+                            useCompactMobileTitle
+                                ? 'text-[1.55rem] sm:text-[1.8rem] md:text-6xl lg:text-7xl tracking-[-0.05em]'
+                                : 'text-4xl md:text-6xl lg:text-7xl tracking-tight'
+                        }`}
+                    >
                         {title}
                     </h1>
-                    {desc && (
-                        <p className="text-white text-sm md:text-base lg:text-lg font-medium mt-4 max-w-2xl opacity-90">
-                            {desc.split(' ').slice(0, 4).join(' ')}
-                        </p>
-                    )}
                 </div>
             </div>
         </section>

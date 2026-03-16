@@ -1,35 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import {
+    COOKIE_CONSENT_STORAGE_KEY,
+    notifyCookieConsentChange,
+} from '../lib/analytics';
 import { getGPCStatus, isGDPRRegion } from '../utils/privacy';
 import { Shield, Check, X } from 'lucide-react';
 
 export default function CookieConsent() {
     const { t } = useLanguage();
-    const [isVisible, setIsVisible] = useState(false);
-    const [isGPCEnabled, setIsGPCEnabled] = useState(false);
-    const [isGDPR, setIsGDPR] = useState(false);
-
-    useEffect(() => {
-        const consent = localStorage.getItem('krantas_cookie_consent');
-
-        const gpc = getGPCStatus();
-        const gdpr = isGDPRRegion();
-
-        setIsGPCEnabled(gpc);
-        setIsGDPR(gdpr);
-
-        if (!consent) {
-            setIsVisible(true);
+    const [isVisible, setIsVisible] = useState(() => {
+        if (typeof window === 'undefined') {
+            return false;
         }
-    }, []);
+
+        return !window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
+    });
+    const [isGPCEnabled] = useState(() => getGPCStatus());
+    const [isGDPR] = useState(() => isGDPRRegion());
 
     const handleAcceptAll = () => {
-        localStorage.setItem('krantas_cookie_consent', 'all');
+        localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, 'all');
+        notifyCookieConsentChange('all');
         setIsVisible(false);
     };
 
     const handleNecessaryOnly = () => {
-        localStorage.setItem('krantas_cookie_consent', 'necessary');
+        localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, 'necessary');
+        notifyCookieConsentChange('necessary');
         setIsVisible(false);
     };
 

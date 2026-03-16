@@ -28,22 +28,22 @@ export default function TeamMemberStoryCards() {
 
         return (
           <div key={member.key} className="bg-white shadow-lg overflow-hidden flex flex-col">
-            <div className="order-2 md:order-1 h-[205px] lg:h-64 overflow-hidden">
+            <div className="h-[205px] lg:h-64 overflow-hidden">
               <img
                 src={member.image}
                 alt={member.alt}
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="order-1 md:order-2 p-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+            <div className="p-5">
+              <div className="flex flex-col gap-1 mb-1 md:flex-row md:flex-wrap md:items-baseline md:justify-between md:gap-2">
                 <h3 className="font-display text-xl font-medium text-[#0B0C0E]">
                   {story.name}
                 </h3>
                 <p className="text-[#244d85] font-medium text-sm">{story.role}</p>
               </div>
               <p className="text-xs text-gray-600 mb-2">{story.years}</p>
-              <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">
+              <p className="text-gray-700 text-sm leading-relaxed">
                 {story.text}
               </p>
             </div>

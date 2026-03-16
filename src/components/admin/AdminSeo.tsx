@@ -15,6 +15,21 @@ interface AdminSeoProps {
   onPrimaryActionChange?: (action: AdminPrimaryAction | null) => void;
 }
 
+const SEO_ROUTE_PATHS: Record<SeoPageKey, string> = {
+  home: '/',
+  about: '/about',
+  products: '/products',
+  catalog: '/catalog',
+  productDetail: '/product/:productId',
+  customSolutions: '/custom-solutions',
+  services: '/services',
+  news: '/news',
+  careers: '/careers',
+  contacts: '/contacts',
+  findDealer: '/find-dealer',
+  admin: '/admin',
+};
+
 export default function AdminSeo({
   seo,
   updateSeoPage,
@@ -27,9 +42,36 @@ export default function AdminSeo({
     setSeoDraft(seo[selectedSeoPage]);
   }, [seo, selectedSeoPage]);
 
-  const handleSaveSeo = useCallback(() => {
-    updateSeoPage(selectedSeoPage, seoDraft);
-    toast.success('SEO settings saved.');
+  const handleSaveSeo = useCallback(async () => {
+    try {
+      const routePath = SEO_ROUTE_PATHS[selectedSeoPage];
+      const response = await fetch('/api/seo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          path: routePath,
+          seo: {
+            ...seoDraft,
+            ogTitle: seoDraft.title,
+            ogDescription: seoDraft.description,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`);
+      }
+
+      updateSeoPage(selectedSeoPage, seoDraft);
+      console.log(`SEO saved to server for ${routePath}`);
+      toast.success('SEO settings saved to server.');
+    } catch (error) {
+      console.error('Failed to save SEO settings to server.', error);
+      toast.error('Failed to save SEO settings.');
+    }
   }, [seoDraft, selectedSeoPage, updateSeoPage]);
 
   useEffect(() => {

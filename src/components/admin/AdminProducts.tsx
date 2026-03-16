@@ -40,6 +40,7 @@ interface ProductDraft {
 interface AdminProductsProps {
   products: Product[];
   categories: Category[];
+  featuredProductIds: string[];
   getProductById: (id: string) => Product | undefined;
   getCategoryById: (id: string) => Category | undefined;
   upsertProduct: (product: Product) => void;
@@ -150,6 +151,7 @@ function ImagePreview({
 export default function AdminProducts({
   products,
   categories,
+  featuredProductIds,
   getProductById,
   getCategoryById,
   upsertProduct,
@@ -451,7 +453,20 @@ export default function AdminProducts({
                     onClick={() => setSelectedProductKey(product.id)}
                     className={getAdminListItemClass(selectedProductKey === product.id)}
                   >
-                    <p className="text-sm font-semibold">{product.name}</p>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-sm font-semibold">{product.name}</p>
+                      {featuredProductIds.includes(product.id) && (
+                        <span
+                          className={`rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                            selectedProductKey === product.id
+                              ? 'bg-white/15 text-white'
+                              : 'bg-neutral-100 text-neutral-600'
+                          }`}
+                        >
+                          Featured
+                        </span>
+                      )}
+                    </div>
                     <p
                       className={`mt-1 text-xs uppercase tracking-[0.12em] ${
                         selectedProductKey === product.id ? 'text-white/75' : 'text-neutral-500'

@@ -70,6 +70,8 @@ interface DistributorMapProps {
   centerOn?: { lat: number; lng: number } | null;
   onLocationClick?: (location: DistributorLocation) => void;
   onActiveLocationClose?: () => void;
+  onDirectionsClick?: (location: DistributorLocation) => void;
+  onPhoneClick?: (location: DistributorLocation, phone: string) => void;
 }
 
 export default function DistributorMap({
@@ -79,6 +81,8 @@ export default function DistributorMap({
   centerOn,
   onLocationClick,
   onActiveLocationClose,
+  onDirectionsClick,
+  onPhoneClick,
 }: DistributorMapProps) {
   const { language, t } = useLanguage();
   const ui = getDistributorUiCopy(language);
@@ -274,6 +278,7 @@ export default function DistributorMap({
                 href={`https://www.google.com/maps/dir/?api=1&destination=${activeLocation.coords.lat},${activeLocation.coords.lng}&travelmode=driving`}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => onDirectionsClick?.(activeLocation)}
                 className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#244d85] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#1c3c69]"
               >
                 <Navigation size={12} />
@@ -318,6 +323,7 @@ export default function DistributorMap({
               href={`https://www.google.com/maps/dir/?api=1&destination=${activeLocation.coords.lat},${activeLocation.coords.lng}&travelmode=driving`}
               target="_blank"
               rel="noreferrer"
+              onClick={() => onDirectionsClick?.(activeLocation)}
               className="inline-flex items-center gap-2 rounded-full bg-[#244d85] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#1c3c69]"
             >
               <Navigation size={12} />
@@ -327,6 +333,7 @@ export default function DistributorMap({
             {activeLocation.phones[0] && (
               <a
                 href={getTelHref(activeLocation.phones[0])}
+                onClick={() => onPhoneClick?.(activeLocation, activeLocation.phones[0])}
                 className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#0B0C0E] transition hover:border-[#244d85]/25 hover:text-[#244d85]"
               >
                 <Phone size={12} />

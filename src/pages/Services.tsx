@@ -168,7 +168,7 @@ export default function Services() {
                         {service.description}
                       </p>
                       <div className="grid grid-cols-2 gap-x-4 gap-y-4 border-t border-gray-100 pt-6">
-                        {service.stages.map((stage: any, index: number) => (
+                        {service.stages.map((stage, index) => (
                           <div key={index} className="flex items-start gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-[#244d85] mt-1.5 flex-shrink-0" />
                             <div>
@@ -186,22 +186,29 @@ export default function Services() {
           </div>
 
           {/* DESKTOP VIEW: Sidebar + Content Grid */}
-          <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div className="hidden lg:grid lg:min-h-[620px] lg:grid-cols-[minmax(280px,320px)_minmax(0,1fr)] gap-8 lg:gap-16 items-start">
             {/* Column 1: Navigation Sidebar */}
-            <div className="lg:col-span-3 bg-gray-50/50 sticky top-24">
+            <div className="self-start bg-gray-50/50 sticky top-24">
               <div className="flex flex-col border-y lg:border-y-0 border-gray-100">
                 {services.map((service) => (
                   <button
                     key={service.id}
                     onClick={() => setActiveServiceId(service.id)}
-                    className={`text-left px-5 py-6 transition-all duration-300 border-l-4 relative group ${activeServiceId === service.id
-                      ? 'bg-white border-[#244d85] text-[#244d85] shadow-sm z-10'
+                    className={`min-h-[92px] w-full text-left px-5 py-5 transition-all duration-300 border-l-4 ${activeServiceId === service.id
+                      ? 'bg-white border-[#244d85] text-[#244d85]'
                       : 'bg-transparent border-transparent text-gray-400 hover:text-gray-600 hover:bg-white/50'
                       }`}
                   >
-                    <span className="text-xl font-medium uppercase tracking-[0.10em] leading-tight flex items-center justify-between">
-                      {service.shortTitle}
-                      {activeServiceId === service.id && <ChevronRight size={20} className="text-[#244d85]" />}
+                    <span className="grid h-full grid-cols-[minmax(0,1fr)_20px] items-start gap-4 text-xl font-medium uppercase tracking-[0.10em] leading-tight">
+                      <span>{service.shortTitle}</span>
+                      <span className="flex justify-end">
+                        <ChevronRight
+                          size={20}
+                          className={`mt-0.5 shrink-0 transition-opacity duration-200 ${
+                            activeServiceId === service.id ? 'opacity-100 text-[#244d85]' : 'opacity-0'
+                          }`}
+                        />
+                      </span>
                     </span>
                   </button>
                 ))}
@@ -209,7 +216,7 @@ export default function Services() {
             </div>
 
             {/* Column 2: Narrative Content Area */}
-            <div className="lg:col-span-9 flex flex-col justify-start">
+            <div className="flex min-h-[620px] flex-col justify-start pt-1">
               <div className="max-w-4xl">
                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-6 leading-tight">
                   {activeService.title}
@@ -221,7 +228,7 @@ export default function Services() {
 
               {/* Stages/Features */}
               <div className="grid md:grid-cols-2 gap-x-12 gap-y-10 border-t border-gray-100 pt-8 mt-8">
-                {activeService.stages.map((stage: any, index: number) => (
+                {activeService.stages.map((stage, index) => (
                   <div key={index} className="flex items-start gap-4">
                     <div className="w-2 h-2 rounded-full bg-[#244d85] mt-2 flex-shrink-0" />
                     <div>

@@ -1,8 +1,9 @@
 import { useMemo, useRef, useState } from 'react';
 import { Building2, ChevronDown, ChevronUp, Mail, Navigation, Phone, Target } from 'lucide-react';
+import { useAnalytics } from '../contexts/AnalyticsContext';
+import { useCms } from '../contexts/CmsContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { DistributorLocation } from '../data/distributors';
-import { distributorLocations } from '../data/distributors';
 import { getDistributorAreaLabel, getDistributorKindLabel, getDistributorUiCopy } from '../lib/distributors';
 import DistributorMap from './DistributorMap';
 
@@ -13,12 +14,6 @@ type DisplayDistributor = DistributorLocation & {
   kindLabel: string;
   distance?: number;
 };
-
-const DISTRIBUTOR_COUNTS = {
-  all: distributorLocations.length,
-  uzbekistan: distributorLocations.filter((location) => location.market === 'uzbekistan').length,
-  international: distributorLocations.filter((location) => location.market === 'international').length,
-} as const;
 
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   const earthRadiusKm = 6371;
@@ -44,6 +39,8 @@ function getTelHref(phone: string) {
 
 export default function Distributors() {
   const { language, t } = useLanguage();
+  const { trackEvent } = useAnalytics();
+  const { distributorLocations } = useCms();
   const ui = getDistributorUiCopy(language);
   const distanceFormatter = useMemo(
     () => new Intl.NumberFormat(language, { maximumFractionDigits: 0 }),
@@ -61,6 +58,14 @@ export default function Distributors() {
 
   const cardRefs = useRef<Record<string, HTMLElement | null>>({});
   const listRef = useRef<HTMLDivElement | null>(null);
+  const distributorCounts = useMemo(
+    () => ({
+      all: distributorLocations.length,
+      uzbekistan: distributorLocations.filter((location) => location.market === 'uzbekistan').length,
+      international: distributorLocations.filter((location) => location.market === 'international').length,
+    }),
+    [distributorLocations],
+  );
 
   const processedLocations = useMemo<DisplayDistributor[]>(() => {
     const nextLocations = distributorLocations.filter((location) => tab === 'all' || location.market === tab);
@@ -92,7 +97,7 @@ export default function Distributors() {
 
         return left.city.localeCompare(right.city, language);
       });
-  }, [language, t, tab, userLocation]);
+  }, [distributorLocations, language, t, tab, userLocation]);
 
   const selectedLocation =
     processedLocations.find((location) => location.id === selectedLocationId) ?? null;
@@ -186,18 +191,35 @@ export default function Distributors() {
       <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,36.5%)_minmax(0,1fr)] gap-3 p-3 lg:grid-cols-[420px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-4 lg:p-4">
         <section className="order-1 flex min-h-0 flex-col overflow-hidden rounded-[24px] border border-black/5 bg-white shadow-sm lg:order-2 lg:rounded-[28px]">
           <div className="min-h-0 flex-1">
-            <DistributorMap
-              locations={processedLocations}
-              activeLocationId={selectedLocation?.id ?? null}
-              hoveredLocationId={hoveredLocationId}
-              centerOn={focusedLocation ? { ...focusedLocation.coords } : null}
-              onLocationClick={(location) =>
-                handleLocationSelect(location, { focusMap: false, scrollCard: true })
-              }
-              onActiveLocationClose={handleClearSelection}
-            />
-          </div>
-        </section>
+              <DistributorMap
+                locations={processedLocations}
+                activeLocationId={selectedLocation?.id ?? null}
+                hoveredLocationId={hoveredLocationId}
+                centerOn={focusedLocation ? { ...focusedLocation.coords } : null}
+                onLocationClick={(location) =>
+                  handleLocationSelect(location, { focusMap: false, scrollCard: true })
+                }
+                onActiveLocationClose={handleClearSelection}
+                onDirectionsClick={(location) =>
+                  trackEvent('contact', {
+                    contact_type: 'dealer_directions',
+                    location_id: location.id,
+                    location_name: location.name,
+                    location_city: location.city,
+                  })
+                }
+                onPhoneClick={(location, phone) =>
+                  trackEvent('contact', {
+                    contact_type: 'dealer_phone',
+                    location_id: location.id,
+                    location_name: location.name,
+                    location_city: location.city,
+                    phone,
+                  })
+                }
+              />
+            </div>
+          </section>
         <aside className="order-2 flex min-h-0 flex-col overflow-hidden rounded-[24px] border border-black/5 bg-white shadow-sm lg:order-1 lg:rounded-[28px]">
           <div className="shrink-0 border-b border-gray-100 px-4 py-4 lg:px-5">
             <div className="space-y-3">
@@ -218,10 +240,10 @@ export default function Distributors() {
                         }`}
                       >
                         {tabId === 'all'
-                          ? 'All'
+                            ? 'All'
                           : tabId === 'uzbekistan'
                             ? 'UZ'
-                            : t.distributors.tabs[tabId]} ({DISTRIBUTOR_COUNTS[tabId]})
+                            : t.distributors.tabs[tabId]} ({distributorCounts[tabId]})
                       </button>
                     );
                   })}
@@ -358,6 +380,14 @@ export default function Distributors() {
                               href={getDirectionsUrl(location)}
                               target="_blank"
                               rel="noreferrer"
+                              onClick={() =>
+                                trackEvent('contact', {
+                                  contact_type: 'dealer_directions',
+                                  location_id: location.id,
+                                  location_name: location.name,
+                                  location_city: location.city,
+                                })
+                              }
                               className="inline-flex items-center gap-2 rounded-full bg-[#244d85] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#1c3c69]"
                             >
                               <Navigation size={12} />
@@ -368,6 +398,15 @@ export default function Distributors() {
                               <a
                                 key={phone}
                                 href={getTelHref(phone)}
+                                onClick={() =>
+                                  trackEvent('contact', {
+                                    contact_type: 'dealer_phone',
+                                    location_id: location.id,
+                                    location_name: location.name,
+                                    location_city: location.city,
+                                    phone,
+                                  })
+                                }
                                 className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-[#0B0C0E] transition hover:border-[#244d85]/25 hover:text-[#244d85]"
                               >
                                 <Phone size={12} />
@@ -378,6 +417,15 @@ export default function Distributors() {
                             {location.email && (
                               <a
                                 href={`mailto:${location.email}`}
+                                onClick={() =>
+                                  trackEvent('contact', {
+                                    contact_type: 'dealer_email',
+                                    location_id: location.id,
+                                    location_name: location.name,
+                                    location_city: location.city,
+                                    email: location.email,
+                                  })
+                                }
                                 className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-[#0B0C0E] transition hover:border-[#244d85]/25 hover:text-[#244d85]"
                               >
                                 <Mail size={12} />

@@ -8,15 +8,25 @@ import {
   type ReactNode,
 } from 'react';
 import type { Category, Product } from '../data/products';
+import type { DistributorLocation } from '../data/distributors';
 import type { Language } from '../data/translations';
 import {
+  CMS_STORAGE_KEY,
   cloneCmsValue,
+  createLeadFromInput,
+  createEmptyDistributorLocation,
   createEmptyCategory,
+  createEmptyNewsItem,
   createEmptyProduct,
+  createEmptyVacancy,
+  type CmsLead,
+  type CmsLeadInput,
+  type CmsNewsItem,
   getDefaultCmsSnapshot,
   loadCmsSnapshot,
   normalizeCmsSnapshot,
   saveCmsSnapshot,
+  type CmsVacancy,
   type CmsSnapshot,
   type SeoPageKey,
   type SeoSettings,
@@ -27,12 +37,26 @@ interface CmsContextValue extends CmsSnapshot {
   getProductById: (id: string) => Product | undefined;
   getCategoryById: (id: string) => Category | undefined;
   getProductsByCategory: (categoryId: string) => Product[];
+  getDistributorById: (id: string) => DistributorLocation | undefined;
+  getVacancyById: (id: string) => CmsVacancy | undefined;
+  getNewsItemById: (id: string) => CmsNewsItem | undefined;
+  getLeadById: (id: string) => CmsLead | undefined;
+  setFeaturedProductIds: (ids: string[]) => void;
   upsertMediaItem: (item: UploadedMediaInput) => void;
   deleteMediaItem: (id: string) => void;
   upsertProduct: (product: Product) => void;
   deleteProduct: (id: string) => void;
   upsertCategory: (category: Category) => void;
   deleteCategory: (id: string) => boolean;
+  upsertDistributorLocation: (location: DistributorLocation) => void;
+  deleteDistributorLocation: (id: string) => void;
+  upsertVacancy: (vacancy: CmsVacancy) => void;
+  deleteVacancy: (id: string) => void;
+  upsertNewsItem: (newsItem: CmsNewsItem) => void;
+  deleteNewsItem: (id: string) => void;
+  createLead: (leadInput: CmsLeadInput) => CmsLead;
+  upsertLead: (lead: CmsLead) => void;
+  deleteLead: (id: string) => void;
   setTranslationOverride: (language: Language, path: string, value: string) => void;
   clearTranslationOverride: (language: Language, path: string) => void;
   updateSeoPage: (pageKey: SeoPageKey, settings: SeoSettings) => void;
@@ -41,6 +65,9 @@ interface CmsContextValue extends CmsSnapshot {
   resetCms: () => void;
   createProductDraft: (categoryId?: string) => Product;
   createCategoryDraft: () => Category;
+  createDistributorDraft: () => DistributorLocation;
+  createVacancyDraft: () => CmsVacancy;
+  createNewsItemDraft: () => CmsNewsItem;
 }
 
 const CmsContext = createContext<CmsContextValue | undefined>(undefined);
@@ -51,6 +78,23 @@ export function CmsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     saveCmsSnapshot(snapshot);
   }, [snapshot]);
+
+  useEffect(() => {
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== CMS_STORAGE_KEY || !event.newValue) {
+        return;
+      }
+
+      try {
+        setSnapshot(normalizeCmsSnapshot(JSON.parse(event.newValue)));
+      } catch {
+        // Ignore invalid cross-tab updates and keep the in-memory snapshot intact.
+      }
+    };
+
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   useEffect(() => {
     setUploadedMediaRegistry(snapshot.mediaItems);
@@ -81,6 +125,26 @@ export function CmsProvider({ children }: { children: ReactNode }) {
     [snapshot.products],
   );
 
+  const getDistributorById = useCallback(
+    (id: string) => snapshot.distributorLocations.find((location) => location.id === id),
+    [snapshot.distributorLocations],
+  );
+
+  const getVacancyById = useCallback(
+    (id: string) => snapshot.vacancies.find((vacancy) => vacancy.id === id),
+    [snapshot.vacancies],
+  );
+
+  const getNewsItemById = useCallback(
+    (id: string) => snapshot.newsItems.find((newsItem) => newsItem.id === id),
+    [snapshot.newsItems],
+  );
+
+  const getLeadById = useCallback(
+    (id: string) => snapshot.leads.find((lead) => lead.id === id),
+    [snapshot.leads],
+  );
+
   const upsertProduct = useCallback(
     (product: Product) => {
       commitSnapshot((currentSnapshot) => {
@@ -109,7 +173,26 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       commitSnapshot((currentSnapshot) => ({
         ...currentSnapshot,
         products: currentSnapshot.products.filter((product) => product.id !== id),
+        featuredProductIds: currentSnapshot.featuredProductIds.filter(
+          (productId) => productId !== id,
+        ),
       }));
+    },
+    [commitSnapshot],
+  );
+
+  const setFeaturedProductIds = useCallback(
+    (ids: string[]) => {
+      commitSnapshot((currentSnapshot) => {
+        const availableProductIds = new Set(currentSnapshot.products.map((product) => product.id));
+
+        return {
+          ...currentSnapshot,
+          featuredProductIds: Array.from(
+            new Set(ids.filter((id) => availableProductIds.has(id))),
+          ),
+        };
+      });
     },
     [commitSnapshot],
   );
@@ -196,6 +279,162 @@ export function CmsProvider({ children }: { children: ReactNode }) {
     [commitSnapshot, snapshot.products],
   );
 
+  const upsertDistributorLocation = useCallback(
+    (location: DistributorLocation) => {
+      commitSnapshot((currentSnapshot) => {
+        const existingIndex = currentSnapshot.distributorLocations.findIndex(
+          (existingLocation) => existingLocation.id === location.id,
+        );
+        const nextLocations = [...currentSnapshot.distributorLocations];
+
+        if (existingIndex >= 0) {
+          nextLocations[existingIndex] = cloneCmsValue(location);
+        } else {
+          nextLocations.unshift(cloneCmsValue(location));
+        }
+
+        return {
+          ...currentSnapshot,
+          distributorLocations: nextLocations,
+        };
+      });
+    },
+    [commitSnapshot],
+  );
+
+  const deleteDistributorLocation = useCallback(
+    (id: string) => {
+      commitSnapshot((currentSnapshot) => ({
+        ...currentSnapshot,
+        distributorLocations: currentSnapshot.distributorLocations.filter(
+          (location) => location.id !== id,
+        ),
+      }));
+    },
+    [commitSnapshot],
+  );
+
+  const upsertVacancy = useCallback(
+    (vacancy: CmsVacancy) => {
+      commitSnapshot((currentSnapshot) => {
+        const existingIndex = currentSnapshot.vacancies.findIndex(
+          (existingVacancy) => existingVacancy.id === vacancy.id,
+        );
+        const nextVacancies = [...currentSnapshot.vacancies];
+
+        if (existingIndex >= 0) {
+          nextVacancies[existingIndex] = cloneCmsValue(vacancy);
+        } else {
+          nextVacancies.unshift(cloneCmsValue(vacancy));
+        }
+
+        return {
+          ...currentSnapshot,
+          vacancies: nextVacancies,
+        };
+      });
+    },
+    [commitSnapshot],
+  );
+
+  const deleteVacancy = useCallback(
+    (id: string) => {
+      commitSnapshot((currentSnapshot) => ({
+        ...currentSnapshot,
+        vacancies: currentSnapshot.vacancies.filter((vacancy) => vacancy.id !== id),
+      }));
+    },
+    [commitSnapshot],
+  );
+
+  const upsertNewsItem = useCallback(
+    (newsItem: CmsNewsItem) => {
+      commitSnapshot((currentSnapshot) => {
+        const existingIndex = currentSnapshot.newsItems.findIndex(
+          (existingNewsItem) => existingNewsItem.id === newsItem.id,
+        );
+        const nextNewsItems = [...currentSnapshot.newsItems];
+
+        if (existingIndex >= 0) {
+          nextNewsItems[existingIndex] = cloneCmsValue(newsItem);
+        } else {
+          nextNewsItems.unshift(cloneCmsValue(newsItem));
+        }
+
+        return {
+          ...currentSnapshot,
+          newsItems: nextNewsItems,
+        };
+      });
+    },
+    [commitSnapshot],
+  );
+
+  const deleteNewsItem = useCallback(
+    (id: string) => {
+      commitSnapshot((currentSnapshot) => ({
+        ...currentSnapshot,
+        newsItems: currentSnapshot.newsItems.filter((newsItem) => newsItem.id !== id),
+      }));
+    },
+    [commitSnapshot],
+  );
+
+  const createLead = useCallback(
+    (leadInput: CmsLeadInput) => {
+      const nextLead = createLeadFromInput(leadInput);
+
+      commitSnapshot((currentSnapshot) => ({
+        ...currentSnapshot,
+        leads: [nextLead, ...currentSnapshot.leads],
+      }));
+
+      return nextLead;
+    },
+    [commitSnapshot],
+  );
+
+  const upsertLead = useCallback(
+    (lead: CmsLead) => {
+      commitSnapshot((currentSnapshot) => {
+        const existingIndex = currentSnapshot.leads.findIndex(
+          (existingLead) => existingLead.id === lead.id,
+        );
+        const nextLead: CmsLead = {
+          ...cloneCmsValue(lead),
+          createdAt:
+            existingIndex >= 0
+              ? currentSnapshot.leads[existingIndex].createdAt
+              : lead.createdAt || new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+        const nextLeads = [...currentSnapshot.leads];
+
+        if (existingIndex >= 0) {
+          nextLeads[existingIndex] = nextLead;
+        } else {
+          nextLeads.unshift(nextLead);
+        }
+
+        return {
+          ...currentSnapshot,
+          leads: nextLeads,
+        };
+      });
+    },
+    [commitSnapshot],
+  );
+
+  const deleteLead = useCallback(
+    (id: string) => {
+      commitSnapshot((currentSnapshot) => ({
+        ...currentSnapshot,
+        leads: currentSnapshot.leads.filter((lead) => lead.id !== id),
+      }));
+    },
+    [commitSnapshot],
+  );
+
   const setTranslationOverride = useCallback(
     (language: Language, path: string, value: string) => {
       commitSnapshot((currentSnapshot) => ({
@@ -263,12 +502,26 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       getProductById,
       getCategoryById,
       getProductsByCategory,
+      getDistributorById,
+      getVacancyById,
+      getNewsItemById,
+      getLeadById,
+      setFeaturedProductIds,
       upsertMediaItem,
       deleteMediaItem,
       upsertProduct,
       deleteProduct,
       upsertCategory,
       deleteCategory,
+      upsertDistributorLocation,
+      deleteDistributorLocation,
+      upsertVacancy,
+      deleteVacancy,
+      upsertNewsItem,
+      deleteNewsItem,
+      createLead,
+      upsertLead,
+      deleteLead,
       setTranslationOverride,
       clearTranslationOverride,
       updateSeoPage,
@@ -277,18 +530,35 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       resetCms,
       createProductDraft: createEmptyProduct,
       createCategoryDraft: createEmptyCategory,
+      createDistributorDraft: createEmptyDistributorLocation,
+      createVacancyDraft: createEmptyVacancy,
+      createNewsItemDraft: createEmptyNewsItem,
     }),
     [
       snapshot,
       getProductById,
       getCategoryById,
       getProductsByCategory,
+      getDistributorById,
+      getVacancyById,
+      getNewsItemById,
+      getLeadById,
+      setFeaturedProductIds,
       upsertMediaItem,
       deleteMediaItem,
       upsertProduct,
       deleteProduct,
       upsertCategory,
       deleteCategory,
+      upsertDistributorLocation,
+      deleteDistributorLocation,
+      upsertVacancy,
+      deleteVacancy,
+      upsertNewsItem,
+      deleteNewsItem,
+      createLead,
+      upsertLead,
+      deleteLead,
       setTranslationOverride,
       clearTranslationOverride,
       updateSeoPage,
