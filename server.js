@@ -1,17 +1,45 @@
 import 'dotenv/config';
 import express from 'express';
+import { existsSync } from 'node:fs';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DIST_DIR = path.resolve(__dirname, 'dist');
+const PROJECT_ROOT = __dirname;
+
+if (process.cwd() !== PROJECT_ROOT) {
+  process.chdir(PROJECT_ROOT);
+}
+
+function resolveDistDir() {
+  const candidateDirs = [
+    path.join(PROJECT_ROOT, 'dist'),
+    path.join(process.cwd(), 'dist'),
+    path.join(PROJECT_ROOT, 'build'),
+    path.join(process.cwd(), 'build'),
+  ];
+
+  for (const candidateDir of candidateDirs) {
+    if (existsSync(path.join(candidateDir, 'index.html'))) {
+      return candidateDir;
+    }
+  }
+
+  throw new Error(
+    `Could not find a production build directory. Expected index.html in one of: ${candidateDirs.join(', ')}`,
+  );
+}
+
+const DIST_DIR = resolveDistDir();
 const DIST_INDEX_PATH = path.join(DIST_DIR, 'index.html');
-const PRODUCT_SOURCE_PATH = path.resolve(__dirname, 'src', 'data', 'products.ts');
+const DIST_ASSETS_DIR = path.join(DIST_DIR, 'assets');
+const PRODUCT_SOURCE_PATH = path.resolve(PROJECT_ROOT, 'src', 'data', 'products.ts');
 const SEO_STORAGE_PATH = process.env.SEO_STORAGE_PATH
-  ? path.resolve(__dirname, process.env.SEO_STORAGE_PATH)
-  : path.resolve(__dirname, 'seo-data.json');
+  ? path.resolve(PROJECT_ROOT, process.env.SEO_STORAGE_PATH)
+  : path.resolve(PROJECT_ROOT, 'seo-data.json');
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = Number(process.env.PORT || 3000);
 
 const ROUTE_SEO_DEFAULTS = {
@@ -424,8 +452,17 @@ app.disable('x-powered-by');
 app.set('trust proxy', true);
 app.use(express.json());
 app.use(
+  '/assets',
+  express.static(DIST_ASSETS_DIR, {
+    immutable: true,
+    maxAge: '1y',
+    index: false,
+  }),
+);
+app.use(
   express.static(DIST_DIR, {
     index: false,
+    maxAge: '1h',
   }),
 );
 
@@ -559,7 +596,10 @@ app.use((error, req, res, next) => {
   res.status(500).send('Internal server error');
 });
 
-app.listen(PORT, () => {
-  console.log(`SEO server listening on http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`SEO server listening on http://${HOST}:${PORT}`);
+  console.log(`Project root: ${PROJECT_ROOT}`);
+  console.log(`Process cwd: ${process.cwd()}`);
   console.log(`Serving static assets from ${DIST_DIR}`);
+  console.log(`Dist index path: ${DIST_INDEX_PATH}`);
 });

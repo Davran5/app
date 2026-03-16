@@ -56,3 +56,11 @@
 [client] [2m10:03:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Home.tsx, /src/index.css[22m
 [client] [2m10:31:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/GlobalBanner.tsx, /src/index.css[22m
 [client] [2m12:23:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/GlobalBanner.tsx, /src/index.css[22m
+[client] [2m13:40:54[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[client] [2m13:40:54[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[client] [2m13:40:54[22m [36m[1m[vite][22m[39m server restarted.
+[client] [2m13:45:56[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[client] [2m13:45:56[22m [36m[1m[vite][22m[39m server restarted.
+[client] 
+[client]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[client]   [32m➜[39m  [1mNetwork[22m: [36mhttp://10.62.202.142:[1m5173[22m/[39m
