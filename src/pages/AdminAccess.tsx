@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
-import { LockKeyhole, ShieldAlert } from 'lucide-react';
+import { LockKeyhole } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   adminCardClass,
   adminInputClass,
   adminPrimaryButtonClass,
-  adminSecondaryButtonClass,
 } from '../components/admin/styles';
 import AdminPanel from './AdminPanel';
 
@@ -13,12 +12,10 @@ type AdminAccessState = 'checking' | 'locked' | 'open';
 
 interface AdminSessionResponse {
   authenticated?: boolean;
-  passwordConfigured?: boolean;
 }
 
 export default function AdminAccess() {
   const [accessState, setAccessState] = useState<AdminAccessState>('checking');
-  const [passwordConfigured, setPasswordConfigured] = useState(true);
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,12 +32,8 @@ export default function AdminAccess() {
       }
 
       const payload = (await response.json()) as AdminSessionResponse;
-      const isConfigured = Boolean(payload.passwordConfigured);
-
-      setPasswordConfigured(isConfigured);
       setAccessState(payload.authenticated ? 'open' : 'locked');
     } catch {
-      setPasswordConfigured(true);
       setAccessState('locked');
     }
   }, []);
@@ -54,7 +47,7 @@ export default function AdminAccess() {
       event.preventDefault();
 
       if (!password.trim()) {
-        toast.error('Enter the admin password.');
+        toast.error('Access denied.');
         return;
       }
 
@@ -71,14 +64,14 @@ export default function AdminAccess() {
         });
 
         if (!response.ok) {
-          throw new Error(`Login failed with ${response.status}`);
+          throw new Error(`Access denied with ${response.status}`);
         }
 
         setPassword('');
         setAccessState('open');
         toast.success('Admin access granted.');
       } catch {
-        toast.error('Incorrect password.');
+        toast.error('Access denied.');
       } finally {
         setIsSubmitting(false);
       }
@@ -110,7 +103,7 @@ export default function AdminAccess() {
       <div className={`${adminCardClass} w-full max-w-[440px] p-6 sm:p-8`}>
         <div className="flex items-start gap-4">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-black text-white">
-            {passwordConfigured ? <LockKeyhole size={20} /> : <ShieldAlert size={20} />}
+            <LockKeyhole size={20} />
           </div>
 
           <div className="min-w-0">
@@ -121,9 +114,7 @@ export default function AdminAccess() {
               {accessState === 'checking' ? 'Checking access' : 'Enter password'}
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-              {passwordConfigured
-                ? 'The admin panel is locked. Enter the server password to continue.'
-                : 'No admin password is configured on the server yet. Add ADMIN_PANEL_PASSWORD to the server environment to unlock the admin panel.'}
+              The admin panel is protected. Enter the password to continue.
             </p>
           </div>
         </div>
@@ -133,7 +124,7 @@ export default function AdminAccess() {
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-black/15 border-t-black" />
             <span>Validating session</span>
           </div>
-        ) : passwordConfigured ? (
+        ) : (
           <form onSubmit={handleSubmit} className="mt-8 space-y-4">
             <label className="block space-y-2">
               <span className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-500">
@@ -157,16 +148,6 @@ export default function AdminAccess() {
               {isSubmitting ? 'Unlocking...' : 'Unlock Admin'}
             </button>
           </form>
-        ) : (
-          <div className="mt-8">
-            <button
-              type="button"
-              onClick={() => void refreshSession()}
-              className={`${adminSecondaryButtonClass} w-full rounded-2xl py-3`}
-            >
-              Retry Check
-            </button>
-          </div>
         )}
       </div>
     </div>

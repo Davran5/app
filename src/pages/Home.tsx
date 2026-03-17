@@ -244,7 +244,7 @@ export default function Home() {
               {[
                 { value: 60, suffix: '+', label: t.stats.equipment },
                 { value: 10000, suffix: '+', label: t.stats.projects },
-                { value: 700, suffix: '+', label: t.stats.employees },
+    { value: 1000, suffix: '+', label: t.stats.employees },
                 { value: 81, suffix: '', label: t.stats.experience },
               ].map((stat, idx) => (
                 <div key={idx} className="text-center lg:text-left">

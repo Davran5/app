@@ -9,6 +9,7 @@ const DEFAULT_CENTER = { lat: 43.5, lng: 64.5 };
 const DEFAULT_ZOOM = 4;
 const FOCUSED_LOCATION_ZOOM = 11;
 const GOOGLE_MAPS_LIBRARIES: Libraries = ['marker'];
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY?.trim() || '';
 const GOOGLE_MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID?.trim() || 'DEMO_MAP_ID';
 
 const MARKER_COLORS = {
@@ -86,9 +87,9 @@ export default function DistributorMap({
 }: DistributorMapProps) {
   const { language, t } = useLanguage();
   const ui = getDistributorUiCopy(language);
-  const { isLoaded } = useJsApiLoader({
+  const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY || 'missing-google-maps-key',
     libraries: GOOGLE_MAPS_LIBRARIES,
   });
   const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -226,6 +227,21 @@ export default function DistributorMap({
       disposed = true;
     };
   }, [activeLocationId, hoveredLocationId, isLoaded, locations, map, onLocationClick]);
+
+  if (!GOOGLE_MAPS_API_KEY || loadError) {
+    return (
+      <div className="flex h-full min-h-0 items-center justify-center bg-[#f2f1eb] p-6">
+        <div className="max-w-[280px] text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#244d85]/15 bg-white text-[#244d85]">
+            <MapPin size={18} />
+          </div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+            {ui.mapUnavailable}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isLoaded) {
     return (

@@ -49,6 +49,12 @@ const ADMIN_PASSWORD =
   (process.env.NODE_ENV === 'production' ? '' : 'krantas-admin');
 const ADMIN_SESSION_COOKIE = 'krantas_admin_session';
 const ADMIN_SESSION_MAX_AGE_SECONDS = 60 * 60 * 12;
+const ADMIN_LOGIN_MAX_ATTEMPTS = Math.max(1, Number(process.env.ADMIN_LOGIN_MAX_ATTEMPTS || 5));
+const ADMIN_LOGIN_LOCKOUT_SECONDS = Math.max(
+  60,
+  Number(process.env.ADMIN_LOGIN_LOCKOUT_SECONDS || 60 * 15),
+);
+const ADMIN_ACCESS_DENIED_MESSAGE = 'Access denied.';
 const ADMIN_SESSION_TOKEN = ADMIN_PASSWORD
   ? crypto.createHash('sha256').update(`${ADMIN_PASSWORD}:${PROJECT_ROOT}`).digest('hex')
   : '';
@@ -135,6 +141,7 @@ let cachedSeoStore = null;
 let cachedSeoStoreMtimeMs = 0;
 let cachedProductPaths = [];
 let cachedProductPathsMtimeMs = 0;
+const adminLoginAttempts = new Map();
 
 function createEmptySeoStore() {
   return { paths: {} };
@@ -227,6 +234,60 @@ function buildAdminSessionCookie(req, clear = false) {
   }
 
   return parts.join('; ');
+}
+
+function getAdminLoginKey(req) {
+  const userAgent = String(req.get('user-agent') || '').slice(0, 160);
+  return `${req.ip || req.socket?.remoteAddress || 'unknown'}|${userAgent}`;
+}
+
+function getAdminLoginAttemptState(req) {
+  const key = getAdminLoginKey(req);
+  const now = Date.now();
+  const existingState = adminLoginAttempts.get(key);
+
+  if (!existingState) {
+    return {
+      key,
+      attempts: 0,
+      lockedUntil: 0,
+      isLocked: false,
+    };
+  }
+
+  if (existingState.lockedUntil && existingState.lockedUntil <= now) {
+    adminLoginAttempts.delete(key);
+    return {
+      key,
+      attempts: 0,
+      lockedUntil: 0,
+      isLocked: false,
+    };
+  }
+
+  return {
+    key,
+    attempts: existingState.attempts || 0,
+    lockedUntil: existingState.lockedUntil || 0,
+    isLocked: Boolean(existingState.lockedUntil && existingState.lockedUntil > now),
+  };
+}
+
+function registerAdminLoginFailure(req) {
+  const { key, attempts } = getAdminLoginAttemptState(req);
+  const nextAttempts = attempts + 1;
+  const shouldLock = nextAttempts >= ADMIN_LOGIN_MAX_ATTEMPTS;
+
+  adminLoginAttempts.set(key, {
+    attempts: nextAttempts,
+    lockedUntil: shouldLock ? Date.now() + ADMIN_LOGIN_LOCKOUT_SECONDS * 1000 : 0,
+  });
+
+  return shouldLock;
+}
+
+function clearAdminLoginFailures(req) {
+  adminLoginAttempts.delete(getAdminLoginKey(req));
 }
 
 function toAbsoluteUrl(value, req) {
@@ -569,7 +630,6 @@ app.get('/health', (req, res) => {
 app.get('/api/admin/session', (req, res) => {
   res.set('Cache-Control', 'no-store').json({
     authenticated: isAdminAuthenticated(req),
-    passwordConfigured: isAdminPasswordConfigured(),
   });
 });
 
@@ -580,13 +640,28 @@ app.post('/api/admin/login', (req, res) => {
     return res
       .status(503)
       .set('Cache-Control', 'no-store')
-      .json({ error: 'Admin password is not configured on the server.' });
+      .json({ error: 'Admin access is unavailable.' });
+  }
+
+  const attemptState = getAdminLoginAttemptState(req);
+
+  if (attemptState.isLocked) {
+    return res
+      .status(429)
+      .set('Cache-Control', 'no-store')
+      .json({ error: ADMIN_ACCESS_DENIED_MESSAGE });
   }
 
   if (!stringsMatch(password, ADMIN_PASSWORD)) {
-    return res.status(401).set('Cache-Control', 'no-store').json({ error: 'Invalid password.' });
+    const locked = registerAdminLoginFailure(req);
+
+    return res
+      .status(locked ? 429 : 401)
+      .set('Cache-Control', 'no-store')
+      .json({ error: ADMIN_ACCESS_DENIED_MESSAGE });
   }
 
+  clearAdminLoginFailures(req);
   res
     .set('Set-Cookie', buildAdminSessionCookie(req))
     .set('Cache-Control', 'no-store')

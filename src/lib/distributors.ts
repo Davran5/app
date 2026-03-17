@@ -30,6 +30,7 @@ interface DistributorUiCopy {
   serviceLabel: string;
   regionalLabel: string;
   loadingMap: string;
+  mapUnavailable: string;
   distanceLabel: (distance: string) => string;
 }
 
@@ -62,6 +63,7 @@ const distributorUiCopy: Record<Language, DistributorUiCopy> = {
     serviceLabel: 'Service Partner',
     regionalLabel: 'Regional Center',
     loadingMap: 'Loading dealer network',
+    mapUnavailable: 'Map is currently unavailable.',
     distanceLabel: (distance) => `${distance} km away`,
   },
   ru: {
@@ -93,6 +95,7 @@ const distributorUiCopy: Record<Language, DistributorUiCopy> = {
     serviceLabel: 'Сервисный партнер',
     regionalLabel: 'Региональный центр',
     loadingMap: 'Загрузка дилерской сети',
+    mapUnavailable: 'Карта сейчас недоступна.',
     distanceLabel: (distance) => `${distance} км`,
   },
   uz: {
@@ -124,6 +127,7 @@ const distributorUiCopy: Record<Language, DistributorUiCopy> = {
     serviceLabel: 'Servis hamkori',
     regionalLabel: 'Mintaqaviy markaz',
     loadingMap: 'Dilerlar tarmog‘i yuklanmoqda',
+    mapUnavailable: 'Xarita hozircha mavjud emas.',
     distanceLabel: (distance) => `${distance} km`,
   },
   de: {
@@ -155,6 +159,7 @@ const distributorUiCopy: Record<Language, DistributorUiCopy> = {
     serviceLabel: 'Servicepartner',
     regionalLabel: 'Regionalzentrum',
     loadingMap: 'Händlernetz wird geladen',
+    mapUnavailable: 'Die Karte ist derzeit nicht verfügbar.',
     distanceLabel: (distance) => `${distance} km entfernt`,
   },
 };

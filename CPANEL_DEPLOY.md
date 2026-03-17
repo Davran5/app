@@ -24,6 +24,8 @@ SITE_URL=https://krantasgroup.com
 ADMIN_PANEL_PASSWORD=change-this-password
 ADMIN_PANEL_PATH=/control-room
 VITE_ADMIN_PANEL_PATH=/control-room
+ADMIN_LOGIN_MAX_ATTEMPTS=5
+ADMIN_LOGIN_LOCKOUT_SECONDS=900
 ```
 
 Optional:
@@ -31,8 +33,14 @@ Optional:
 ```bash
 SEO_STORAGE_PATH=seo-data.json
 VITE_GOOGLE_MAPS_API_KEY=your_key
+VITE_GOOGLE_MAPS_MAP_ID=your_map_id
 VITE_GTM_ID=GTM-XXXXXXX
 ```
+
+For live Google Maps:
+- restrict the API key to your production domains
+- enable the Maps JavaScript API for that key
+- if you use advanced markers in production, set a real `VITE_GOOGLE_MAPS_MAP_ID`
 
 ## Start or restart
 - Restart the Node.js application from cPanel after install/build.
