@@ -12,6 +12,7 @@ import {
   PackagePlus,
   PanelLeftClose,
   PanelLeftOpen,
+  LogOut,
   Save,
 } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -103,7 +104,7 @@ function isAdminTab(value: string | null): value is AdminTab {
   return tabs.some((tab) => tab.id === value);
 }
 
-export default function AdminPanel() {
+export default function AdminPanel({ onLogout }: { onLogout?: () => void }) {
   const cms = useCms();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -151,23 +152,38 @@ export default function AdminPanel() {
         }`}
       >
         <div className="flex h-14 shrink-0 items-center justify-between border-b border-black/10 px-3">
-          {!isSidebarCollapsed && (
+          {!isSidebarCollapsed ? (
             <Link
               to="/"
               className="truncate text-sm font-semibold uppercase tracking-[0.12em] text-neutral-500 transition hover:text-black"
             >
               KRANTAS Group
             </Link>
+          ) : (
+            <span className="sr-only">KRANTAS Group</span>
           )}
 
-          <button
-            onClick={() => setIsSidebarCollapsed((current) => !current)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-black transition hover:bg-neutral-100"
-            aria-label={isSidebarCollapsed ? 'Expand admin navigation' : 'Collapse admin navigation'}
-            title={isSidebarCollapsed ? 'Expand navigation' : 'Collapse navigation'}
-          >
-            {isSidebarCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
-          </button>
+          <div className="flex items-center gap-2">
+            {onLogout && (
+              <button
+                onClick={onLogout}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-black transition hover:bg-neutral-100"
+                aria-label="Log out of admin"
+                title="Log out"
+              >
+                <LogOut size={16} />
+              </button>
+            )}
+
+            <button
+              onClick={() => setIsSidebarCollapsed((current) => !current)}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-black transition hover:bg-neutral-100"
+              aria-label={isSidebarCollapsed ? 'Expand admin navigation' : 'Collapse admin navigation'}
+              title={isSidebarCollapsed ? 'Expand navigation' : 'Collapse navigation'}
+            >
+              {isSidebarCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
+            </button>
+          </div>
         </div>
 
         <nav className="flex-1 overflow-y-auto p-3" aria-label="Admin sections">

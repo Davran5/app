@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import crypto from 'node:crypto';
 import express from 'express';
 import { existsSync } from 'node:fs';
 import { promises as fs } from 'node:fs';
@@ -39,6 +40,18 @@ const PRODUCT_SOURCE_PATH = path.resolve(PROJECT_ROOT, 'src', 'data', 'products.
 const SEO_STORAGE_PATH = process.env.SEO_STORAGE_PATH
   ? path.resolve(PROJECT_ROOT, process.env.SEO_STORAGE_PATH)
   : path.resolve(PROJECT_ROOT, 'seo-data.json');
+const ADMIN_PANEL_PATH = normalizePathname(
+  process.env.ADMIN_PANEL_PATH || process.env.VITE_ADMIN_PANEL_PATH || '/control-room',
+);
+const ADMIN_PASSWORD =
+  process.env.ADMIN_PANEL_PASSWORD ||
+  process.env.ADMIN_PASSWORD ||
+  (process.env.NODE_ENV === 'production' ? '' : 'krantas-admin');
+const ADMIN_SESSION_COOKIE = 'krantas_admin_session';
+const ADMIN_SESSION_MAX_AGE_SECONDS = 60 * 60 * 12;
+const ADMIN_SESSION_TOKEN = ADMIN_PASSWORD
+  ? crypto.createHash('sha256').update(`${ADMIN_PASSWORD}:${PROJECT_ROOT}`).digest('hex')
+  : '';
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = Number(process.env.PORT || 3000);
 
@@ -154,6 +167,68 @@ function escapeHtml(value = '') {
     .replace(/'/g, '&#39;');
 }
 
+function getRequestCookies(req) {
+  return Object.fromEntries(
+    String(req.headers.cookie || '')
+      .split(';')
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((part) => {
+        const separatorIndex = part.indexOf('=');
+        const key = separatorIndex >= 0 ? part.slice(0, separatorIndex) : part;
+        const value = separatorIndex >= 0 ? part.slice(separatorIndex + 1) : '';
+
+        return [key, decodeURIComponent(value)];
+      }),
+  );
+}
+
+function stringsMatch(left = '', right = '') {
+  const leftBuffer = Buffer.from(String(left));
+  const rightBuffer = Buffer.from(String(right));
+
+  if (leftBuffer.length !== rightBuffer.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(leftBuffer, rightBuffer);
+}
+
+function isAdminPasswordConfigured() {
+  return Boolean(ADMIN_PASSWORD);
+}
+
+function isAdminAuthenticated(req) {
+  if (!isAdminPasswordConfigured()) {
+    return false;
+  }
+
+  const sessionCookie = getRequestCookies(req)[ADMIN_SESSION_COOKIE];
+  return Boolean(sessionCookie) && stringsMatch(sessionCookie, ADMIN_SESSION_TOKEN);
+}
+
+function buildAdminSessionCookie(req, clear = false) {
+  const parts = [
+    `${ADMIN_SESSION_COOKIE}=${clear ? '' : encodeURIComponent(ADMIN_SESSION_TOKEN)}`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Lax',
+  ];
+
+  if (req.secure || req.protocol === 'https') {
+    parts.push('Secure');
+  }
+
+  if (clear) {
+    parts.push('Max-Age=0');
+    parts.push('Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+  } else {
+    parts.push(`Max-Age=${ADMIN_SESSION_MAX_AGE_SECONDS}`);
+  }
+
+  return parts.join('; ');
+}
+
 function toAbsoluteUrl(value, req) {
   if (!value) {
     return '';
@@ -193,7 +268,7 @@ function humanizeSlug(value = '') {
 }
 
 function resolveRouteKey(pathname) {
-  if (pathname.startsWith('/admin')) return 'admin';
+  if (pathname === ADMIN_PANEL_PATH || pathname.startsWith(`${ADMIN_PANEL_PATH}/`)) return 'admin';
   if (pathname.startsWith('/product/')) return 'productDetail';
   if (pathname.startsWith('/catalog')) return 'catalog';
   if (pathname === '/') return 'home';
@@ -234,7 +309,7 @@ function normalizeSeoPayload(rawSeo, pathname, req, requestPath = pathname) {
   const ogImage = toAbsoluteUrl(rawSeo.ogImage || rawSeo.image || '/og-default.jpg', req);
   const url = toAbsoluteUrl(requestPath, req);
   const robots =
-    pathname.startsWith('/admin')
+    pathname === ADMIN_PANEL_PATH || pathname.startsWith(`${ADMIN_PANEL_PATH}/`)
       ? 'noindex, nofollow'
       : typeof rawSeo.robots === 'string'
         ? rawSeo.robots.trim()
@@ -411,7 +486,7 @@ function buildRobotsTxt(req) {
   return [
     'User-agent: *',
     'Allow: /',
-    'Disallow: /admin',
+    `Disallow: ${ADMIN_PANEL_PATH}`,
     '',
     `Sitemap: ${getSiteOrigin(req)}/sitemap.xml`,
     '',
@@ -444,6 +519,18 @@ function buildSitemapXml(origin, paths) {
 
 function shouldServeSpaHtml(req) {
   return req.method === 'GET' && req.accepts('html') && !path.extname(req.path);
+}
+
+function requireAdminSession(req, res, next) {
+  if (!isAdminPasswordConfigured()) {
+    return res.status(503).json({ error: 'Admin password is not configured on the server.' });
+  }
+
+  if (!isAdminAuthenticated(req)) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  return next();
 }
 
 const app = express();
@@ -479,6 +566,40 @@ app.get('/health', (req, res) => {
   });
 });
 
+app.get('/api/admin/session', (req, res) => {
+  res.set('Cache-Control', 'no-store').json({
+    authenticated: isAdminAuthenticated(req),
+    passwordConfigured: isAdminPasswordConfigured(),
+  });
+});
+
+app.post('/api/admin/login', (req, res) => {
+  const password = typeof req.body?.password === 'string' ? req.body.password : '';
+
+  if (!isAdminPasswordConfigured()) {
+    return res
+      .status(503)
+      .set('Cache-Control', 'no-store')
+      .json({ error: 'Admin password is not configured on the server.' });
+  }
+
+  if (!stringsMatch(password, ADMIN_PASSWORD)) {
+    return res.status(401).set('Cache-Control', 'no-store').json({ error: 'Invalid password.' });
+  }
+
+  res
+    .set('Set-Cookie', buildAdminSessionCookie(req))
+    .set('Cache-Control', 'no-store')
+    .json({ ok: true, authenticated: true });
+});
+
+app.post('/api/admin/logout', (req, res) => {
+  res
+    .set('Set-Cookie', buildAdminSessionCookie(req, true))
+    .set('Cache-Control', 'no-store')
+    .json({ ok: true, authenticated: false });
+});
+
 app.get('/api/seo', async (req, res) => {
   const requestPath =
     typeof req.query.path === 'string' && req.query.path.trim() ? req.query.path : '/';
@@ -489,7 +610,7 @@ app.get('/api/seo', async (req, res) => {
   res.json(seo);
 });
 
-app.post('/api/seo', async (req, res, next) => {
+app.post('/api/seo', requireAdminSession, async (req, res, next) => {
   try {
     const routePath =
       typeof req.body?.path === 'string' && req.body.path.trim() ? req.body.path : '';

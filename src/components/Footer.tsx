@@ -214,9 +214,6 @@ export default function Footer() {
             © {new Date().getFullYear()} KRANTAS Group. {t.footer.rights}
           </p>
           <div className="flex items-center gap-6">
-            <Link to="/admin" className="text-xs text-gray-500 hover:text-gray-400 transition-colors">
-              Admin
-            </Link>
             <a href="#" className="text-xs text-gray-500 hover:text-gray-400 transition-colors">
               {t.footer.privacy}
             </a>

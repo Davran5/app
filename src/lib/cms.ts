@@ -9,6 +9,7 @@ import {
   type DistributorLocation,
 } from '../data/distributors';
 import { translations, type Language } from '../data/translations';
+import { ADMIN_PANEL_PATH } from './adminRoute';
 import { createUploadedMediaUrl, type UploadedMediaInput } from './media';
 
 export type SeoPageKey =
@@ -1272,7 +1273,7 @@ export function flattenTranslationStrings(
 }
 
 export function resolveSeoPageKey(pathname: string): SeoPageKey {
-  if (pathname.startsWith('/admin')) return 'admin';
+  if (pathname === ADMIN_PANEL_PATH || pathname.startsWith(`${ADMIN_PANEL_PATH}/`)) return 'admin';
   if (pathname.startsWith('/product/')) return 'productDetail';
   if (pathname.startsWith('/catalog')) return 'catalog';
   if (pathname === '/') return 'home';

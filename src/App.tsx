@@ -21,9 +21,10 @@ import SeoManager from './components/SeoManager';
 import { AnalyticsProvider } from './contexts/AnalyticsContext';
 import { CmsProvider } from './contexts/CmsContext';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { ADMIN_PANEL_PATH, isAdminRoutePath } from './lib/adminRoute';
 import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
-const AdminPanel = lazy(() => import('./pages/AdminPanel'));
+const AdminAccess = lazy(() => import('./pages/AdminAccess'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Catalog = lazy(() => import('./pages/Catalog'));
 const Contacts = lazy(() => import('./pages/Contacts'));
@@ -62,7 +63,7 @@ function AppContent({
 }) {
   const location = useLocation();
   const isFindDealer = location.pathname === '/find-dealer';
-  const isAdmin = location.pathname.startsWith('/admin');
+  const isAdmin = isAdminRoutePath(location.pathname);
   const isFixedViewportRoute = isFindDealer || isAdmin;
 
   return (
@@ -97,7 +98,7 @@ function AppContent({
           >
             <Suspense fallback={<RouteFallback />}>
               <Routes>
-                <Route path="/admin" element={<AdminPanel />} />
+                <Route path={ADMIN_PANEL_PATH} element={<AdminAccess />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/products" element={<Products />} />

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { SEO_PAGE_LABELS, type SeoPageKey, type SeoSettings } from '../../lib/cms';
+import { ADMIN_PANEL_PATH } from '../../lib/adminRoute';
 import {
   adminCardClass,
   adminInputClass,
@@ -27,7 +28,7 @@ const SEO_ROUTE_PATHS: Record<SeoPageKey, string> = {
   careers: '/careers',
   contacts: '/contacts',
   findDealer: '/find-dealer',
-  admin: '/admin',
+  admin: ADMIN_PANEL_PATH,
 };
 
 export default function AdminSeo({

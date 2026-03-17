@@ -21,6 +21,9 @@ Set these in the Node.js app environment in cPanel:
 ```bash
 NODE_ENV=production
 SITE_URL=https://krantasgroup.com
+ADMIN_PANEL_PASSWORD=change-this-password
+ADMIN_PANEL_PATH=/control-room
+VITE_ADMIN_PANEL_PATH=/control-room
 ```
 
 Optional:
