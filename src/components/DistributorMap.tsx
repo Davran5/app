@@ -4,13 +4,12 @@ import { MapPin, Navigation, Phone, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { DistributorLocation } from '../data/distributors';
 import { getDistributorKindLabel, getDistributorUiCopy } from '../lib/distributors';
+import { getGoogleMapsApiKey, getGoogleMapsMapId } from '../lib/runtimeConfig';
 
 const DEFAULT_CENTER = { lat: 43.5, lng: 64.5 };
 const DEFAULT_ZOOM = 4;
 const FOCUSED_LOCATION_ZOOM = 11;
 const GOOGLE_MAPS_LIBRARIES: Libraries = ['marker'];
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY?.trim() || '';
-const GOOGLE_MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID?.trim() || 'DEMO_MAP_ID';
 
 const MARKER_COLORS = {
   dealer: { fill: '#244d85', inner: '#ffffff' },
@@ -87,9 +86,11 @@ export default function DistributorMap({
 }: DistributorMapProps) {
   const { language, t } = useLanguage();
   const ui = getDistributorUiCopy(language);
+  const googleMapsApiKey = getGoogleMapsApiKey();
+  const googleMapId = getGoogleMapsMapId() || 'DEMO_MAP_ID';
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: GOOGLE_MAPS_API_KEY || 'missing-google-maps-key',
+    googleMapsApiKey: googleMapsApiKey || 'missing-google-maps-key',
     libraries: GOOGLE_MAPS_LIBRARIES,
   });
   const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -228,7 +229,7 @@ export default function DistributorMap({
     };
   }, [activeLocationId, hoveredLocationId, isLoaded, locations, map, onLocationClick]);
 
-  if (!GOOGLE_MAPS_API_KEY || loadError) {
+  if (!googleMapsApiKey || loadError) {
     return (
       <div className="flex h-full min-h-0 items-center justify-center bg-[#f2f1eb] p-6">
         <div className="max-w-[280px] text-center">
@@ -272,7 +273,7 @@ export default function DistributorMap({
           mapTypeControl: false,
           gestureHandling: 'cooperative',
           clickableIcons: false,
-          mapId: GOOGLE_MAP_ID,
+          mapId: googleMapId,
         }}
       >
         {activeLocation && !isMobile && (

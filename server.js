@@ -40,6 +40,10 @@ const PRODUCT_SOURCE_PATH = path.resolve(PROJECT_ROOT, 'src', 'data', 'products.
 const SEO_STORAGE_PATH = process.env.SEO_STORAGE_PATH
   ? path.resolve(PROJECT_ROOT, process.env.SEO_STORAGE_PATH)
   : path.resolve(PROJECT_ROOT, 'seo-data.json');
+const GOOGLE_MAPS_API_KEY =
+  process.env.GOOGLE_MAPS_API_KEY?.trim() || process.env.VITE_GOOGLE_MAPS_API_KEY?.trim() || '';
+const GOOGLE_MAPS_MAP_ID =
+  process.env.GOOGLE_MAPS_MAP_ID?.trim() || process.env.VITE_GOOGLE_MAPS_MAP_ID?.trim() || '';
 const ADMIN_PANEL_PATH = normalizePathname(
   process.env.ADMIN_PANEL_PATH || process.env.VITE_ADMIN_PANEL_PATH || '/control-room',
 );
@@ -172,6 +176,15 @@ function escapeHtml(value = '') {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function escapeInlineJson(value) {
+  return JSON.stringify(value)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
 }
 
 function getRequestCookies(req) {
@@ -520,7 +533,18 @@ function stripExistingSeoTags(html) {
     .replace(/<meta[^>]+property=["']og:description["'][^>]*>\s*/gi, '')
     .replace(/<meta[^>]+property=["']og:image["'][^>]*>\s*/gi, '')
     .replace(/<meta[^>]+property=["']og:url["'][^>]*>\s*/gi, '')
-    .replace(/<meta[^>]+property=["']og:type["'][^>]*>\s*/gi, '');
+    .replace(/<meta[^>]+property=["']og:type["'][^>]*>\s*/gi, '')
+    .replace(/<script[^>]+id=["']krantas-runtime-config["'][\s\S]*?<\/script>\s*/gi, '');
+}
+
+function injectRuntimeConfigIntoHtml(html) {
+  const runtimeConfig = {
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+    googleMapsMapId: GOOGLE_MAPS_MAP_ID,
+  };
+  const runtimeScript = `<script id="krantas-runtime-config">window.__KRANTAS_RUNTIME_CONFIG__=${escapeInlineJson(runtimeConfig)};</script>`;
+
+  return html.replace('</head>', `    ${runtimeScript}\n  </head>`);
 }
 
 function injectSeoIntoHtml(html, seo) {
@@ -540,7 +564,7 @@ function injectSeoIntoHtml(html, seo) {
     .filter(Boolean)
     .join('\n    ');
 
-  return sanitizedHtml.replace('</head>', `    ${tags}\n  </head>`);
+  return injectRuntimeConfigIntoHtml(sanitizedHtml.replace('</head>', `    ${tags}\n  </head>`));
 }
 
 function buildRobotsTxt(req) {

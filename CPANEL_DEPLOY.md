@@ -32,15 +32,16 @@ Optional:
 
 ```bash
 SEO_STORAGE_PATH=seo-data.json
-VITE_GOOGLE_MAPS_API_KEY=your_key
-VITE_GOOGLE_MAPS_MAP_ID=your_map_id
+GOOGLE_MAPS_API_KEY=your_key
+GOOGLE_MAPS_MAP_ID=your_map_id
 VITE_GTM_ID=GTM-XXXXXXX
 ```
 
 For live Google Maps:
+- prefer `GOOGLE_MAPS_API_KEY` and `GOOGLE_MAPS_MAP_ID` in cPanel so the server can inject them at runtime
 - restrict the API key to your production domains
 - enable the Maps JavaScript API for that key
-- if you use advanced markers in production, set a real `VITE_GOOGLE_MAPS_MAP_ID`
+- if you use advanced markers in production, set a real `GOOGLE_MAPS_MAP_ID`
 
 ## Start or restart
 - Restart the Node.js application from cPanel after install/build.
