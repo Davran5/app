@@ -187,6 +187,20 @@ function escapeInlineJson(value) {
     .replace(/\u2029/g, '\\u2029');
 }
 
+function maskSecret(value = '') {
+  const normalized = String(value || '').trim();
+
+  if (!normalized) {
+    return '';
+  }
+
+  if (normalized.length <= 10) {
+    return `${normalized.slice(0, 2)}***${normalized.slice(-2)}`;
+  }
+
+  return `${normalized.slice(0, 6)}...${normalized.slice(-4)}`;
+}
+
 function getRequestCookies(req) {
   return Object.fromEntries(
     String(req.headers.cookie || '')
@@ -648,6 +662,10 @@ app.get('/health', (req, res) => {
     distDir: DIST_DIR,
     protocol: req.protocol,
     host: req.get('host'),
+    googleMapsConfigured: Boolean(GOOGLE_MAPS_API_KEY),
+    googleMapsKeyPreview: maskSecret(GOOGLE_MAPS_API_KEY),
+    googleMapsMapIdConfigured: Boolean(GOOGLE_MAPS_MAP_ID),
+    googleMapsMapIdPreview: maskSecret(GOOGLE_MAPS_MAP_ID),
   });
 });
 
