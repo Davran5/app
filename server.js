@@ -466,12 +466,26 @@ app.use(
   }),
 );
 
+app.get('/health', (req, res) => {
+  res.set('Cache-Control', 'no-store');
+  res.status(200).json({
+    ok: true,
+    app: 'krantas-web',
+    cwd: process.cwd(),
+    projectRoot: PROJECT_ROOT,
+    distDir: DIST_DIR,
+    protocol: req.protocol,
+    host: req.get('host'),
+  });
+});
+
 app.get('/api/seo', async (req, res) => {
   const requestPath =
     typeof req.query.path === 'string' && req.query.path.trim() ? req.query.path : '/';
   const normalizedRequest = normalizeRequestTarget(requestPath);
   const seo = await getSeoForPath(normalizedRequest.pathname, req, normalizedRequest.requestPath);
 
+  res.set('Cache-Control', 'no-store');
   res.json(seo);
 });
 
@@ -537,7 +551,7 @@ app.post('/api/seo', async (req, res, next) => {
 });
 
 app.get('/robots.txt', (req, res) => {
-  res.type('text/plain').send(buildRobotsTxt(req));
+  res.set('Cache-Control', 'no-store').type('text/plain').send(buildRobotsTxt(req));
 });
 
 app.get('/sitemap.xml', async (req, res, next) => {
@@ -557,7 +571,7 @@ app.get('/sitemap.xml', async (req, res, next) => {
     const productPaths = await getKnownProductPaths();
     const sitemap = buildSitemapXml(getSiteOrigin(req), [...staticPaths, ...productPaths]);
 
-    res.type('application/xml').send(sitemap);
+    res.set('Cache-Control', 'no-store').type('application/xml').send(sitemap);
   } catch (error) {
     next(error);
   }
@@ -576,7 +590,7 @@ app.get(/.*/, async (req, res, next) => {
     ]);
     const html = injectSeoIntoHtml(indexHtml, seo);
 
-    res.status(200).type('html').send(html);
+    res.set('Cache-Control', 'no-store').status(200).type('html').send(html);
   } catch (error) {
     next(error);
   }
