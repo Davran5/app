@@ -36,10 +36,17 @@ function resolveDistDir() {
 const DIST_DIR = resolveDistDir();
 const DIST_INDEX_PATH = path.join(DIST_DIR, 'index.html');
 const DIST_ASSETS_DIR = path.join(DIST_DIR, 'assets');
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const PRODUCT_SOURCE_PATH = path.resolve(PROJECT_ROOT, 'src', 'data', 'products.ts');
 const SEO_STORAGE_PATH = process.env.SEO_STORAGE_PATH
   ? path.resolve(PROJECT_ROOT, process.env.SEO_STORAGE_PATH)
   : path.resolve(PROJECT_ROOT, 'seo-data.json');
+const CMS_STORAGE_PATH = process.env.CMS_STORAGE_PATH
+  ? path.resolve(PROJECT_ROOT, process.env.CMS_STORAGE_PATH)
+  : path.resolve(PROJECT_ROOT, 'cms-data.json');
+const ADMIN_AUDIT_LOG_PATH = process.env.ADMIN_AUDIT_LOG_PATH
+  ? path.resolve(PROJECT_ROOT, process.env.ADMIN_AUDIT_LOG_PATH)
+  : path.resolve(PROJECT_ROOT, 'admin-audit.log');
 const GOOGLE_MAPS_API_KEY =
   process.env.GOOGLE_MAPS_API_KEY?.trim() || process.env.VITE_GOOGLE_MAPS_API_KEY?.trim() || '';
 const GOOGLE_MAPS_MAP_ID =
@@ -47,10 +54,7 @@ const GOOGLE_MAPS_MAP_ID =
 const ADMIN_PANEL_PATH = normalizePathname(
   process.env.ADMIN_PANEL_PATH || process.env.VITE_ADMIN_PANEL_PATH || '/control-room',
 );
-const ADMIN_PASSWORD =
-  process.env.ADMIN_PANEL_PASSWORD ||
-  process.env.ADMIN_PASSWORD ||
-  (process.env.NODE_ENV === 'production' ? '' : 'krantas-admin');
+const ADMIN_USERS = getConfiguredAdminUsers();
 const ADMIN_SESSION_COOKIE = 'krantas_admin_session';
 const ADMIN_SESSION_MAX_AGE_SECONDS = 60 * 60 * 12;
 const ADMIN_LOGIN_MAX_ATTEMPTS = Math.max(1, Number(process.env.ADMIN_LOGIN_MAX_ATTEMPTS || 5));
@@ -58,10 +62,12 @@ const ADMIN_LOGIN_LOCKOUT_SECONDS = Math.max(
   60,
   Number(process.env.ADMIN_LOGIN_LOCKOUT_SECONDS || 60 * 15),
 );
+const LEAD_RATE_LIMIT_WINDOW_SECONDS = Math.max(
+  60,
+  Number(process.env.LEAD_RATE_LIMIT_WINDOW_SECONDS || 60 * 15),
+);
+const LEAD_RATE_LIMIT_MAX = Math.max(1, Number(process.env.LEAD_RATE_LIMIT_MAX || 10));
 const ADMIN_ACCESS_DENIED_MESSAGE = 'Access denied.';
-const ADMIN_SESSION_TOKEN = ADMIN_PASSWORD
-  ? crypto.createHash('sha256').update(`${ADMIN_PASSWORD}:${PROJECT_ROOT}`).digest('hex')
-  : '';
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = Number(process.env.PORT || 3000);
 
@@ -126,6 +132,18 @@ const ROUTE_SEO_DEFAULTS = {
       'Reach KRANTAS Group for product inquiries, service requests, partnerships, and custom engineering consultations.',
     keywords: 'Krantas contact, inquiry, service request, industrial partnership',
   },
+  privacyPolicy: {
+    title: 'Privacy Policy | KRANTAS Group',
+    description:
+      'Privacy Policy for the KRANTAS Group website, framed around current Uzbekistan personal data and online communication requirements.',
+    keywords: 'Krantas privacy policy, Uzbekistan personal data, website privacy',
+  },
+  termsOfService: {
+    title: 'Terms of Service | KRANTAS Group',
+    description:
+      'Terms of Service for the KRANTAS Group website, covering website use, intellectual property, and business inquiry terms under Uzbekistan law.',
+    keywords: 'Krantas terms of service, website terms, Uzbekistan legal terms',
+  },
   findDealer: {
     title: 'Dealer Network | KRANTAS Group',
     description:
@@ -143,9 +161,13 @@ const ROUTE_SEO_DEFAULTS = {
 let cachedIndexHtml = null;
 let cachedSeoStore = null;
 let cachedSeoStoreMtimeMs = 0;
+let cachedCmsStore = null;
+let cachedCmsStoreMtimeMs = 0;
 let cachedProductPaths = [];
 let cachedProductPathsMtimeMs = 0;
 const adminLoginAttempts = new Map();
+const adminSessions = new Map();
+const leadSubmissionAttempts = new Map();
 
 function createEmptySeoStore() {
   return { paths: {} };
@@ -169,6 +191,74 @@ function normalizeRequestTarget(inputPath = '/') {
   };
 }
 
+function createEmptyCmsStore() {
+  return {};
+}
+
+function getConfiguredAdminUsers() {
+  const configuredUsers = [];
+
+  if (process.env.ADMIN_USERS_JSON?.trim()) {
+    try {
+      const parsed = JSON.parse(process.env.ADMIN_USERS_JSON);
+
+      if (Array.isArray(parsed)) {
+        parsed.forEach((item) => {
+          if (!item || typeof item !== 'object') {
+            return;
+          }
+
+          const username = typeof item.username === 'string' ? item.username.trim() : '';
+          const password = typeof item.password === 'string' ? item.password.trim() : '';
+          const displayName =
+            typeof item.displayName === 'string' && item.displayName.trim()
+              ? item.displayName.trim()
+              : username;
+          const role =
+            typeof item.role === 'string' && item.role.trim() ? item.role.trim() : 'admin';
+
+          if (!username || !password) {
+            return;
+          }
+
+          configuredUsers.push({
+            username,
+            usernameKey: username.toLowerCase(),
+            displayName,
+            password,
+            role,
+          });
+        });
+      }
+    } catch (error) {
+      console.error('Failed to parse ADMIN_USERS_JSON:', error);
+    }
+  }
+
+  const fallbackPassword = (
+    process.env.ADMIN_PANEL_PASSWORD ||
+    process.env.ADMIN_PASSWORD ||
+    (process.env.NODE_ENV === 'development' ? 'krantas-admin' : '')
+  ).trim();
+  const fallbackUsername = (
+    process.env.ADMIN_PANEL_USERNAME ||
+    process.env.ADMIN_USERNAME ||
+    'admin'
+  ).trim();
+
+  if (fallbackPassword && !configuredUsers.some((user) => user.usernameKey === fallbackUsername.toLowerCase())) {
+    configuredUsers.push({
+      username: fallbackUsername,
+      usernameKey: fallbackUsername.toLowerCase(),
+      displayName: fallbackUsername,
+      password: fallbackPassword,
+      role: 'admin',
+    });
+  }
+
+  return configuredUsers;
+}
+
 function escapeHtml(value = '') {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -185,20 +275,6 @@ function escapeInlineJson(value) {
     .replace(/&/g, '\\u0026')
     .replace(/\u2028/g, '\\u2028')
     .replace(/\u2029/g, '\\u2029');
-}
-
-function maskSecret(value = '') {
-  const normalized = String(value || '').trim();
-
-  if (!normalized) {
-    return '';
-  }
-
-  if (normalized.length <= 10) {
-    return `${normalized.slice(0, 2)}***${normalized.slice(-2)}`;
-  }
-
-  return `${normalized.slice(0, 6)}...${normalized.slice(-4)}`;
 }
 
 function getRequestCookies(req) {
@@ -228,48 +304,26 @@ function stringsMatch(left = '', right = '') {
   return crypto.timingSafeEqual(leftBuffer, rightBuffer);
 }
 
-function isAdminPasswordConfigured() {
-  return Boolean(ADMIN_PASSWORD);
+function isObjectRecord(value) {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
-function isAdminAuthenticated(req) {
-  if (!isAdminPasswordConfigured()) {
-    return false;
-  }
-
-  const sessionCookie = getRequestCookies(req)[ADMIN_SESSION_COOKIE];
-  return Boolean(sessionCookie) && stringsMatch(sessionCookie, ADMIN_SESSION_TOKEN);
+function getAdminUserByUsername(username = '') {
+  const normalizedUsername = String(username).trim().toLowerCase();
+  return ADMIN_USERS.find((user) => user.usernameKey === normalizedUsername);
 }
 
-function buildAdminSessionCookie(req, clear = false) {
-  const parts = [
-    `${ADMIN_SESSION_COOKIE}=${clear ? '' : encodeURIComponent(ADMIN_SESSION_TOKEN)}`,
-    'Path=/',
-    'HttpOnly',
-    'SameSite=Lax',
-  ];
-
-  if (req.secure || req.protocol === 'https') {
-    parts.push('Secure');
-  }
-
-  if (clear) {
-    parts.push('Max-Age=0');
-    parts.push('Expires=Thu, 01 Jan 1970 00:00:00 GMT');
-  } else {
-    parts.push(`Max-Age=${ADMIN_SESSION_MAX_AGE_SECONDS}`);
-  }
-
-  return parts.join('; ');
+function isAdminAccessConfigured() {
+  return ADMIN_USERS.length > 0;
 }
 
-function getAdminLoginKey(req) {
+function getAdminLoginKey(req, username = '') {
   const userAgent = String(req.get('user-agent') || '').slice(0, 160);
-  return `${req.ip || req.socket?.remoteAddress || 'unknown'}|${userAgent}`;
+  return `${req.ip || req.socket?.remoteAddress || 'unknown'}|${String(username).trim().toLowerCase()}|${userAgent}`;
 }
 
-function getAdminLoginAttemptState(req) {
-  const key = getAdminLoginKey(req);
+function getAdminLoginAttemptState(req, username = '') {
+  const key = getAdminLoginKey(req, username);
   const now = Date.now();
   const existingState = adminLoginAttempts.get(key);
 
@@ -300,8 +354,8 @@ function getAdminLoginAttemptState(req) {
   };
 }
 
-function registerAdminLoginFailure(req) {
-  const { key, attempts } = getAdminLoginAttemptState(req);
+function registerAdminLoginFailure(req, username = '') {
+  const { key, attempts } = getAdminLoginAttemptState(req, username);
   const nextAttempts = attempts + 1;
   const shouldLock = nextAttempts >= ADMIN_LOGIN_MAX_ATTEMPTS;
 
@@ -313,8 +367,248 @@ function registerAdminLoginFailure(req) {
   return shouldLock;
 }
 
-function clearAdminLoginFailures(req) {
-  adminLoginAttempts.delete(getAdminLoginKey(req));
+function clearAdminLoginFailures(req, username = '') {
+  adminLoginAttempts.delete(getAdminLoginKey(req, username));
+}
+
+function clearExpiredAdminSessions() {
+  const now = Date.now();
+
+  for (const [sessionId, session] of adminSessions.entries()) {
+    if (!session?.expiresAt || session.expiresAt <= now) {
+      adminSessions.delete(sessionId);
+    }
+  }
+}
+
+function createAdminSession(user) {
+  clearExpiredAdminSessions();
+  const sessionId = crypto.randomBytes(32).toString('hex');
+  const now = Date.now();
+
+  adminSessions.set(sessionId, {
+    id: sessionId,
+    username: user.username,
+    role: user.role,
+    displayName: user.displayName,
+    createdAt: now,
+    expiresAt: now + ADMIN_SESSION_MAX_AGE_SECONDS * 1000,
+  });
+
+  return sessionId;
+}
+
+function getAdminSession(req) {
+  if (!isAdminAccessConfigured()) {
+    return null;
+  }
+
+  clearExpiredAdminSessions();
+  const sessionCookie = getRequestCookies(req)[ADMIN_SESSION_COOKIE];
+
+  if (!sessionCookie) {
+    return null;
+  }
+
+  const session = adminSessions.get(sessionCookie);
+
+  if (!session) {
+    return null;
+  }
+
+  if (!session.expiresAt || session.expiresAt <= Date.now()) {
+    adminSessions.delete(sessionCookie);
+    return null;
+  }
+
+  return session;
+}
+
+function isAdminAuthenticated(req) {
+  return Boolean(getAdminSession(req));
+}
+
+function destroyAdminSession(sessionId = '') {
+  if (sessionId) {
+    adminSessions.delete(sessionId);
+  }
+}
+
+function buildAdminSessionCookie(req, sessionId = '', clear = false) {
+  const parts = [
+    `${ADMIN_SESSION_COOKIE}=${clear ? '' : encodeURIComponent(sessionId)}`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Strict',
+  ];
+
+  if (req.secure || req.protocol === 'https') {
+    parts.push('Secure');
+  }
+
+  if (clear) {
+    parts.push('Max-Age=0');
+    parts.push('Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+  } else {
+    parts.push(`Max-Age=${ADMIN_SESSION_MAX_AGE_SECONDS}`);
+  }
+
+  return parts.join('; ');
+}
+
+function getLeadSubmissionKey(req) {
+  return `${req.ip || req.socket?.remoteAddress || 'unknown'}`;
+}
+
+function isLeadSubmissionAllowed(req) {
+  const key = getLeadSubmissionKey(req);
+  const now = Date.now();
+  const existingState = leadSubmissionAttempts.get(key);
+
+  if (!existingState || existingState.resetAt <= now) {
+    leadSubmissionAttempts.set(key, {
+      count: 0,
+      resetAt: now + LEAD_RATE_LIMIT_WINDOW_SECONDS * 1000,
+    });
+    return true;
+  }
+
+  return existingState.count < LEAD_RATE_LIMIT_MAX;
+}
+
+function registerLeadSubmission(req) {
+  const key = getLeadSubmissionKey(req);
+  const now = Date.now();
+  const existingState = leadSubmissionAttempts.get(key);
+
+  if (!existingState || existingState.resetAt <= now) {
+    leadSubmissionAttempts.set(key, {
+      count: 1,
+      resetAt: now + LEAD_RATE_LIMIT_WINDOW_SECONDS * 1000,
+    });
+    return;
+  }
+
+  leadSubmissionAttempts.set(key, {
+    ...existingState,
+    count: existingState.count + 1,
+  });
+}
+
+function sanitizeLeadInput(rawLead) {
+  if (!isObjectRecord(rawLead)) {
+    return null;
+  }
+
+  const source = rawLead.source === 'careers' ? 'careers' : rawLead.source === 'contact' ? 'contact' : '';
+  const name = typeof rawLead.name === 'string' ? rawLead.name.trim().slice(0, 140) : '';
+  const email = typeof rawLead.email === 'string' ? rawLead.email.trim().slice(0, 180) : '';
+  const phone = typeof rawLead.phone === 'string' ? rawLead.phone.trim().slice(0, 80) : '';
+  const company = typeof rawLead.company === 'string' ? rawLead.company.trim().slice(0, 160) : '';
+  const subject = typeof rawLead.subject === 'string' ? rawLead.subject.trim().slice(0, 180) : '';
+  const message = typeof rawLead.message === 'string' ? rawLead.message.trim().slice(0, 4000) : '';
+  const language =
+    rawLead.language === 'ru' || rawLead.language === 'uz' || rawLead.language === 'de'
+      ? rawLead.language
+      : rawLead.language === 'en'
+        ? 'en'
+        : '';
+  const originPage =
+    typeof rawLead.originPage === 'string' ? normalizePathname(rawLead.originPage).slice(0, 200) : '';
+  const metadata = isObjectRecord(rawLead.metadata)
+    ? Object.fromEntries(
+        Object.entries(rawLead.metadata)
+          .filter(([key, value]) => typeof value === 'string' && key.trim())
+          .map(([key, value]) => [key.trim().slice(0, 80), value.trim().slice(0, 240)]),
+      )
+    : {};
+
+  const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  if (!source || !name || !emailLooksValid || !subject || !language || !originPage) {
+    return null;
+  }
+
+  return {
+    source,
+    name,
+    email,
+    phone,
+    company,
+    subject,
+    message,
+    language,
+    originPage,
+    metadata,
+  };
+}
+
+function createCmsEntityId(prefix) {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function createLeadRecord(leadInput) {
+  const timestamp = new Date().toISOString();
+
+  return {
+    id: createCmsEntityId('lead'),
+    createdAt: timestamp,
+    updatedAt: timestamp,
+    source: leadInput.source,
+    status: 'new',
+    priority: leadInput.source === 'careers' ? 'high' : 'normal',
+    name: leadInput.name,
+    email: leadInput.email,
+    phone: leadInput.phone || '',
+    company: leadInput.company || '',
+    subject: leadInput.subject,
+    message: leadInput.message || '',
+    language: leadInput.language,
+    originPage: leadInput.originPage,
+    assignee: '',
+    followUpAt: '',
+    internalNotes: [],
+    metadata: leadInput.metadata || {},
+  };
+}
+
+function filterPublicCmsSnapshot(rawSnapshot) {
+  if (!isObjectRecord(rawSnapshot)) {
+    return createEmptyCmsStore();
+  }
+
+  const nextSnapshot = {
+    ...rawSnapshot,
+    leads: [],
+  };
+
+  if (Array.isArray(rawSnapshot.vacancies)) {
+    nextSnapshot.vacancies = rawSnapshot.vacancies.filter(
+      (vacancy) => isObjectRecord(vacancy) && vacancy.isActive !== false,
+    );
+  }
+
+  if (Array.isArray(rawSnapshot.newsItems)) {
+    nextSnapshot.newsItems = rawSnapshot.newsItems.filter(
+      (newsItem) => isObjectRecord(newsItem) && newsItem.isActive !== false,
+    );
+  }
+
+  return nextSnapshot;
+}
+
+function appendAdminAuditLog(event, req, details = {}) {
+  const payload = {
+    at: new Date().toISOString(),
+    event,
+    ip: req.ip || req.socket?.remoteAddress || '',
+    method: req.method,
+    path: req.originalUrl || req.path,
+    username: getAdminSession(req)?.username || undefined,
+    ...details,
+  };
+
+  void fs.appendFile(ADMIN_AUDIT_LOG_PATH, `${JSON.stringify(payload)}\n`, 'utf8').catch(() => {});
 }
 
 function toAbsoluteUrl(value, req) {
@@ -337,6 +631,86 @@ function getSiteOrigin(req) {
   }
 
   return `${req.protocol}://${req.get('host')}`;
+}
+
+function buildContentSecurityPolicy(nonce) {
+  return [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' https://maps.googleapis.com https://maps.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com`,
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data: https://fonts.gstatic.com",
+    "connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com",
+    "media-src 'self' data: blob: https:",
+    "worker-src 'self' blob:",
+    "frame-src 'self' https://www.google.com https://maps.google.com",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'self'",
+    'upgrade-insecure-requests',
+  ].join('; ');
+}
+
+function applySecurityHeaders(req, res, next) {
+  const cspNonce = crypto.randomBytes(16).toString('base64');
+  res.locals.cspNonce = cspNonce;
+  res.set({
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'SAMEORIGIN',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Cross-Origin-Opener-Policy': 'same-origin',
+    'Content-Security-Policy': buildContentSecurityPolicy(cspNonce),
+    'Permissions-Policy':
+      'accelerometer=(), autoplay=(self), camera=(), display-capture=(), geolocation=(self), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()',
+  });
+
+  if (req.secure || req.protocol === 'https') {
+    res.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  }
+
+  next();
+}
+
+function getAllowedOrigins(req) {
+  const origins = new Set();
+  const siteOrigin = getSiteOrigin(req);
+
+  if (siteOrigin) {
+    origins.add(siteOrigin);
+  }
+
+  try {
+    origins.add(new URL(`${req.protocol}://${req.get('host')}`).origin);
+  } catch {
+    // Ignore malformed host headers and fall back to the configured site origin only.
+  }
+
+  return origins;
+}
+
+function isAllowedRequestOrigin(candidate, req) {
+  if (!candidate) {
+    return true;
+  }
+
+  try {
+    const candidateOrigin = new URL(candidate).origin;
+    return getAllowedOrigins(req).has(candidateOrigin);
+  } catch {
+    return false;
+  }
+}
+
+function requireSameOrigin(req, res, next) {
+  const origin = req.get('origin');
+  const referer = req.get('referer');
+
+  if (!isAllowedRequestOrigin(origin, req) || !isAllowedRequestOrigin(referer, req)) {
+    return res.status(403).set('Cache-Control', 'no-store').json({ error: 'Forbidden' });
+  }
+
+  return next();
 }
 
 function replaceTemplateTokens(template, replacements) {
@@ -367,6 +741,8 @@ function resolveRouteKey(pathname) {
   if (pathname === '/news') return 'news';
   if (pathname === '/careers') return 'careers';
   if (pathname === '/contacts') return 'contacts';
+  if (pathname === '/privacy-policy') return 'privacyPolicy';
+  if (pathname === '/terms-of-service') return 'termsOfService';
   if (pathname === '/find-dealer') return 'findDealer';
   return 'home';
 }
@@ -471,6 +847,43 @@ async function writeSeoStore(store) {
   }
 }
 
+async function readCmsStore() {
+  try {
+    const stats = await fs.stat(CMS_STORAGE_PATH);
+
+    if (cachedCmsStore && cachedCmsStoreMtimeMs === stats.mtimeMs) {
+      return cachedCmsStore;
+    }
+
+    const raw = await fs.readFile(CMS_STORAGE_PATH, 'utf8');
+    const parsed = JSON.parse(raw);
+    cachedCmsStore = isObjectRecord(parsed) ? parsed : createEmptyCmsStore();
+    cachedCmsStoreMtimeMs = stats.mtimeMs;
+
+    return cachedCmsStore;
+  } catch {
+    cachedCmsStore = createEmptyCmsStore();
+    cachedCmsStoreMtimeMs = 0;
+    return cachedCmsStore;
+  }
+}
+
+async function writeCmsStore(store) {
+  const nextStore = isObjectRecord(store) ? store : createEmptyCmsStore();
+  const payload = `${JSON.stringify(nextStore, null, 2)}\n`;
+
+  await fs.writeFile(CMS_STORAGE_PATH, payload, 'utf8');
+
+  cachedCmsStore = nextStore;
+
+  try {
+    const stats = await fs.stat(CMS_STORAGE_PATH);
+    cachedCmsStoreMtimeMs = stats.mtimeMs;
+  } catch {
+    cachedCmsStoreMtimeMs = 0;
+  }
+}
+
 async function getKnownProductPaths() {
   try {
     const stats = await fs.stat(PRODUCT_SOURCE_PATH);
@@ -551,17 +964,17 @@ function stripExistingSeoTags(html) {
     .replace(/<script[^>]+id=["']krantas-runtime-config["'][\s\S]*?<\/script>\s*/gi, '');
 }
 
-function injectRuntimeConfigIntoHtml(html) {
+function injectRuntimeConfigIntoHtml(html, baseRuntimeConfig, publicCmsSnapshot, cspNonce) {
   const runtimeConfig = {
-    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
-    googleMapsMapId: GOOGLE_MAPS_MAP_ID,
+    ...baseRuntimeConfig,
+    cspNonce,
   };
-  const runtimeScript = `<script id="krantas-runtime-config">window.__KRANTAS_RUNTIME_CONFIG__=${escapeInlineJson(runtimeConfig)};</script>`;
+  const runtimeScript = `<script id="krantas-runtime-config" nonce="${escapeHtml(cspNonce)}">window.__KRANTAS_RUNTIME_CONFIG__=${escapeInlineJson(runtimeConfig)};window.__KRANTAS_CMS_PUBLIC__=${escapeInlineJson(publicCmsSnapshot)};window.__KRANTAS_CSP_NONCE__=${escapeInlineJson(cspNonce)};</script>`;
 
   return html.replace('</head>', `    ${runtimeScript}\n  </head>`);
 }
 
-function injectSeoIntoHtml(html, seo) {
+function injectSeoIntoHtml(html, seo, runtimeConfig, publicCmsSnapshot, cspNonce) {
   const sanitizedHtml = stripExistingSeoTags(html);
   const tags = [
     `<title>${escapeHtml(seo.title)}</title>`,
@@ -578,7 +991,12 @@ function injectSeoIntoHtml(html, seo) {
     .filter(Boolean)
     .join('\n    ');
 
-  return injectRuntimeConfigIntoHtml(sanitizedHtml.replace('</head>', `    ${tags}\n  </head>`));
+  return injectRuntimeConfigIntoHtml(
+    sanitizedHtml.replace('</head>', `    ${tags}\n  </head>`),
+    runtimeConfig,
+    publicCmsSnapshot,
+    cspNonce,
+  );
 }
 
 function buildRobotsTxt(req) {
@@ -621,8 +1039,8 @@ function shouldServeSpaHtml(req) {
 }
 
 function requireAdminSession(req, res, next) {
-  if (!isAdminPasswordConfigured()) {
-    return res.status(503).json({ error: 'Admin password is not configured on the server.' });
+  if (!isAdminAccessConfigured()) {
+    return res.status(503).json({ error: 'Admin access is not configured on the server.' });
   }
 
   if (!isAdminAuthenticated(req)) {
@@ -636,7 +1054,8 @@ const app = express();
 
 app.disable('x-powered-by');
 app.set('trust proxy', true);
-app.use(express.json());
+app.use(applySecurityHeaders);
+app.use(express.json({ limit: '1mb' }));
 app.use(
   '/assets',
   express.static(DIST_ASSETS_DIR, {
@@ -654,48 +1073,62 @@ app.use(
 
 app.get('/health', (req, res) => {
   res.set('Cache-Control', 'no-store');
-  res.status(200).json({
+  const payload = {
     ok: true,
     app: 'krantas-web',
-    cwd: process.cwd(),
-    projectRoot: PROJECT_ROOT,
-    distDir: DIST_DIR,
-    protocol: req.protocol,
-    host: req.get('host'),
-    googleMapsConfigured: Boolean(GOOGLE_MAPS_API_KEY),
-    googleMapsKeyPreview: maskSecret(GOOGLE_MAPS_API_KEY),
-    googleMapsMapIdConfigured: Boolean(GOOGLE_MAPS_MAP_ID),
-    googleMapsMapIdPreview: maskSecret(GOOGLE_MAPS_MAP_ID),
-  });
+    uptimeSeconds: Math.round(process.uptime()),
+  };
+
+  if (!IS_PRODUCTION) {
+    Object.assign(payload, {
+      cwd: process.cwd(),
+      projectRoot: PROJECT_ROOT,
+      distDir: DIST_DIR,
+      protocol: req.protocol,
+      host: req.get('host'),
+      googleMapsConfigured: Boolean(GOOGLE_MAPS_API_KEY),
+      googleMapsMapIdConfigured: Boolean(GOOGLE_MAPS_MAP_ID),
+    });
+  }
+
+  res.status(200).json(payload);
 });
 
 app.get('/api/admin/session', (req, res) => {
+  const session = getAdminSession(req);
   res.set('Cache-Control', 'no-store').json({
-    authenticated: isAdminAuthenticated(req),
+    authenticated: Boolean(session),
+    username: session?.username,
   });
 });
 
-app.post('/api/admin/login', (req, res) => {
+app.post('/api/admin/login', requireSameOrigin, (req, res) => {
+  const username = typeof req.body?.username === 'string' ? req.body.username.trim() : '';
   const password = typeof req.body?.password === 'string' ? req.body.password : '';
 
-  if (!isAdminPasswordConfigured()) {
+  if (!isAdminAccessConfigured()) {
+    appendAdminAuditLog('admin.login.unconfigured', req);
     return res
       .status(503)
       .set('Cache-Control', 'no-store')
       .json({ error: 'Admin access is unavailable.' });
   }
 
-  const attemptState = getAdminLoginAttemptState(req);
+  const attemptState = getAdminLoginAttemptState(req, username);
 
   if (attemptState.isLocked) {
+    appendAdminAuditLog('admin.login.locked', req, { username });
     return res
       .status(429)
       .set('Cache-Control', 'no-store')
       .json({ error: ADMIN_ACCESS_DENIED_MESSAGE });
   }
 
-  if (!stringsMatch(password, ADMIN_PASSWORD)) {
-    const locked = registerAdminLoginFailure(req);
+  const user = getAdminUserByUsername(username);
+
+  if (!user || !stringsMatch(password, user.password)) {
+    const locked = registerAdminLoginFailure(req, username);
+    appendAdminAuditLog('admin.login.failed', req, { username, locked });
 
     return res
       .status(locked ? 429 : 401)
@@ -703,18 +1136,97 @@ app.post('/api/admin/login', (req, res) => {
       .json({ error: ADMIN_ACCESS_DENIED_MESSAGE });
   }
 
-  clearAdminLoginFailures(req);
+  clearAdminLoginFailures(req, username);
+  const sessionId = createAdminSession(user);
+  appendAdminAuditLog('admin.login.success', req, {
+    username: user.username,
+    role: user.role,
+  });
   res
-    .set('Set-Cookie', buildAdminSessionCookie(req))
+    .set('Set-Cookie', buildAdminSessionCookie(req, sessionId))
     .set('Cache-Control', 'no-store')
-    .json({ ok: true, authenticated: true });
+    .json({ ok: true, authenticated: true, username: user.username, role: user.role });
 });
 
-app.post('/api/admin/logout', (req, res) => {
+app.post('/api/admin/logout', requireSameOrigin, (req, res) => {
+  const sessionId = getRequestCookies(req)[ADMIN_SESSION_COOKIE];
+  appendAdminAuditLog('admin.logout', req);
+  destroyAdminSession(sessionId);
   res
-    .set('Set-Cookie', buildAdminSessionCookie(req, true))
+    .set('Set-Cookie', buildAdminSessionCookie(req, '', true))
     .set('Cache-Control', 'no-store')
     .json({ ok: true, authenticated: false });
+});
+
+app.get('/api/cms/public', async (req, res, next) => {
+  try {
+    const cmsStore = await readCmsStore();
+    res.set('Cache-Control', 'no-store').json(filterPublicCmsSnapshot(cmsStore));
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get('/api/admin/cms', requireAdminSession, async (req, res, next) => {
+  try {
+    const cmsStore = await readCmsStore();
+    res.set('Cache-Control', 'no-store').json(cmsStore);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.put('/api/admin/cms', requireSameOrigin, requireAdminSession, async (req, res, next) => {
+  try {
+    const snapshot = req.body?.snapshot;
+
+    if (!isObjectRecord(snapshot)) {
+      return res.status(400).json({ error: 'Expected a "snapshot" object.' });
+    }
+
+    const nextSnapshot = {
+      ...snapshot,
+      updatedAt: new Date().toISOString(),
+    };
+
+    await writeCmsStore(nextSnapshot);
+    appendAdminAuditLog('admin.cms.saved', req);
+
+    res.set('Cache-Control', 'no-store').json({ ok: true });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post('/api/leads', requireSameOrigin, async (req, res, next) => {
+  try {
+    if (!isLeadSubmissionAllowed(req)) {
+      return res
+        .status(429)
+        .set('Cache-Control', 'no-store')
+        .json({ error: 'Too many requests. Please try again later.' });
+    }
+
+    const leadInput = sanitizeLeadInput(req.body?.lead);
+
+    if (!leadInput) {
+      return res.status(400).set('Cache-Control', 'no-store').json({ error: 'Invalid lead payload.' });
+    }
+
+    const cmsStore = await readCmsStore();
+    const currentLeads = Array.isArray(cmsStore.leads) ? cmsStore.leads : [];
+    const nextLead = createLeadRecord(leadInput);
+
+    await writeCmsStore({
+      ...cmsStore,
+      leads: [nextLead, ...currentLeads],
+    });
+
+    registerLeadSubmission(req);
+    res.set('Cache-Control', 'no-store').json({ ok: true, lead: nextLead });
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.get('/api/seo', async (req, res) => {
@@ -727,7 +1239,7 @@ app.get('/api/seo', async (req, res) => {
   res.json(seo);
 });
 
-app.post('/api/seo', requireAdminSession, async (req, res, next) => {
+app.post('/api/seo', requireSameOrigin, requireAdminSession, async (req, res, next) => {
   try {
     const routePath =
       typeof req.body?.path === 'string' && req.body.path.trim() ? req.body.path : '';
@@ -777,6 +1289,7 @@ app.post('/api/seo', requireAdminSession, async (req, res, next) => {
     };
 
     await writeSeoStore(nextStore);
+    appendAdminAuditLog('admin.seo.saved', req, { path: normalizedPath });
 
     res.status(200).json({
       ok: true,
@@ -804,6 +1317,8 @@ app.get('/sitemap.xml', async (req, res, next) => {
       '/news',
       '/careers',
       '/contacts',
+      '/privacy-policy',
+      '/terms-of-service',
       '/find-dealer',
     ];
     const productPaths = await getKnownProductPaths();
@@ -822,11 +1337,21 @@ app.get(/.*/, async (req, res, next) => {
 
   try {
     const normalizedRequest = normalizeRequestTarget(req.originalUrl || req.path);
-    const [indexHtml, seo] = await Promise.all([
+    const [indexHtml, seo, cmsStore] = await Promise.all([
       readIndexHtml(),
       getSeoForPath(normalizedRequest.pathname, req, normalizedRequest.requestPath),
+      readCmsStore(),
     ]);
-    const html = injectSeoIntoHtml(indexHtml, seo);
+    const html = injectSeoIntoHtml(
+      indexHtml,
+      seo,
+      {
+        googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+        googleMapsMapId: GOOGLE_MAPS_MAP_ID,
+      },
+      filterPublicCmsSnapshot(cmsStore),
+      res.locals.cspNonce || '',
+    );
 
     res.set('Cache-Control', 'no-store').status(200).type('html').send(html);
   } catch (error) {

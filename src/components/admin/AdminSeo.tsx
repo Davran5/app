@@ -67,10 +67,11 @@ export default function AdminSeo({
       }
 
       updateSeoPage(selectedSeoPage, seoDraft);
-      console.log(`SEO saved to server for ${routePath}`);
       toast.success('SEO settings saved to server.');
     } catch (error) {
-      console.error('Failed to save SEO settings to server.', error);
+      if (import.meta.env.DEV) {
+        console.error('Failed to save SEO settings to server.', error);
+      }
       toast.error('Failed to save SEO settings.');
     }
   }, [seoDraft, selectedSeoPage, updateSeoPage]);

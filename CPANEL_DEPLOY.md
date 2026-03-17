@@ -21,11 +21,15 @@ Set these in the Node.js app environment in cPanel:
 ```bash
 NODE_ENV=production
 SITE_URL=https://krantasgroup.com
+ADMIN_PANEL_USERNAME=admin
 ADMIN_PANEL_PASSWORD=change-this-password
+ADMIN_USERS_JSON=
 ADMIN_PANEL_PATH=/control-room
 VITE_ADMIN_PANEL_PATH=/control-room
 ADMIN_LOGIN_MAX_ATTEMPTS=5
 ADMIN_LOGIN_LOCKOUT_SECONDS=900
+LEAD_RATE_LIMIT_MAX=10
+LEAD_RATE_LIMIT_WINDOW_SECONDS=900
 ```
 
 Optional:
@@ -36,6 +40,11 @@ GOOGLE_MAPS_API_KEY=your_key
 GOOGLE_MAPS_MAP_ID=your_map_id
 VITE_GTM_ID=GTM-XXXXXXX
 ```
+
+Admin auth notes:
+- `ADMIN_PANEL_USERNAME` + `ADMIN_PANEL_PASSWORD` create the default named admin account
+- `ADMIN_USERS_JSON` can be used instead to define multiple admin users as a JSON array
+- `ADMIN_PANEL_PATH` and `VITE_ADMIN_PANEL_PATH` should match
 
 For live Google Maps:
 - prefer `GOOGLE_MAPS_API_KEY` and `GOOGLE_MAPS_MAP_ID` in cPanel so the server can inject them at runtime

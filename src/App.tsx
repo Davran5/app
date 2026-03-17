@@ -32,9 +32,11 @@ const CustomSolutions = lazy(() => import('./pages/CustomSolutions'));
 const FindDealer = lazy(() => import('./pages/FindDealer'));
 const News = lazy(() => import('./pages/News'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 const Products = lazy(() => import('./pages/Products'));
 const Services = lazy(() => import('./pages/Services'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 
 function CategoryRedirect() {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -110,6 +112,8 @@ function AppContent({
                 <Route path="/news" element={<News />} />
                 <Route path="/careers" element={<Careers />} />
                 <Route path="/contacts" element={<Contacts />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/find-dealer" element={<FindDealer />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
@@ -139,18 +143,18 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <CmsProvider>
-      <LanguageProvider>
-        <HelmetProvider>
-          <Router>
+    <HelmetProvider>
+      <Router>
+        <CmsProvider>
+          <LanguageProvider>
             <AppContent
               isMobileMenuOpen={isMobileMenuOpen}
               setIsMobileMenuOpen={setIsMobileMenuOpen}
             />
-          </Router>
-        </HelmetProvider>
-      </LanguageProvider>
-    </CmsProvider>
+          </LanguageProvider>
+        </CmsProvider>
+      </Router>
+    </HelmetProvider>
   );
 }
 

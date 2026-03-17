@@ -65,34 +65,39 @@ export default function Careers() {
     setShowApplication(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!selectedJob) {
       return;
     }
 
-    createLead({
-      source: 'careers',
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      subject: `Application: ${selectedJob.title}`,
-      message: formData.message,
-      language,
-      originPage: location.pathname,
-      metadata: {
-        vacancyId: selectedJob.id,
-        vacancyTitle: selectedJob.title,
-        department: selectedJob.department,
-        location: selectedJob.location,
-        employmentType: selectedJob.type,
-        experienceRequired: selectedJob.experience,
-        ageRequirement: selectedJob.age,
-        candidateAge: formData.age,
-        candidateExperience: formData.experience,
-      },
-    });
+    try {
+      await createLead({
+        source: 'careers',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: `Application: ${selectedJob.title}`,
+        message: formData.message,
+        language,
+        originPage: location.pathname,
+        metadata: {
+          vacancyId: selectedJob.id,
+          vacancyTitle: selectedJob.title,
+          department: selectedJob.department,
+          location: selectedJob.location,
+          employmentType: selectedJob.type,
+          experienceRequired: selectedJob.experience,
+          ageRequirement: selectedJob.age,
+          candidateAge: formData.age,
+          candidateExperience: formData.experience,
+        },
+      });
+    } catch {
+      toast.error('Application could not be submitted right now. Please try again.');
+      return;
+    }
 
     trackEvent('generate_lead', {
       form_type: 'vacancy_application',

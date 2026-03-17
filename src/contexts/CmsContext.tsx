@@ -4,33 +4,40 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
+import { useLocation } from 'react-router-dom';
+import { toast } from 'sonner';
 import type { Category, Product } from '../data/products';
 import type { DistributorLocation } from '../data/distributors';
 import type { Language } from '../data/translations';
 import {
-  CMS_STORAGE_KEY,
   cloneCmsValue,
-  createLeadFromInput,
-  createEmptyDistributorLocation,
   createEmptyCategory,
+  createEmptyDistributorLocation,
   createEmptyNewsItem,
   createEmptyProduct,
   createEmptyVacancy,
+  getDefaultCmsSnapshot,
+  normalizeCmsSnapshot,
   type CmsLead,
   type CmsLeadInput,
   type CmsNewsItem,
-  getDefaultCmsSnapshot,
-  loadCmsSnapshot,
-  normalizeCmsSnapshot,
-  saveCmsSnapshot,
-  type CmsVacancy,
   type CmsSnapshot,
+  type CmsVacancy,
   type SeoPageKey,
   type SeoSettings,
 } from '../lib/cms';
+import {
+  fetchAdminCmsSnapshot,
+  fetchPublicCmsSnapshot,
+  readInjectedPublicCmsSnapshot,
+  saveAdminCmsSnapshot,
+  submitLeadToServer,
+} from '../lib/cmsApi';
+import { isAdminRoutePath } from '../lib/adminRoute';
 import { setUploadedMediaRegistry, type UploadedMediaInput } from '../lib/media';
 
 interface CmsContextValue extends CmsSnapshot {
@@ -41,6 +48,7 @@ interface CmsContextValue extends CmsSnapshot {
   getVacancyById: (id: string) => CmsVacancy | undefined;
   getNewsItemById: (id: string) => CmsNewsItem | undefined;
   getLeadById: (id: string) => CmsLead | undefined;
+  refreshSnapshot: (scope?: 'public' | 'admin') => Promise<void>;
   setFeaturedProductIds: (ids: string[]) => void;
   upsertMediaItem: (item: UploadedMediaInput) => void;
   deleteMediaItem: (id: string) => void;
@@ -54,7 +62,7 @@ interface CmsContextValue extends CmsSnapshot {
   deleteVacancy: (id: string) => void;
   upsertNewsItem: (newsItem: CmsNewsItem) => void;
   deleteNewsItem: (id: string) => void;
-  createLead: (leadInput: CmsLeadInput) => CmsLead;
+  createLead: (leadInput: CmsLeadInput) => Promise<CmsLead>;
   upsertLead: (lead: CmsLead) => void;
   deleteLead: (id: string) => void;
   setTranslationOverride: (language: Language, path: string, value: string) => void;
@@ -73,32 +81,105 @@ interface CmsContextValue extends CmsSnapshot {
 const CmsContext = createContext<CmsContextValue | undefined>(undefined);
 
 export function CmsProvider({ children }: { children: ReactNode }) {
-  const [snapshot, setSnapshot] = useState<CmsSnapshot>(loadCmsSnapshot);
+  const location = useLocation();
+  const isAdminRoute = isAdminRoutePath(location.pathname);
+  const [snapshot, setSnapshot] = useState<CmsSnapshot>(() =>
+    normalizeCmsSnapshot(readInjectedPublicCmsSnapshot() ?? getDefaultCmsSnapshot()),
+  );
+  const lastServerSnapshotHashRef = useRef(JSON.stringify(snapshot));
+  const persistTimerRef = useRef<number | null>(null);
+  const hasShownSyncErrorRef = useRef(false);
 
-  useEffect(() => {
-    saveCmsSnapshot(snapshot);
-  }, [snapshot]);
-
-  useEffect(() => {
-    const handleStorage = (event: StorageEvent) => {
-      if (event.key !== CMS_STORAGE_KEY || !event.newValue) {
-        return;
-      }
-
-      try {
-        setSnapshot(normalizeCmsSnapshot(JSON.parse(event.newValue)));
-      } catch {
-        // Ignore invalid cross-tab updates and keep the in-memory snapshot intact.
-      }
-    };
-
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+  const applyServerSnapshot = useCallback((rawSnapshot: unknown) => {
+    const normalized = normalizeCmsSnapshot(rawSnapshot);
+    lastServerSnapshotHashRef.current = JSON.stringify(normalized);
+    setSnapshot(normalized);
   }, []);
+
+  const refreshSnapshot = useCallback(
+    async (scope: 'public' | 'admin' = isAdminRoute ? 'admin' : 'public') => {
+      const nextSnapshot =
+        scope === 'admin' ? await fetchAdminCmsSnapshot() : await fetchPublicCmsSnapshot();
+
+      applyServerSnapshot(nextSnapshot);
+    },
+    [applyServerSnapshot, isAdminRoute],
+  );
+
+  useEffect(() => {
+    if (isAdminRoute) {
+      return;
+    }
+
+    let isActive = true;
+
+    void (async () => {
+      try {
+        const nextSnapshot = await fetchPublicCmsSnapshot();
+
+        if (!isActive) {
+          return;
+        }
+
+        applyServerSnapshot(nextSnapshot);
+      } catch {
+        // Public routes can safely continue with the injected/default snapshot.
+      }
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, [applyServerSnapshot, isAdminRoute, location.pathname]);
 
   useEffect(() => {
     setUploadedMediaRegistry(snapshot.mediaItems);
   }, [snapshot.mediaItems]);
+
+  useEffect(() => {
+    if (!isAdminRoute) {
+      hasShownSyncErrorRef.current = false;
+
+      if (persistTimerRef.current) {
+        window.clearTimeout(persistTimerRef.current);
+        persistTimerRef.current = null;
+      }
+
+      return;
+    }
+
+    const snapshotHash = JSON.stringify(snapshot);
+
+    if (snapshotHash === lastServerSnapshotHashRef.current) {
+      return;
+    }
+
+    if (persistTimerRef.current) {
+      window.clearTimeout(persistTimerRef.current);
+    }
+
+    persistTimerRef.current = window.setTimeout(() => {
+      void (async () => {
+        try {
+          await saveAdminCmsSnapshot(snapshot);
+          lastServerSnapshotHashRef.current = snapshotHash;
+          hasShownSyncErrorRef.current = false;
+        } catch {
+          if (!hasShownSyncErrorRef.current) {
+            toast.error('Admin changes failed to sync to the server.');
+            hasShownSyncErrorRef.current = true;
+          }
+        }
+      })();
+    }, 200);
+
+    return () => {
+      if (persistTimerRef.current) {
+        window.clearTimeout(persistTimerRef.current);
+        persistTimerRef.current = null;
+      }
+    };
+  }, [isAdminRoute, snapshot]);
 
   const commitSnapshot = useCallback((updater: (current: CmsSnapshot) => CmsSnapshot) => {
     setSnapshot((currentSnapshot) => {
@@ -188,9 +269,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
 
         return {
           ...currentSnapshot,
-          featuredProductIds: Array.from(
-            new Set(ids.filter((id) => availableProductIds.has(id))),
-          ),
+          featuredProductIds: Array.from(new Set(ids.filter((id) => availableProductIds.has(id)))),
         };
       });
     },
@@ -381,15 +460,15 @@ export function CmsProvider({ children }: { children: ReactNode }) {
   );
 
   const createLead = useCallback(
-    (leadInput: CmsLeadInput) => {
-      const nextLead = createLeadFromInput(leadInput);
+    async (leadInput: CmsLeadInput) => {
+      const { lead } = await submitLeadToServer(leadInput);
 
       commitSnapshot((currentSnapshot) => ({
         ...currentSnapshot,
-        leads: [nextLead, ...currentSnapshot.leads],
+        leads: [lead, ...currentSnapshot.leads],
       }));
 
-      return nextLead;
+      return lead;
     },
     [commitSnapshot],
   );
@@ -506,6 +585,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       getVacancyById,
       getNewsItemById,
       getLeadById,
+      refreshSnapshot,
       setFeaturedProductIds,
       upsertMediaItem,
       deleteMediaItem,
@@ -543,6 +623,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       getVacancyById,
       getNewsItemById,
       getLeadById,
+      refreshSnapshot,
       setFeaturedProductIds,
       upsertMediaItem,
       deleteMediaItem,

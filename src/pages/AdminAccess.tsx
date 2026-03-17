@@ -6,16 +6,20 @@ import {
   adminInputClass,
   adminPrimaryButtonClass,
 } from '../components/admin/styles';
+import { useCms } from '../contexts/CmsContext';
 import AdminPanel from './AdminPanel';
 
 type AdminAccessState = 'checking' | 'locked' | 'open';
 
 interface AdminSessionResponse {
   authenticated?: boolean;
+  username?: string;
 }
 
 export default function AdminAccess() {
+  const { refreshSnapshot } = useCms();
   const [accessState, setAccessState] = useState<AdminAccessState>('checking');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -32,11 +36,18 @@ export default function AdminAccess() {
       }
 
       const payload = (await response.json()) as AdminSessionResponse;
-      setAccessState(payload.authenticated ? 'open' : 'locked');
+      if (payload.authenticated) {
+        await refreshSnapshot('admin');
+        setUsername(payload.username || '');
+        setAccessState('open');
+        return;
+      }
+
+      setAccessState('locked');
     } catch {
       setAccessState('locked');
     }
-  }, []);
+  }, [refreshSnapshot]);
 
   useEffect(() => {
     void refreshSession();
@@ -46,7 +57,7 @@ export default function AdminAccess() {
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      if (!password.trim()) {
+      if (!username.trim() || !password.trim()) {
         toast.error('Access denied.');
         return;
       }
@@ -60,13 +71,14 @@ export default function AdminAccess() {
             'Content-Type': 'application/json',
             Accept: 'application/json',
           },
-          body: JSON.stringify({ password }),
+          body: JSON.stringify({ username, password }),
         });
 
         if (!response.ok) {
           throw new Error(`Access denied with ${response.status}`);
         }
 
+        await refreshSnapshot('admin');
         setPassword('');
         setAccessState('open');
         toast.success('Admin access granted.');
@@ -76,7 +88,7 @@ export default function AdminAccess() {
         setIsSubmitting(false);
       }
     },
-    [password],
+    [password, refreshSnapshot, username],
   );
 
   const handleLogout = useCallback(async () => {
@@ -89,10 +101,12 @@ export default function AdminAccess() {
       });
     } finally {
       setPassword('');
+      setUsername('');
+      await refreshSnapshot('public').catch(() => undefined);
       setAccessState('locked');
       toast.success('Admin session closed.');
     }
-  }, []);
+  }, [refreshSnapshot]);
 
   if (accessState === 'open') {
     return <AdminPanel onLogout={handleLogout} />;
@@ -114,7 +128,7 @@ export default function AdminAccess() {
               {accessState === 'checking' ? 'Checking access' : 'Enter password'}
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-              The admin panel is protected. Enter the password to continue.
+              The admin panel is protected. Enter your credentials to continue.
             </p>
           </div>
         </div>
@@ -126,6 +140,20 @@ export default function AdminAccess() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+            <label className="block space-y-2">
+              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-500">
+                Username
+              </span>
+              <input
+                type="text"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                className={adminInputClass}
+                autoComplete="username"
+                placeholder="Enter admin username"
+              />
+            </label>
+
             <label className="block space-y-2">
               <span className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-500">
                 Password

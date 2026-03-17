@@ -5,7 +5,6 @@ import { toast } from 'sonner';
 import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
-import { pseudonymizeData } from '../utils/privacy';
 import { securityAgent } from '../utils/securityAgent';
 
 export default function ContactForm({ dark = false }: { dark?: boolean }) {
@@ -59,23 +58,25 @@ export default function ContactForm({ dark = false }: { dark?: boolean }) {
             return;
         }
 
-        const secureData = await pseudonymizeData(formData);
-        console.log('Secure Contact Submission:', secureData);
-
-        createLead({
-            source: 'contact',
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            company: formData.company,
-            subject: selectedSubjectLabel || formData.subject || 'Website Inquiry',
-            message: formData.message,
-            language,
-            originPage: location.pathname,
-            metadata: {
-                subjectCode: formData.subject,
-            },
-        });
+        try {
+            await createLead({
+                source: 'contact',
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                company: formData.company,
+                subject: selectedSubjectLabel || formData.subject || 'Website Inquiry',
+                message: formData.message,
+                language,
+                originPage: location.pathname,
+                metadata: {
+                    subjectCode: formData.subject,
+                },
+            });
+        } catch {
+            toast.error('Message could not be sent right now. Please try again.');
+            return;
+        }
 
         trackEvent('generate_lead', {
             form_type: 'contact',

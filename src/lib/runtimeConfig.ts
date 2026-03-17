@@ -3,6 +3,7 @@ declare global {
     __KRANTAS_RUNTIME_CONFIG__?: {
       googleMapsApiKey?: string;
       googleMapsMapId?: string;
+      cspNonce?: string;
     };
   }
 }
@@ -29,4 +30,8 @@ export function getGoogleMapsMapId() {
     import.meta.env.VITE_GOOGLE_MAPS_MAP_ID?.trim() ||
     ''
   );
+}
+
+export function getCspNonce() {
+  return readRuntimeConfig().cspNonce?.trim() || '';
 }

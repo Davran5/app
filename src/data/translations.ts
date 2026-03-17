@@ -1,4 +1,4 @@
-export type Language = 'en' | 'ru' | 'uz' | 'de';
+﻿export type Language = 'en' | 'ru' | 'uz' | 'de';
 
 export const translations = {
   en: {
@@ -400,9 +400,9 @@ export const translations = {
       historyEvents: [
         { year: 1945, title: 'Foundation', description: 'Founded as a mechanical repair plant for trucks and heavy machinery in Tashkent.', image: '/1945.jpeg' },
         { year: 1966, title: 'Reconstruction & Expansion', description: 'Following the 1966 earthquake, the factory pivoted to support rebuilding efforts and began producing steel structures and lifting equipment for construction.', image: '/1966.jpg' },
-        { year: 1991, title: 'Independence & Privatization', description: "Following Uzbekistan's historic declaration of independence, the company transitioned into a private entity. This pivotal shift marked the birth of a new era of industrial autonomy, fueling decades of unprecedented growth and regional leadership.", image: '/1991.png' },
-        { year: 2018, title: 'A Landmark Alliance', description: 'In a historic ceremony attended by the Presidents of Uzbekistan and Tajikistan, the TALCO-Krantas Joint Venture was inaugurated in Tursunzade. This strategic partnership stands as a testament to regional cooperation, driving innovation in specialized vehicle assembly.', image: '/2018.png' },
-        { year: 2019, title: 'Industrial Expansion', description: 'Opened the NURAFSHON-MAXSUS-TEXNIKA production site in the Nurafshon region, significantly expanding the group\'s manufacturing capacity and engineering possibilities.', image: '/about_factory.jpg' },
+        { year: 1991, title: 'Independence & Privatization', description: "Following Uzbekistan's historic declaration of independence, the company transitioned into a private entity. This shift marked the beginning of a new era of industrial autonomy, fueling decades of strong growth and regional leadership.", image: '/1991.png' },
+        { year: 2018, title: 'A Landmark Alliance', description: 'In a historic ceremony attended by the Presidents of Uzbekistan and Tajikistan, the TALCO-Krantas Joint Venture was inaugurated in Tursunzade. This strategic partnership is a testament to regional cooperation, driving innovation in specialized vehicle assembly.', image: '/2018.png' },
+        { year: 2019, title: 'Industrial Expansion', description: 'Opening of the NURAFSHON-MAXSUS-TEXNIKA production site in the Nurafshon region, significantly expanding the group\'s manufacturing capacity and engineering possibilities.', image: '/about_factory.jpg' },
         { year: 2021, title: 'National Defense & Heavy Industry', description: 'The President of Uzbekistan, together with Chairman Karimov Mukhtar Akbarovich, inspected the first prototypes of specialized military vehicles and strategic heavy-duty platforms, marking a defining step in KRANTAS Group’s expansion into national defense engineering and advanced industrial production.', image: '/2021.png' },
         { year: 2024, title: 'Strategic Deployment', description: 'Marked by the successful delivery of the first locally produced mining trucks to AGMK. This year also saw the rollout of the first production batches of the Arslon and Tarlon armored vehicles, alongside a diverse range of specialized industrial solutions.', image: '/2024.png' },
       ],
@@ -507,7 +507,7 @@ export const translations = {
         },
         8: {
           title: 'Presidents of Uzbekistan and Tajikistan Inaugurate TALCO-KRANTAS Joint Venture',
-          excerpt: 'In a significant step for industrial cooperation, the first phase of the TALCO-KRANTAS joint venture was inaugurated for assembling special construction and municipal vehicles.'
+          excerpt: 'In a significant step for industrial cooperation, the first phase of the TALCO-KRANTAS joint venture was inaugurated for assembly of special construction and municipal vehicles.'
         }
       },
       featured: {
@@ -1455,11 +1455,11 @@ export const translations = {
       historyEvents: [
         { year: 1945, title: 'Основание', description: 'Основан как механический ремонтный завод для грузовиков и тяжелой техники в Ташкенте.', image: '/1945.jpeg' },
         { year: 1966, title: 'Восстановление и расширение', description: 'После землетрясения 1966 года завод переориентировался на поддержку восстановления города и начал производство стальных конструкций и подъемного оборудования.', image: '/1966.jpg' },
-        { year: 1991, title: 'Независимость и приватизация', description: 'После исторического провозглашения независимости Узбекистана предприятие перешло в частную собственность. Этот поворотный момент ознаменовал начало новой эры промышленной автономии, заложив фундамент для десятилетий роста и лидерства.', image: '/1991.png' },
-        { year: 2018, title: 'Знаковое партнерство', description: 'В ходе исторического визита президенты Узбекистана и Таджикистана торжественно открыли совместное предприятие «ТАЛКО-КРАНТАС» в Турсунзаде. Этот союз стал символом регионального сотрудничества и нового этапа в производстве спецтехники.', image: '/2018.png' },
-        { year: 2019, title: 'Промышленная экспансия', description: 'Открытие новой производственной площадки NURAFSHON-MAXSUS-TEXNIKA в Нурафшане. Это расширение значительно увеличило производственные мощности Группы и открыло новые горизонты для инжиниринга.', image: '/about_factory.jpg' },
+        { year: 1991, title: 'Независимость и приватизация', description: 'После исторического провозглашения независимости Узбекистана предприятие перешло в частную собственность. Этот переход ознаменовал начало новой эры промышленной автономии, заложив основу для десятилетий уверенного роста и регионального лидерства.', image: '/1991.png' },
+        { year: 2018, title: 'Знаковое партнерство', description: 'В ходе исторической церемонии с участием президентов Узбекистана и Таджикистана в Турсунзаде было открыто совместное предприятие TALCO-KRANTAS. Это стратегическое партнерство стало подтверждением регионального сотрудничества и придало новый импульс инновациям в сборке специализированной техники.', image: '/2018.png' },
+        { year: 2019, title: 'Промышленная экспансия', description: 'Открытие производственной площадки NURAFSHON-MAXSUS-TEXNIKA в Нурафшанском регионе существенно расширило производственные мощности Группы и ее инженерные возможности.', image: '/about_factory.jpg' },
         { year: 2021, title: 'Оборонная и тяжелая промышленность', description: 'Президент Узбекистана совместно с председателем Каримовым Мухтаром Акбаровичем осмотрел первые прототипы специализированной военной техники и стратегических тяжелых платформ. Этот момент стал важным этапом выхода KRANTAS Group на новый уровень оборонного машиностроения и современной промышленной инженерии.', image: '/2021.png' },
-        { year: 2024, title: 'Стратегическое развертывание', description: 'Ознаменован успешной поставкой первых отечественных карьерных самосвалов на АГМК. Состоялся запуск первых серийных партий бронемашин Arslon, Tarlon и других моделей спецтехники.', image: '/2024.png' },
+        { year: 2024, title: 'Стратегическое развертывание', description: 'Ознаменован успешной поставкой первых отечественных карьерных самосвалов на АГМК. В том же году начался выпуск первых серийных партий бронемашин Arslon и Tarlon, а также целого ряда специализированных промышленных решений.', image: '/2024.png' },
       ],
       teamMemberStories: {
         sergey: {
@@ -1561,7 +1561,7 @@ export const translations = {
         },
         8: {
           title: 'Президенты Узбекистана и Таджикистана открыли СП «ТАЛКО-КРАНТАС»',
-          excerpt: 'В рамках укрепления индустриальных связей президенты Шавкат Мирзиёев и Эмомали Рахмон открыли первую очередь совместного предприятия по сборке спецтехники.'
+          excerpt: 'Важным шагом для промышленного сотрудничества стало открытие первой очереди совместного предприятия TALCO-KRANTAS по сборке специальной строительной и коммунальной техники.'
         }
       },
       featured: {
@@ -2521,11 +2521,11 @@ export const translations = {
       historyEvents: [
         { year: 1945, title: 'Tashkil Topish', description: 'Toshkentda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan.', image: '/1945.jpeg' },
         { year: 1966, title: 'Tiklanish va Kengayish', description: '1966 yilgi Toshkent zilziladan so\'ng zavod shaharni qayta qurish ishlarini qo\'llab-quvvatlashga o\'tdi va qurilish uchun po\'lat konstruktsiyalar ishlab chiqarishni boshladi.', image: '/1966.jpg' },
-        { year: 1991, title: 'Mustaqillik va Xususiylashtirish', description: 'Oʻzbekiston mustaqilligi eʼlon qilinganidan soʻng, korxona xususiy sektorga oʻtdi. Ushbu tarixiy burilish sanoat mustaqilligining yangi davrini boshlab berdi va kelgusi oʻn yilliklardagi ulkan oʻsishga zamin yaratdi.', image: '/1991.png' },
-        { year: 2018, title: 'Tarixiy Ittifoq', description: 'Oʻzbekiston va Tojikiston Prezidentlari ishtirokida Tursunzoda shahrida «TALCO-KRANTAS» qoʻshma korxonasidan tantanali ravishda ochildi. Ushbu strategik sheriklik mintaqaviy hamkorlikning yorqin namunasi boʻlib, maxsus texnika ishlab chiqarishda yangi ufqlar ochdi.', image: '/2018.png' },
-        { year: 2019, title: 'Sanoat Kengayishi', description: 'Nurafshon shahrida yangi NURAFSHON-MAXSUS-TEXNIKA ishlab chiqarish maydoni ochildi. Bu loyiha guruhning ishlab chiqarish quvvatlarini va muhandislik imkoniyatlarini yanada kengaytirdi.', image: '/about_factory.jpg' },
+        { year: 1991, title: 'Mustaqillik va Xususiylashtirish', description: 'Oʻzbekiston mustaqilligi eʼlon qilinganidan soʻng, korxona xususiy sektorga oʻtdi. Ushbu o‘zgarish sanoat mustaqilligining yangi davrini boshlab berdi va keyingi o‘n yilliklardagi barqaror o‘sish hamda mintaqaviy yetakchilik uchun asos yaratdi.', image: '/1991.png' },
+        { year: 2018, title: 'Tarixiy Ittifoq', description: 'Oʻzbekiston va Tojikiston Prezidentlari ishtirok etgan tarixiy marosimda Tursunzoda shahrida TALCO-KRANTAS qoʻshma korxonasi ochildi. Ushbu strategik sheriklik mintaqaviy hamkorlikning yorqin tasdigʻi boʻlib, ixtisoslashtirilgan texnika yigʻishdagi innovatsiyalarga yangi turtki berdi.', image: '/2018.png' },
+        { year: 2019, title: 'Sanoat Kengayishi', description: 'Nurafshon hududida NURAFSHON-MAXSUS-TEXNIKA ishlab chiqarish maydonining ishga tushirilishi guruhning ishlab chiqarish quvvatlari va muhandislik imkoniyatlarini sezilarli darajada kengaytirdi.', image: '/about_factory.jpg' },
         { year: 2021, title: 'Mudofaa va Ogʻir Sanoat', description: 'Oʻzbekiston Prezidenti hamda rais Karimov Muxtor Akbarovich birgalikda maxsus harbiy texnikalar va strategik ogʻir platformalarning ilk prototiplarini koʻzdan kechirdi. Bu voqea KRANTAS Group uchun mudofaa muhandisligi va zamonaviy ogʻir sanoat ishlab chiqarishidagi yangi bosqichning muhim ramziga aylandi.', image: '/2021.png' },
-        { year: 2024, title: 'Strategik Rivojlanish', description: 'Olmaliq kon-metallurgiya kombinatiga (OKMK) birinchi mahalliy kon samosvallari yetkazib berildi. Shuningdek, «Arslon», «Tarlon» va boshqa koʻplab maxsus texnika modellarining ilk seriyali partiyalari ishlab chiqarildi.', image: '/2024.png' },
+        { year: 2024, title: 'Strategik Rivojlanish', description: 'Olmaliq kon-metallurgiya kombinatiga birinchi mahalliy ishlab chiqarilgan kon samosvallari muvaffaqiyatli yetkazib berildi. Shu yilning o?zida Arslon va Tarlon zirhli transport vositalarining ilk seriyali partiyalari, shuningdek qator maxsus sanoat yechimlari ishlab chiqarila boshlandi.', image: '/2024.png' },
       ],
       teamMemberStories: {
         sergey: {
@@ -2627,7 +2627,7 @@ export const translations = {
         },
         8: {
           title: 'O’zbekiston va Tojikiston Prezidentlari «TALCO-KRANTAS» qo’shma korxonasini ochdilar',
-          excerpt: 'Sanoat aloqalarini mustahkamlash maqsadida Prezidentlar maxsus texnika yig\'ishga ixtisoslashgan "TALCO-KRANTAS" qo\'shma korxonasining birinchi bosqichini ochdilar.'
+          excerpt: 'Sanoat hamkorligini mustahkamlash yo?lidagi muhim qadam sifatida TALCO-KRANTAS qo?shma korxonasining maxsus qurilish va kommunal texnikani yig?ishga mo?ljallangan birinchi bosqichi ishga tushirildi.'
         }
       },
       featured: {
@@ -3584,12 +3584,12 @@ export const translations = {
       certificates: 'Qualitätsstandards',
       historyEvents: [
         { year: 1945, title: 'Gründung', description: 'Gegründet als mechanische Reparaturwerkstatt für Lkw und schwere Maschinen in Taschkent.', image: '/1945.jpeg' },
-        { year: 1966, title: 'Wiederaufbau & Expansion', description: 'Nach dem Erdbeben von 1966 unterstützte das Werk den Wiederaufbau von Taschkent und begann mit der Produktion von Stahlkonstruktionen und Hebezeugen.', image: '/1966.jpg' },
+        { year: 1966, title: 'Wiederaufbau & Expansion', description: 'Nach dem Erdbeben von 1966 unterstützte das Werk den Wiederaufbau von Taschkent und begann mit der Produktion von Stahlkonstruktionen und Hebetechnik.', image: '/1966.jpg' },
         { year: 1991, title: 'Unabhängigkeit & Privatisierung', description: 'Nach der historischen Unabhängigkeitserklärung Usbekistans wurde das Unternehmen privatisiert. Dieser entscheidende Wandel markierte den Beginn einer neuen Ära industrieller Autonomie und legte den Grundstein für Jahrzehnte beispiellosen Wachstums.', image: '/1991.png' },
         { year: 2018, title: 'Ein wegweisendes Bündnis', description: 'In einer feierlichen Zeremonie im Beisein der Präsidenten von Usbekistan und Tadschikistan wurde das Joint Venture TALCO-Krantas in Tursunsoda eingeweiht. Diese strategische Partnerschaft ist ein Meilenstein regionaler Kooperation und Innovation.', image: '/2018.png' },
         { year: 2019, title: 'Industrielle Expansion', description: 'Eröffnung des neuen Produktionsstandorts NURAFSHON-MAXSUS-TEXNIKA in der Region Nurafshon, was die Fertigungskapazitäten und technischen Möglichkeiten der Gruppe erheblich erweiterte.', image: '/about_factory.jpg' },
         { year: 2021, title: 'Landesverteidigung & Schwerindustrie', description: 'Der Präsident Usbekistans inspizierte gemeinsam mit dem Vorsitzenden Karimov Mukhtar Akbarovich die ersten Prototypen spezialisierter Militärfahrzeuge und strategischer Schwerlastplattformen. Damit begann für die KRANTAS Group ein prägender neuer Abschnitt in der Verteidigungstechnik und in der modernen industriellen Fertigung.', image: '/2021.png' },
-        { year: 2024, title: 'Strategische Bereitstellung', description: 'Gekennzeichnet durch die erste Auslieferung von lokal produzierten Bergbau-LKWs an AGMK sowie den Rollout der ersten Chargen der gepanzerten Fahrzeuge Arslon und Tarlon.', image: '/2024.png' },
+        { year: 2024, title: 'Strategische Bereitstellung', description: 'Gekennzeichnet durch die erste Auslieferung von vor Ort produzierten Bergbau-LKWs an AGMK sowie den Rollout der ersten Chargen der gepanzerten Fahrzeuge Arslon und Tarlon.', image: '/2024.png' },
       ],
       teamMemberStories: {
         sergey: {
@@ -3691,7 +3691,7 @@ export const translations = {
         },
         8: {
           title: 'Präsidenten von Usbekistan und Tadschikistan eröffnen Joint Venture TALCO-KRANTAS',
-          excerpt: 'In einem bedeutenden Schritt für die industrielle Zusammenarbeit wurde die erste Phase des Joint Ventures TALCO-KRANTAS zur Montage von Spezialfahrzeugen eingeweiht.'
+          excerpt: 'In einem bedeutenden Schritt hin zur industriellen Zusammenarbeit wurde die erste Phase des Joint Ventures TALCO-KRANTAS zur Montage von Spezialfahrzeugen eingeweiht.'
         }
       },
       featured: {
