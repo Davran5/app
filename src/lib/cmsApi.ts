@@ -24,6 +24,7 @@ export function readInjectedPublicCmsSnapshot() {
 
 export async function fetchPublicCmsSnapshot() {
   const response = await fetch('/api/cms/public', {
+    credentials: 'include',
     headers: {
       Accept: 'application/json',
     },
@@ -34,6 +35,7 @@ export async function fetchPublicCmsSnapshot() {
 
 export async function fetchAdminCmsSnapshot() {
   const response = await fetch('/api/admin/cms', {
+    credentials: 'include',
     headers: {
       Accept: 'application/json',
     },
@@ -45,6 +47,7 @@ export async function fetchAdminCmsSnapshot() {
 export async function saveAdminCmsSnapshot(snapshot: CmsSnapshot) {
   const response = await fetch('/api/admin/cms', {
     method: 'PUT',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -60,6 +63,7 @@ export async function saveAdminCmsSnapshot(snapshot: CmsSnapshot) {
 export async function submitLeadToServer(leadInput: CmsLeadInput) {
   const response = await fetch('/api/leads', {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

@@ -26,6 +26,7 @@ export default function AdminAccess() {
   const refreshSession = useCallback(async () => {
     try {
       const response = await fetch('/api/admin/session', {
+        credentials: 'include',
         headers: {
           Accept: 'application/json',
         },
@@ -67,6 +68,7 @@ export default function AdminAccess() {
       try {
         const response = await fetch('/api/admin/login', {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
@@ -95,6 +97,7 @@ export default function AdminAccess() {
     try {
       await fetch('/api/admin/logout', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           Accept: 'application/json',
         },

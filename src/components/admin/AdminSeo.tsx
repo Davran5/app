@@ -48,6 +48,7 @@ export default function AdminSeo({
       const routePath = SEO_ROUTE_PATHS[selectedSeoPage];
       const response = await fetch('/api/seo', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
