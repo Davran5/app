@@ -1,0 +1,80 @@
+{
+  "version": 6,
+  "updatedAt": "2026-03-18T05:03:52.083Z",
+  "products": [],
+  "categories": [],
+  "featuredProductIds": [],
+  "distributorLocations": [],
+  "vacancies": [],
+  "newsItems": [],
+  "leads": [],
+  "mediaItems": [],
+  "translationOverrides": {
+    "en": {},
+    "ru": {},
+    "uz": {},
+    "de": {}
+  },
+  "seo": {
+    "home": {
+      "title": "Test",
+      "description": "Test",
+      "keywords": "Test"
+    },
+    "about": {
+      "title": "A",
+      "description": "A",
+      "keywords": "A"
+    },
+    "products": {
+      "title": "P",
+      "description": "P",
+      "keywords": "P"
+    },
+    "catalog": {
+      "title": "C",
+      "description": "C",
+      "keywords": "C"
+    },
+    "productDetail": {
+      "title": "PD",
+      "description": "PD",
+      "keywords": "PD"
+    },
+    "customSolutions": {
+      "title": "CS",
+      "description": "CS",
+      "keywords": "CS"
+    },
+    "services": {
+      "title": "S",
+      "description": "S",
+      "keywords": "S"
+    },
+    "news": {
+      "title": "N",
+      "description": "N",
+      "keywords": "N"
+    },
+    "careers": {
+      "title": "CR",
+      "description": "CR",
+      "keywords": "CR"
+    },
+    "contacts": {
+      "title": "CO",
+      "description": "CO",
+      "keywords": "CO"
+    },
+    "findDealer": {
+      "title": "FD",
+      "description": "FD",
+      "keywords": "FD"
+    },
+    "admin": {
+      "title": "AD",
+      "description": "AD",
+      "keywords": "AD"
+    }
+  }
+}

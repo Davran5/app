@@ -1055,7 +1055,7 @@ const app = express();
 app.disable('x-powered-by');
 app.set('trust proxy', true);
 app.use(applySecurityHeaders);
-app.use(express.json({ limit: '1mb' }));
+app.use(express.json({ limit: '8mb' }));
 app.use(
   '/assets',
   express.static(DIST_ASSETS_DIR, {
