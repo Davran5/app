@@ -1121,12 +1121,14 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
     return defaults;
   }
 
-  const products = Array.isArray(raw.products)
-    ? cloneCmsValue(raw.products as Product[])
-    : defaults.products;
-  const categories = Array.isArray(raw.categories)
-    ? cloneCmsValue(raw.categories as Category[])
-    : defaults.categories;
+  const products =
+    Array.isArray(raw.products) && raw.products.length > 0
+      ? cloneCmsValue(raw.products as Product[])
+      : defaults.products;
+  const categories =
+    Array.isArray(raw.categories) && raw.categories.length > 0
+      ? cloneCmsValue(raw.categories as Category[])
+      : defaults.categories;
   const hasFeaturedProductIds = Object.prototype.hasOwnProperty.call(raw, 'featuredProductIds');
 
   return {
