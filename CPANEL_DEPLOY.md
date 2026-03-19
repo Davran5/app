@@ -21,6 +21,11 @@ Set these in the Node.js app environment in cPanel:
 ```bash
 NODE_ENV=production
 SITE_URL=https://krantasgroup.com
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=krantasu_krantasweb
+DB_USER=krantasu_admin
+DB_PASSWORD=your-database-password
 ADMIN_PANEL_USERNAME=admin
 ADMIN_PANEL_PASSWORD=change-this-password
 ADMIN_USERS_JSON=
@@ -40,6 +45,11 @@ GOOGLE_MAPS_API_KEY=your_key
 GOOGLE_MAPS_MAP_ID=your_map_id
 VITE_GTM_ID=GTM-XXXXXXX
 ```
+
+Database notes:
+- On cPanel, `DB_HOST=localhost` is typically correct.
+- The app now prefers MySQL for CMS and SEO storage when `DB_NAME`, `DB_USER`, and `DB_PASSWORD` are set.
+- If database credentials are missing or invalid, the server falls back to `cms-data.json` and `seo-data.json`.
 
 Admin auth notes:
 - `ADMIN_PANEL_USERNAME` + `ADMIN_PANEL_PASSWORD` create the default named admin account

@@ -49,6 +49,7 @@ interface CmsContextValue extends CmsSnapshot {
   getNewsItemById: (id: string) => CmsNewsItem | undefined;
   getLeadById: (id: string) => CmsLead | undefined;
   refreshSnapshot: (scope?: 'public' | 'admin') => Promise<void>;
+  flushSnapshot: () => Promise<void>;
   setFeaturedProductIds: (ids: string[]) => void;
   upsertMediaItem: (item: UploadedMediaInput) => void;
   deleteMediaItem: (id: string) => void;
@@ -83,18 +84,41 @@ const CmsContext = createContext<CmsContextValue | undefined>(undefined);
 export function CmsProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const isAdminRoute = isAdminRoutePath(location.pathname);
-  const [snapshot, setSnapshot] = useState<CmsSnapshot>(() =>
-    normalizeCmsSnapshot(readInjectedPublicCmsSnapshot() ?? getDefaultCmsSnapshot()),
-  );
+  const initialSnapshot = normalizeCmsSnapshot(readInjectedPublicCmsSnapshot() ?? getDefaultCmsSnapshot());
+  const [snapshot, setSnapshot] = useState<CmsSnapshot>(initialSnapshot);
+  const snapshotRef = useRef<CmsSnapshot>(initialSnapshot);
   const lastServerSnapshotHashRef = useRef(JSON.stringify(snapshot));
   const persistTimerRef = useRef<number | null>(null);
   const hasShownSyncErrorRef = useRef(false);
 
   const applyServerSnapshot = useCallback((rawSnapshot: unknown) => {
     const normalized = normalizeCmsSnapshot(rawSnapshot);
+    snapshotRef.current = normalized;
     lastServerSnapshotHashRef.current = JSON.stringify(normalized);
     setSnapshot(normalized);
   }, []);
+
+  const flushSnapshot = useCallback(async () => {
+    if (!isAdminRoute) {
+      return;
+    }
+
+    if (persistTimerRef.current) {
+      window.clearTimeout(persistTimerRef.current);
+      persistTimerRef.current = null;
+    }
+
+    const currentSnapshot = snapshotRef.current;
+    const snapshotHash = JSON.stringify(currentSnapshot);
+
+    if (snapshotHash === lastServerSnapshotHashRef.current) {
+      return;
+    }
+
+    await saveAdminCmsSnapshot(currentSnapshot);
+    lastServerSnapshotHashRef.current = snapshotHash;
+    hasShownSyncErrorRef.current = false;
+  }, [isAdminRoute]);
 
   const refreshSnapshot = useCallback(
     async (scope: 'public' | 'admin' = isAdminRoute ? 'admin' : 'public') => {
@@ -161,8 +185,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
     persistTimerRef.current = window.setTimeout(() => {
       void (async () => {
         try {
-          await saveAdminCmsSnapshot(snapshot);
-          lastServerSnapshotHashRef.current = snapshotHash;
+          await flushSnapshot();
           hasShownSyncErrorRef.current = false;
         } catch {
           if (!hasShownSyncErrorRef.current) {
@@ -179,16 +202,15 @@ export function CmsProvider({ children }: { children: ReactNode }) {
         persistTimerRef.current = null;
       }
     };
-  }, [isAdminRoute, snapshot]);
+  }, [flushSnapshot, isAdminRoute, snapshot]);
 
   const commitSnapshot = useCallback((updater: (current: CmsSnapshot) => CmsSnapshot) => {
-    setSnapshot((currentSnapshot) => {
-      const nextSnapshot = updater(currentSnapshot);
-      return {
-        ...nextSnapshot,
-        updatedAt: new Date().toISOString(),
-      };
-    });
+    const nextSnapshot = {
+      ...updater(snapshotRef.current),
+      updatedAt: new Date().toISOString(),
+    };
+    snapshotRef.current = nextSnapshot;
+    setSnapshot(nextSnapshot);
   }, []);
 
   const getProductById = useCallback(
@@ -563,16 +585,20 @@ export function CmsProvider({ children }: { children: ReactNode }) {
 
   const importSnapshot = useCallback((nextSnapshot: unknown) => {
     const normalizedSnapshot = normalizeCmsSnapshot(nextSnapshot);
-    setSnapshot({
+    const committedSnapshot = {
       ...normalizedSnapshot,
       updatedAt: new Date().toISOString(),
-    });
+    };
+    snapshotRef.current = committedSnapshot;
+    setSnapshot(committedSnapshot);
   }, []);
 
-  const exportSnapshot = useCallback(() => cloneCmsValue(snapshot), [snapshot]);
+  const exportSnapshot = useCallback(() => cloneCmsValue(snapshotRef.current), []);
 
   const resetCms = useCallback(() => {
-    setSnapshot(getDefaultCmsSnapshot());
+    const nextSnapshot = getDefaultCmsSnapshot();
+    snapshotRef.current = nextSnapshot;
+    setSnapshot(nextSnapshot);
   }, []);
 
   const value = useMemo<CmsContextValue>(
@@ -586,6 +612,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       getNewsItemById,
       getLeadById,
       refreshSnapshot,
+      flushSnapshot,
       setFeaturedProductIds,
       upsertMediaItem,
       deleteMediaItem,
@@ -624,6 +651,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       getNewsItemById,
       getLeadById,
       refreshSnapshot,
+      flushSnapshot,
       setFeaturedProductIds,
       upsertMediaItem,
       deleteMediaItem,

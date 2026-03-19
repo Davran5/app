@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import crypto from 'node:crypto';
 import express from 'express';
+import mysql from 'mysql2/promise';
 import { existsSync } from 'node:fs';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -44,6 +45,11 @@ const SEO_STORAGE_PATH = process.env.SEO_STORAGE_PATH
 const CMS_STORAGE_PATH = process.env.CMS_STORAGE_PATH
   ? path.resolve(PROJECT_ROOT, process.env.CMS_STORAGE_PATH)
   : path.resolve(PROJECT_ROOT, 'cms-data.json');
+const DATABASE_HOST = process.env.DB_HOST?.trim() || process.env.MYSQL_HOST?.trim() || 'localhost';
+const DATABASE_PORT = Number(process.env.DB_PORT || process.env.MYSQL_PORT || 3306);
+const DATABASE_NAME = process.env.DB_NAME?.trim() || process.env.MYSQL_DATABASE?.trim() || '';
+const DATABASE_USER = process.env.DB_USER?.trim() || process.env.MYSQL_USER?.trim() || '';
+const DATABASE_PASSWORD = process.env.DB_PASSWORD ?? process.env.MYSQL_PASSWORD ?? '';
 const ADMIN_AUDIT_LOG_PATH = process.env.ADMIN_AUDIT_LOG_PATH
   ? path.resolve(PROJECT_ROOT, process.env.ADMIN_AUDIT_LOG_PATH)
   : path.resolve(PROJECT_ROOT, 'admin-audit.log');
@@ -70,6 +76,8 @@ const LEAD_RATE_LIMIT_MAX = Math.max(1, Number(process.env.LEAD_RATE_LIMIT_MAX |
 const ADMIN_ACCESS_DENIED_MESSAGE = 'Access denied.';
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = Number(process.env.PORT || 3000);
+const CMS_DB_STATE_KEY = 'cms_store';
+const SEO_DB_STATE_KEY = 'seo_store';
 
 const ROUTE_SEO_DEFAULTS = {
   home: {
@@ -165,6 +173,8 @@ let cachedCmsStore = null;
 let cachedCmsStoreMtimeMs = 0;
 let cachedProductPaths = [];
 let cachedProductPathsMtimeMs = 0;
+let databasePoolPromise = null;
+let databaseStorageReadyPromise = null;
 const adminLoginAttempts = new Map();
 const adminSessions = new Map();
 const leadSubmissionAttempts = new Map();
@@ -193,6 +203,112 @@ function normalizeRequestTarget(inputPath = '/') {
 
 function createEmptyCmsStore() {
   return {};
+}
+
+function isDatabaseConfigured() {
+  return Boolean(DATABASE_NAME && DATABASE_USER);
+}
+
+async function getDatabasePool() {
+  if (!isDatabaseConfigured()) {
+    return null;
+  }
+
+  if (!databasePoolPromise) {
+    databasePoolPromise = (async () => {
+      const pool = mysql.createPool({
+        host: DATABASE_HOST,
+        port: DATABASE_PORT,
+        database: DATABASE_NAME,
+        user: DATABASE_USER,
+        password: DATABASE_PASSWORD,
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0,
+        charset: 'utf8mb4',
+      });
+
+      await pool.query('SELECT 1');
+      return pool;
+    })();
+  }
+
+  try {
+    return await databasePoolPromise;
+  } catch (error) {
+    databasePoolPromise = null;
+    throw error;
+  }
+}
+
+async function ensureDatabaseStorage() {
+  if (!isDatabaseConfigured()) {
+    return false;
+  }
+
+  if (!databaseStorageReadyPromise) {
+    databaseStorageReadyPromise = (async () => {
+      const pool = await getDatabasePool();
+
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS app_state (
+          state_key VARCHAR(64) NOT NULL PRIMARY KEY,
+          state_json LONGTEXT NOT NULL,
+          updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+      `);
+
+      return true;
+    })();
+  }
+
+  try {
+    await databaseStorageReadyPromise;
+    return true;
+  } catch (error) {
+    databaseStorageReadyPromise = null;
+    throw error;
+  }
+}
+
+async function readStateRecordFromDatabase(stateKey) {
+  if (!isDatabaseConfigured()) {
+    return null;
+  }
+
+  await ensureDatabaseStorage();
+  const pool = await getDatabasePool();
+  const [rows] = await pool.query('SELECT state_json FROM app_state WHERE state_key = ? LIMIT 1', [
+    stateKey,
+  ]);
+  const row = Array.isArray(rows) ? rows[0] : null;
+
+  if (!row || typeof row.state_json !== 'string') {
+    return null;
+  }
+
+  return JSON.parse(row.state_json);
+}
+
+async function writeStateRecordToDatabase(stateKey, value) {
+  if (!isDatabaseConfigured()) {
+    return false;
+  }
+
+  await ensureDatabaseStorage();
+  const pool = await getDatabasePool();
+  await pool.query(
+    `
+      INSERT INTO app_state (state_key, state_json, updated_at)
+      VALUES (?, ?, UTC_TIMESTAMP())
+      ON DUPLICATE KEY UPDATE
+        state_json = VALUES(state_json),
+        updated_at = UTC_TIMESTAMP()
+    `,
+    [stateKey, JSON.stringify(value)],
+  );
+
+  return true;
 }
 
 function getConfiguredAdminUsers() {
@@ -802,6 +918,27 @@ async function readIndexHtml() {
 }
 
 async function readSeoStore() {
+  let shouldSeedDatabaseFromFile = false;
+
+  if (isDatabaseConfigured()) {
+    try {
+      const databaseStore = await readStateRecordFromDatabase(SEO_DB_STATE_KEY);
+
+      if (databaseStore && typeof databaseStore === 'object') {
+        cachedSeoStore =
+          databaseStore.paths && typeof databaseStore.paths === 'object'
+            ? databaseStore
+            : { paths: databaseStore };
+        cachedSeoStoreMtimeMs = 0;
+        return cachedSeoStore;
+      }
+
+      shouldSeedDatabaseFromFile = true;
+    } catch (error) {
+      console.error('Failed to read SEO store from database, falling back to file storage.', error);
+    }
+  }
+
   try {
     const stats = await fs.stat(SEO_STORAGE_PATH);
 
@@ -820,10 +957,19 @@ async function readSeoStore() {
         : createEmptySeoStore();
     cachedSeoStoreMtimeMs = stats.mtimeMs;
 
+    if (shouldSeedDatabaseFromFile) {
+      await writeStateRecordToDatabase(SEO_DB_STATE_KEY, cachedSeoStore).catch(() => undefined);
+    }
+
     return cachedSeoStore;
   } catch {
     cachedSeoStore = createEmptySeoStore();
     cachedSeoStoreMtimeMs = 0;
+
+    if (shouldSeedDatabaseFromFile) {
+      await writeStateRecordToDatabase(SEO_DB_STATE_KEY, cachedSeoStore).catch(() => undefined);
+    }
+
     return cachedSeoStore;
   }
 }
@@ -833,11 +979,21 @@ async function writeSeoStore(store) {
     store && typeof store === 'object' && store.paths && typeof store.paths === 'object'
       ? store
       : createEmptySeoStore();
+  cachedSeoStore = nextStore;
+  cachedSeoStoreMtimeMs = 0;
+
+  if (isDatabaseConfigured()) {
+    try {
+      await writeStateRecordToDatabase(SEO_DB_STATE_KEY, nextStore);
+      return;
+    } catch (error) {
+      console.error('Failed to write SEO store to database, falling back to file storage.', error);
+    }
+  }
+
   const payload = `${JSON.stringify(nextStore, null, 2)}\n`;
 
   await fs.writeFile(SEO_STORAGE_PATH, payload, 'utf8');
-
-  cachedSeoStore = nextStore;
 
   try {
     const stats = await fs.stat(SEO_STORAGE_PATH);
@@ -848,6 +1004,24 @@ async function writeSeoStore(store) {
 }
 
 async function readCmsStore() {
+  let shouldSeedDatabaseFromFile = false;
+
+  if (isDatabaseConfigured()) {
+    try {
+      const databaseStore = await readStateRecordFromDatabase(CMS_DB_STATE_KEY);
+
+      if (isObjectRecord(databaseStore)) {
+        cachedCmsStore = databaseStore;
+        cachedCmsStoreMtimeMs = 0;
+        return cachedCmsStore;
+      }
+
+      shouldSeedDatabaseFromFile = true;
+    } catch (error) {
+      console.error('Failed to read CMS store from database, falling back to file storage.', error);
+    }
+  }
+
   try {
     const stats = await fs.stat(CMS_STORAGE_PATH);
 
@@ -860,21 +1034,40 @@ async function readCmsStore() {
     cachedCmsStore = isObjectRecord(parsed) ? parsed : createEmptyCmsStore();
     cachedCmsStoreMtimeMs = stats.mtimeMs;
 
+    if (shouldSeedDatabaseFromFile) {
+      await writeStateRecordToDatabase(CMS_DB_STATE_KEY, cachedCmsStore).catch(() => undefined);
+    }
+
     return cachedCmsStore;
   } catch {
     cachedCmsStore = createEmptyCmsStore();
     cachedCmsStoreMtimeMs = 0;
+
+    if (shouldSeedDatabaseFromFile) {
+      await writeStateRecordToDatabase(CMS_DB_STATE_KEY, cachedCmsStore).catch(() => undefined);
+    }
+
     return cachedCmsStore;
   }
 }
 
 async function writeCmsStore(store) {
   const nextStore = isObjectRecord(store) ? store : createEmptyCmsStore();
+  cachedCmsStore = nextStore;
+  cachedCmsStoreMtimeMs = 0;
+
+  if (isDatabaseConfigured()) {
+    try {
+      await writeStateRecordToDatabase(CMS_DB_STATE_KEY, nextStore);
+      return;
+    } catch (error) {
+      console.error('Failed to write CMS store to database, falling back to file storage.', error);
+    }
+  }
+
   const payload = `${JSON.stringify(nextStore, null, 2)}\n`;
 
   await fs.writeFile(CMS_STORAGE_PATH, payload, 'utf8');
-
-  cachedCmsStore = nextStore;
 
   try {
     const stats = await fs.stat(CMS_STORAGE_PATH);
@@ -1077,6 +1270,7 @@ app.get('/health', (req, res) => {
     ok: true,
     app: 'krantas-web',
     uptimeSeconds: Math.round(process.uptime()),
+    databaseConfigured: isDatabaseConfigured(),
   };
 
   if (!IS_PRODUCTION) {
@@ -1379,4 +1573,9 @@ app.listen(PORT, HOST, () => {
   console.log(`Process cwd: ${process.cwd()}`);
   console.log(`Serving static assets from ${DIST_DIR}`);
   console.log(`Dist index path: ${DIST_INDEX_PATH}`);
+  console.log(
+    isDatabaseConfigured()
+      ? `MySQL storage enabled for database ${DATABASE_NAME} on ${DATABASE_HOST}:${DATABASE_PORT}`
+      : 'MySQL storage disabled; using file-backed CMS/SEO storage.',
+  );
 });

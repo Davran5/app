@@ -16,6 +16,7 @@ import {
   Save,
 } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { toast } from 'sonner';
 import AdminDashboard from '../components/admin/AdminDashboard';
 import AdminDealers from '../components/admin/AdminDealers';
 import AdminHomepage from '../components/admin/AdminHomepage';
@@ -135,14 +136,26 @@ export default function AdminPanel({ onLogout }: { onLogout?: () => void }) {
     [activeTab],
   );
 
-  const resolvedPrimaryAction: AdminPrimaryAction =
-    primaryAction?.tab === activeTab
-      ? primaryAction
-      : {
-          label: 'Save Changes',
-          onClick: () => undefined,
-          disabled: true,
-        };
+  const resolvedPrimaryAction: AdminPrimaryAction = useMemo(
+    () =>
+      primaryAction?.tab === activeTab
+        ? primaryAction
+        : {
+            label: 'Save Changes',
+            onClick: () => undefined,
+            disabled: true,
+          },
+    [activeTab, primaryAction],
+  );
+
+  const handlePrimaryAction = useCallback(async () => {
+    try {
+      await Promise.resolve(resolvedPrimaryAction.onClick());
+      await cms.flushSnapshot();
+    } catch {
+      toast.error('Changes failed to save to the server.');
+    }
+  }, [cms, resolvedPrimaryAction]);
 
   return (
     <div className="flex h-full w-full min-h-0 overflow-hidden bg-white text-black">
@@ -214,7 +227,9 @@ export default function AdminPanel({ onLogout }: { onLogout?: () => void }) {
 
         <div className="shrink-0 border-t border-black/10 p-3">
           <button
-            onClick={resolvedPrimaryAction.onClick}
+            onClick={() => {
+              void handlePrimaryAction();
+            }}
             disabled={resolvedPrimaryAction.disabled}
             className={`${adminPrimaryButtonClass} h-10 w-full px-3 ${isSidebarCollapsed ? 'px-0' : ''}`}
             aria-label="Save changes"

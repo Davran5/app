@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, ArrowLeft, Download, Check, X } from 'lucide-react';
-import { toast } from 'sonner';
+import { ChevronRight, ArrowLeft, Check, X } from 'lucide-react';
 import ProductStructuredData from '../components/ProductStructuredData';
 import { useSeoData } from '../components/SeoManager';
 import { useAnalytics } from '../contexts/AnalyticsContext';
@@ -12,7 +11,7 @@ import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl } from '../lib/media';
 export default function ProductDetail() {
   const { t } = useLanguage();
-  const { trackEvent, trackEventOnce } = useAnalytics();
+  const { trackEventOnce } = useAnalytics();
   const { getProductById } = useCms();
   const { seo, currentUrl } = useSeoData();
   const { productId } = useParams<{ productId: string }>();
@@ -70,17 +69,6 @@ export default function ProductDetail() {
       </div>
     );
   }
-
-  const handleDownload = () => {
-    trackEvent('file_download', {
-      file_name: `${product.id}-specifications.pdf`,
-      file_extension: 'pdf',
-      page_path: currentUrl,
-      item_id: product.id,
-      item_name: productName,
-    });
-    toast.info('Specification sheet download will be available soon.');
-  };
 
   return (
     <div className="min-h-screen w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>
@@ -193,17 +181,6 @@ export default function ProductDetail() {
                   })}
                 </div>
               </div>
-            </div>
-
-            <div className="flex justify-center mt-12 pb-4">
-              <button
-                onClick={handleDownload}
-                className="inline-flex items-center gap-2 bg-[#244d85] text-white px-8 py-4 font-medium
-                       transition-all duration-200 hover:bg-[#1E4ECC] shadow-sm uppercase tracking-wide text-sm"
-              >
-                <Download size={18} />
-                Download Full Specifications PDF
-              </button>
             </div>
           </div>
         </section>
