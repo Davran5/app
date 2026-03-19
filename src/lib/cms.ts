@@ -1121,15 +1121,19 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
     return defaults;
   }
 
-  const products =
-    Array.isArray(raw.products) && raw.products.length > 0
-      ? cloneCmsValue(raw.products as Product[])
-      : defaults.products;
-  const categories =
-    Array.isArray(raw.categories) && raw.categories.length > 0
-      ? cloneCmsValue(raw.categories as Category[])
-      : defaults.categories;
+  const usedDefaultProducts = !Array.isArray(raw.products) || raw.products.length === 0;
+  const usedDefaultCategories = !Array.isArray(raw.categories) || raw.categories.length === 0;
+  const products = usedDefaultProducts
+    ? defaults.products
+    : cloneCmsValue(raw.products as Product[]);
+  const categories = usedDefaultCategories
+    ? defaults.categories
+    : cloneCmsValue(raw.categories as Category[]);
   const hasFeaturedProductIds = Object.prototype.hasOwnProperty.call(raw, 'featuredProductIds');
+  const normalizedFeaturedProductIds = hasFeaturedProductIds
+    ? normalizeFeaturedProductIds(raw.featuredProductIds, products)
+    : [];
+  const defaultFeaturedProductIds = getDefaultFeaturedProductIds(products, categories);
 
   return {
     version: typeof raw.version === 'number' ? raw.version : defaults.version,
@@ -1137,8 +1141,10 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
     products,
     categories,
     featuredProductIds: hasFeaturedProductIds
-      ? normalizeFeaturedProductIds(raw.featuredProductIds, products)
-      : getDefaultFeaturedProductIds(products, categories),
+      ? normalizedFeaturedProductIds.length > 0 || (!usedDefaultProducts && !usedDefaultCategories)
+        ? normalizedFeaturedProductIds
+        : defaultFeaturedProductIds
+      : defaultFeaturedProductIds,
     distributorLocations: Array.isArray(raw.distributorLocations)
       ? normalizeDistributorLocations(raw.distributorLocations)
       : defaults.distributorLocations,
