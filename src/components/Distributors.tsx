@@ -3,7 +3,10 @@ import { Building2, ChevronDown, ChevronUp, Mail, Navigation, Phone, Target } fr
 import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useCms } from '../contexts/CmsContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import type { DistributorLocation } from '../data/distributors';
+import {
+  distributorLocations as baseDistributorLocations,
+  type DistributorLocation,
+} from '../data/distributors';
 import { getDistributorAreaLabel, getDistributorKindLabel, getDistributorUiCopy } from '../lib/distributors';
 import DistributorMap from './DistributorMap';
 
@@ -41,6 +44,8 @@ export default function Distributors() {
   const { language, t } = useLanguage();
   const { trackEvent } = useAnalytics();
   const { distributorLocations } = useCms();
+  const effectiveDistributorLocations =
+    distributorLocations.length > 0 ? distributorLocations : baseDistributorLocations;
   const ui = getDistributorUiCopy(language);
   const distanceFormatter = useMemo(
     () => new Intl.NumberFormat(language, { maximumFractionDigits: 0 }),
@@ -60,15 +65,17 @@ export default function Distributors() {
   const listRef = useRef<HTMLDivElement | null>(null);
   const distributorCounts = useMemo(
     () => ({
-      all: distributorLocations.length,
-      uzbekistan: distributorLocations.filter((location) => location.market === 'uzbekistan').length,
-      international: distributorLocations.filter((location) => location.market === 'international').length,
+      all: effectiveDistributorLocations.length,
+      uzbekistan: effectiveDistributorLocations.filter((location) => location.market === 'uzbekistan').length,
+      international: effectiveDistributorLocations.filter((location) => location.market === 'international').length,
     }),
-    [distributorLocations],
+    [effectiveDistributorLocations],
   );
 
   const processedLocations = useMemo<DisplayDistributor[]>(() => {
-    const nextLocations = distributorLocations.filter((location) => tab === 'all' || location.market === tab);
+    const nextLocations = effectiveDistributorLocations.filter(
+      (location) => tab === 'all' || location.market === tab,
+    );
 
     return nextLocations
       .map((location) => {
@@ -97,7 +104,7 @@ export default function Distributors() {
 
         return left.city.localeCompare(right.city, language);
       });
-  }, [distributorLocations, language, t, tab, userLocation]);
+  }, [effectiveDistributorLocations, language, t, tab, userLocation]);
 
   const selectedLocation =
     processedLocations.find((location) => location.id === selectedLocationId) ?? null;
@@ -154,7 +161,7 @@ export default function Distributors() {
         setTab('all');
         setIsLocating(false);
 
-        const nearest = distributorLocations
+        const nearest = effectiveDistributorLocations
           .map((location) => ({
             location,
             distance: calculateDistance(

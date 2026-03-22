@@ -1,15 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { GoogleMap, InfoWindow, useJsApiLoader, type Libraries } from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
 import { MapPin, Navigation, Phone, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { DistributorLocation } from '../data/distributors';
 import { getDistributorKindLabel, getDistributorUiCopy } from '../lib/distributors';
-import { getGoogleMapsApiKey, getGoogleMapsMapId } from '../lib/runtimeConfig';
+import { getGoogleMapsApiKey } from '../lib/runtimeConfig';
 
 const DEFAULT_CENTER = { lat: 43.5, lng: 64.5 };
 const DEFAULT_ZOOM = 4;
 const FOCUSED_LOCATION_ZOOM = 11;
-const GOOGLE_MAPS_LIBRARIES: Libraries = ['marker'];
 
 const MARKER_COLORS = {
   dealer: { fill: '#244d85', inner: '#ffffff' },
@@ -38,19 +37,6 @@ function getMarkerDimensions(isActive: boolean, isHovered: boolean) {
   const height = Math.round(width * 1.125);
 
   return { width, height };
-}
-
-function createMarkerContent(location: DistributorLocation, isActive: boolean, isHovered: boolean) {
-  const colors = MARKER_COLORS[location.kind];
-  const { width, height } = getMarkerDimensions(isActive, isHovered);
-  const marker = document.createElement('div');
-
-  marker.innerHTML = buildMarkerSvg(colors.fill, colors.inner, width, height);
-  marker.style.width = `${width}px`;
-  marker.style.height = `${height}px`;
-  marker.style.transform = 'translateZ(0)';
-
-  return marker;
 }
 
 function getBoundsPadding(map: google.maps.Map) {
@@ -93,12 +79,9 @@ export default function DistributorMap({
   const { language, t } = useLanguage();
   const ui = getDistributorUiCopy(language);
   const googleMapsApiKey = getGoogleMapsApiKey();
-  const googleMapId = getGoogleMapsMapId();
-  const supportsAdvancedMarkers = Boolean(googleMapId);
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: googleMapsApiKey || 'missing-google-maps-key',
-    libraries: GOOGLE_MAPS_LIBRARIES,
   });
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -159,94 +142,44 @@ export default function DistributorMap({
   }, [centerOn, locations, map]);
 
   useEffect(() => {
-    let disposed = false;
-
     if (!isLoaded || !map) {
       return;
     }
 
-    const renderMarkers = async () => {
-      let AdvancedMarkerElement: google.maps.MarkerLibrary['AdvancedMarkerElement'] | undefined;
+    markerCleanupRef.current.forEach((cleanup) => cleanup());
+    markerCleanupRef.current = [];
 
-      if (supportsAdvancedMarkers) {
-        ({ AdvancedMarkerElement } = (await google.maps.importLibrary(
-          'marker',
-        )) as google.maps.MarkerLibrary);
-      }
+    const nextCleanup: Array<() => void> = [];
 
-      if (disposed) {
-        return;
-      }
-
-      markerCleanupRef.current.forEach((cleanup) => cleanup());
-      markerCleanupRef.current = [];
-
-      const nextCleanup: Array<() => void> = [];
-
-      locations.forEach((location) => {
-        const isActive = activeLocationId === location.id;
-        const isHovered = hoveredLocationId === location.id;
-        const handleMarkerClick = () => {
-          onLocationClick?.(location);
-        };
-
-        if (AdvancedMarkerElement) {
-          const marker = new AdvancedMarkerElement({
-            map,
-            position: location.coords,
-            title: location.name,
-            content: createMarkerContent(location, isActive, isHovered),
-            gmpClickable: true,
-            zIndex: isActive ? 1000 : isHovered ? 900 : 1,
-          });
-
-          const listener: EventListener = () => {
-            handleMarkerClick();
-          };
-
-          marker.addEventListener('gmp-click', listener);
-          nextCleanup.push(() => {
-            marker.removeEventListener('gmp-click', listener);
-            marker.map = null;
-          });
-          return;
-        }
-
-        const colors = MARKER_COLORS[location.kind];
-        const { width, height } = getMarkerDimensions(isActive, isHovered);
-        const marker = new google.maps.Marker({
-          map,
-          position: location.coords,
-          title: location.name,
-          icon: {
-            url: buildMarkerDataUrl(colors.fill, colors.inner, width, height),
-            scaledSize: new google.maps.Size(width, height),
-            anchor: new google.maps.Point(width / 2, height),
-          },
-          zIndex: isActive ? 1000 : isHovered ? 900 : 1,
-        });
-        const listener = marker.addListener('click', handleMarkerClick);
-
-        nextCleanup.push(() => {
-          listener.remove();
-          marker.setMap(null);
-        });
+    locations.forEach((location) => {
+      const isActive = activeLocationId === location.id;
+      const isHovered = hoveredLocationId === location.id;
+      const handleMarkerClick = () => {
+        onLocationClick?.(location);
+      };
+      const colors = MARKER_COLORS[location.kind];
+      const { width, height } = getMarkerDimensions(isActive, isHovered);
+      const marker = new google.maps.Marker({
+        map,
+        position: location.coords,
+        title: location.name,
+        icon: {
+          url: buildMarkerDataUrl(colors.fill, colors.inner, width, height),
+          scaledSize: new google.maps.Size(width, height),
+          anchor: new google.maps.Point(width / 2, height),
+        },
+        zIndex: isActive ? 1000 : isHovered ? 900 : 1,
       });
+      const listener = marker.addListener('click', handleMarkerClick);
 
-      if (disposed) {
-        nextCleanup.forEach((cleanup) => cleanup());
-        return;
-      }
+      nextCleanup.push(() => {
+        listener.remove();
+        marker.setMap(null);
+      });
+    });
 
-      markerCleanupRef.current = nextCleanup;
-    };
-
-    void renderMarkers();
-
-    return () => {
-      disposed = true;
-    };
-  }, [activeLocationId, hoveredLocationId, isLoaded, locations, map, onLocationClick, supportsAdvancedMarkers]);
+    markerCleanupRef.current = nextCleanup;
+  }, [activeLocationId, hoveredLocationId, isLoaded, locations, map, onLocationClick]);
 
   if (!googleMapsApiKey || loadError) {
     return (
@@ -292,7 +225,7 @@ export default function DistributorMap({
           mapTypeControl: false,
           gestureHandling: 'cooperative',
           clickableIcons: false,
-          ...(supportsAdvancedMarkers ? { mapId: googleMapId } : {}),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
         }}
       >
         {activeLocation && !isMobile && (
