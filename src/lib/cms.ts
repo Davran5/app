@@ -1134,6 +1134,9 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
     ? normalizeFeaturedProductIds(raw.featuredProductIds, products)
     : [];
   const defaultFeaturedProductIds = getDefaultFeaturedProductIds(products, categories);
+  const normalizedDistributorLocations = Array.isArray(raw.distributorLocations)
+    ? normalizeDistributorLocations(raw.distributorLocations)
+    : [];
 
   return {
     version: typeof raw.version === 'number' ? raw.version : defaults.version,
@@ -1145,9 +1148,8 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
         ? normalizedFeaturedProductIds
         : defaultFeaturedProductIds
       : defaultFeaturedProductIds,
-    distributorLocations: Array.isArray(raw.distributorLocations)
-      ? normalizeDistributorLocations(raw.distributorLocations)
-      : defaults.distributorLocations,
+    distributorLocations:
+      normalizedDistributorLocations.length > 0 ? normalizedDistributorLocations : defaults.distributorLocations,
     vacancies: Array.isArray(raw.vacancies) ? normalizeVacancies(raw.vacancies) : defaults.vacancies,
     newsItems: Array.isArray(raw.newsItems) ? normalizeNewsItems(raw.newsItems) : defaults.newsItems,
     leads: Array.isArray(raw.leads) ? normalizeLeads(raw.leads) : defaults.leads,
