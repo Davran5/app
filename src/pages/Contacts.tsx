@@ -9,12 +9,9 @@ export default function Contacts() {
   const [showFormMobile, setShowFormMobile] = useState(false);
 
   const departments = [
-    { name: t.contacts.sales, email: 'sales@krantas.uz', phone: '+998 71 262 23 62' },
-    { name: t.contacts.support, email: 'support@krantas.uz', phone: '+998 71 262 23 63' },
-    { name: t.contacts.service, email: 'service@krantas.uz', phone: '+998 71 262 23 64' },
-    { name: t.contacts.parts, email: 'parts@krantas.uz', phone: '+998 71 262 23 65' },
-    { name: t.contacts.hr, email: 'hr@krantas.uz', phone: '+998 71 262 23 66' },
-    { name: t.contacts.export, email: 'export@krantas.uz', phone: '+998 71 262 23 67' },
+    { name: t.contacts.sales, email: 'info@krantas.uz', phone: '+998 90 330 00 00' },
+    { name: t.contacts.service, email: 'info@krantas.uz', phone: '+998 90 330 90 90' },
+    { name: t.contacts.parts, email: 'info@krantas.uz', phone: '+998 90 330 90 90' },
   ];
 
   useEffect(() => {

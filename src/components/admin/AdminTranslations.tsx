@@ -1,24 +1,22 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Search, Trash2 } from 'lucide-react';
-import { toast } from 'sonner';
 import type { Language } from '../../data/translations';
 import {
   getTranslationEntries,
   getTranslationFieldMeta,
   getTranslationPageList,
   getTranslationPageMeta,
-  getTranslationSectionMeta,
   getTranslationSectionsForPage,
   type TranslationOverrideMap,
 } from '../../lib/cms';
 import {
   adminCardClass,
-  adminDangerButtonClass,
   adminInputClass,
   adminLabelClass,
+  adminSecondaryButtonClass,
   adminTextareaClass,
   adminTitleClass,
-  getAdminListItemClass,
+  getAdminPillClass,
 } from './styles';
 import type { AdminPrimaryAction } from './types';
 
@@ -51,11 +49,8 @@ export default function AdminTranslations({
   const [translationLanguage, setTranslationLanguage] = useState<Language>('en');
   const [selectedPageId, setSelectedPageId] = useState('home');
   const [selectedSectionId, setSelectedSectionId] = useState(ALL_FIELDS_KEY);
-  const [selectedFieldPath, setSelectedFieldPath] = useState<string | null>(null);
   const [translationSearch, setTranslationSearch] = useState('');
   const [showOverridesOnly, setShowOverridesOnly] = useState(false);
-  const [draftPath, setDraftPath] = useState<string | null>(null);
-  const [draftValue, setDraftValue] = useState('');
 
   const currentOverrides = translationOverrides[translationLanguage];
 
@@ -135,6 +130,9 @@ export default function AdminTranslations({
   );
 
   const activePageCount = translationItems.filter((item) => item.pageId === activePageId).length;
+  const activePageOverrideCount = translationItems.filter(
+    (item) => item.pageId === activePageId && item.overridden,
+  ).length;
 
   const activeSectionId =
     selectedSectionId === ALL_FIELDS_KEY || sections.some((section) => section.id === selectedSectionId)
@@ -163,154 +161,93 @@ export default function AdminTranslations({
       });
   }, [activePageId, activeSectionId, showOverridesOnly, translationItems, translationSearch]);
 
-  const activeItem =
-    visibleItems.find((item) => item.path === selectedFieldPath) ??
-    visibleItems[0] ??
-    null;
+  const groupedSections = useMemo(() => {
+    const visiblePathSet = new Set(visibleItems.map((item) => item.path));
+    const sectionGroups = sections
+      .map((section) => ({
+        ...section,
+        items: translationItems.filter(
+          (item) => item.pageId === activePageId && item.sectionId === section.id && visiblePathSet.has(item.path),
+        ),
+      }))
+      .filter((section) => section.items.length > 0);
 
-  const editorValue = activeItem
-    ? draftPath === activeItem.path
-      ? draftValue
-      : activeItem.currentValue
-    : '';
+    const uncategorizedItems = visibleItems.filter(
+      (item) => !sections.some((section) => section.id === item.sectionId),
+    );
 
-  const handleSelectField = (item: TranslationListItem) => {
-    setSelectedFieldPath(item.path);
-    setDraftPath(item.path);
-    setDraftValue(item.currentValue);
-  };
+    if (uncategorizedItems.length > 0) {
+      sectionGroups.push({
+        id: '__uncategorized__',
+        label: 'Other Fields',
+        description: '',
+        count: uncategorizedItems.length,
+        items: uncategorizedItems,
+      });
+    }
 
-  const handleSaveTranslation = useCallback(() => {
-    if (!activeItem) {
+    return sectionGroups;
+  }, [activePageId, sections, translationItems, visibleItems]);
+
+  const handleValueChange = (item: TranslationListItem, nextValue: string) => {
+    if (nextValue === item.baseValue) {
+      clearTranslationOverride(translationLanguage, item.path);
       return;
     }
 
-    const nextValue = draftPath === activeItem.path ? draftValue : activeItem.currentValue;
-
-    if (nextValue === activeItem.baseValue) {
-      clearTranslationOverride(translationLanguage, activeItem.path);
-      toast.success('Translation cleared.');
-      return;
-    }
-
-    setTranslationOverride(translationLanguage, activeItem.path, nextValue);
-    toast.success('Translation saved.');
-  }, [
-    activeItem,
-    clearTranslationOverride,
-    draftPath,
-    draftValue,
-    setTranslationOverride,
-    translationLanguage,
-  ]);
-
-  const handleClearTranslation = () => {
-    if (!activeItem) {
-      return;
-    }
-
-    clearTranslationOverride(translationLanguage, activeItem.path);
-    setDraftPath(activeItem.path);
-    setDraftValue(activeItem.baseValue);
-    toast.success('Translation cleared.');
+    setTranslationOverride(translationLanguage, item.path, nextValue);
   };
 
   useEffect(() => {
     onPrimaryActionChange?.({
       label: 'Save Content',
-      onClick: handleSaveTranslation,
-      disabled: !activeItem,
+      onClick: () => undefined,
+      disabled: translationItems.length === 0,
     });
 
     return () => {
       onPrimaryActionChange?.(null);
     };
-  }, [activeItem, handleSaveTranslation, onPrimaryActionChange]);
+  }, [onPrimaryActionChange, translationItems.length]);
 
   return (
-    <div className="grid h-full min-h-0 gap-4 xl:grid-cols-[360px_minmax(0,1fr)]">
+    <div className="grid h-full min-h-0 gap-4 xl:grid-cols-[280px_minmax(0,1fr)]">
       <aside className={`${adminCardClass} flex min-h-0 flex-col overflow-hidden p-4`}>
         <div className="grid gap-3">
-          <div className="grid gap-2 sm:grid-cols-[150px_minmax(0,1fr)]">
-            <select
-              value={translationLanguage}
-              onChange={(event) => {
-                setTranslationLanguage(event.target.value as Language);
-                setSelectedFieldPath(null);
-                setDraftPath(null);
-                setDraftValue('');
-              }}
-              className={adminInputClass}
-            >
-              <option value="en">English</option>
-              <option value="ru">Russian</option>
-              <option value="uz">Uzbek</option>
-              <option value="de">German</option>
-            </select>
-
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className={adminLabelClass}>Language</p>
+              <h2 className="mt-2 text-lg font-semibold text-black">Page Content</h2>
+            </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowOverridesOnly(false)}
-                className={
-                  !showOverridesOnly
-                    ? 'rounded-full bg-black px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition'
-                    : 'rounded-full border border-black/10 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-600 transition hover:bg-neutral-100'
-                }
+                className={getAdminPillClass(!showOverridesOnly)}
               >
                 All
               </button>
               <button
                 onClick={() => setShowOverridesOnly(true)}
-                className={
-                  showOverridesOnly
-                    ? 'rounded-full bg-black px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition'
-                    : 'rounded-full border border-black/10 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-600 transition hover:bg-neutral-100'
-                }
+                className={getAdminPillClass(showOverridesOnly)}
               >
                 Changed
               </button>
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            <label className="space-y-2">
-              <span className={adminLabelClass}>Page</span>
-              <select
-                value={activePageId}
-                onChange={(event) => {
-                  setSelectedPageId(event.target.value);
-                  setSelectedSectionId(ALL_FIELDS_KEY);
-                  setSelectedFieldPath(null);
-                }}
-                className={adminInputClass}
-              >
-                {pages.map((page) => (
-                  <option key={page.id} value={page.id}>
-                    {`${page.label} (${page.count})`}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="space-y-2">
-              <span className={adminLabelClass}>Section</span>
-              <select
-                value={activeSectionId}
-                onChange={(event) => {
-                  setSelectedSectionId(event.target.value);
-                  setSelectedFieldPath(null);
-                }}
-                className={adminInputClass}
-              >
-                <option value={ALL_FIELDS_KEY}>{`All Fields (${activePageCount})`}</option>
-                {sections.map((section) => (
-                  <option key={section.id} value={section.id}>
-                    {`${section.label} (${section.count})`}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+          <select
+            value={translationLanguage}
+            onChange={(event) => {
+              setTranslationLanguage(event.target.value as Language);
+              setSelectedSectionId(ALL_FIELDS_KEY);
+            }}
+            className={adminInputClass}
+          >
+            <option value="en">English</option>
+            <option value="ru">Russian</option>
+            <option value="uz">Uzbek</option>
+            <option value="de">German</option>
+          </select>
 
           <div className="relative">
             <Search
@@ -327,108 +264,163 @@ export default function AdminTranslations({
         </div>
 
         <div className="mt-4 flex-1 overflow-y-auto pr-1">
-          {visibleItems.length > 0 ? (
-            <div className="space-y-3">
-              {visibleItems.map((item) => (
+          <div className="space-y-2">
+            {pages.map((page) => {
+              const active = page.id === activePageId;
+
+              return (
                 <button
-                  key={item.path}
-                  onClick={() => handleSelectField(item)}
-                  className={getAdminListItemClass(activeItem?.path === item.path)}
+                  key={page.id}
+                  onClick={() => {
+                    setSelectedPageId(page.id);
+                    setSelectedSectionId(ALL_FIELDS_KEY);
+                  }}
+                  className={`w-full rounded-2xl border px-4 py-3 text-left transition ${
+                    active
+                      ? 'border-black bg-black text-white'
+                      : 'border-black/10 bg-white text-black hover:bg-neutral-50'
+                  }`}
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold">{item.fieldLabel}</p>
+                    <div>
+                      <p className="text-sm font-semibold">{page.label}</p>
                       <p
-                        className={`mt-1 truncate text-xs uppercase tracking-[0.12em] ${
-                          activeItem?.path === item.path ? 'text-white/70' : 'text-neutral-500'
+                        className={`mt-1 text-xs uppercase tracking-[0.12em] ${
+                          active ? 'text-white/70' : 'text-neutral-500'
                         }`}
                       >
-                        {getTranslationSectionMeta(item.sectionId).label}
-                        {item.fieldContext ? ` / ${item.fieldContext}` : ''}
+                        {page.count} fields
                       </p>
                     </div>
 
-                    {item.overridden && (
+                    {page.overrideCount > 0 && (
                       <span
                         className={`rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
-                          activeItem?.path === item.path ? 'bg-white/15 text-white' : 'bg-neutral-100 text-neutral-500'
+                          active ? 'bg-white/15 text-white' : 'bg-neutral-100 text-neutral-600'
                         }`}
                       >
-                        Changed
+                        {page.overrideCount} changed
                       </span>
                     )}
                   </div>
-
-                  <p
-                    className={`mt-3 line-clamp-2 text-xs ${
-                      activeItem?.path === item.path ? 'text-white/75' : 'text-neutral-500'
-                    }`}
-                  >
-                    {item.currentValue || item.baseValue || 'Empty'}
-                  </p>
                 </button>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-dashed border-black/10 bg-neutral-50 px-4 py-8 text-center text-sm text-neutral-500">
-              No results
-            </div>
-          )}
+              );
+            })}
+          </div>
         </div>
       </aside>
 
       <section className={`${adminCardClass} flex min-h-0 flex-col overflow-hidden p-5`}>
-        {activeItem ? (
-          <>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 className={adminTitleClass}>{activeItem.fieldLabel}</h2>
-                <p className="mt-2 text-sm text-neutral-500">
-                  {activePage.label}
-                  {activeSectionId !== ALL_FIELDS_KEY ? ` / ${getTranslationSectionMeta(activeSectionId).label}` : ''}
-                  {activeItem.fieldContext ? ` / ${activeItem.fieldContext}` : ''}
-                </p>
-              </div>
-
-              <button onClick={handleClearTranslation} className={adminDangerButtonClass}>
-                <Trash2 size={16} />
-                Clear
-              </button>
-            </div>
-
-            <div className="mt-5 flex-1 overflow-y-auto pr-1">
-              <div className="rounded-2xl border border-black/10 bg-neutral-50 p-4">
-                <p className={adminLabelClass}>Path</p>
-                <p className="mt-2 break-all font-mono text-xs text-neutral-600">{activeItem.path}</p>
-              </div>
-
-              <div className="mt-4 rounded-2xl border border-black/10 bg-neutral-50 p-4">
-                <p className={adminLabelClass}>Base Value</p>
-                <p className="mt-3 whitespace-pre-wrap text-sm text-neutral-700">
-                  {activeItem.baseValue || 'Empty'}
-                </p>
-              </div>
-
-              <label className="mt-4 block space-y-2">
-                <span className={adminLabelClass}>Override Value</span>
-                <textarea
-                  value={editorValue}
-                  onChange={(event) => {
-                    setSelectedFieldPath(activeItem.path);
-                    setDraftPath(activeItem.path);
-                    setDraftValue(event.target.value);
-                  }}
-                  rows={16}
-                  className={adminTextareaClass}
-                />
-              </label>
-            </div>
-          </>
-        ) : (
-          <div className="flex min-h-0 flex-1 items-center justify-center rounded-2xl border border-dashed border-black/10 bg-neutral-50 text-sm text-neutral-500">
-            Select a field
+        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-black/10 pb-4">
+          <div>
+            <p className={adminLabelClass}>Editing Page</p>
+            <h2 className={adminTitleClass}>{activePage.label}</h2>
+            <p className="mt-2 text-sm text-neutral-500">
+              Edit fields inline below, then use the main Save button to publish them to the server.
+            </p>
           </div>
-        )}
+
+          <div className="rounded-2xl border border-black/10 bg-neutral-50 px-4 py-3 text-right">
+            <p className={adminLabelClass}>Status</p>
+            <p className="mt-2 text-sm font-semibold text-black">{activePageCount} total fields</p>
+            <p className="mt-1 text-sm text-neutral-500">{activePageOverrideCount} changed</p>
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            onClick={() => setSelectedSectionId(ALL_FIELDS_KEY)}
+            className={getAdminPillClass(activeSectionId === ALL_FIELDS_KEY)}
+          >
+            {`All Sections (${activePageCount})`}
+          </button>
+          {sections.map((section) => (
+            <button
+              key={section.id}
+              onClick={() => setSelectedSectionId(section.id)}
+              className={getAdminPillClass(activeSectionId === section.id)}
+            >
+              {`${section.label} (${section.count})`}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-5 flex-1 overflow-y-auto pr-1">
+          {groupedSections.length > 0 ? (
+            <div className="space-y-5">
+              {groupedSections.map((section) => (
+                <div key={section.id} className="rounded-[24px] border border-black/10 bg-neutral-50 p-4 lg:p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-black">{section.label}</h3>
+                      {section.description && (
+                        <p className="mt-2 max-w-2xl text-sm text-neutral-500">{section.description}</p>
+                      )}
+                    </div>
+                    <span className="rounded-full border border-black/10 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-600">
+                      {section.items.length} fields
+                    </span>
+                  </div>
+
+                  <div className="mt-4 space-y-4">
+                    {section.items.map((item) => (
+                      <div key={item.path} className="rounded-[20px] border border-black/10 bg-white p-4">
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h4 className="text-sm font-semibold text-black">{item.fieldLabel}</h4>
+                              {item.overridden && (
+                                <span className="rounded-full bg-black px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
+                                  Changed
+                                </span>
+                              )}
+                            </div>
+                            <p className="mt-1 text-xs uppercase tracking-[0.12em] text-neutral-500">
+                              {item.fieldContext || 'Page field'}
+                            </p>
+                          </div>
+
+                          <button
+                            onClick={() => clearTranslationOverride(translationLanguage, item.path)}
+                            className={adminSecondaryButtonClass}
+                          >
+                            <Trash2 size={14} />
+                            Use Base Text
+                          </button>
+                        </div>
+
+                        <div className="mt-4 grid gap-4 xl:grid-cols-2">
+                          <div className="rounded-2xl border border-black/10 bg-neutral-50 p-4">
+                            <p className={adminLabelClass}>Base Text</p>
+                            <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-neutral-700">
+                              {item.baseValue || 'Empty'}
+                            </p>
+                          </div>
+
+                          <label className="block space-y-2">
+                            <span className={adminLabelClass}>Live Edit</span>
+                            <textarea
+                              value={item.currentValue}
+                              onChange={(event) => handleValueChange(item, event.target.value)}
+                              rows={Math.min(Math.max((item.currentValue || item.baseValue || ' ').split('\n').length + 2, 5), 12)}
+                              className={adminTextareaClass}
+                            />
+                          </label>
+                        </div>
+
+                        <p className="mt-3 break-all font-mono text-[11px] text-neutral-400">{item.path}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex min-h-0 flex-1 items-center justify-center rounded-2xl border border-dashed border-black/10 bg-neutral-50 text-sm text-neutral-500">
+              No fields match the current filters.
+            </div>
+          )}
+        </div>
       </section>
     </div>
   );
