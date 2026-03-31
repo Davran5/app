@@ -710,7 +710,7 @@ function filterPublicCmsSnapshot(rawSnapshot) {
     );
   }
 
-  for (const key of ['products', 'categories', 'featuredProductIds', 'distributorLocations']) {
+  for (const key of ['products', 'categories', 'featuredProductIds', 'distributorLocations', 'newsItems']) {
     if (Array.isArray(nextSnapshot[key]) && nextSnapshot[key].length === 0) {
       delete nextSnapshot[key];
     }

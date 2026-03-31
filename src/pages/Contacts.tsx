@@ -5,14 +5,7 @@ import ContactForm from '../components/ContactForm';
 
 export default function Contacts() {
   const { t } = useLanguage();
-  const [selectedDept, setSelectedDept] = useState<number | null>(null);
   const [showFormMobile, setShowFormMobile] = useState(false);
-
-  const departments = [
-    { name: t.contacts.sales, email: 'info@krantas.uz', phone: '+998 90 330 00 00' },
-    { name: t.contacts.service, email: 'info@krantas.uz', phone: '+998 90 330 90 90' },
-    { name: t.contacts.parts, email: 'info@krantas.uz', phone: '+998 90 330 90 90' },
-  ];
 
   useEffect(() => {
     if (window.location.hash === '#contact-form') {
@@ -61,10 +54,10 @@ export default function Contacts() {
                     <h4 className="font-bold text-[#0B0C0E] text-base mb-1">{t.contacts.headquarters.contactInfoLabel}</h4>
                     <div className="space-y-2">
                       <a
-                        href="tel:+998712622361"
+                        href="tel:+998900479090"
                         className="text-[#244d85] text-base hover:text-[#1E4ECC] block font-medium"
                       >
-                        +998 71 262 23 61
+                        +998 90 047 90 90
                       </a>
                       <p className="text-[#0B0C0E] text-base">info@krantas.uz</p>
                     </div>
@@ -88,68 +81,9 @@ export default function Contacts() {
           </div>
         </section>
 
-        {/* Departments Section */}
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0B0C0E] mb-10 text-left md:text-center">
-              {t.contacts.departments}
-            </h2>
-
-            {/* Desktop View: Grid */}
-            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {departments.map((dept, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-50 p-6 shadow-sm hover:shadow-md transition-all rounded-sm border border-gray-100"
-                >
-                  <h4 className="font-display text-xl font-medium text-[#0B0C0E] mb-3">{dept.name}</h4>
-                  <div className="space-y-1 text-base">
-                    <p className="text-gray-600">{dept.email}</p>
-                    <p className="text-gray-600">{dept.phone}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Mobile View: Dropdown Accordion */}
-            <div className="sm:hidden space-y-4">
-              <div className="flex flex-col border-t border-gray-100">
-                {departments.map((dept, index) => (
-                  <div key={index} className="border-b border-gray-100">
-                    <button
-                      onClick={() => setSelectedDept(selectedDept === index ? null : index)}
-                      className={`w-full text-left py-6 flex items-center justify-between transition-all duration-300 ${selectedDept === index ? 'text-[#244d85]' : 'text-[#0B0C0E]'}`}
-                    >
-                      <h4 className="font-display text-lg font-medium">
-                        {dept.name}
-                      </h4>
-                      <ChevronRight
-                        size={20}
-                        className={`transition-transform duration-300 ${selectedDept === index ? 'rotate-90 text-[#244d85]' : 'text-gray-300'}`}
-                      />
-                    </button>
-
-                    {selectedDept === index && (
-                      <div className="pb-8 animate-in fade-in slide-in-from-top-2 duration-300">
-                        <div className="space-y-2 text-base">
-                          <p className="text-gray-600 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#244d85]"></span>
-                            {dept.email}
-                          </p>
-                          <p className="text-gray-600 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#244d85]"></span>
-                            {dept.phone}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Telegram Buttons Section */}
-            <div className="mt-12 lg:mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
               <a
                 href="https://t.me/Krantas_service_bot"
                 target="_blank"

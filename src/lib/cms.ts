@@ -1137,6 +1137,7 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
   const normalizedDistributorLocations = Array.isArray(raw.distributorLocations)
     ? normalizeDistributorLocations(raw.distributorLocations)
     : [];
+  const normalizedNewsItems = Array.isArray(raw.newsItems) ? normalizeNewsItems(raw.newsItems) : [];
 
   return {
     version: typeof raw.version === 'number' ? raw.version : defaults.version,
@@ -1151,7 +1152,7 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
     distributorLocations:
       normalizedDistributorLocations.length > 0 ? normalizedDistributorLocations : defaults.distributorLocations,
     vacancies: Array.isArray(raw.vacancies) ? normalizeVacancies(raw.vacancies) : defaults.vacancies,
-    newsItems: Array.isArray(raw.newsItems) ? normalizeNewsItems(raw.newsItems) : defaults.newsItems,
+    newsItems: normalizedNewsItems.length > 0 ? normalizedNewsItems : defaults.newsItems,
     leads: Array.isArray(raw.leads) ? normalizeLeads(raw.leads) : defaults.leads,
     mediaItems: normalizeMediaItems(raw.mediaItems),
     translationOverrides: normalizeTranslationOverrides(raw.translationOverrides),

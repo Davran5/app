@@ -20,7 +20,7 @@ export interface LegalDocumentContent {
 export const COMPANY_LEGAL_CONTACT = {
   name: 'KRANTAS Group',
   email: 'info@krantas.uz',
-  phone: '+998 71 262 23 61',
+  phone: '+998 90 047 90 90',
   address: '100170, Tashkent, Uzbekistan',
 };
 
