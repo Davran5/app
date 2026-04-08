@@ -2,9 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
 import TeamMemberStoryCards from '../components/TeamMemberStoryCards';
 import { teamMembers } from '../data/products';
+import { resolveMediaInputUrl } from '../lib/media';
 
 
 
@@ -29,6 +31,7 @@ const partners = [
 
 export default function About() {
   const { t } = useLanguage();
+  const { getSectionMedia } = useCms();
   const [showForm, setShowForm] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const mobileYearScrollRef = useRef<HTMLDivElement>(null);
@@ -168,7 +171,9 @@ export default function About() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="relative overflow-hidden order-2 lg:order-1">
                 <img
-                  src="/hq.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia('about.about.storyImage', '/hq.jpeg'),
+                  )}
                   alt="Krantas Factory History"
                   className="w-full h-[320px] lg:h-[380px] object-cover shadow-2xl relative z-10"
                 />
@@ -457,7 +462,12 @@ export default function About() {
               <div className="relative order-2 lg:order-1 overflow-hidden">
                 <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-[#244d85]/20" />
                 <img
-                  src="/chairman_portrait.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia(
+                      'about.about.chairmanImage',
+                      '/chairman_portrait.jpeg',
+                    ),
+                  )}
                   alt="Chairman"
                   className="w-full aspect-[16/9] lg:aspect-[16/9] object-cover transition-all duration-700 shadow-2xl relative z-10"
                 />

@@ -7,6 +7,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
 import TeamMemberStoryCards from '../components/TeamMemberStoryCards';
 import { getVacancyLocalization } from '../lib/cms';
+import { resolveMediaInputUrl } from '../lib/media';
 
 interface OpenPosition {
   id: string;
@@ -23,7 +24,7 @@ interface OpenPosition {
 export default function Careers() {
   const { t, language } = useLanguage();
   const { trackEvent } = useAnalytics();
-  const { vacancies, createLead } = useCms();
+  const { vacancies, createLead, getSectionMedia } = useCms();
   const location = useLocation();
   const [expandedJob, setExpandedJob] = useState<string | null>(null);
   const [showApplication, setShowApplication] = useState(false);
@@ -127,7 +128,9 @@ export default function Careers() {
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <div className="order-2 lg:order-1">
                   <img
-                    src="/work.jpeg"
+                    src={resolveMediaInputUrl(
+                      getSectionMedia('careers.careers.introImage', '/work.jpeg'),
+                    )}
                     alt="Krantas Workplace"
                     className="w-full h-[240px] lg:h-[300px] object-cover"
                   />

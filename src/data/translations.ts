@@ -370,12 +370,8 @@ export const translations = {
       inquiryForm: 'Inquiry Form'
     },
     about: {
-      title: 'About Us',
       heroTitle: 'The Krantas Legacy',
       heroIntro: 'Engineering strength since 1945. Our legacy is built on full-cycle manufacturing of industrial machinery for the toughest environments.',
-      heading: 'Engineering Strength Since 1945',
-      welcomeTitle: 'About the Company',
-      subtitle: 'From a mechanical repair shop to a full-cycle manufacturing group serving Central Asia and beyond.',
       story: 'Our Story',
       storyP1: 'Our factory was founded in 1945 as a mechanical repair plant for trucks and heavy machinery. In the early years, we specialized in keeping the region\'s vehicles running, earning a reputation for quality craftsmanship.',
       storyP2: 'After the devastating 1966 earthquake, the factory was repurposed and began production of steel structures and lifting equipment for civil and industrial construction.',
@@ -383,14 +379,8 @@ export const translations = {
       storyP4: 'Today, KRANTAS Group is a full-cycle manufacturer with modern CNC machining, welding, plasma/laser cutting, and assembly capabilities.',
       family: 'The KRANTAS Family',
       familyDesc: 'Generations of dedication. Decades of expertise. The people who form the heart of KRANTAS as a company.',
-      familyQuote: '"I have been working at KRANTAS for over 30 years. I have seen this company grow from a small repair shop to a major manufacturer. The pride I feel seeing our equipment working across the country is immeasurable."',
-      familyQuoteAuthor: '— Rustam Khasanov, Chief Engineer',
       joinFamily: 'Join Our Family',
       history: 'Growth & Progress',
-      production: 'Production Stages',
-      manufacturing: 'Full-Cycle Manufacturing',
-      manufacturingDesc: 'The factory has its own design bureau for independent development of projects and working drawings of new types of special equipment in accordance with the latest global trends.',
-      manufacturingFeatures: ['3D Modeling & Detailing', 'Tooling Development', 'Steel Structures', 'Assembly & Testing', 'Quality Control', 'Certification'],
       chairman: 'Chairman\'s Message',
       chairmanQuote: '"KRANTAS Group is built on strong engineering traditions, local manufacturing, and a clear vision for the future. KRANTAS is not just a vehicle—it is a reliable engineering solution."',
       chairmanName: 'Karimov Mukhtor Akbarovich',
@@ -426,35 +416,8 @@ export const translations = {
           text: 'Parents, grandparents, and brothers all worked at KRANTAS. Father: 40 years as a painter. Mother: 37 years as a crane operator. A legacy of dedication.'
         }
       },
-      certificatesList: {
-        1: { name: 'Certificate', desc: 'OOO "KRANTAS"', org: 'Directorate of the International Industrial Fair and Cooperation Exchange' },
-        2: { name: 'Certificate', desc: 'OOO "Crane and Special Trucks"', org: 'Directorate of the International Industrial Fair and Cooperation Exchange' },
-        3: { name: 'Certificate', desc: 'OOO "TTEMZ"', org: 'Directorate of the International Industrial Fair and Cooperation Exchange' },
-        4: { name: 'Performance Award', desc: 'Global Specific Performance Award 2022', org: 'FOTON' },
-        5: { name: 'Diplom', desc: 'Turkmen Construction 2015', org: 'Chamber of Commerce and Industry' },
-        6: { name: 'Certificate', desc: '17th Kazakhstan International Building Exhibition', org: 'Astana Build' },
-      },
-      certificates: 'Quality Standards',
       partners: 'Our Partners',
       partnersDesc: 'We partner with leading global manufacturers to ensure the highest quality of components and technology in our products.',
-      geography: 'Supply Geography',
-      geographyDesc: 'KRANTAS Group supplies equipment throughout Central Asia and beyond. Our products operate in diverse environments—from the mountains of Kyrgyzstan to the deserts of Turkmenistan.',
-      distributors: {
-        title: 'Our Distributors',
-        description: 'KRANTAS Group partners with leading distributors across Central Asia and beyond. Our network ensures that wherever you operate, you have access to quality industrial equipment backed by local expertise and support.',
-        mapLegend: 'Detailed coverage across 6 countries and 15+ cities',
-        centersTitle: 'Regional Distribution Centers',
-        regionalBranch: 'Regional Branch',
-        regionalCenter: 'Regional Center',
-        mountainSpecialist: 'Mountain Specialist',
-        emergingMarkets: 'Emerging Markets',
-        countries: {
-          azerbaijan: 'Azerbaijan',
-          kazakhstan: 'Kazakhstan',
-          kyrgyzstan: 'Kyrgyzstan',
-          tajikTurkmen: 'Tajikistan & Turkmenistan'
-        }
-      },
       teamRoles: {
         director: 'Director',
         deputyDirector: 'Deputy Director',
@@ -464,74 +427,24 @@ export const translations = {
       }
     },
     blog: {
-      title: 'News',
-      subtitle: 'Latest news, updates, and insights from the factory.',
       heroIntro: 'Latest KRANTAS Group updates. Follow our partnerships, production milestones, and regional growth.',
       latest: 'Latest Articles',
-      stayUpdated: 'Stay Updated',
-      newsletter: 'Subscribe to our newsletter to receive the latest news and industry insights.',
-      subscribe: 'Subscribe',
-      explore: 'Explore Newsroom',
-      newsTeam: 'News Team',
       readOriginal: 'Read Original News',
       newestFirst: 'Newest First',
       oldestFirst: 'Oldest First',
-      posts: {
-        1: {
-          title: 'Presidential Visit to Krantas Group Plant',
-          excerpt: 'President Shavkat Mirziyoyev visited our production facilities, highlighting the importance of industrial localization and the expansion of our special equipment range to over 60 types.'
-        },
-        2: {
-          title: 'Expansion into Military and Special Equipment Production',
-          excerpt: 'Krantas Group announces plans for a $55 million project in Nurafshan to manufacture light armored vehicles and specialized trucks on a new 12-hectare industrial site.'
-        },
-        3: {
-          title: 'Global Debut: Tarlon and Qalqon at IDEX-2023',
-          excerpt: 'We proudly presented our latest light armored vehicles, Tarlon and Qalqon, at the international defense exhibition in the UAE, showcasing Uzbek engineering excellence on a global stage.'
-        },
-        4: {
-          title: 'Strategic Partnership with MAZ and MTZ',
-          excerpt: 'Krantas Group strengthens international ties through discussions with Belarusian partners to start assembling tractors and industrial machinery in Uzbekistan.'
-        },
-        5: {
-          title: 'Enhancing Mining Efficiency at AGMK',
-          excerpt: 'Our high-capacity dump trucks have been delivered to the Almalyk Mining and Metallurgical Complex, supporting the modernization and transport capacity of Uzbekistan\'s mining industry.'
-        },
-        6: {
-          title: 'Introducing "Arslon": Uzbekistan\'s First Domestic BTR',
-          excerpt: 'Developed to international standards, our new Armored Personnel Carrier "Arslon" has entered state trials, representing a major milestone in domestic defense manufacturing.'
-        },
-        7: {
-          title: 'Significant Infrastructure Development',
-          excerpt: 'A major $1 billion urban mixed development project is proposed for our former Mirzo-Ulugbek factory site, covering 14 hectares and paving the way for modern residential and social infrastructure.'
-        },
-        8: {
-          title: 'Presidents of Uzbekistan and Tajikistan Inaugurate TALCO-KRANTAS Joint Venture',
-          excerpt: 'In a significant step for industrial cooperation, the first phase of the TALCO-KRANTAS joint venture was inaugurated for assembly of special construction and municipal vehicles.'
-        }
-      },
-      featured: {
-        lorem1: 'Detailed insights into our latest engineering breakthroughs and testing procedures.',
-        lorem2: 'We continue to push the boundaries of what is possible in heavy machinery manufacturing.'
-      }
     },
     careers: {
-      title: 'Careers at KRANTAS',
-      welcomeTitle: 'Join Our Team',
       heroIntro: 'Be a part of the next generation of industrial technology by joining the KRANTAS Family. We invite dedicated professionals to join our engineering and production teams.',
       subtitle: 'Build the next generation of industrial vehicles. Join a team that values precision, safety, and growth.',
       whyWork: 'Why Work With Us?',
       team: 'Honored Team Members',
       openPositions: 'Open Positions',
       apply: 'Apply',
-      applyNow: 'Apply Now',
       fullName: 'Full Name',
       email: 'Email',
       phone: 'Phone',
       message: 'Message',
       submit: 'Submit Application',
-      cancel: 'Cancel',
-      joinTeam: 'Join a team where engineering excellence meets heritage.',
       experienceLabel: 'Experience:',
       ageLabel: 'Age:',
       requirementsLabel: 'Requirements:',
@@ -543,76 +456,30 @@ export const translations = {
       agePlaceholder: 'Years',
       experiencePlaceholder: 'Years',
       messagePlaceholder: 'Tell us about yourself...',
-      positions: {
-        1: {
-          title: 'Mechanical Engineer',
-          department: 'Engineering',
-          location: 'Tashkent',
-          experience: '3-5 years',
-          age: '25-45',
-          description: 'Design mechanical systems for industrial vehicles. Work with CAD software.',
-          requirements: ['Bachelor\'s degree', 'CAD experience', 'Knowledge of manufacturing processes', 'Problem-solving skills']
-        },
-        2: {
-          title: 'Welder',
-          department: 'Production',
-          location: 'Tashkent',
-          experience: '2+ years',
-          age: '20-50',
-          description: 'Perform welding on steel structures. Comply with quality and safety standards.',
-          requirements: ['Certification', 'MIG/TIG experience', 'Safety knowledge', 'Blueprint reading']
-        },
-        3: {
-          title: 'CNC Operator',
-          department: 'Production',
-          location: 'Tashkent',
-          experience: '2-4 years',
-          age: '22-45',
-          description: 'Operate CNC machines for precision machining. Program and maintain equipment.',
-          requirements: ['Technical education', 'CNC programming', 'G-code knowledge', 'Attention to detail']
-        },
-        4: {
-          title: 'Sales Manager',
-          department: 'Sales',
-          location: 'Tashkent',
-          experience: '3+ years',
-          age: '25-40',
-          description: 'Develop client relationships. Identify new business opportunities.',
-          requirements: ['Bachelor\'s degree', 'B2B sales experience', 'Communication skills', 'Market knowledge']
-        }
-      },
     },
     contacts: {
       title: 'Contact Us',
-      welcomeTitle: 'We Are Always in Touch',
       heroIntro: 'Our team is ready to assist with your technical or commercial inquiries. Reach out to our Tashkent headquarters for professional support.',
-      subtitle: 'Inquire about products, services, or partnerships. We respond within 1-2 business days.',
-      info: 'Contact Information',
-      form: 'Send a Message',
-      departments: 'Our Departments',
       address: 'Mirzo-Ulugbek district, Ziyolilar str. 1',
-      phone: '+998 90 047 90 90',
+      phone: '+998 90 330 00 00',
       email: 'info@krantas.uz',
-      sales: 'Sales Department',
-      support: 'Technical Support',
-      parts: 'Spare Parts',
-      service: 'Service Center',
-      hr: 'Human Resources',
-      export: 'Export Department',
       telegramService: 'Krantas TG Bot',
       telegramKrantas: 'Krantas Group TG',
       name: 'Your Name',
       emailLabel: 'Your Email',
       messageLabel: 'Your Message',
       send: 'Send Message',
-      heroTitle: 'Get in Touch',
-      teamReady: 'Our team is ready to assist with any inquiries about our products, services, or industrial solutions.',
       headquarters: {
         title: 'KRANTAS Group Headquarters',
         description: 'The office is located approximately 50 minutes from Tashkent International Airport.',
         officeLabel: 'Our Office',
         postalCodeLabel: 'Postal Code',
-        contactInfoLabel: 'Contact Information'
+        mainOfficeLabel: 'Main Office',
+        mainOfficePhone: '+998 90 330 00 00',
+        mainOfficeEmail: 'info@krantas.uz',
+        serviceCenterLabel: 'Service Center',
+        serviceCenterPhone: '+998 90 047 90 90',
+        serviceCenterEmail: 'info@krantas.uz'
       },
       formTitle: 'Contact Form',
       inquiryForm: 'Inquiry Form',
@@ -1424,12 +1291,8 @@ export const translations = {
       inquiryForm: 'Форма Запроса'
     },
     about: {
-      title: 'О Нас',
       heroTitle: 'Наследие Krantas',
       heroIntro: 'Инженерная мощь с 1945 года. Наше наследие строится на производстве полного цикла промышленного оборудования для самых сложных условий.',
-      heading: 'Инженерная Мощь с 1945 года',
-      welcomeTitle: 'О Компании',
-      subtitle: 'От механической мастерской до производственной группы полного цикла, обслуживающей Центральную Азию и страны зарубежья.',
       story: 'Наша История',
       storyP1: 'Наш завод был основан в 1945 году как механический ремонтный завод для грузовиков и тяжелой техники. В первые годы мы специализировались на поддержании автопарка региона, завоевав репутацию мастеров высокого качества.',
       storyP2: 'После разрушительного землетрясения 1966 года завод был перепрофилирован и начал производство стальных конструкций и подъемного оборудования для гражданского и промышленного строительства.',
@@ -1437,21 +1300,14 @@ export const translations = {
       storyP4: 'Сегодня KRANTAS Group — это производитель полного цикла с современными возможностями ЧПУ-обработки, сварки, плазменной/лазерной резки и сборки.',
       family: 'Семья KRANTAS',
       familyDesc: 'Поколения преданности. Десятилетия опыта. Люди, которые составляют сердце KRANTAS как компании.',
-      familyQuote: '"Я работаю в KRANTAS более 30 лет. Я видел, как эта компания выросла из небольшой мастерской в крупного производителя. Гордость, которую я испытываю, видя нашу технику работающей по всей стране, неизмерима."',
-      familyQuoteAuthor: '— Рустам Хасанов, Главный Инженер',
       joinFamily: 'Присоединяйтесь к Нашей Семье',
       history: 'История и Достижения',
-      production: 'Этапы Производства',
-      manufacturing: 'Производство Полного Цикла',
-      manufacturingDesc: 'Завод имеет собственное конструкторское бюро для независимой разработки проектов и рабочих чертежей новых типов спецтехники в соответствии с последними мировыми трендами.',
-      manufacturingFeatures: ['3D Моделирование и Деталировка', 'Разработка Оснастки', 'Металлоконструкции', 'Сборка и Испытания', 'Контроль Качества', 'Сертификация'],
       chairman: 'Обращение Председателя',
       chairmanQuote: '"KRANTAS Group строится на сильных инженерных традициях, локальном производстве и четком видении будущего. KRANTAS — это не просто машина, это надежное инженерное решение."',
       chairmanName: 'Каримов Мухтор Акбарович',
       chairmanTitle: 'Председатель, KRANTAS Group',
       team: 'Руководство, которое строит',
       teamSubtitle: '',
-      certificates: 'Стандарты Качества',
       historyEvents: [
         { year: 1945, title: 'Основание', description: 'Основан как механический ремонтный завод для грузовиков и тяжелой техники в Ташкенте.', image: '/1945.jpeg' },
         { year: 1966, title: 'Восстановление и расширение', description: 'После землетрясения 1966 года завод переориентировался на поддержку восстановления города и начал производство стальных конструкций и подъемного оборудования.', image: '/1966.jpg' },
@@ -1481,34 +1337,8 @@ export const translations = {
           text: 'Родители, бабушки, дедушки и братья - все работали в KRANTAS. Отец: 40 лет маляром. Мать: 37 лет оператором крана. Наследие преданности.'
         }
       },
-      certificatesList: {
-        1: { name: 'Сертификат', desc: 'ООО "KRANTAS"', org: 'Дирекция Международной Промышленной Ярмарки и Кооперационной Биржи' },
-        2: { name: 'Сертификат', desc: 'ООО "Кран и Спецтехника"', org: 'Дирекция Международной Промышленной Ярмарки и Кооперационной Биржи' },
-        3: { name: 'Сертификат', desc: 'ООО "ТТЭМЗ"', org: 'Дирекция Международной Промышленной Ярмарки и Кооперационной Биржи' },
-        4: { name: 'Награда за Эффективность', desc: 'Global Specific Performance Award 2022', org: 'FOTON' },
-        5: { name: 'Диплом', desc: 'Туркменское Строительство 2015', org: 'Торгово-промышленная палата' },
-        6: { name: 'Сертификат', desc: '17-я Казахстанская Международная Строительная Выставка', org: 'Astana Build' },
-      },
       partners: 'Наши Партнеры',
       partnersDesc: 'Мы сотрудничаем с ведущими мировыми производителями, чтобы гарантировать высочайшее качество компонентов и технологий в наших продуктах.',
-      geography: 'География Поставок',
-      geographyDesc: 'KRANTAS Group поставляет оборудование по всей Центральной Азии и за ее пределы. Наша продукция работает в самых разных условиях — от гор Кыргызстана до пустынь Туркменистана.',
-      distributors: {
-        title: 'Наши Дистрибьюторы',
-        description: 'KRANTAS Group сотрудничает с ведущими дистрибьюторами в Центральной Азии и за ее пределами. Наша сеть гарантирует, что где бы вы ни работали, у вас будет доступ к качественному промышленному оборудованию, поддерживаемому местным опытом и поддержкой.',
-        mapLegend: 'Подробное покрытие в 6 странах и более чем в 15 городах',
-        centersTitle: 'Региональные распределительные центры',
-        regionalBranch: 'Региональный филиал',
-        regionalCenter: 'Региональный центр',
-        mountainSpecialist: 'Горный специалист',
-        emergingMarkets: 'Развивающиеся рынки',
-        countries: {
-          azerbaijan: 'Азербайджан',
-          kazakhstan: 'Казахстан',
-          kyrgyzstan: 'Кыргызстан',
-          tajikTurkmen: 'Таджикистан и Туркменистан'
-        }
-      },
       teamRoles: {
         director: 'Директор',
         deputyDirector: 'Заместитель директора',
@@ -1518,74 +1348,24 @@ export const translations = {
       }
     },
     blog: {
-      title: 'Новости',
-      subtitle: 'Последние новости, обновления и инсайты с завода.',
       heroIntro: 'Последние новости и стратегические достижения KRANTAS Group. Будьте в курсе наших новых партнерств, производственных этапов и регионального развития.',
       latest: 'Последние Статьи',
-      stayUpdated: 'Будьте в Курсе',
-      newsletter: 'Подпишитесь на нашу рассылку, чтобы получать последние новости и аналитику отрасли.',
-      subscribe: 'Подписаться',
-      explore: 'Перейти в Раздел Новостей',
-      newsTeam: 'Пресс-служба',
       readOriginal: 'Читать Оригинал',
       newestFirst: 'Сначала новые',
       oldestFirst: 'Сначала старые',
-      posts: {
-        1: {
-          title: 'Визит Президента на завод Krantas Group',
-          excerpt: 'Президент Шавкат Мирзиёев посетил наши производственные мощности, подчеркнув важность промышленной локализации и расширения ассортимента спецтехники до более чем 60 видов.'
-        },
-        2: {
-          title: 'Расширение производства военной и спецтехники',
-          excerpt: 'Krantas Group объявляет о планах реализации проекта стоимостью 55 млн долларов в Нурафшане по производству легких бронированных машин и специализированных грузовиков.'
-        },
-        3: {
-          title: 'Мировой дебют: Tarlon и Qalqon на IDEX-2023',
-          excerpt: 'Мы с гордостью представили наши новейшие легкие бронированные машины Tarlon и Qalqon на международной оборонной выставке в ОАЭ, продемонстрировав инженерное мастерство Узбекистана.'
-        },
-        4: {
-          title: 'Стратегическое партнерство с МАЗ и МТЗ',
-          excerpt: 'Krantas Group укрепляет международные связи, обсуждая с белорусскими партнерами проект по сборке тракторов и промышленного оборудования в Узбекистане.'
-        },
-        5: {
-          title: 'Поставка сверхтяжелой техники для АГМК',
-          excerpt: 'Наши высокопроизводительные самосвалы были переданы Алмалыкскому горно-металлургическому комбинату, поддерживая модернизацию горнодобывающей промышленности страны.'
-        },
-        6: {
-          title: 'Arslon: Первый отечественный бронетранспортер',
-          excerpt: 'Разработанный по международным стандартам, наш новый БТР «Арслон» поступил на государственные испытания, став важной вехой в отечественном оборонном производстве.'
-        },
-        7: {
-          title: 'Значимое инфраструктурное развитие',
-          excerpt: 'Для нашего бывшего заводского участка в Мирзо-Улугбекском районе площадью 14 гектаров предложен крупный смешанный городской проект стоимостью $1 млрд, открывающий путь к современной жилой и социальной инфраструктуре.'
-        },
-        8: {
-          title: 'Президенты Узбекистана и Таджикистана открыли СП «ТАЛКО-КРАНТАС»',
-          excerpt: 'Важным шагом для промышленного сотрудничества стало открытие первой очереди совместного предприятия TALCO-KRANTAS по сборке специальной строительной и коммунальной техники.'
-        }
-      },
-      featured: {
-        lorem1: 'Подробности о наших последних инженерных прорывах и методиках тестирования.',
-        lorem2: 'Мы продолжаем расширять границы возможного в производстве тяжелого машиностроения.'
-      }
     },
     careers: {
-      title: 'Карьера в KRANTAS',
-      welcomeTitle: 'Присоединяйтесь к Нам',
       heroIntro: 'Станьте частью нового поколения промышленной техники, присоединившись к семье KRANTAS. Мы приглашаем преданных своему делу специалистов в наши инженерные и производственные команды.',
       subtitle: 'Создавайте новое поколение промышленной техники. Присоединяйтесь к команде, которая ценит точность, безопасность и рост.',
       whyWork: 'Почему Стоит Работать у Нас?',
       team: 'Почетные Сотрудники',
       openPositions: 'Открытые Вакансии',
       apply: 'Подать Заявку',
-      applyNow: 'Подать Сейчас',
       fullName: 'Полное Имя',
       email: 'Email',
       phone: 'Телефон',
       message: 'Сообщение',
       submit: 'Отправить Заявку',
-      cancel: 'Отмена',
-      joinTeam: 'Станьте частью команды, где инженерное мастерство встречается с традициями.',
       experienceLabel: 'Опыт:',
       ageLabel: 'Возраст:',
       requirementsLabel: 'Требования:',
@@ -1597,76 +1377,30 @@ export const translations = {
       agePlaceholder: 'Лет',
       experiencePlaceholder: 'Лет',
       messagePlaceholder: 'Расскажите о себе...',
-      positions: {
-        1: {
-          title: 'Инженер-механик',
-          department: 'Инжиниринг',
-          location: 'Ташкент',
-          experience: '3-5 лет',
-          age: '25-45',
-          description: 'Проектирование механических систем спецтехники. Работа в CAD-программах.',
-          requirements: ['Высшее техническое образование', 'Опыт работы в CAD', 'Знание производственных процессов', 'Навыки решения проблем']
-        },
-        2: {
-          title: 'Сварщик',
-          department: 'Производство',
-          location: 'Ташкент',
-          experience: '2+ года',
-          age: '20-50',
-          description: 'Выполнение сварочных работ на металлоконструкциях. Соблюдение стандартов качества и безопасности.',
-          requirements: ['Наличие сертификата', 'Опыт MIG/TIG сварки', 'Знание правил ТБ', 'Чтение чертежей']
-        },
-        3: {
-          title: 'Оператор ЧПУ',
-          department: 'Производство',
-          location: 'Ташкент',
-          experience: '2-4 года',
-          age: '22-45',
-          description: 'Работа на станках с ЧПУ для высокоточной обработки. Программирование и обслуживание.',
-          requirements: ['Техническое образование', 'Программирование ЧПУ', 'Знание G-кодов', 'Внимательность к деталям']
-        },
-        4: {
-          title: 'Менеджер по Продажам',
-          department: 'Продажи',
-          location: 'Ташкент',
-          experience: '3+ года',
-          age: '25-40',
-          description: 'Развитие отношений с клиентами. Поиск новых секторов рынка.',
-          requirements: ['Высшее образование', 'Опыт в B2B продажах', 'Коммуникабельность', 'Знание рынка']
-        }
-      },
     },
     contacts: {
       title: 'Контакты',
-      welcomeTitle: 'Мы Всегда на Связи',
       heroIntro: 'Наша команда готова помочь с вашими техническими или коммерческими вопросами. Свяжитесь с нашим головным офисом в Ташкенте для профессиональной поддержки.',
-      subtitle: 'Узнайте больше о продукции, услугах или партнерстве. Отвечаем в течение 1-2 рабочих дней.',
-      info: 'Контактная Информация',
-      form: 'Отправить Сообщение',
-      departments: 'Наши Отделы',
       address: 'Мирзо-Улугбекский район, ул. Зиёлилар 1',
-      phone: '+998 90 047 90 90',
+      phone: '+998 90 330 00 00',
       email: 'info@krantas.uz',
-      sales: 'Отдел Продаж',
-      support: 'Техническая Поддержка',
-      parts: 'Запасные Части',
-      service: 'Сервисный Центр',
-      hr: 'Отдел Кадров',
-      export: 'Отдел Экспорта',
       telegramService: 'Krantas TG Bot',
       telegramKrantas: 'Krantas Group TG',
       name: 'Ваше Имя',
       emailLabel: 'Ваш Email',
       messageLabel: 'Ваше Сообщение',
       send: 'Отправить Сообщение',
-      heroTitle: 'Свяжитесь с Нами',
-      teamReady: 'Наша команда готова помочь с любыми вопросами о продукции, услугах или инженерных решениях.',
       headquarters: {
         title: 'Головной Офис KRANTAS Group',
         description: 'Офис расположен примерно в 50 минутах от международного аэропорта Ташкента.',
         officeLabel: 'Наш Офис',
         postalCodeLabel: 'Почтовый Индекс',
-        contactInfoLabel: 'Контактная Информация'
+        mainOfficeLabel: 'Главный Офис',
+        mainOfficePhone: '+998 90 330 00 00',
+        mainOfficeEmail: 'info@krantas.uz',
+        serviceCenterLabel: 'Сервисный Центр',
+        serviceCenterPhone: '+998 90 047 90 90',
+        serviceCenterEmail: 'info@krantas.uz'
       },
       formTitle: 'Контактная Форма',
       inquiryForm: 'Форма Запроса',
@@ -2490,12 +2224,8 @@ export const translations = {
       inquiryForm: 'So\'rov Shakli'
     },
     about: {
-      title: 'Biz Haqimizda',
       heroTitle: 'Krantas Merosi',
       heroIntro: '1945 yildan beri muhandislik qudrati. Bizning merosimiz eng murakkab sharoitlar uchun sanoat uskunalarini to\'liq siklli ishlab chiqarishga asoslangan.',
-      heading: '1945-yildan Buyon Muhandislik Kuchi',
-      welcomeTitle: 'Kompaniya haqida',
-      subtitle: 'Mexanik ta\'mirlash zavodidan Markaziy Osiyo va undan tashqariga xizmat ko\'rsatuvchi to\'liq sikl ishlab chiqarish guruhigacha.',
       story: 'Bizning Tariximiz',
       storyP1: 'Zavodimiz 1945-yilda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan. Dastlabki yillarda biz mintaqa transport vositalarini ishlashda davom etishga ixtisoslashgan, sifatli ishchi kuchining obro\'sini qo\'lga kiritdik.',
       storyP2: '1966-yilgi vayronagarchilik zilziladan so\'ng, zavod qayta maqsadlandi va fuqarolik va sanoat qurilishi uchun po\'lat konstruktsiyalari va yuk ko\'tarish uskunalari ishlab chiqarishni boshladi.',
@@ -2503,21 +2233,14 @@ export const translations = {
       storyP4: 'Bugun KRANTAS Group zamonaviy CNC ishlov berish, payvandlash, plazma/lazer kesish va yig\'ish imkoniyatlariga ega to\'liq sikl ishlab chiqaruvchi.',
       family: 'KRANTAS Oilasi',
       familyDesc: 'Sadoqat avlodlari. O\'nlab yillik tajriba. KRANTASning kompaniya sifatidagi yuragini tashkil qiladigan insonlar.',
-      familyQuote: '"Men KRANTASda 30 yildan ortiq vaqt davomida ishlayman. Men bu kompaniyaning kichik ta\'mirlash ustaxonasidan katta ishlab chiqaruvchigacha o\'sganini ko\'rdim. Mamlakat bo\'ylab bizning uskunalarimiz ishlayotganini ko\'rishdan his qiladigan g\'urur o\'lchovsiz."',
-      familyQuoteAuthor: '— Rustam Khasanov, Bosh Muhandis',
       joinFamily: 'Bizning oilamizga qo\'shiling',
       history: 'Tarix va Bosqichlar',
-      production: 'Ishlab Chiqarish Bosqichlari',
-      manufacturing: 'To\'liq Siklli Ishlab Chiqarish',
-      manufacturingDesc: 'Zavodning o\'z loyiha byurosi mavjud bo\'lib, u so\'nggi jahon tendentsiyalariga muvofiq yangi turdagi maxsus uskunalar loyihalarini va ishchi chizmalarini mustaqil ravishda ishlab chiqish uchun xizmat qiladi.',
-      manufacturingFeatures: ['3D Modellashtirish va Tafsilotlash', 'Asbob-uskunalar Ishlab Chiqish', 'Metall Konstruktsiyalar', 'Yig\'ish va Sinash', 'Sifat Nazorati', 'Sertifikatlash'],
-    chairman: 'Rais Xabari',
+      chairman: 'Rais Xabari',
       chairmanQuote: '"KRANTAS Group mustahkam muhandislik an\'analari, mahalliy ishlab chiqarish va kelajak uchun aniq tasavvurga asoslangan. KRANTAS shunchaki transport vositasi emas, balki ishonchli muhandislik yechimi."',
       chairmanName: 'Karimov Mukhtor Akbarovich',
       chairmanTitle: 'Rais, KRANTAS Group',
       team: 'Bizning Jamoa',
-    teamSubtitle: '',
-      certificates: 'Sifat Standartlari',
+      teamSubtitle: '',
       historyEvents: [
         { year: 1945, title: 'Tashkil Topish', description: 'Toshkentda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan.', image: '/1945.jpeg' },
         { year: 1966, title: 'Tiklanish va Kengayish', description: '1966 yilgi Toshkent zilziladan so\'ng zavod shaharni qayta qurish ishlarini qo\'llab-quvvatlashga o\'tdi va qurilish uchun po\'lat konstruktsiyalar ishlab chiqarishni boshladi.', image: '/1966.jpg' },
@@ -2547,34 +2270,8 @@ export const translations = {
           text: 'Ota-onasi, bobo-buvisi va aka-ukalari ham KRANTASda ishlagan. Otasi: 40 yil bo\'yoqchi. Onasi: 37 yil kran operatori. Sadoqat merosi.'
         }
       },
-      certificatesList: {
-        1: { name: 'Sertifikat', desc: 'MChJ "KRANTAS"', org: 'Xalqaro Sanoat Yarmarkasi va Kooperatsiya Birjasi Direksiyasi' },
-        2: { name: 'Sertifikat', desc: 'MChJ "Kran va Maxsus Texnikalar"', org: 'Xalqaro Sanoat Yarmarkasi va Kooperatsiya Birjasi Direksiyasi' },
-        3: { name: 'Sertifikat', desc: 'MChJ "TTEMZ"', org: 'Xalqaro Sanoat Yarmarkasi va Kooperatsiya Birjasi Direksiyasi' },
-        4: { name: 'Samaradorlik Mukofoti', desc: 'Global Specific Performance Award 2022', org: 'FOTON' },
-        5: { name: 'Diplom', desc: 'Turkmen Construction 2015', org: 'Savdo-Sanoat Palatasi' },
-        6: { name: 'Sertifikat', desc: '17-xalqaro Qozog\'iston Qurilish Ko\'rgazmasi', org: 'Astana Build' },
-      },
       partners: 'Bizning Hamkorlar',
       partnersDesc: 'Biz mahsulotlarimizda komponentlar va texnologiyalarning eng yuqori sifatini ta\'minlash uchun yetakchi global ishlab chiqaruvchilar bilan hamkorlik qilamiz.',
-      geography: 'Yetkazib Berish Geografiyasi',
-      geographyDesc: 'KRANTAS Group Markaziy Osiyo va undan tashqariga uskunalar yetkazib beradi. Bizning mahsulotlarimiz turli xil sharoitlarda ishlaydi — Qirg\'iziston tog\'laridan Turkmaniston cho\'llarigacha.',
-      distributors: {
-        title: 'Bizning Distribyutorlarimiz',
-        description: 'KRANTAS Group Markaziy Osiyo va undan tashqaridagi yetakchi distribyutorlar bilan hamkorlik qiladi. Bizning tarmog\'imiz qayerda faoliyat yuritishingizdan qat\'i nazar, mahalliy tajriba va yordam bilan quvvatlangan sifatli sanoat uskunalaridan foydalanish imkoniyatini kafolatlaydi.',
-        mapLegend: '6 ta davlat va 15 dan ortiq shaharlarni qamrab olgan',
-        centersTitle: 'Mintaqaviy Tarqatish Markazlari',
-        regionalBranch: 'Mintaqaviy Filial',
-        regionalCenter: 'Mintaqaviy Markaz',
-        mountainSpecialist: 'Tog\' Mutaxassisi',
-        emergingMarkets: 'Rivojlanayotgan Bozorlar',
-        countries: {
-          azerbaijan: 'Ozarbayjon',
-          kazakhstan: 'Qozog\'iston',
-          kyrgyzstan: 'Qirg\'iziston',
-          tajikTurkmen: 'Tojikiston va Turkmaniston'
-        }
-      },
       teamRoles: {
         director: 'Direktor',
         deputyDirector: 'Direktor o\'rinbosari',
@@ -2584,74 +2281,24 @@ export const translations = {
       }
     },
     blog: {
-      title: 'Yangiliklar',
-      subtitle: 'Zavoddan so\'nggi yangiliklar, yangilanishlar va fikrlar.',
       heroIntro: 'KRANTAS Groupning so\'nggi yangiliklari va strategik yutuqlari. Yangi hamkorliklarimiz, ishlab chiqarish bosqichlari va mintaqaviy rivojlanishdan xabardor bo\'ling.',
       latest: 'So\'nggi Maqolalar',
-      stayUpdated: 'Yangilanib Boring',
-      newsletter: 'So\'nggi yangiliklarni olish uchun xabarlarimizga obuna bo\'ling.',
-      subscribe: 'Obuna Bo\'lish',
-      explore: 'Yangiliklar xonasi',
-      newsTeam: 'Yangiliklar Jamoasi',
       readOriginal: 'Asl nusxani o\'qish',
       newestFirst: 'Avval yangilari',
       oldestFirst: 'Avval eskilari',
-      posts: {
-        1: {
-          title: 'O‘zbekiston Prezidentining Krantas zavodiga tashrifi',
-          excerpt: 'Prezident Shavkat Mirziyoyev ishlab chiqarish quvvatlarimiz bilan tanishib, sanoat mahalliylashtirish va maxsus texnikalar qatorini 60 dan ortiq turga kengaytirish muhimligini ta’kidladi.'
-        },
-        2: {
-          title: 'Harbiy va maxsus texnika ishlab chiqarish kengayishi',
-          excerpt: 'Krantas Group Nurafshonda yengil zirhli avtomobillar va maxsus yuk mashinalari ishlab chiqarish bo‘yicha 55 million dollarlik loyihani amalga oshirish rejalarini e’lon qildi.'
-        },
-        3: {
-          title: 'Global debyut: IDEX-2023da Tarlon va Qalqon',
-          excerpt: 'BAAdagi xalqaro mudofaa ko‘rgazmasida biz o‘zimizning so‘nggi yengil zirhli avtomobillarimiz — Tarlon va Qalqonni g‘urur bilan taqdim etib, O‘zbekiston muhandislik salohiyatini namoyish etdik.'
-        },
-        4: {
-          title: 'MAZ va MTZ bilan strategik hamkorlik',
-          excerpt: 'Krantas Group belaruslik hamkorlar bilan O‘zbekistonda traktorlar va sanoat uskunalarini yig‘ish loyihasini muhokama qilib, xalqaro aloqalarni mustahkamlamoqda.'
-        },
-        5: {
-          title: 'OKMK uchun og‘ir texnika yetkazib berish',
-          excerpt: 'Bizning yuqori quvvatli samosvallarimiz Olmaliq kon-metallurgiya kombinatiga yetkazib berildi va mamlakatimiz tog‘-kon sanoatini modernizatsiya qilishga xizmat qilmoqda.'
-        },
-        6: {
-          title: 'Arslon: Birinchi mahalliy zirhli transportyor',
-          excerpt: 'Xalqaro standartlar asosida ishlab chiqilgan yangi "Arslon" zirhli transportyorimiz davlat sinovlaridan o‘tmoqda va mahalliy mudofaa sanoatida muhim qadam bo‘ldi.'
-        },
-        7: {
-          title: 'Muhim infratuzilmaviy rivojlanish',
-          excerpt: 'Mirzo Ulug\'bekdagi sobiq zavod hududimizning 14 gektar maydonida zamonaviy turar joy va ijtimoiy infratuzilmani yaratishga qaratilgan 1 milliard dollarlik yirik aralash shaharsozlik loyihasi taklif qilindi.'
-        },
-        8: {
-          title: 'O’zbekiston va Tojikiston Prezidentlari «TALCO-KRANTAS» qo’shma korxonasini ochdilar',
-          excerpt: 'Sanoat hamkorligini mustahkamlash yo?lidagi muhim qadam sifatida TALCO-KRANTAS qo?shma korxonasining maxsus qurilish va kommunal texnikani yig?ishga mo?ljallangan birinchi bosqichi ishga tushirildi.'
-        }
-      },
-      featured: {
-        lorem1: 'So\'nggi muhandislik yutuqlarimiz va sinov jarayonlarimiz haqida batafsil ma\'lumot.',
-        lorem2: 'Biz og\'ir mashinasozlikda imkoniyatlar chegarasini kengaytirishda davom etamiz.'
-      }
     },
     careers: {
-      title: 'KRANTASda Karyera',
-      welcomeTitle: 'Bizga Qo\'shiling',
       heroIntro: 'KRANTAS oilasiga qo\'shilib, sanoat texnologiyalarining yangi avlodining bir qismi bo\'ling. Biz muhandislik va ishlab chiqarish jamoalarimizga fidoyi mutaxassislarni taklif qilamiz.',
       subtitle: 'Sanoat avtomobillarining keyingi avlodini yarating. Aniqlik, xavfsizlik va o\'sishni qadrlaydigan jamoaga qo\'shiling.',
       whyWork: 'Nima Uchun Biz Bilan Ishlash Kerak?',
       team: 'Hurmatli Jamoa A\'zolari',
       openPositions: 'Ochiq Vakansiyalar',
       apply: 'Ariza Topshirish',
-      applyNow: 'Hozir Ariza Topshirish',
       fullName: 'To\'liq Ism',
       email: 'Elektron Pochta',
       phone: 'Telefon',
       message: 'Xabar',
       submit: 'Ariza Yuborish',
-      cancel: 'Bekor Qilish',
-      joinTeam: 'Muhandislik mukammalligi meros bilan uchrashadigan jamoaga qo\'shiling.',
       experienceLabel: 'Tajriba:',
       ageLabel: 'Yosh:',
       requirementsLabel: 'Talablar:',
@@ -2663,76 +2310,30 @@ export const translations = {
       agePlaceholder: 'Yosh',
       experiencePlaceholder: 'Yil',
       messagePlaceholder: 'O\'zingiz haqida gapirib bering...',
-      positions: {
-        1: {
-          title: 'Mexanik Muhandis',
-          department: 'Muhandislik',
-          location: 'Toshkent',
-          experience: '3-5 yil',
-          age: '25-45',
-          description: 'Sanoat transporti uchun mexanik tizimlarni loyihalash. CAD dasturlari bilan ishlash.',
-          requirements: ['Bakalavr darajasi', 'CAD tajribasi', 'Ishlab chiqarish jarayonlarini bilish', 'Muammolarni hal qilish']
-        },
-        2: {
-          title: 'Payvandchi',
-          department: 'Ishlab chiqarish',
-          location: 'Toshkent',
-          experience: '2+ yil',
-          age: '20-50',
-          description: 'Po\'lat konstruksiyalarni payvandlash. Sifat va xavfsizlik standartlariga rioya qilish.',
-          requirements: ['Sertifikat', 'MIG/TIG tajribasi', 'Xavfsizlik texnikasi', 'Chizmalarni o\'qish']
-        },
-        3: {
-          title: 'CNC Operatori',
-          department: 'Ishlab chiqarish',
-          location: 'Toshkent',
-          experience: '2-4 yil',
-          age: '22-45',
-          description: 'CNC dastgohlarida ishlash. Uskunalarni dasturlash va xizmat ko\'rsatish.',
-          requirements: ['Texnik ma\'lumot', 'CNC dasturlash', 'G-code bilimi', 'Detallarga e\'tibor']
-        },
-        4: {
-          title: 'Sotuv Menejeri',
-          department: 'Sotuv',
-          location: 'Toshkent',
-          experience: '3+ yil',
-          age: '25-40',
-          description: 'Mijozlar bilan aloqalarni rivojlantirish. Yangi biznes imkoniyatlarini aniqlash.',
-          requirements: ['Bakalavr darajasi', 'B2B sotuv tajribasi', 'Muloqot qobiliyatlari', 'Bozor bilimi']
-        }
-      },
     },
     contacts: {
       title: 'Biz Bilan Bog\'laning',
-      welcomeTitle: 'Biz doimo aloqadamiz',
       heroIntro: 'Bizning jamoamiz texnik yoki tijorat so\'rovlaringizda yordam berishga tayyor. Professional yordam uchun Toshkentdagi bosh qorong\'imizga murojaat qiling.',
-      subtitle: 'Mahsulotlar, xizmatlar yoki hamkorlik haqida so\'rang. Biz 1-2 ish kuni ichida javob beramiz.',
-      info: 'Aloqa Ma\'lumotlari',
-      form: 'Xabar Yuborish',
-      departments: 'Bizning Bo\'limlar',
       address: 'Mirzo-Ulug\'bek tumani, Ziyolilar ko\'chasi, 1',
-      phone: '+998 90 047 90 90',
+      phone: '+998 90 330 00 00',
       email: 'info@krantas.uz',
-      sales: 'Sotish Bo\'limi',
-      support: 'Texnik Qo\'llab-quvvatlash',
-      parts: 'Ehtiyot Qismlar',
-      service: 'Xizmat Ko\'rsatish Markazi',
-      hr: 'Kadrlar Bo\'limi',
-      export: 'Eksport bo\'limi',
       telegramService: 'Krantas TG Bot',
       telegramKrantas: 'Krantas Group TG',
       name: 'Ismingiz',
       emailLabel: 'Sizning Emailingiz',
       messageLabel: 'Sizning Xabaringiz',
       send: 'Xabarni Yuborish',
-      heroTitle: 'Biz bilan bog\'laning',
-      teamReady: 'Bizning jamoamiz mahsulotlarimiz, xizmatlarimiz yoki sanoat yechimlari bo\'yicha har qanday so\'rovlar bilan yordam berishga tayyor.',
       headquarters: {
         title: 'KRANTAS Group Bosh Qarorgohi',
         description: 'Ofis Toshkent xalqaro aeroportidan taxminan 50 daqiqalik masofada joylashgan.',
         officeLabel: 'Bizning Ofis',
         postalCodeLabel: 'Pochta Indeksi',
-        contactInfoLabel: 'Aloqa Ma\'lumotlari'
+        mainOfficeLabel: 'Bosh Ofis',
+        mainOfficePhone: '+998 90 330 00 00',
+        mainOfficeEmail: 'info@krantas.uz',
+        serviceCenterLabel: 'Servis Markazi',
+        serviceCenterPhone: '+998 90 047 90 90',
+        serviceCenterEmail: 'info@krantas.uz'
       },
       formTitle: 'Aloqa Shakli',
       inquiryForm: 'So\'rov Shakli',
@@ -3567,21 +3168,14 @@ export const translations = {
       storyP4: 'Heute ist KRANTAS Group ein Komplettanbieter auf modernem und technisch hochwertigen Niveau in Bezug auf Fachpersonal und maschineller Ausstattung.',
       family: 'Die KRANTAS Familie',
       familyDesc: 'Engagement über Generationen. Jahrzehnte der Expertise. Die Menschen, die KRANTAS zu mehr als einem Unternehmen machen.',
-      familyQuote: '"Ich arbeite seit über 30 Jahren bei KRANTAS. Ich habe gesehen, wie dieses Unternehmen von einer kleinen Reparaturwerkstatt zu einem großen Hersteller gewachsen ist. Der Stolz, den ich empfinde, wenn ich unsere Ausrüstung im ganzen Land arbeiten sehe, ist unermesslich."',
-      familyQuoteAuthor: '— Rustam Khasanov, Chefingenieur',
       joinFamily: 'Werden Sie Teil Unserer Familie',
       history: 'Geschichte & Meilensteine',
-      production: 'Produktionsstufen',
-      manufacturing: 'Komplettfertigung',
-      manufacturingDesc: 'Das Werk verfügt über ein eigenes Konstruktionsbüro für die unabhängige Entwicklung von Projekten und Arbeitszeichnungen neuer Sonderfahrzeugtypen entsprechend den neuesten globalen Trends in der Branchenentwicklung.',
-      manufacturingFeatures: ['3D-Modellierung & Detaillierung', 'Werkzeugentwicklung', 'Stahlkonstruktionen', 'Montage & Prüfung', 'Qualitätskontrolle', 'Zertifizierung'],
-    chairman: '',
+      chairman: '',
       chairmanQuote: '"KRANTAS Group hat ihre Wurzeln in Ingenieurtradition sowie lokaler Fertigung und hat eine klare Vision für die Zukunft. KRANTAS ist nicht nur ein Fahrzeug – es ist eine zuverlässige Ingenieurlösung."',
       chairmanName: 'Karimov Mukhtor Akbarovich',
       chairmanTitle: 'Vorsitzender, KRANTAS Group',
       team: 'Unser Team',
-    teamSubtitle: '',
-      certificates: 'Qualitätsstandards',
+      teamSubtitle: '',
       historyEvents: [
         { year: 1945, title: 'Gründung', description: 'Gegründet als mechanische Reparaturwerkstatt für Lkw und schwere Maschinen in Taschkent.', image: '/1945.jpeg' },
         { year: 1966, title: 'Wiederaufbau & Expansion', description: 'Nach dem Erdbeben von 1966 unterstützte das Werk den Wiederaufbau von Taschkent und begann mit der Produktion von Stahlkonstruktionen und Hebetechnik.', image: '/1966.jpg' },
@@ -3611,34 +3205,8 @@ export const translations = {
           text: 'Großeltern, Eltern und Brüder arbeiteten alle bei KRANTAS. Ihr Vater 40 Jahre in der Oberflächenveredelung, ihre Mutter 37 Jahre ebenfalls als Kranführerin. Loyalität und wertvolle Mitarbeit in der 3. Generation.'
         }
       },
-      certificatesList: {
-        1: { name: 'Zertifikat', desc: 'OOO "KRANTAS"', org: 'Direktion der Internationalen Industriemesse und Kooperationsbörse' },
-        2: { name: 'Zertifikat', desc: 'OOO "Kran- und Spezialfahrzeuge"', org: 'Direktion der Internationalen Industriemesse und Kooperationsbörse' },
-        3: { name: 'Zertifikat', desc: 'OOO "TTEMZ"', org: 'Direktion der Internationalen Industriemesse und Kooperationsbörse' },
-        4: { name: 'Leistungspreis', desc: 'Global Specific Performance Award 2022', org: 'FOTON' },
-        5: { name: 'Diplom', desc: 'Turkmen Construction 2015', org: 'Industrie- und Handelskammer' },
-        6: { name: 'Zertifikat', desc: '17. Internationale Bauausstellung Kasachstan', org: 'Astana Build' },
-      },
       partners: 'Unsere Partner',
       partnersDesc: 'Die Zusammenarbeit mit führenden globalen Herstellern sichert höchste Qualität von Komponenten und Technologie in unseren Produkten.',
-      geography: 'Geografie der Lieferungen',
-      geographyDesc: 'KRANTAS Group liefert Ausrüstung in ganz Zentralasien und darüber hinaus. Unsere Produkte arbeiten in verschiedenen Umgebungen – von den Bergen Kirgistans bis zu den Wüsten Turkmenistans.',
-      distributors: {
-        title: 'Unsere Vertriebspartner',
-        description: 'Die KRANTAS Group arbeitet mit führenden Distributoren in ganz Zentralasien und darüber hinaus zusammen. Unser Netzwerk stellt sicher, dass Sie überall vor Ort Ihrer Tätigkeit Zugang zu hochwertiger Industrieausrüstung, lokalem Fachwissen und Support haben.',
-        mapLegend: 'Netzwerk in 6 Ländern und über 15 Städten',
-        centersTitle: 'Regionale Vertriebszentren',
-        regionalBranch: 'Regionale Niederlassung',
-        regionalCenter: 'Regionales Zentrum',
-        mountainSpecialist: 'Gebirgsspezialist',
-        emergingMarkets: 'Wachstumsmärkte',
-        countries: {
-          azerbaijan: 'Aserbaidschan',
-          kazakhstan: 'Kasachstan',
-          kyrgyzstan: 'Kirgisistan',
-          tajikTurkmen: 'Tadschikistan & Turkmenistan'
-        }
-      },
       teamRoles: {
         director: 'Direktor',
         deputyDirector: 'Stellvertretender Direktor',
@@ -3652,52 +3220,9 @@ export const translations = {
       subtitle: 'Neueste Nachrichten, Updates und Einblicke aus der Fabrik.',
       heroIntro: 'Aktuelle Nachrichten und strategische Entwicklungen der KRANTAS Group. Bleiben Sie über neue Partnerschaften und Produktionsmeilensteine informiert.',
       latest: 'Neueste Artikel',
-      stayUpdated: 'Bleiben Sie Informiert',
-      newsletter: 'Abonnieren Sie unseren Newsletter, um die neuesten Nachrichten und Brancheneinblicke zu erhalten.',
-      subscribe: 'Abonnieren',
-      explore: 'Newsroom erkunden',
-      newsTeam: 'Nachrichten-Team',
       readOriginal: 'Originalnachrichten lesen',
       newestFirst: 'Neueste zuerst',
       oldestFirst: 'Älteste zuerst',
-      posts: {
-        1: {
-          title: 'Präsidentenbesuch im Krantas Group Werk',
-          excerpt: 'Präsident Shavkat Mirziyoyev besuchte unsere Produktionsanlagen und betonte die Bedeutung der industriellen Lokalisierung und der Erweiterung unseres Spezialgerätesortiments auf über 60 Typen.'
-        },
-        2: {
-          title: 'Erweiterung der Produktion von Militär- und Spezialfahrzeugen',
-          excerpt: 'Die Krantas Group kündigt Pläne für ein 55-Millionen-Dollar-Projekt in Nurafshan an, um leichte gepanzerte Fahrzeuge und Spezial-Lkw auf einem neuen, 12 Hektar großen Industriegelände herzustellen.'
-        },
-        3: {
-          title: 'Globales Debüt: Tarlon und Qalqon auf der IDEX-2023',
-          excerpt: 'Mit Stolz haben wir unsere neuesten leichten gepanzerten Fahrzeuge Tarlon und Qalqon auf der internationalen Verteidigungsmesse in den VAE präsentiert und damit usbekische Ingenieurskunst auf Weltniveau gezeigt.'
-        },
-        4: {
-          title: 'Strategische Partnerschaft mit MAZ und MTZ',
-          excerpt: 'Die Krantas Group stärkt ihre internationalen Beziehungen durch Gespräche mit belarussischen Partnern über die Montage von Traktoren und Industriemaschinen in Usbekistan.'
-        },
-        5: {
-          title: 'Steigerung der Bergbaueffizienz bei AGMK',
-          excerpt: 'Unsere Hochleistungskipper wurden an den Bergbau- und Metallurgiekombinat Almalyk übergeben und unterstützen die Modernisierung der Bergbaukapazitäten Usbekistans.'
-        },
-        6: {
-          title: 'Arslon: Der erste einheimische Schützenpanzer Usbekistans',
-          excerpt: 'Unser neuer, nach internationalen Standards entwickelter Schützenpanzer „Arslon“ hat die staatliche Erprobung aufgenommen – ein Meilenstein für die heimische Verteidigungsindustrie.'
-        },
-        7: {
-          title: 'Bedeutendes Renovierungs- und Infrastrukturprojekt für Tashkent',
-          excerpt: 'Für unseren (noch) aktuellen Standort Mirzo-Ulugbek arbeiten wir mit Spezialisten aus aller Welt an einem Konzept für ein "mixed development project". Internationale Architekten arbeiten am anspruchsvollen Entwurf von Wohnungen, Hotels und Büros mit einer Investitionssumme von mehr als 1 Milliarde US$.'
-        },
-        8: {
-          title: 'Präsidenten von Usbekistan und Tadschikistan eröffnen Joint Venture TALCO-KRANTAS',
-          excerpt: 'In einem bedeutenden Schritt hin zur industriellen Zusammenarbeit wurde die erste Phase des Joint Ventures TALCO-KRANTAS zur Montage von Spezialfahrzeugen eingeweiht.'
-        }
-      },
-      featured: {
-        lorem1: 'Detaillierte Einblicke in unsere neuesten technischen Durchbrüche und Testverfahren.',
-        lorem2: 'Wir verschieben weiterhin die Grenzen des Möglichen im Schwermaschinenbau.'
-      }
     },
     careers: {
       title: 'Karriere bei KRANTAS',
@@ -3708,14 +3233,11 @@ export const translations = {
       team: 'Ehrenwerte Teammitglieder',
       openPositions: 'Offene Stellen',
       apply: 'Bewerben',
-      applyNow: 'Jetzt Bewerben',
       fullName: 'Vollständiger Name',
       email: 'E-Mail',
       phone: 'Telefon',
       message: 'Nachricht',
       submit: 'Bewerbung Einreichen',
-      cancel: 'Abbrechen',
-      joinTeam: 'Werden Sie Teil eines Teams, in dem technische Exzellenz auf Tradition trifft.',
       experienceLabel: 'Erfahrung:',
       ageLabel: 'Alter:',
       requirementsLabel: 'Anforderungen:',
@@ -3727,76 +3249,30 @@ export const translations = {
       agePlaceholder: 'Jahre',
       experiencePlaceholder: 'Jahre',
       messagePlaceholder: 'Erzählen Sie uns über sich...',
-      positions: {
-        1: {
-          title: 'Maschinenbauingenieur',
-          department: 'Ingenieurwesen',
-          location: 'Taschkent',
-          experience: '3-5 Jahre',
-          age: '25-45',
-          description: 'Konstruktion mechanischer Systeme für Industriefahrzeuge. Arbeit mit CAD-Software.',
-          requirements: ['Bachelor-Abschluss', 'CAD-Erfahrung', 'Kenntnisse in Fertigungsprozessen', 'Problemlösungsfähigkeiten']
-        },
-        2: {
-          title: 'Schweißer',
-          department: 'Produktion',
-          location: 'Taschkent',
-          experience: '2+ Jahre',
-          age: '20-50',
-          description: 'Schweißarbeiten an Stahlkonstruktionen. Einhaltung von Qualitäts- und Sicherheitsstandards.',
-          requirements: ['Zertifizierung', 'MIG/TIG-Erfahrung', 'Sicherheitskenntnisse', 'Zeichnungslesen']
-        },
-        3: {
-          title: 'CNC-Bediener',
-          department: 'Produktion',
-          location: 'Taschkent',
-          experience: '2-4 Jahre',
-          age: '22-45',
-          description: 'Bedienung von CNC-Maschinen zur Präzisionsbearbeitung. Programmierung und Wartung der Ausrüstung.',
-          requirements: ['Technische Ausbildung', 'CNC-Programmierung', 'G-Code-Kenntnisse', 'Detailgenauigkeit']
-        },
-        4: {
-          title: 'Vertriebsmanager',
-          department: 'Vertrieb',
-          location: 'Taschkent',
-          experience: '3+ Jahre',
-          age: '25-40',
-          description: 'Entwicklung von Kundenbeziehungen. Identifizierung neuer Geschäftsmöglichkeiten.',
-          requirements: ['Bachelor-Abschluss', 'B2B-Vertriebserfahrung', 'Kommunikationsfähigkeiten', 'Marktkenntnisse']
-        }
-      },
     },
     contacts: {
       title: 'Kontaktieren Sie Uns',
-      welcomeTitle: 'Wir sind für Sie da',
       heroIntro: 'Unser Team steht Ihnen gerne zu allen Anliegen zur Verfügung. Kontaktieren Sie unseren Hauptsitz in Taschkent für professionelle Unterstützung.',
-      subtitle: 'Fragen Sie nach Produkten, Dienstleistungen oder Partnerschaften. Wir antworten innerhalb von 1–2 Werktagen.',
-      info: 'Kontaktinformationen',
-      form: 'Nachricht Senden',
-      departments: 'Unsere Abteilungen',
       address: 'Bezirk Mirzo-Ulugbek, Ziyolilar Straße 1, Taschkent, Usbekistan',
-      phone: '+998 90 047 90 90',
+      phone: '+998 90 330 00 00',
       email: 'info@krantas.uz',
-      sales: 'Vertriebsabteilung',
-      support: 'Technischer Support',
-      parts: 'Ersatzteile',
-      service: 'Servicezentrum',
-      hr: 'Personalabteilung',
-      export: 'Exportabteilung',
       telegramService: 'Krantas TG Bot',
       telegramKrantas: 'Krantas Group TG',
       name: 'Ihr Name',
       emailLabel: 'Ihre E-Mail',
       messageLabel: 'Ihre Nachricht',
       send: 'Nachricht Senden',
-      heroTitle: 'Kontaktieren Sie uns',
-      teamReady: 'Unser Team steht bereit, um Sie bei Anfragen zu unseren Produkten oder Dienstleistungen zu unterstützen.',
       headquarters: {
         title: 'KRANTAS Group Hauptsitz',
         description: 'Das Büro liegt ca. 30 Autominuten vom internationalen Flughafen Taschkent entfernt.',
         officeLabel: 'Unser Büro',
         postalCodeLabel: 'Postleitzahl',
-        contactInfoLabel: 'Kontaktinformationen'
+        mainOfficeLabel: 'Hauptbüro',
+        mainOfficePhone: '+998 90 330 00 00',
+        mainOfficeEmail: 'info@krantas.uz',
+        serviceCenterLabel: 'Servicezentrum',
+        serviceCenterPhone: '+998 90 047 90 90',
+        serviceCenterEmail: 'info@krantas.uz'
       },
       formTitle: 'Kontaktformular',
       inquiryForm: 'Anfrageformular',

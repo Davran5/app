@@ -25,8 +25,10 @@ import {
   type CmsLead,
   type CmsLeadInput,
   type CmsNewsItem,
+  type CmsSectionMediaMap,
   type CmsSnapshot,
   type CmsVacancy,
+  resolveSectionMediaUrl,
   type SeoPageKey,
   type SeoSettings,
 } from '../lib/cms';
@@ -48,6 +50,7 @@ interface CmsContextValue extends CmsSnapshot {
   getVacancyById: (id: string) => CmsVacancy | undefined;
   getNewsItemById: (id: string) => CmsNewsItem | undefined;
   getLeadById: (id: string) => CmsLead | undefined;
+  getSectionMedia: (id: string, fallbackUrl: string) => string;
   refreshSnapshot: (scope?: 'public' | 'admin') => Promise<void>;
   flushSnapshot: () => Promise<void>;
   setFeaturedProductIds: (ids: string[]) => void;
@@ -66,6 +69,8 @@ interface CmsContextValue extends CmsSnapshot {
   createLead: (leadInput: CmsLeadInput) => Promise<CmsLead>;
   upsertLead: (lead: CmsLead) => void;
   deleteLead: (id: string) => void;
+  setSectionMedia: (id: string, url: string) => void;
+  clearSectionMedia: (id: string) => void;
   setTranslationOverride: (language: Language, path: string, value: string) => void;
   clearTranslationOverride: (language: Language, path: string) => void;
   updateSeoPage: (pageKey: SeoPageKey, settings: SeoSettings) => void;
@@ -246,6 +251,11 @@ export function CmsProvider({ children }: { children: ReactNode }) {
   const getLeadById = useCallback(
     (id: string) => snapshot.leads.find((lead) => lead.id === id),
     [snapshot.leads],
+  );
+
+  const getSectionMedia = useCallback(
+    (id: string, fallbackUrl: string) => resolveSectionMediaUrl(snapshot.sectionMedia, id, fallbackUrl),
+    [snapshot.sectionMedia],
   );
 
   const upsertProduct = useCallback(
@@ -536,6 +546,34 @@ export function CmsProvider({ children }: { children: ReactNode }) {
     [commitSnapshot],
   );
 
+  const setSectionMedia = useCallback(
+    (id: string, url: string) => {
+      commitSnapshot((currentSnapshot) => ({
+        ...currentSnapshot,
+        sectionMedia: {
+          ...currentSnapshot.sectionMedia,
+          [id]: url,
+        },
+      }));
+    },
+    [commitSnapshot],
+  );
+
+  const clearSectionMedia = useCallback(
+    (id: string) => {
+      commitSnapshot((currentSnapshot) => {
+        const nextSectionMedia: CmsSectionMediaMap = { ...currentSnapshot.sectionMedia };
+        delete nextSectionMedia[id];
+
+        return {
+          ...currentSnapshot,
+          sectionMedia: nextSectionMedia,
+        };
+      });
+    },
+    [commitSnapshot],
+  );
+
   const setTranslationOverride = useCallback(
     (language: Language, path: string, value: string) => {
       commitSnapshot((currentSnapshot) => ({
@@ -611,6 +649,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       getVacancyById,
       getNewsItemById,
       getLeadById,
+      getSectionMedia,
       refreshSnapshot,
       flushSnapshot,
       setFeaturedProductIds,
@@ -629,6 +668,8 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       createLead,
       upsertLead,
       deleteLead,
+      setSectionMedia,
+      clearSectionMedia,
       setTranslationOverride,
       clearTranslationOverride,
       updateSeoPage,
@@ -650,6 +691,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       getVacancyById,
       getNewsItemById,
       getLeadById,
+      getSectionMedia,
       refreshSnapshot,
       flushSnapshot,
       setFeaturedProductIds,
@@ -668,6 +710,8 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       createLead,
       upsertLead,
       deleteLead,
+      setSectionMedia,
+      clearSectionMedia,
       setTranslationOverride,
       clearTranslationOverride,
       updateSeoPage,

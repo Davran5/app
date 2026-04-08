@@ -9,7 +9,6 @@ import {
   adminInputClass,
   adminLabelClass,
   adminSecondaryButtonClass,
-  adminTitleClass,
   getAdminListItemClass,
 } from './styles';
 import type { AdminPrimaryAction } from './types';
@@ -123,10 +122,11 @@ export default function AdminHomepage({
       <section className={`${adminCardClass} flex min-h-0 flex-col overflow-hidden p-5`}>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className={adminLabelClass}>Featured Products</p>
-            <h2 className={adminTitleClass}>Featured Products</h2>
+            <p className={adminLabelClass}>Homepage</p>
+            <h2 className="mt-1 text-xl font-semibold tracking-tight text-black">Featured Products</h2>
+            <p className="mt-1 text-sm text-neutral-500">Products shown in the hero spotlight on the homepage.</p>
           </div>
-          <div className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-neutral-50 text-black">
+          <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-neutral-50 text-black">
             <Star size={18} />
           </div>
         </div>
@@ -213,7 +213,7 @@ export default function AdminHomepage({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className={adminLabelClass}>Product Library</p>
-            <h2 className={adminTitleClass}>Add Existing Products</h2>
+            <h2 className="mt-1 text-xl font-semibold tracking-tight text-black">Add Products</h2>
           </div>
           <span className="rounded-full border border-black/10 bg-neutral-50 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-600">
             {availableProducts.length}

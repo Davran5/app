@@ -65,7 +65,7 @@ function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
 export default function Home() {
   const { t } = useLanguage();
   const { trackEvent } = useAnalytics();
-  const { products, categories, featuredProductIds } = useCms();
+  const { products, categories, featuredProductIds, getSectionMedia } = useCms();
   const [showForm, setShowForm] = useState(false);
   const [introVisible, setIntroVisible] = useState(false);
 
@@ -113,7 +113,7 @@ export default function Home() {
               loop
               playsInline
               preload="metadata"
-              poster="/hero-poster.webp"
+              poster={getSectionMedia('home.hero.videoPoster', '/hero-poster.webp')}
               disablePictureInPicture
               disableRemotePlayback
               draggable={false}
@@ -160,7 +160,9 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div>
                 <img
-                  src="/about_factory.jpg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia('home.aboutHome.factoryImage', '/about_factory.jpg'),
+                  )}
                   alt="Krantas Factory"
                   className="w-full h-auto object-cover"
                 />
@@ -290,7 +292,12 @@ export default function Home() {
               >
                 <div className="relative h-48 w-full md:absolute md:inset-0 md:h-full overflow-hidden">
                   <img
-                    src="/cust_sol.jpg"
+                    src={resolveMediaInputUrl(
+                      getSectionMedia(
+                        'home.equipment.customSolutionsImage',
+                        '/cust_sol.jpg',
+                      ),
+                    )}
                     alt="Customized Solutions"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -317,7 +324,16 @@ export default function Home() {
               {categories.filter(c => c.id !== 'custom-solutions' && c.id !== 'metal-structures').map((category) => {
                 const catName = t.categories?.[category.id as keyof typeof t.categories]?.name || category.name;
                 const catDesc = t.categories?.[category.id as keyof typeof t.categories]?.description || category.description;
-                const catImage = ({
+                const categoryCoverFields: Record<string, string> = {
+                  'lifting-equipment': 'home.categories.liftingEquipmentCover',
+                  'agricultural': 'home.categories.agriculturalCover',
+                  'tank-trucks': 'home.categories.tankTrucksCover',
+                  'special-purpose': 'home.categories.specialPurposeCover',
+                  'overhead-gantry': 'home.categories.overheadGantryCover',
+                  'dump-trucks': 'home.categories.dumpTrucksCover',
+                  'mining-trucks': 'home.categories.miningTrucksCover',
+                };
+                const defaultCovers: Record<string, string> = {
                   'lifting-equipment': '/cover_le.jpg',
                   'agricultural': '/cover_am.jpg',
                   'tank-trucks': '/cover_tt.jpg',
@@ -325,7 +341,11 @@ export default function Home() {
                   'overhead-gantry': '/cover_og.jpg',
                   'dump-trucks': '/cover_dt.jpg',
                   'mining-trucks': '/cover_mt.jpeg',
-                } as Record<string, string>)[category.id] || category.image;
+                };
+                const fieldId = categoryCoverFields[category.id];
+                const catImage = fieldId
+                  ? getSectionMedia(fieldId, defaultCovers[category.id] || category.image)
+                  : category.image;
 
                 return (
                   <Link
@@ -363,7 +383,12 @@ export default function Home() {
               >
                 <div className="relative h-48 w-full overflow-hidden">
                   <img
-                    src="/cover_ms.jpeg"
+                    src={resolveMediaInputUrl(
+                      getSectionMedia(
+                        'home.equipment.metalStructuresImage',
+                        '/cover_ms.jpeg',
+                      ),
+                    )}
                     alt="Metal Structures"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -601,7 +626,9 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div className="lg:order-1">
                 <img
-                  src="/full_cycle.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia('home.production.facilityImage', '/full_cycle.jpeg'),
+                  )}
                   alt="Krantas Production Facility"
                   className="w-full h-auto object-cover"
                 />

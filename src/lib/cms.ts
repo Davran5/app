@@ -123,6 +123,7 @@ export interface CmsLeadInput {
 }
 
 export type TranslationOverrideMap = Record<Language, Record<string, string>>;
+export type CmsSectionMediaMap = Record<string, string>;
 
 export interface CmsSnapshot {
   version: number;
@@ -135,6 +136,7 @@ export interface CmsSnapshot {
   newsItems: CmsNewsItem[];
   leads: CmsLead[];
   mediaItems: UploadedMediaInput[];
+  sectionMedia: CmsSectionMediaMap;
   translationOverrides: TranslationOverrideMap;
   seo: Record<SeoPageKey, SeoSettings>;
 }
@@ -165,8 +167,23 @@ export interface TranslationFieldMeta {
   context: string;
 }
 
+export interface SectionMediaFieldMeta {
+  id: string;
+  pageId: string;
+  sectionId: string;
+  label: string;
+  description: string;
+  defaultUrl: string;
+}
+
+interface ContentFieldRegistration {
+  pageId: string;
+  sectionId: string;
+  patterns: string[];
+}
+
 export const CMS_STORAGE_KEY = 'krantas.cms.v1';
-export const CMS_EXPORT_VERSION = 6;
+export const CMS_EXPORT_VERSION = 7;
 
 export const SEO_PAGE_LABELS: Record<SeoPageKey, string> = {
   home: 'Home',
@@ -267,58 +284,104 @@ export const DEFAULT_SEO: Record<SeoPageKey, SeoSettings> = {
 
 const TRANSLATION_SECTION_LABELS: Record<string, string> = {
   nav: 'Navigation',
-  distributors: 'Dealer Network',
-  cookieConsent: 'Cookie Banner',
-  notFound: '404 Page',
-  customSolutionsPage: 'Custom Solutions Page',
-  home: 'Home Hero',
-  stats: 'Home Stats',
-  intro: 'Home Intro',
-  aboutHome: 'Home About',
-  mission: 'Mission',
-  equipment: 'Equipment',
-  products: 'Featured Products',
-  production: 'Production',
-  cta: 'Call To Action',
   footer: 'Footer',
-  productsPage: 'Products Page',
-  catalog: 'Catalog Page',
-  services: 'Services Page',
-  about: 'About Page',
-  contacts: 'Contacts Page',
-  careers: 'Careers Page',
-  news: 'News Page',
-  productDetail: 'Product Detail',
+  cookieConsent: 'Cookie Banner',
+  cta: 'Shared CTA',
+  homeHero: 'Hero',
+  homeStats: 'Stats',
+  homeIntro: 'Intro Cards',
+  homeAbout: 'About Preview',
+  homeEquipment: 'Equipment',
+  homeFeatured: 'Featured Products',
+  homeProduction: 'Production',
+  productsPage: 'Products Overview',
+  productsUi: 'Product UI',
   productsData: 'Product Content',
+  catalog: 'Catalog',
   categories: 'Category Content',
+  specLabels: 'Specification Labels',
+  customSolutionsHero: 'Hero',
+  customSolutionsIntro: 'Introduction',
+  customSolutionsMetal: 'Metal Structures',
+  customSolutionsCapabilities: 'Capabilities',
+  customSolutionsProduction: 'Production',
+  customSolutionsCta: 'CTA',
+  servicesIntro: 'Introduction',
+  servicesItems: 'Service Items',
+  servicesFacilities: 'Facilities',
+  servicesSupport: 'Support Block',
+  aboutHero: 'Hero',
+  aboutStory: 'Story',
+  aboutMission: 'Mission',
+  aboutHistory: 'History',
+  aboutChairman: 'Chairman',
+  aboutTeam: 'Team',
+  aboutPartners: 'Partners',
+  newsHero: 'Hero',
+  newsList: 'Article List',
+  careersHero: 'Hero',
+  careersIntro: 'Why Work With Us',
+  careersTeam: 'Team',
+  careersPositions: 'Open Positions',
+  careersApplication: 'Application Form',
+  contactsHero: 'Hero',
+  contactsShared: 'Shared Contact Info',
+  contactsHeadquarters: 'Headquarters',
+  contactsTelegram: 'Telegram',
+  contactsForm: 'Contact Form',
+  distributors: 'Dealer Network',
+  notFound: '404 Page',
 };
 
 const TRANSLATION_SECTION_DESCRIPTIONS: Record<string, string> = {
   nav: 'Header and navigation labels used across the site.',
-  distributors: 'Dealer map content, location labels, and map UI strings.',
+  footer: 'Footer links, legal links, and shared contact details.',
   cookieConsent: 'Cookie and privacy consent copy.',
+  cta: 'Shared call-to-action copy used on multiple public pages.',
+  homeHero: 'Homepage hero copy and primary action labels.',
+  homeStats: 'Homepage metrics and headline numbers.',
+  homeIntro: 'Homepage introduction cards and summaries.',
+  homeAbout: 'Homepage about preview block.',
+  homeEquipment: 'Equipment showcase on the homepage.',
+  homeFeatured: 'Homepage featured products copy.',
+  homeProduction: 'Homepage production block and process labels.',
+  productsPage: 'Products overview page messaging.',
+  productsUi: 'Reusable product page labels such as features and specifications.',
+  productsData: 'Localized product names, descriptions, features, and specs.',
+  catalog: 'Catalog page headings, filters, and CTA copy.',
+  categories: 'Localized category names and descriptions used in the catalog.',
+  specLabels: 'Localized labels for product specifications.',
+  customSolutionsHero: 'Global banner content for Custom Solutions.',
+  customSolutionsIntro: 'Custom Solutions intro section.',
+  customSolutionsMetal: 'Metal structures section.',
+  customSolutionsCapabilities: 'Capabilities grid and capability descriptions.',
+  customSolutionsProduction: 'Production backbone section.',
+  customSolutionsCta: 'Custom Solutions call-to-action block.',
+  servicesIntro: 'Services intro headline and stat labels.',
+  servicesItems: 'Service tabs and their detailed copy.',
+  servicesFacilities: 'Facilities cards on the Services page.',
+  servicesSupport: 'Services support and inquiry labels.',
+  aboutHero: 'About page banner content.',
+  aboutStory: 'Company story block.',
+  aboutMission: 'Mission section displayed on the About page.',
+  aboutHistory: 'Growth and Progress timeline.',
+  aboutChairman: 'Chairman message block.',
+  aboutTeam: 'Leadership/team section and team member stories.',
+  aboutPartners: 'Partners section.',
+  newsHero: 'News page banner content.',
+  newsList: 'News list controls and article CTA labels.',
+  careersHero: 'Careers page banner content.',
+  careersIntro: 'Careers intro messaging.',
+  careersTeam: 'Careers team section heading.',
+  careersPositions: 'Open positions list labels.',
+  careersApplication: 'Application form labels and placeholders.',
+  contactsHero: 'Contacts page banner content.',
+  contactsShared: 'Shared contact labels reused across the site.',
+  contactsHeadquarters: 'Contacts page office and service center details.',
+  contactsTelegram: 'Telegram button labels.',
+  contactsForm: 'Contact form labels, placeholders, and inquiry options.',
+  distributors: 'Dealer map content, location labels, and map UI strings.',
   notFound: '404 page messaging, recovery actions, and error-state labels.',
-  customSolutionsPage: 'Custom solutions landing page text.',
-  home: 'Homepage hero copy and main banner labels.',
-  stats: 'Homepage metrics and numbers section.',
-  intro: 'Homepage introduction content and support messages.',
-  aboutHome: 'Homepage about preview block.',
-  mission: 'Homepage mission section.',
-  equipment: 'Homepage equipment categories section.',
-  products: 'Homepage featured products section.',
-  production: 'Production process section and manufacturing copy.',
-  cta: 'Primary call-to-action block content.',
-  footer: 'Footer links and footer text.',
-  productsPage: 'Products overview page.',
-  catalog: 'Catalog page and product listing copy.',
-  services: 'Services page content.',
-  about: 'About page content.',
-  contacts: 'Contacts page content.',
-  careers: 'Careers page content.',
-  news: 'News page content.',
-  productDetail: 'Product detail page labels and content.',
-  productsData: 'Per-product translated names, descriptions, features, and specs.',
-  categories: 'Per-category translated names and descriptions.',
 };
 
 const TRANSLATION_PAGE_DEFINITIONS: TranslationPageMeta[] = [
@@ -332,55 +395,78 @@ const TRANSLATION_PAGE_DEFINITIONS: TranslationPageMeta[] = [
     id: 'home',
     label: 'Home',
     description: 'Homepage sections from hero to featured content.',
-    sectionIds: ['home', 'stats', 'intro', 'aboutHome', 'mission', 'equipment', 'products', 'production'],
+    sectionIds: [
+      'homeHero',
+      'homeStats',
+      'homeIntro',
+      'homeAbout',
+      'homeEquipment',
+      'homeFeatured',
+      'homeProduction',
+    ],
   },
   {
     id: 'products',
     label: 'Products',
     description: 'Products overview and product-specific content.',
-    sectionIds: ['productsPage', 'productDetail', 'productsData'],
+    sectionIds: ['productsPage', 'productsUi', 'productsData'],
   },
   {
     id: 'catalog',
     label: 'Catalog',
     description: 'Catalog listing pages, category text, and specification labels.',
-    sectionIds: ['catalog', 'equipmentSolutions', 'categories', 'specLabels'],
+    sectionIds: ['catalog', 'categories', 'specLabels'],
   },
   {
     id: 'customSolutions',
     label: 'Custom Solutions',
     description: 'Custom solutions page content and engineering sections.',
-    sectionIds: ['customSolutionsPage'],
+    sectionIds: [
+      'customSolutionsHero',
+      'customSolutionsIntro',
+      'customSolutionsMetal',
+      'customSolutionsCapabilities',
+      'customSolutionsProduction',
+      'customSolutionsCta',
+    ],
   },
   {
     id: 'services',
     label: 'Services',
     description: 'Service page sections and support-related copy.',
-    sectionIds: ['services'],
+    sectionIds: ['servicesIntro', 'servicesItems', 'servicesFacilities', 'servicesSupport'],
   },
   {
     id: 'about',
     label: 'About',
     description: 'Company story, leadership, history, and mission text.',
-    sectionIds: ['about'],
+    sectionIds: [
+      'aboutHero',
+      'aboutStory',
+      'aboutMission',
+      'aboutHistory',
+      'aboutChairman',
+      'aboutTeam',
+      'aboutPartners',
+    ],
   },
   {
     id: 'news',
     label: 'News',
     description: 'Newsroom labels and article-related page copy.',
-    sectionIds: ['blog'],
+    sectionIds: ['newsHero', 'newsList'],
   },
   {
     id: 'careers',
     label: 'Careers',
     description: 'Career page messaging, openings, and hiring content.',
-    sectionIds: ['careers'],
+    sectionIds: ['careersHero', 'careersIntro', 'careersTeam', 'careersPositions', 'careersApplication'],
   },
   {
     id: 'contacts',
     label: 'Contacts',
     description: 'Contact page labels, address details, and inquiry copy.',
-    sectionIds: ['contacts'],
+    sectionIds: ['contactsHero', 'contactsShared', 'contactsHeadquarters', 'contactsTelegram', 'contactsForm'],
   },
   {
     id: 'findDealer',
@@ -393,6 +479,524 @@ const TRANSLATION_PAGE_DEFINITIONS: TranslationPageMeta[] = [
     label: '404 Page',
     description: 'Not found page content, actions, and recovery messaging.',
     sectionIds: ['notFound'],
+  },
+];
+
+const CONTENT_FIELD_REGISTRY: ContentFieldRegistration[] = [
+  { pageId: 'global', sectionId: 'nav', patterns: ['nav.*'] },
+  { pageId: 'global', sectionId: 'footer', patterns: ['footer.*'] },
+  { pageId: 'global', sectionId: 'cookieConsent', patterns: ['cookieConsent.*'] },
+  { pageId: 'global', sectionId: 'cta', patterns: ['cta.*'] },
+  {
+    pageId: 'home',
+    sectionId: 'homeHero',
+    patterns: [
+      'home.since',
+      'home.title',
+      'home.subtitle',
+      'home.exploreCatalog',
+      'home.contactUs',
+      'home.inquiryForm',
+    ],
+  },
+  { pageId: 'home', sectionId: 'homeStats', patterns: ['stats.*'] },
+  {
+    pageId: 'home',
+    sectionId: 'homeIntro',
+    patterns: ['intro.*'],
+  },
+  { pageId: 'home', sectionId: 'homeAbout', patterns: ['aboutHome.*'] },
+  {
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    patterns: [
+      'equipment.title',
+      'equipment.heading',
+      'equipment.viewAll',
+      'equipment.customSolutions',
+      'equipment.customDesc',
+      'home.build.explore',
+    ],
+  },
+  {
+    pageId: 'home',
+    sectionId: 'homeFeatured',
+    patterns: ['products.title', 'products.heading', 'products.viewAll'],
+  },
+  {
+    pageId: 'home',
+    sectionId: 'homeProduction',
+    patterns: ['production.*', 'home.process.explore'],
+  },
+  { pageId: 'products', sectionId: 'productsPage', patterns: ['productsPage.*'] },
+  {
+    pageId: 'products',
+    sectionId: 'productsUi',
+    patterns: ['products.specs', 'products.features', 'products.inquiry'],
+  },
+  { pageId: 'products', sectionId: 'productsData', patterns: ['productsData.*'] },
+  { pageId: 'catalog', sectionId: 'catalog', patterns: ['catalog.*'] },
+  { pageId: 'catalog', sectionId: 'categories', patterns: ['categories.*'] },
+  { pageId: 'catalog', sectionId: 'specLabels', patterns: ['specLabels.*'] },
+  {
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsHero',
+    patterns: ['customSolutionsPage.heroTitle', 'customSolutionsPage.heroIntro'],
+  },
+  { pageId: 'customSolutions', sectionId: 'customSolutionsIntro', patterns: ['customSolutionsPage.intro.*'] },
+  {
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsMetal',
+    patterns: ['customSolutionsPage.metalStructures.*'],
+  },
+  {
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsCapabilities',
+    patterns: ['customSolutionsPage.capabilities.title', 'customSolutionsPage.capabilities.subtitle', 'customSolutionsPage.capabilities.items.*'],
+  },
+  { pageId: 'customSolutions', sectionId: 'customSolutionsProduction', patterns: ['customSolutionsPage.production.*'] },
+  { pageId: 'customSolutions', sectionId: 'customSolutionsCta', patterns: ['customSolutionsPage.cta.*'] },
+  {
+    pageId: 'services',
+    sectionId: 'servicesIntro',
+    patterns: ['services.introHeadline', 'services.introP1', 'services.introP2', 'services.stats.*'],
+  },
+  { pageId: 'services', sectionId: 'servicesItems', patterns: ['services.items.*'] },
+  { pageId: 'services', sectionId: 'servicesFacilities', patterns: ['services.facilities', 'services.subtitle', 'services.facilitiesList.*'] },
+  { pageId: 'services', sectionId: 'servicesSupport', patterns: ['services.supportCenter', 'services.supportDesc', 'services.inquiryForm'] },
+  { pageId: 'about', sectionId: 'aboutHero', patterns: ['about.heroTitle', 'about.heroIntro'] },
+  { pageId: 'about', sectionId: 'aboutStory', patterns: ['about.story', 'about.storyP1', 'about.storyP2', 'about.storyP3', 'about.storyP4'] },
+  { pageId: 'about', sectionId: 'aboutMission', patterns: ['mission.*'] },
+  { pageId: 'about', sectionId: 'aboutHistory', patterns: ['about.history', 'about.historyEvents.*'] },
+  {
+    pageId: 'about',
+    sectionId: 'aboutChairman',
+    patterns: ['about.chairman', 'about.chairmanQuote', 'about.chairmanName', 'about.chairmanTitle'],
+  },
+  {
+    pageId: 'about',
+    sectionId: 'aboutTeam',
+    patterns: ['about.family', 'about.familyDesc', 'about.joinFamily', 'about.team', 'about.teamSubtitle', 'about.teamRoles.*', 'about.teamMemberStories.*'],
+  },
+  { pageId: 'about', sectionId: 'aboutPartners', patterns: ['about.partners', 'about.partnersDesc'] },
+  { pageId: 'news', sectionId: 'newsHero', patterns: ['blog.heroIntro'] },
+  { pageId: 'news', sectionId: 'newsList', patterns: ['blog.latest', 'blog.readOriginal', 'blog.newestFirst', 'blog.oldestFirst'] },
+  { pageId: 'careers', sectionId: 'careersHero', patterns: ['careers.heroIntro'] },
+  { pageId: 'careers', sectionId: 'careersIntro', patterns: ['careers.whyWork', 'careers.subtitle'] },
+  { pageId: 'careers', sectionId: 'careersTeam', patterns: ['careers.team'] },
+  {
+    pageId: 'careers',
+    sectionId: 'careersPositions',
+    patterns: ['careers.openPositions', 'careers.apply', 'careers.experienceLabel', 'careers.ageLabel', 'careers.requirementsLabel', 'careers.fullTime'],
+  },
+  {
+    pageId: 'careers',
+    sectionId: 'careersApplication',
+    patterns: [
+      'careers.applyPopupTitle',
+      'careers.fullName',
+      'careers.email',
+      'careers.phone',
+      'careers.message',
+      'careers.submit',
+      'careers.namePlaceholder',
+      'careers.emailPlaceholder',
+      'careers.phonePlaceholder',
+      'careers.agePlaceholder',
+      'careers.experiencePlaceholder',
+      'careers.messagePlaceholder',
+    ],
+  },
+  { pageId: 'contacts', sectionId: 'contactsHero', patterns: ['contacts.heroIntro'] },
+  { pageId: 'contacts', sectionId: 'contactsShared', patterns: ['contacts.title', 'contacts.address', 'contacts.phone', 'contacts.email'] },
+  { pageId: 'contacts', sectionId: 'contactsHeadquarters', patterns: ['contacts.headquarters.*'] },
+  { pageId: 'contacts', sectionId: 'contactsTelegram', patterns: ['contacts.telegramService', 'contacts.telegramKrantas'] },
+  {
+    pageId: 'contacts',
+    sectionId: 'contactsForm',
+    patterns: [
+      'contacts.formTitle',
+      'contacts.inquiryForm',
+      'contacts.name',
+      'contacts.emailLabel',
+      'contacts.messageLabel',
+      'contacts.send',
+      'contacts.companyLabel',
+      'contacts.organizationPlaceholder',
+      'contacts.areaOfInterestLabel',
+      'contacts.selectAreaPlaceholder',
+      'contacts.phoneLabel',
+      'contacts.emailPlaceholder',
+      'contacts.successMessage',
+      'contacts.subjectOptions.*',
+    ],
+  },
+  { pageId: 'findDealer', sectionId: 'distributors', patterns: ['distributors.*'] },
+  { pageId: 'notFound', sectionId: 'notFound', patterns: ['notFound.*'] },
+];
+
+const LEGACY_TRANSLATION_SECTION_TO_PAGE: Record<string, string> = {
+  nav: 'global',
+  footer: 'global',
+  cookieConsent: 'global',
+  cta: 'global',
+  home: 'home',
+  stats: 'home',
+  intro: 'home',
+  aboutHome: 'home',
+  equipment: 'home',
+  production: 'home',
+  products: 'products',
+  productsPage: 'products',
+  productsData: 'products',
+  catalog: 'catalog',
+  categories: 'catalog',
+  specLabels: 'catalog',
+  customSolutionsPage: 'customSolutions',
+  services: 'services',
+  about: 'about',
+  mission: 'about',
+  blog: 'news',
+  careers: 'careers',
+  contacts: 'contacts',
+  distributors: 'findDealer',
+  notFound: 'notFound',
+};
+
+function matchesEditableTranslationPattern(path: string, pattern: string) {
+  if (pattern.endsWith('.*')) {
+    return path.startsWith(pattern.slice(0, -1));
+  }
+
+  return path === pattern;
+}
+
+function getContentFieldRegistration(path: string) {
+  return CONTENT_FIELD_REGISTRY.find((entry) =>
+    entry.patterns.some((pattern) => matchesEditableTranslationPattern(path, pattern)),
+  );
+}
+
+export function isEditableTranslationPath(path: string) {
+  return Boolean(getContentFieldRegistration(path));
+}
+
+export function getEditableTranslationEntries(language: Language) {
+  return getTranslationEntries(language).filter((entry) => isEditableTranslationPath(entry.path));
+}
+
+const SECTION_MEDIA_FIELDS: SectionMediaFieldMeta[] = [
+  {
+    id: 'home.aboutHome.factoryImage',
+    pageId: 'home',
+    sectionId: 'homeAbout',
+    label: 'Factory Image',
+    description: 'Main image in the Home about section.',
+    defaultUrl: '/about_factory.jpg',
+  },
+  {
+    id: 'home.equipment.customSolutionsImage',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Custom Solutions Card',
+    description: 'Large image for the custom solutions equipment card.',
+    defaultUrl: '/cust_sol.jpg',
+  },
+  {
+    id: 'home.equipment.metalStructuresImage',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Metal Structures Card',
+    description: 'Image used for the metal structures equipment card.',
+    defaultUrl: '/cover_ms.jpeg',
+  },
+  {
+    id: 'home.production.facilityImage',
+    pageId: 'home',
+    sectionId: 'homeProduction',
+    label: 'Production Facility Image',
+    description: 'Main image in the full-cycle production section.',
+    defaultUrl: '/full_cycle.jpeg',
+  },
+  {
+    id: 'services.services.introImage',
+    pageId: 'services',
+    sectionId: 'servicesIntro',
+    label: 'Intro Image',
+    description: 'Lead image at the top of the services page.',
+    defaultUrl: '/serv.jpeg',
+  },
+  {
+    id: 'services.services.afterSalesImage',
+    pageId: 'services',
+    sectionId: 'servicesItems',
+    label: 'After-Sales Image',
+    description: 'Visual for the after-sales service item.',
+    defaultUrl: '/welding.jpeg',
+  },
+  {
+    id: 'services.services.qualityImage',
+    pageId: 'services',
+    sectionId: 'servicesItems',
+    label: 'Quality Image',
+    description: 'Visual for the quality service item.',
+    defaultUrl: '/tech_cnc.jpg',
+  },
+  {
+    id: 'services.services.localizationImage',
+    pageId: 'services',
+    sectionId: 'servicesItems',
+    label: 'Localization Image',
+    description: 'Visual for the localization service item.',
+    defaultUrl: '/assembly_line.jpeg',
+  },
+  {
+    id: 'services.services.manufacturingImage',
+    pageId: 'services',
+    sectionId: 'servicesItems',
+    label: 'Manufacturing Image',
+    description: 'Visual for the manufacturing service item.',
+    defaultUrl: '/about_factory.jpg',
+  },
+  {
+    id: 'services.services.engineeringImage',
+    pageId: 'services',
+    sectionId: 'servicesItems',
+    label: 'Engineering Image',
+    description: 'Visual for the engineering service item.',
+    defaultUrl: '/products/LE Truck-Mounted Crane, 25 t.jpeg',
+  },
+  {
+    id: 'services.services.facilityWarehouseImage',
+    pageId: 'services',
+    sectionId: 'servicesFacilities',
+    label: 'Warehouse Facility Image',
+    description: 'Image for the warehouse facility card.',
+    defaultUrl: '/warehouse.jpeg',
+  },
+  {
+    id: 'services.services.facilityServiceImage',
+    pageId: 'services',
+    sectionId: 'servicesFacilities',
+    label: 'Service Facility Image',
+    description: 'Image for the service station facility card.',
+    defaultUrl: '/welding.jpeg',
+  },
+  {
+    id: 'services.services.facilitySparePartsImage',
+    pageId: 'services',
+    sectionId: 'servicesFacilities',
+    label: 'Spare Parts Facility Image',
+    description: 'Image for the spare parts facility card.',
+    defaultUrl: '/spare.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.introImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsIntro',
+    label: 'Intro Image',
+    description: 'Lead image at the top of the custom solutions page.',
+    defaultUrl: '/our_vis.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.metalStructuresImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsMetal',
+    label: 'Metal Structures Image',
+    description: 'Image for the metal structures section.',
+    defaultUrl: '/cover_ms.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.chassisImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsCapabilities',
+    label: 'Chassis Capability Image',
+    description: 'Image for the chassis modification capability.',
+    defaultUrl: '/chassis_mod.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.complexesImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsCapabilities',
+    label: 'Transport Complexes Image',
+    description: 'Image for the transport engineering capability.',
+    defaultUrl: '/spec_eng.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.hydraulicsImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsCapabilities',
+    label: 'Hydraulics Image',
+    description: 'Image for the hydraulics and electronics capability.',
+    defaultUrl: '/hyd_ele.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.containersImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsCapabilities',
+    label: 'Containers Image',
+    description: 'Image for the non-standard containers capability.',
+    defaultUrl: '/non_stan.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.productionManufacturingImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsProduction',
+    label: 'Production Backbone Main Image',
+    description: 'Large production-floor image in the production backbone section.',
+    defaultUrl: '/man_floor.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.productionCncImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsProduction',
+    label: 'Production CNC Image',
+    description: 'CNC image in the production backbone section.',
+    defaultUrl: '/cnc.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.productionWeldingImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsProduction',
+    label: 'Production Welding Image',
+    description: 'Welding image in the production backbone section.',
+    defaultUrl: '/welding.jpeg',
+  },
+  {
+    id: 'customSolutions.customSolutionsPage.productionAssemblyImage',
+    pageId: 'customSolutions',
+    sectionId: 'customSolutionsProduction',
+    label: 'Production Assembly Image',
+    description: 'Assembly image in the production backbone section.',
+    defaultUrl: '/assembly_line.jpeg',
+  },
+  {
+    id: 'about.about.storyImage',
+    pageId: 'about',
+    sectionId: 'aboutStory',
+    label: 'Story Image',
+    description: 'Main factory history image in the About story section.',
+    defaultUrl: '/hq.jpeg',
+  },
+  {
+    id: 'about.about.chairmanImage',
+    pageId: 'about',
+    sectionId: 'aboutChairman',
+    label: 'Chairman Portrait',
+    description: 'Portrait image in the chairman message section.',
+    defaultUrl: '/chairman_portrait.jpeg',
+  },
+  {
+    id: 'careers.careers.introImage',
+    pageId: 'careers',
+    sectionId: 'careersIntro',
+    label: 'Why Work Image',
+    description: 'Lead image in the careers introduction section.',
+    defaultUrl: '/work.jpeg',
+  },
+
+  // ── Home hero ──
+  {
+    id: 'home.hero.videoPoster',
+    pageId: 'home',
+    sectionId: 'homeHero',
+    label: 'Hero Video Poster',
+    description: 'Poster image shown while the hero video loads.',
+    defaultUrl: '/hero-poster.webp',
+  },
+
+  // ── Home category covers ──
+  {
+    id: 'home.categories.liftingEquipmentCover',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Lifting Equipment Cover',
+    description: 'Cover image for the lifting equipment category card.',
+    defaultUrl: '/cover_le.jpg',
+  },
+  {
+    id: 'home.categories.agriculturalCover',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Agricultural Cover',
+    description: 'Cover image for the agricultural machinery category card.',
+    defaultUrl: '/cover_am.jpg',
+  },
+  {
+    id: 'home.categories.tankTrucksCover',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Tank Trucks Cover',
+    description: 'Cover image for the tank trucks category card.',
+    defaultUrl: '/cover_tt.jpg',
+  },
+  {
+    id: 'home.categories.specialPurposeCover',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Special Purpose Cover',
+    description: 'Cover image for the special purpose vehicles category card.',
+    defaultUrl: '/cover_spm.jpg',
+  },
+  {
+    id: 'home.categories.overheadGantryCover',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Overhead & Gantry Cover',
+    description: 'Cover image for the overhead and gantry cranes category card.',
+    defaultUrl: '/cover_og.jpg',
+  },
+  {
+    id: 'home.categories.dumpTrucksCover',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Dump Trucks Cover',
+    description: 'Cover image for the dump trucks category card.',
+    defaultUrl: '/cover_dt.jpg',
+  },
+  {
+    id: 'home.categories.miningTrucksCover',
+    pageId: 'home',
+    sectionId: 'homeEquipment',
+    label: 'Mining Trucks Cover',
+    description: 'Cover image for the mining trucks category card.',
+    defaultUrl: '/cover_mt.jpeg',
+  },
+
+  // ── Global hero/banner background ──
+  {
+    id: 'global.hero.backgroundImage',
+    pageId: 'global',
+    sectionId: 'nav',
+    label: 'Hero & Banner Background',
+    description: 'Shared background image used in the site hero and page banners.',
+    defaultUrl: '/hero_cover.png',
+  },
+
+  // ── Team member story images ──
+  {
+    id: 'about.team.sergeyImage',
+    pageId: 'about',
+    sectionId: 'aboutTeam',
+    label: 'Sergey Konstantinovich Photo',
+    description: 'Portrait for the Sergey Konstantinovich team story card.',
+    defaultUrl: '/Konstantinovich.jpeg',
+  },
+  {
+    id: 'about.team.komilImage',
+    pageId: 'about',
+    sectionId: 'aboutTeam',
+    label: 'Komil Khaitmatov Photo',
+    description: 'Portrait for the Komil Khaitmatov team story card.',
+    defaultUrl: '/komil.png',
+  },
+  {
+    id: 'about.team.elviraImage',
+    pageId: 'about',
+    sectionId: 'aboutTeam',
+    label: 'Elvira Photo',
+    description: 'Portrait for the Elvira team story card.',
+    defaultUrl: '/elvira.png',
   },
 ];
 
@@ -722,9 +1326,24 @@ export function getDefaultCmsSnapshot(): CmsSnapshot {
     newsItems: createDefaultNewsItems(),
     leads: [],
     mediaItems: [],
+    sectionMedia: {},
     translationOverrides: cloneCmsValue(EMPTY_TRANSLATION_OVERRIDES),
     seo: cloneCmsValue(DEFAULT_SEO),
   };
+}
+
+function normalizeSectionMedia(raw: unknown): CmsSectionMediaMap {
+  if (!isRecord(raw)) {
+    return {};
+  }
+
+  const validIds = new Set(SECTION_MEDIA_FIELDS.map((field) => field.id));
+
+  return Object.fromEntries(
+    Object.entries(raw).flatMap(([key, value]) =>
+      typeof value === 'string' && value.trim() && validIds.has(key) ? [[key, value]] : [],
+    ),
+  );
 }
 
 function normalizeTranslationOverrides(raw: unknown): TranslationOverrideMap {
@@ -736,12 +1355,13 @@ function normalizeTranslationOverrides(raw: unknown): TranslationOverrideMap {
 
   (Object.keys(normalized) as Language[]).forEach((language) => {
     const languageOverrides = raw[language];
+    const validPaths = new Set(getEditableTranslationEntries(language).map((entry) => entry.path));
     if (!isRecord(languageOverrides)) {
       return;
     }
 
     Object.entries(languageOverrides).forEach(([path, value]) => {
-      if (typeof value === 'string') {
+      if (typeof value === 'string' && validPaths.has(path)) {
         normalized[language][path] = value;
       }
     });
@@ -1155,6 +1775,7 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
     newsItems: normalizedNewsItems.length > 0 ? normalizedNewsItems : defaults.newsItems,
     leads: Array.isArray(raw.leads) ? normalizeLeads(raw.leads) : defaults.leads,
     mediaItems: normalizeMediaItems(raw.mediaItems),
+    sectionMedia: normalizeSectionMedia(raw.sectionMedia),
     translationOverrides: normalizeTranslationOverrides(raw.translationOverrides),
     seo: normalizeSeo(raw.seo),
   };
@@ -1341,12 +1962,20 @@ function humanizeTranslationSegment(segment: string) {
 }
 
 export function getTranslationSectionId(path: string) {
-  return path.split('.').filter(Boolean)[0] ?? 'misc';
+  const registration = getContentFieldRegistration(path);
+
+  return registration?.sectionId ?? path.split('.').filter(Boolean)[0] ?? 'misc';
 }
 
 export function getTranslationPageId(path: string) {
+  const registration = getContentFieldRegistration(path);
+
+  if (registration) {
+    return registration.pageId;
+  }
+
   const sectionId = getTranslationSectionId(path);
-  return TRANSLATION_SECTION_TO_PAGE[sectionId] ?? 'global';
+  return TRANSLATION_SECTION_TO_PAGE[sectionId] ?? LEGACY_TRANSLATION_SECTION_TO_PAGE[sectionId] ?? 'global';
 }
 
 export function getTranslationSectionMeta(id: string): TranslationSectionMeta {
@@ -1363,17 +1992,29 @@ export function getTranslationSectionList(
   language: Language,
   overrides: Record<string, string> = {},
 ): TranslationSectionMeta[] {
-  const baseSectionIds = Object.keys(translations[language]).filter((key) => key !== 'locale');
-  const overrideSectionIds = Object.keys(overrides).map(getTranslationSectionId);
-  const sectionIds = Array.from(new Set([...baseSectionIds, ...overrideSectionIds]));
+  const sectionIds = Array.from(
+    new Set([
+      ...getEditableTranslationEntries(language).map((entry) => getTranslationSectionId(entry.path)),
+      ...Object.keys(overrides)
+        .filter((path) => isEditableTranslationPath(path))
+        .map(getTranslationSectionId),
+      ...SECTION_MEDIA_FIELDS.map((field) => field.sectionId),
+    ]),
+  );
 
-  return sectionIds.map(getTranslationSectionMeta).sort((left, right) => {
-    if (left.id === 'productsData') return 1;
-    if (right.id === 'productsData') return -1;
-    if (left.id === 'categories') return 1;
-    if (right.id === 'categories') return -1;
-    return left.label.localeCompare(right.label);
-  });
+  const orderedSectionIds = [
+    ...TRANSLATION_PAGE_DEFINITIONS.flatMap((page) =>
+      page.sectionIds.filter((sectionId) => sectionIds.includes(sectionId)),
+    ),
+    ...sectionIds
+      .filter(
+        (sectionId) =>
+          !TRANSLATION_PAGE_DEFINITIONS.some((page) => page.sectionIds.includes(sectionId)),
+      )
+      .sort(),
+  ];
+
+  return orderedSectionIds.map(getTranslationSectionMeta);
 }
 
 export function getTranslationPageMeta(id: string): TranslationPageMeta {
@@ -1395,10 +2036,14 @@ export function getTranslationPageList(
   language: Language,
   overrides: Record<string, string> = {},
 ): TranslationPageMeta[] {
-  const baseSectionIds = Object.keys(translations[language]).filter((key) => key !== 'locale');
-  const overrideSectionIds = Object.keys(overrides).map(getTranslationSectionId);
   const pageIds = Array.from(
-    new Set([...baseSectionIds, ...overrideSectionIds].map((sectionId) => getTranslationPageId(sectionId))),
+    new Set([
+      ...getEditableTranslationEntries(language).map((entry) => getTranslationPageId(entry.path)),
+      ...Object.keys(overrides)
+        .filter((path) => isEditableTranslationPath(path))
+        .map((path) => getTranslationPageId(path)),
+      ...SECTION_MEDIA_FIELDS.map((field) => field.pageId),
+    ]),
   );
 
   return pageIds.sort((left, right) => {
@@ -1422,9 +2067,12 @@ export function getTranslationSectionsForPage(
 ): TranslationSectionMeta[] {
   const availableSectionIds = new Set(
     [
-      ...Object.keys(translations[language]).filter((key) => key !== 'locale'),
-      ...Object.keys(overrides).map(getTranslationSectionId),
-    ].filter((sectionId) => getTranslationPageId(sectionId) === pageId),
+      ...getEditableTranslationEntries(language).map((entry) => getTranslationSectionId(entry.path)),
+      ...Object.keys(overrides)
+        .filter((path) => isEditableTranslationPath(path))
+        .map(getTranslationSectionId),
+      ...SECTION_MEDIA_FIELDS.filter((field) => field.pageId === pageId).map((field) => field.sectionId),
+    ].filter((sectionId) => (TRANSLATION_SECTION_TO_PAGE[sectionId] ?? getTranslationPageId(sectionId)) === pageId),
   );
 
   const pageMeta = getTranslationPageMeta(pageId);
@@ -1436,9 +2084,29 @@ export function getTranslationSectionsForPage(
   return orderedSectionIds.map(getTranslationSectionMeta);
 }
 
+export function getSectionMediaFieldsForPage(pageId: string) {
+  return SECTION_MEDIA_FIELDS.filter((field) => field.pageId === pageId);
+}
+
+export function getSectionMediaFieldsForSection(pageId: string, sectionId: string) {
+  return SECTION_MEDIA_FIELDS.filter(
+    (field) => field.pageId === pageId && field.sectionId === sectionId,
+  );
+}
+
+export function resolveSectionMediaUrl(
+  sectionMedia: CmsSectionMediaMap,
+  fieldId: string,
+  fallbackUrl: string,
+) {
+  const overrideUrl = sectionMedia[fieldId];
+
+  return typeof overrideUrl === 'string' && overrideUrl.trim() ? overrideUrl : fallbackUrl;
+}
+
 export function getTranslationFieldMeta(path: string): TranslationFieldMeta {
   const segments = path.split('.').filter(Boolean);
-  const sectionId = segments[0] ?? 'misc';
+  const sectionId = getTranslationSectionId(path);
   const pageId = getTranslationPageId(path);
   const fieldSegments = segments.slice(1);
   const label = humanizeTranslationSegment(fieldSegments[fieldSegments.length - 1] ?? sectionId);

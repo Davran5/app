@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { X, ArrowRight } from 'lucide-react';
 import ContactForm from '../components/ContactForm';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
+import { resolveMediaInputUrl } from '../lib/media';
 
 export default function CustomSolutions() {
   const { t } = useLanguage();
+  const { getSectionMedia } = useCms();
   const [showForm, setShowForm] = useState(false);
 
   const customizationTypes = [
@@ -12,28 +15,40 @@ export default function CustomSolutions() {
       id: 'chassis',
       title: t.customSolutionsPage.capabilities.items.chassis.title,
       description: t.customSolutionsPage.capabilities.items.chassis.description,
-      image: '/chassis_mod.jpeg',
+      image: getSectionMedia(
+        'customSolutions.customSolutionsPage.chassisImage',
+        '/chassis_mod.jpeg',
+      ),
       capabilities: t.customSolutionsPage.capabilities.items.chassis.capabilities
     },
     {
       id: 'complexes',
       title: t.customSolutionsPage.capabilities.items.complexes.title,
       description: t.customSolutionsPage.capabilities.items.complexes.description,
-      image: '/spec_eng.jpeg',
+      image: getSectionMedia(
+        'customSolutions.customSolutionsPage.complexesImage',
+        '/spec_eng.jpeg',
+      ),
       capabilities: t.customSolutionsPage.capabilities.items.complexes.capabilities
     },
     {
       id: 'hydraulics',
       title: t.customSolutionsPage.capabilities.items.hydraulics.title,
       description: t.customSolutionsPage.capabilities.items.hydraulics.description,
-      image: '/hyd_ele.jpeg',
+      image: getSectionMedia(
+        'customSolutions.customSolutionsPage.hydraulicsImage',
+        '/hyd_ele.jpeg',
+      ),
       capabilities: t.customSolutionsPage.capabilities.items.hydraulics.capabilities
     },
     {
       id: 'containers',
       title: t.customSolutionsPage.capabilities.items.containers.title,
       description: t.customSolutionsPage.capabilities.items.containers.description,
-      image: '/non_stan.jpeg',
+      image: getSectionMedia(
+        'customSolutions.customSolutionsPage.containersImage',
+        '/non_stan.jpeg',
+      ),
       capabilities: t.customSolutionsPage.capabilities.items.containers.capabilities
     },
   ];
@@ -72,7 +87,12 @@ export default function CustomSolutions() {
               </div>
               <div className="relative">
                 <img
-                  src="/our_vis.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia(
+                      'customSolutions.customSolutionsPage.introImage',
+                      '/our_vis.jpeg',
+                    ),
+                  )}
                   alt="Manufacturing Facility"
                   className="w-full h-[320px] lg:h-[380px] object-cover shadow-2xl"
                 />
@@ -88,7 +108,12 @@ export default function CustomSolutions() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="order-2 lg:order-1 relative">
                 <img
-                  src="/cover_ms.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia(
+                      'customSolutions.customSolutionsPage.metalStructuresImage',
+                      '/cover_ms.jpeg',
+                    ),
+                  )}
                   alt="Metal Structures"
                   className="w-full h-[240px] lg:h-[300px] object-cover shadow-2xl"
                 />
@@ -128,7 +153,7 @@ export default function CustomSolutions() {
                 >
                   <div className="relative h-80 overflow-hidden">
                     <img
-                      src={type.image}
+                      src={resolveMediaInputUrl(type.image)}
                       alt={type.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -163,7 +188,12 @@ export default function CustomSolutions() {
             <div className="grid md:grid-cols-3 gap-6 mb-6">
               <div className="md:col-span-2 relative group overflow-hidden h-[192px] md:h-[500px]">
                 <img
-                  src="/man_floor.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia(
+                      'customSolutions.customSolutionsPage.productionManufacturingImage',
+                      '/man_floor.jpeg',
+                    ),
+                  )}
                   alt="Production Facility"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -175,7 +205,12 @@ export default function CustomSolutions() {
               </div>
               <div className="relative group overflow-hidden h-[192px] md:h-[500px]">
                 <img
-                  src="/cnc.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia(
+                      'customSolutions.customSolutionsPage.productionCncImage',
+                      '/cnc.jpeg',
+                    ),
+                  )}
                   alt="CNC Operations"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -190,7 +225,12 @@ export default function CustomSolutions() {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="relative group overflow-hidden h-[192px] md:h-[350px]">
                 <img
-                  src="/welding.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia(
+                      'customSolutions.customSolutionsPage.productionWeldingImage',
+                      '/welding.jpeg',
+                    ),
+                  )}
                   alt="Welding"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -202,7 +242,12 @@ export default function CustomSolutions() {
               </div>
               <div className="md:col-span-2 relative group overflow-hidden h-[192px] md:h-[350px]">
                 <img
-                  src="/assembly_line.jpeg"
+                  src={resolveMediaInputUrl(
+                    getSectionMedia(
+                      'customSolutions.customSolutionsPage.productionAssemblyImage',
+                      '/assembly_line.jpeg',
+                    ),
+                  )}
                   alt="Assembly"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

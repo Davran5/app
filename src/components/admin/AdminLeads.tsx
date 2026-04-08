@@ -24,7 +24,6 @@ import {
   adminLabelClass,
   adminPrimaryButtonClass,
   adminTextareaClass,
-  adminTitleClass,
   getAdminListItemClass,
 } from './styles';
 import type { AdminPrimaryAction } from './types';
@@ -300,14 +299,34 @@ export default function AdminLeads({
     };
   }, [activeLead, handleSaveLead, onPrimaryActionChange]);
 
+  const newCount = leads.filter((l) => l.status === 'new').length;
+  const wonCount = leads.filter((l) => l.status === 'won').length;
+
   return (
     <div className="grid h-full min-h-0 gap-4 xl:grid-cols-[340px_minmax(0,1fr)]">
       <aside className={`${adminCardClass} flex min-h-0 flex-col overflow-hidden p-5`}>
         <div>
-          <h2 className="text-lg font-semibold text-black">Leads</h2>
+          <p className={adminLabelClass}>CRM</p>
+          <h2 className="mt-1 text-xl font-semibold tracking-tight text-black">Leads</h2>
           <p className="mt-1 text-sm text-neutral-500">
-            Website inquiries and applications captured from live forms.
+            Website inquiries and applications from live forms.
           </p>
+        </div>
+
+        {/* Stats strip */}
+        <div className="mt-4 grid grid-cols-3 gap-2">
+          <div className="rounded-xl border border-black/10 bg-neutral-50 px-2 py-2 text-center">
+            <p className="text-lg font-semibold text-black">{leads.length}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-neutral-500">Total</p>
+          </div>
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-2 py-2 text-center">
+            <p className="text-lg font-semibold text-amber-700">{newCount}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-600">New</p>
+          </div>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-2 py-2 text-center">
+            <p className="text-lg font-semibold text-emerald-700">{wonCount}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-600">Won</p>
+          </div>
         </div>
 
         <label className="mt-4 flex items-center gap-3 rounded-2xl border border-black/10 bg-neutral-50 px-4 py-3">
@@ -405,33 +424,35 @@ export default function AdminLeads({
         </div>
       </aside>
 
-      <section className={`${adminCardClass} flex min-h-0 flex-col overflow-hidden p-6`}>
+      <section className={`${adminCardClass} flex min-h-0 flex-col overflow-hidden`}>
         {activeLead ? (
           <>
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <p className={adminLabelClass}>{getSourceLabel(activeLead.source)}</p>
-                <h2 className={adminTitleClass}>{getLeadPreview(activeLead)}</h2>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="rounded-full bg-neutral-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
-                    {getStatusLabel(activeLead.status)}
-                  </span>
-                  <span className="rounded-full bg-neutral-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
-                    {getPriorityLabel(activeLead.priority)}
-                  </span>
-                  <span className="rounded-full bg-neutral-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
-                    {humanizeOriginPage(activeLead.originPage)}
-                  </span>
+            <div className="shrink-0 border-b border-black/10 px-6 py-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className={adminLabelClass}>{getSourceLabel(activeLead.source)}</p>
+                  <h2 className="mt-1 text-xl font-semibold tracking-tight text-black">{getLeadPreview(activeLead)}</h2>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    <span className="rounded-full bg-neutral-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
+                      {getStatusLabel(activeLead.status)}
+                    </span>
+                    <span className="rounded-full bg-neutral-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
+                      {getPriorityLabel(activeLead.priority)}
+                    </span>
+                    <span className="rounded-full bg-neutral-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
+                      {humanizeOriginPage(activeLead.originPage)}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <button onClick={handleDeleteLead} className={adminDangerButtonClass}>
-                <Trash2 size={16} />
-                Delete
-              </button>
+                <button onClick={handleDeleteLead} className={adminDangerButtonClass}>
+                  <Trash2 size={16} />
+                  Delete
+                </button>
+              </div>
             </div>
 
-            <div className="mt-5 flex-1 overflow-y-auto pr-1">
+            <div className="flex-1 overflow-y-auto px-6 py-5">
               <div className="grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
                 <div className="space-y-4">
                   <div className="grid gap-4 md:grid-cols-2">

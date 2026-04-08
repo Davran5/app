@@ -5,7 +5,7 @@ import { useCms } from '../contexts/CmsContext';
 export default function GlobalBanner() {
     const location = useLocation();
     const { t, language } = useLanguage();
-    const { getCategoryById, getProductById } = useCms();
+    const { getCategoryById, getProductById, getSectionMedia } = useCms();
     const path = location.pathname;
 
     if (path === '/' || path === '/find-dealer') return null;
@@ -77,7 +77,7 @@ export default function GlobalBanner() {
             className="hero-section w-full relative flex items-center justify-start mt-[64px] mb-[-3rem] lg:mt-[60px] lg:mb-0 bg-white overflow-hidden"
         >
             <img
-                src="/hero_cover.png"
+                src={getSectionMedia('global.hero.backgroundImage', '/hero_cover.png')}
                 alt="Hero"
                 className="w-full h-[180px] object-cover object-top block z-0 relative drop-shadow-[-10px_10px_30px_rgba(0,0,0,0.45)] md:h-auto md:object-fill"
             />

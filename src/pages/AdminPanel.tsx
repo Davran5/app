@@ -7,7 +7,6 @@ import {
   Inbox,
   Images,
   Languages,
-  LayoutDashboard,
   Newspaper,
   PackagePlus,
   PanelLeftClose,
@@ -17,7 +16,7 @@ import {
 } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
-import AdminDashboard from '../components/admin/AdminDashboard';
+
 import AdminDealers from '../components/admin/AdminDealers';
 import AdminHomepage from '../components/admin/AdminHomepage';
 import AdminLeads from '../components/admin/AdminLeads';
@@ -33,9 +32,8 @@ import { useCms } from '../contexts/CmsContext';
 import { getMediaLibrary } from '../lib/media';
 
 type AdminTab =
-  | 'dashboard'
-  | 'homepage'
   | 'leads'
+  | 'homepage'
   | 'dealers'
   | 'products'
   | 'vacancies'
@@ -47,22 +45,17 @@ type AdminTab =
 const tabs: {
   id: AdminTab;
   label: string;
-  icon: typeof LayoutDashboard;
+  icon: typeof Inbox;
 }[] = [
   {
-    id: 'dashboard',
-    label: 'Dashboard',
-    icon: LayoutDashboard,
+    id: 'leads',
+    label: 'Leads',
+    icon: Inbox,
   },
   {
     id: 'homepage',
     label: 'Featured Products',
     icon: House,
-  },
-  {
-    id: 'leads',
-    label: 'Leads',
-    icon: Inbox,
   },
   {
     id: 'dealers',
@@ -113,16 +106,8 @@ export default function AdminPanel({ onLogout }: { onLogout?: () => void }) {
 
   const activeTab: AdminTab = isAdminTab(searchParams.get('tab'))
     ? (searchParams.get('tab') as AdminTab)
-    : 'dashboard';
+    : 'leads';
 
-  const totalOverrides = useMemo(
-    () =>
-      Object.values(cms.translationOverrides).reduce(
-        (count, languageOverrides) => count + Object.keys(languageOverrides).length,
-        0,
-      ),
-    [cms.translationOverrides],
-  );
   const mediaLibrary = useMemo(() => getMediaLibrary(cms.mediaItems), [cms.mediaItems]);
 
   const handleTabChange = (tab: AdminTab) => {
@@ -243,34 +228,6 @@ export default function AdminPanel({ onLogout }: { onLogout?: () => void }) {
 
       <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
         <div className="flex-1 min-h-0 overflow-hidden p-3 lg:p-4">
-          {activeTab === 'dashboard' && (
-            <div className="h-full min-h-0 overflow-y-auto pr-1">
-              <AdminDashboard
-                productsCount={cms.products.length}
-                categoriesCount={cms.categories.length}
-                featuredCount={cms.featuredProductIds.length}
-                leadsCount={cms.leads.length}
-                dealerCount={cms.distributorLocations.length}
-                vacanciesCount={cms.vacancies.length}
-                newsCount={cms.newsItems.length}
-                overridesCount={totalOverrides}
-                seoCount={Object.keys(cms.seo).length}
-                mediaCount={mediaLibrary.length}
-                latestProducts={cms.products.slice(0, 5)}
-                updatedAt={cms.updatedAt}
-                onOpenHomepage={() => handleTabChange('homepage')}
-                onOpenLeads={() => handleTabChange('leads')}
-                onOpenDealers={() => handleTabChange('dealers')}
-                onOpenProducts={() => handleTabChange('products')}
-                onOpenVacancies={() => handleTabChange('vacancies')}
-                onOpenNews={() => handleTabChange('news')}
-                onOpenTranslations={() => handleTabChange('translations')}
-                onOpenSeo={() => handleTabChange('seo')}
-                onOpenMedia={() => handleTabChange('media')}
-              />
-            </div>
-          )}
-
           {activeTab === 'products' && (
             <AdminProducts
               products={cms.products}

@@ -48,15 +48,15 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:3000',
+        target: 'http://127.0.0.1:3100',
         changeOrigin: true,
       },
       '/robots.txt': {
-        target: 'http://127.0.0.1:3000',
+        target: 'http://127.0.0.1:3100',
         changeOrigin: true,
       },
       '/sitemap.xml': {
-        target: 'http://127.0.0.1:3000',
+        target: 'http://127.0.0.1:3100',
         changeOrigin: true,
       },
     },

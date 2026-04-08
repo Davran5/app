@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { ChevronRight, Phone, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
+import { resolveMediaInputUrl } from '../lib/media';
 
 export default function Services() {
   const { t } = useLanguage();
+  const { getSectionMedia } = useCms();
   const [showForm, setShowForm] = useState(false);
   const [activeServiceId, setActiveServiceId] = useState(1);
 
@@ -20,7 +23,7 @@ export default function Services() {
         t.services.items.afterSales.stages.parts,
         t.services.items.afterSales.stages.support,
       ],
-      image: '/welding.jpeg'
+      image: getSectionMedia('services.services.afterSalesImage', '/welding.jpeg')
     },
     {
       id: 2,
@@ -33,7 +36,7 @@ export default function Services() {
         t.services.items.quality.stages.certification,
         t.services.items.quality.stages.documentation,
       ],
-      image: '/tech_cnc.jpg'
+      image: getSectionMedia('services.services.qualityImage', '/tech_cnc.jpg')
     },
     {
       id: 3,
@@ -46,7 +49,7 @@ export default function Services() {
         t.services.items.localization.stages.integration,
         t.services.items.localization.stages.training,
       ],
-      image: '/assembly_line.jpeg'
+      image: getSectionMedia('services.services.localizationImage', '/assembly_line.jpeg')
     },
     {
       id: 4,
@@ -59,7 +62,7 @@ export default function Services() {
         t.services.items.manufacturing.stages.assembly,
         t.services.items.manufacturing.stages.testing,
       ],
-      image: '/about_factory.jpg'
+      image: getSectionMedia('services.services.manufacturingImage', '/about_factory.jpg')
     },
     {
       id: 5,
@@ -72,7 +75,10 @@ export default function Services() {
         t.services.items.engineering.stages.prototyping,
         t.services.items.engineering.stages.implementation,
       ],
-      image: '/products/LE Truck-Mounted Crane, 25 t.jpeg'
+      image: getSectionMedia(
+        'services.services.engineeringImage',
+        '/products/LE Truck-Mounted Crane, 25 t.jpeg',
+      )
     },
   ];
 
@@ -80,17 +86,17 @@ export default function Services() {
     {
       title: t.services.facilitiesList.warehouse.title,
       description: t.services.facilitiesList.warehouse.description,
-      image: '/warehouse.jpeg'
+      image: getSectionMedia('services.services.facilityWarehouseImage', '/warehouse.jpeg')
     },
     {
       title: t.services.facilitiesList.serviceStation.title,
       description: t.services.facilitiesList.serviceStation.description,
-      image: '/welding.jpeg'
+      image: getSectionMedia('services.services.facilityServiceImage', '/welding.jpeg')
     },
     {
       title: t.services.facilitiesList.spareParts.title,
       description: t.services.facilitiesList.spareParts.description,
-      image: '/spare.jpeg'
+      image: getSectionMedia('services.services.facilitySparePartsImage', '/spare.jpeg')
     }
   ];
 
@@ -127,7 +133,9 @@ export default function Services() {
             </div>
             <div className="relative">
               <img
-                src="/serv.jpeg"
+                src={resolveMediaInputUrl(
+                  getSectionMedia('services.services.introImage', '/serv.jpeg'),
+                )}
                 alt="Service Facility"
                 className="w-full h-[320px] lg:h-[420px] object-cover shadow-2xl"
               />
@@ -259,7 +267,7 @@ export default function Services() {
             {/* Warehouse: col-span-2 */}
             <div className="md:col-span-2 relative group overflow-hidden h-[192px] md:h-[400px]">
               <img
-                src={facilities[0].image}
+                src={resolveMediaInputUrl(facilities[0].image)}
                 alt={facilities[0].title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -275,7 +283,7 @@ export default function Services() {
             {/* Service Station: col-span-1 */}
             <div className="relative group overflow-hidden h-[192px] md:h-[400px]">
               <img
-                src={facilities[1].image}
+                src={resolveMediaInputUrl(facilities[1].image)}
                 alt={facilities[1].title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -291,7 +299,7 @@ export default function Services() {
             {/* Spare Parts Center: col-span-3 */}
             <div className="md:col-span-3 relative group overflow-hidden h-[192px] md:h-[350px]">
               <img
-                src={facilities[2].image}
+                src={resolveMediaInputUrl(facilities[2].image)}
                 alt={facilities[2].title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />

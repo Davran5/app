@@ -1,25 +1,30 @@
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCms } from '../contexts/CmsContext';
 
 const teamMemberStoryConfig = [
   {
     key: 'sergey',
-    image: '/Konstantinovich.jpeg',
+    mediaFieldId: 'about.team.sergeyImage',
+    defaultImage: '/Konstantinovich.jpeg',
     alt: 'Petrov Sergey Konstantinovich',
   },
   {
     key: 'komil',
-    image: '/komil.png',
+    mediaFieldId: 'about.team.komilImage',
+    defaultImage: '/komil.png',
     alt: 'Komil Khaitmatov',
   },
   {
     key: 'elvira',
-    image: '/elvira.png',
+    mediaFieldId: 'about.team.elviraImage',
+    defaultImage: '/elvira.png',
     alt: 'Elvira',
   },
 ] as const;
 
 export default function TeamMemberStoryCards() {
   const { t } = useLanguage();
+  const { getSectionMedia } = useCms();
 
   return (
     <div className="grid md:grid-cols-3 gap-8">
@@ -30,7 +35,7 @@ export default function TeamMemberStoryCards() {
           <div key={member.key} className="bg-white shadow-lg overflow-hidden flex flex-col">
             <div className="h-[205px] lg:h-64 overflow-hidden">
               <img
-                src={member.image}
+                src={getSectionMedia(member.mediaFieldId, member.defaultImage)}
                 alt={member.alt}
                 className="w-full h-full object-cover"
               />

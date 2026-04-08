@@ -6,6 +6,10 @@ import ContactForm from '../components/ContactForm';
 export default function Contacts() {
   const { t } = useLanguage();
   const [showFormMobile, setShowFormMobile] = useState(false);
+  const mainOfficePhone = t.contacts.headquarters.mainOfficePhone || t.contacts.phone;
+  const mainOfficeEmail = t.contacts.headquarters.mainOfficeEmail || t.contacts.email;
+  const serviceCenterPhone = t.contacts.headquarters.serviceCenterPhone || t.contacts.phone;
+  const serviceCenterEmail = t.contacts.headquarters.serviceCenterEmail || t.contacts.email;
 
   useEffect(() => {
     if (window.location.hash === '#contact-form') {
@@ -50,16 +54,35 @@ export default function Contacts() {
                     </p>
                   </div>
 
-                  <div>
-                    <h4 className="font-bold text-[#0B0C0E] text-base mb-1">{t.contacts.headquarters.contactInfoLabel}</h4>
-                    <div className="space-y-2">
-                      <a
-                        href="tel:+998900479090"
-                        className="text-[#244d85] text-base hover:text-[#1E4ECC] block font-medium"
-                      >
-                        +998 90 047 90 90
-                      </a>
-                      <p className="text-[#0B0C0E] text-base">info@krantas.uz</p>
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <h4 className="font-bold text-[#0B0C0E] text-base mb-1">
+                        {t.contacts.headquarters.mainOfficeLabel}
+                      </h4>
+                      <div className="space-y-2">
+                        <a
+                          href={`tel:${mainOfficePhone.replace(/\s/g, '')}`}
+                          className="text-[#244d85] text-base hover:text-[#1E4ECC] block font-medium"
+                        >
+                          {mainOfficePhone}
+                        </a>
+                        <p className="text-[#0B0C0E] text-base">{mainOfficeEmail}</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-[#0B0C0E] text-base mb-1">
+                        {t.contacts.headquarters.serviceCenterLabel}
+                      </h4>
+                      <div className="space-y-2">
+                        <a
+                          href={`tel:${serviceCenterPhone.replace(/\s/g, '')}`}
+                          className="text-[#244d85] text-base hover:text-[#1E4ECC] block font-medium"
+                        >
+                          {serviceCenterPhone}
+                        </a>
+                        <p className="text-[#0B0C0E] text-base">{serviceCenterEmail}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
