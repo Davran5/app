@@ -1258,6 +1258,11 @@ function shouldServeSpaHtml(req) {
 }
 
 function requireAdminSession(req, res, next) {
+  if (!isAdminAuthenticated(req)) {
+    appendAdminAuditLog('admin.access.denied', req);
+    return res.status(401).set('Cache-Control', 'no-store').json({ error: ADMIN_ACCESS_DENIED_MESSAGE });
+  }
+
   return next();
 }
 
