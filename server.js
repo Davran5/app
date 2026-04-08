@@ -1350,6 +1350,70 @@ app.get('/api/admin/session', (req, res) => {
   });
 });
 
+// Diagnostic endpoint — helps debug auth and save failures.
+// Safe to leave in: only exposes non-secret request metadata.
+app.get('/api/admin/diag', async (req, res) => {
+  const origin = req.get('origin') || null;
+  const referer = req.get('referer') || null;
+  const allowedHostnames = Array.from(getAllowedHostnames(req));
+  const session = getAdminSession(req);
+  const sessionCookie = getRequestCookies(req)[ADMIN_SESSION_COOKIE] || null;
+
+  let originHostname = null;
+  let refererHostname = null;
+  try { originHostname = origin ? new URL(origin).hostname : null; } catch { /* */ }
+  try { refererHostname = referer ? new URL(referer).hostname : null; } catch { /* */ }
+
+  const originAllowed = !origin || allowedHostnames.includes(originHostname);
+  const refererAllowed = !referer || allowedHostnames.includes(refererHostname);
+
+  let cmsWritable = false;
+  let cmsWriteError = null;
+  try {
+    await fs.access(path.dirname(CMS_STORAGE_PATH), fs.constants?.W_OK ?? 2);
+    cmsWritable = true;
+  } catch (err) {
+    cmsWriteError = String(err?.message ?? err);
+  }
+
+  res.set('Cache-Control', 'no-store').json({
+    request: {
+      protocol: req.protocol,
+      host: req.get('host'),
+      xForwardedProto: req.get('x-forwarded-proto') || null,
+      xForwardedHost: req.get('x-forwarded-host') || null,
+      origin,
+      referer,
+    },
+    sameOriginCheck: {
+      allowedHostnames,
+      originHostname,
+      refererHostname,
+      originAllowed,
+      refererAllowed,
+      wouldPass: originAllowed && refererAllowed,
+    },
+    auth: {
+      hasCookie: Boolean(sessionCookie),
+      cookieLength: sessionCookie ? sessionCookie.length : 0,
+      authenticated: Boolean(session),
+      username: session?.username || null,
+      adminUsersConfigured: isAdminAccessConfigured(),
+      adminUserCount: ADMIN_USERS.length,
+    },
+    storage: {
+      databaseConfigured: isDatabaseConfigured(),
+      cmsStoragePath: CMS_STORAGE_PATH,
+      cmsWritable,
+      cmsWriteError,
+    },
+    env: {
+      nodeEnv: process.env.NODE_ENV || '(not set)',
+      siteUrlConfigured: Boolean(process.env.SITE_URL?.trim()),
+    },
+  });
+});
+
 app.post('/api/admin/login', requireSameOrigin, (req, res) => {
   const username = typeof req.body?.username === 'string' ? req.body.username.trim() : '';
   const password = typeof req.body?.password === 'string' ? req.body.password : '';
