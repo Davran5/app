@@ -831,14 +831,40 @@ function getAllowedOrigins(req) {
   return origins;
 }
 
+function getAllowedHostnames(req) {
+  const hostnames = new Set();
+  const siteOrigin = getSiteOrigin(req);
+
+  try {
+    hostnames.add(new URL(siteOrigin).hostname);
+  } catch {
+    // ignore
+  }
+
+  try {
+    hostnames.add(new URL(`${req.protocol}://${req.get('host')}`).hostname);
+  } catch {
+    // ignore
+  }
+
+  const rawHost = String(req.get('host') || '').split(':')[0].trim();
+  if (rawHost) {
+    hostnames.add(rawHost);
+  }
+
+  return hostnames;
+}
+
 function isAllowedRequestOrigin(candidate, req) {
   if (!candidate) {
     return true;
   }
 
   try {
-    const candidateOrigin = new URL(candidate).origin;
-    return getAllowedOrigins(req).has(candidateOrigin);
+    // Compare hostnames only — sufficient for CSRF protection and handles
+    // http/https mismatches introduced by reverse proxies (e.g. cPanel/Apache).
+    const candidateHostname = new URL(candidate).hostname;
+    return getAllowedHostnames(req).has(candidateHostname);
   } catch {
     return false;
   }
@@ -1093,7 +1119,12 @@ async function writeCmsStore(store) {
 
   const payload = `${JSON.stringify(nextStore, null, 2)}\n`;
 
-  await fs.writeFile(CMS_STORAGE_PATH, payload, 'utf8');
+  try {
+    await fs.writeFile(CMS_STORAGE_PATH, payload, 'utf8');
+  } catch (error) {
+    console.error('Failed to write CMS store to file:', error);
+    throw error;
+  }
 
   try {
     const stats = await fs.stat(CMS_STORAGE_PATH);
