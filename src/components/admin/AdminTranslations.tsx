@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ChevronDown, ImageIcon, RotateCcw, Search, Type, X } from 'lucide-react';
+import { ImageIcon, RotateCcw, Search, Type, X } from 'lucide-react';
 import type { Language } from '../../data/translations';
 import {
   getEditableTranslationEntries,
@@ -363,7 +363,7 @@ export default function AdminTranslations({
     };
   }, [onPrimaryActionChange, translationItems.length]);
 
-  const activePage = pages.find((p) => p.id === activePageId);
+
 
   return (
     <section className={`${adminCardClass} relative flex h-full min-h-0 flex-col overflow-hidden`}>

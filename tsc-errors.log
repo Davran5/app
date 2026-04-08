@@ -1,0 +1,2 @@
+﻿src/components/admin/AdminTranslations.tsx(2,10): error TS6133: 'ChevronDown' is declared but its value is never read.
+src/components/admin/AdminTranslations.tsx(366,9): error TS6133: 'activePage' is declared but its value is never read.
