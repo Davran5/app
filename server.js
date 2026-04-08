@@ -176,8 +176,40 @@ let cachedProductPathsMtimeMs = 0;
 let databasePoolPromise = null;
 let databaseStorageReadyPromise = null;
 const adminLoginAttempts = new Map();
-const adminSessions = new Map();
 const leadSubmissionAttempts = new Map();
+
+// Derive a stable signing secret from admin credentials.
+// Sessions survive restarts because tokens are self-contained and verified via HMAC.
+// If ADMIN_PANEL_PASSWORD changes, existing sessions are automatically invalidated.
+const SESSION_SIGNING_SECRET = crypto.createHash('sha256').update(
+  ['krantas-session-v1', process.env.ADMIN_PANEL_PASSWORD || '', process.env.ADMIN_USERS_JSON || '', process.env.DB_PASSWORD || ''].join(':')
+).digest();
+
+function signSessionToken(payload) {
+  const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
+  const sig = crypto.createHmac('sha256', SESSION_SIGNING_SECRET).update(data).digest('base64url');
+  return `${data}.${sig}`;
+}
+
+function verifySessionToken(token) {
+  if (!token || typeof token !== 'string') return null;
+  const dotIndex = token.lastIndexOf('.');
+  if (dotIndex < 0) return null;
+  const data = token.slice(0, dotIndex);
+  const sig = token.slice(dotIndex + 1);
+  try {
+    const expectedSig = crypto.createHmac('sha256', SESSION_SIGNING_SECRET).update(data).digest('base64url');
+    const sigBuf = Buffer.from(sig);
+    const expBuf = Buffer.from(expectedSig);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) return null;
+    const payload = JSON.parse(Buffer.from(data, 'base64url').toString('utf8'));
+    if (!payload || typeof payload !== 'object') return null;
+    if (!payload.expiresAt || payload.expiresAt <= Date.now()) return null;
+    return payload;
+  } catch {
+    return null;
+  }
+}
 
 function createEmptySeoStore() {
   return { paths: {} };
@@ -499,31 +531,15 @@ function clearAdminLoginFailures(req, username = '') {
   adminLoginAttempts.delete(getAdminLoginKey(req, username));
 }
 
-function clearExpiredAdminSessions() {
-  const now = Date.now();
-
-  for (const [sessionId, session] of adminSessions.entries()) {
-    if (!session?.expiresAt || session.expiresAt <= now) {
-      adminSessions.delete(sessionId);
-    }
-  }
-}
-
 function createAdminSession(user) {
-  clearExpiredAdminSessions();
-  const sessionId = crypto.randomBytes(32).toString('hex');
   const now = Date.now();
-
-  adminSessions.set(sessionId, {
-    id: sessionId,
+  return signSessionToken({
     username: user.username,
     role: user.role,
     displayName: user.displayName,
     createdAt: now,
     expiresAt: now + ADMIN_SESSION_MAX_AGE_SECONDS * 1000,
   });
-
-  return sessionId;
 }
 
 function getAdminSession(req) {
@@ -539,36 +555,17 @@ function getAdminSession(req) {
     };
   }
 
-  clearExpiredAdminSessions();
   const sessionCookie = getRequestCookies(req)[ADMIN_SESSION_COOKIE];
-
-  if (!sessionCookie) {
-    return null;
-  }
-
-  const session = adminSessions.get(sessionCookie);
-
-  if (!session) {
-    return null;
-  }
-
-  if (!session.expiresAt || session.expiresAt <= Date.now()) {
-    adminSessions.delete(sessionCookie);
-    return null;
-  }
-
-  return session;
+  return verifySessionToken(sessionCookie);
 }
 
 function isAdminAuthenticated(req) {
   return Boolean(getAdminSession(req));
 }
 
-function destroyAdminSession(sessionId = '') {
-  if (sessionId) {
-    adminSessions.delete(sessionId);
-  }
-}
+// Sessions are now stateless (signed tokens) — nothing to delete server-side.
+// The cookie is cleared by buildAdminSessionCookie(req, '', true) in the logout handler.
+function destroyAdminSession(_sessionId = '') {}
 
 function buildAdminSessionCookie(req, sessionId = '', clear = false) {
   const parts = [
@@ -578,7 +575,10 @@ function buildAdminSessionCookie(req, sessionId = '', clear = false) {
     'SameSite=Strict',
   ];
 
-  if (req.secure || req.protocol === 'https') {
+  const forwardedProto = String(req.get('x-forwarded-proto') || '').toLowerCase();
+  const isSecure = req.secure || req.protocol === 'https' || forwardedProto === 'https' || forwardedProto.includes('https');
+
+  if (isSecure) {
     parts.push('Secure');
   }
 
