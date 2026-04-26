@@ -1276,17 +1276,188 @@ const DEFAULT_NEWS_META = [
   },
 ] as const;
 
+const DEFAULT_NEWS_CONTENT: Record<
+  Language,
+  Record<number, CmsNewsItemLocalization>
+> = {
+  en: {
+    1: {
+      title: 'Presidential Visit to Krantas Group Plant',
+      excerpt:
+        'President Shavkat Mirziyoyev visited our production facilities, highlighting the importance of industrial localization and the expansion of our special equipment range to over 60 types.',
+    },
+    2: {
+      title: 'Expansion into Military and Special Equipment Production',
+      excerpt:
+        'Krantas Group announces plans for a $55 million project in Nurafshan to manufacture light armored vehicles and specialized trucks on a new 12-hectare industrial site.',
+    },
+    3: {
+      title: 'Global Debut: Tarlon and Qalqon at IDEX-2023',
+      excerpt:
+        'We proudly presented our latest light armored vehicles, Tarlon and Qalqon, at the international defense exhibition in the UAE, showcasing Uzbek engineering excellence on a global stage.',
+    },
+    4: {
+      title: 'Strategic Partnership with MAZ and MTZ',
+      excerpt:
+        'Krantas Group strengthens international ties through discussions with Belarusian partners to start assembling tractors and industrial machinery in Uzbekistan.',
+    },
+    5: {
+      title: 'Enhancing Mining Efficiency at AGMK',
+      excerpt:
+        "Our high-capacity dump trucks have been delivered to the Almalyk Mining and Metallurgical Complex, supporting the modernization and transport capacity of Uzbekistan's mining industry.",
+    },
+    6: {
+      title: 'Introducing "Arslon": Uzbekistan\'s First Domestic BTR',
+      excerpt:
+        'Developed to international standards, our new Armored Personnel Carrier "Arslon" has entered state trials, representing a major milestone in domestic defense manufacturing.',
+    },
+    7: {
+      title: 'Significant Infrastructure Development',
+      excerpt:
+        'A major $1 billion urban mixed development project is proposed for our former Mirzo-Ulugbek factory site, covering 14 hectares and paving the way for modern residential and social infrastructure.',
+    },
+    8: {
+      title: 'Presidents of Uzbekistan and Tajikistan Inaugurate TALCO-KRANTAS Joint Venture',
+      excerpt:
+        'In a significant step for industrial cooperation, the first phase of the TALCO-KRANTAS joint venture was inaugurated for assembly of special construction and municipal vehicles.',
+    },
+  },
+  ru: {
+    1: {
+      title: 'Визит Президента на завод Krantas Group',
+      excerpt:
+        'Президент Шавкат Мирзиёев посетил наши производственные мощности, подчеркнув важность промышленной локализации и расширения ассортимента спецтехники до более чем 60 видов.',
+    },
+    2: {
+      title: 'Расширение производства военной и спецтехники',
+      excerpt:
+        'Krantas Group объявляет о планах реализации проекта стоимостью 55 млн долларов в Нурафшане по производству легких бронированных машин и специализированных грузовиков.',
+    },
+    3: {
+      title: 'Мировой дебют: Tarlon и Qalqon на IDEX-2023',
+      excerpt:
+        'Мы с гордостью представили наши новейшие легкие бронированные машины Tarlon и Qalqon на международной оборонной выставке в ОАЭ, продемонстрировав инженерное мастерство Узбекистана.',
+    },
+    4: {
+      title: 'Стратегическое партнерство с МАЗ и МТЗ',
+      excerpt:
+        'Krantas Group укрепляет международные связи, обсуждая с белорусскими партнерами проект по сборке тракторов и промышленного оборудования в Узбекистане.',
+    },
+    5: {
+      title: 'Поставка сверхтяжелой техники для АГМК',
+      excerpt:
+        'Наши высокопроизводительные самосвалы были переданы Алмалыкскому горно-металлургическому комбинату, поддерживая модернизацию горнодобывающей промышленности страны.',
+    },
+    6: {
+      title: 'Arslon: Первый отечественный бронетранспортер',
+      excerpt:
+        'Разработанный по международным стандартам, наш новый БТР «Арслон» поступил на государственные испытания, став важной вехой в отечественном оборонном производстве.',
+    },
+    7: {
+      title: 'Значимое инфраструктурное развитие',
+      excerpt:
+        'Для нашего бывшего заводского участка в Мирзо-Улугбекском районе площадью 14 гектаров предложен крупный смешанный городской проект стоимостью $1 млрд, открывающий путь к современной жилой и социальной инфраструктуре.',
+    },
+    8: {
+      title: 'Президенты Узбекистана и Таджикистана открыли СП «ТАЛКО-КРАНТАС»',
+      excerpt:
+        'Важным шагом для промышленного сотрудничества стало открытие первой очереди совместного предприятия TALCO-KRANTAS по сборке специальной строительной и коммунальной техники.',
+    },
+  },
+  uz: {
+    1: {
+      title: 'O‘zbekiston Prezidentining Krantas zavodiga tashrifi',
+      excerpt:
+        'Prezident Shavkat Mirziyoyev ishlab chiqarish quvvatlarimiz bilan tanishib, sanoat mahalliylashtirish va maxsus texnikalar qatorini 60 dan ortiq turga kengaytirish muhimligini ta’kidladi.',
+    },
+    2: {
+      title: 'Harbiy va maxsus texnika ishlab chiqarish kengayishi',
+      excerpt:
+        'Krantas Group Nurafshonda yengil zirhli avtomobillar va maxsus yuk mashinalari ishlab chiqarish bo‘yicha 55 million dollarlik loyihani amalga oshirish rejalarini e’lon qildi.',
+    },
+    3: {
+      title: 'Global debyut: IDEX-2023da Tarlon va Qalqon',
+      excerpt:
+        'BAAdagi xalqaro mudofaa ko‘rgazmasida biz o‘zimizning so‘nggi yengil zirhli avtomobillarimiz — Tarlon va Qalqonni g‘urur bilan taqdim etib, O‘zbekiston muhandislik salohiyatini namoyish etdik.',
+    },
+    4: {
+      title: 'MAZ va MTZ bilan strategik hamkorlik',
+      excerpt:
+        'Krantas Group belaruslik hamkorlar bilan O‘zbekistonda traktorlar va sanoat uskunalarini yig‘ish loyihasini muhokama qilib, xalqaro aloqalarni mustahkamlamoqda.',
+    },
+    5: {
+      title: 'OKMK uchun og‘ir texnika yetkazib berish',
+      excerpt:
+        'Bizning yuqori quvvatli samosvallarimiz Olmaliq kon-metallurgiya kombinatiga yetkazib berildi va mamlakatimiz tog‘-kon sanoatini modernizatsiya qilishga xizmat qilmoqda.',
+    },
+    6: {
+      title: 'Arslon: Birinchi mahalliy zirhli transportyor',
+      excerpt:
+        'Xalqaro standartlar asosida ishlab chiqilgan yangi "Arslon" zirhli transportyorimiz davlat sinovlaridan o‘tmoqda va mahalliy mudofaa sanoatida muhim qadam bo‘ldi.',
+    },
+    7: {
+      title: 'Muhim infratuzilmaviy rivojlanish',
+      excerpt:
+        "Mirzo Ulug'bekdagi sobiq zavod hududimizning 14 gektar maydonida zamonaviy turar joy va ijtimoiy infratuzilmani yaratishga qaratilgan 1 milliard dollarlik yirik aralash shaharsozlik loyihasi taklif qilindi.",
+    },
+    8: {
+      title:
+        'O’zbekiston va Tojikiston Prezidentlari «TALCO-KRANTAS» qo’shma korxonasini ochdilar',
+      excerpt:
+        'Sanoat hamkorligini mustahkamlash yo‘lidagi muhim qadam sifatida TALCO-KRANTAS qo‘shma korxonasining maxsus qurilish va kommunal texnikani yig‘ishga mo‘ljallangan birinchi bosqichi ishga tushirildi.',
+    },
+  },
+  de: {
+    1: {
+      title: 'Präsidentenbesuch im Krantas Group Werk',
+      excerpt:
+        'Präsident Shavkat Mirziyoyev besuchte unsere Produktionsanlagen und betonte die Bedeutung der industriellen Lokalisierung und der Erweiterung unseres Spezialgerätesortiments auf über 60 Typen.',
+    },
+    2: {
+      title: 'Erweiterung der Produktion von Militär- und Spezialfahrzeugen',
+      excerpt:
+        'Die Krantas Group kündigt Pläne für ein 55-Millionen-Dollar-Projekt in Nurafshan an, um leichte gepanzerte Fahrzeuge und Spezial-Lkw auf einem neuen, 12 Hektar großen Industriegelände herzustellen.',
+    },
+    3: {
+      title: 'Globales Debüt: Tarlon und Qalqon auf der IDEX-2023',
+      excerpt:
+        'Mit Stolz haben wir unsere neuesten leichten gepanzerten Fahrzeuge Tarlon und Qalqon auf der internationalen Verteidigungsmesse in den VAE präsentiert und damit usbekische Ingenieurskunst auf Weltniveau gezeigt.',
+    },
+    4: {
+      title: 'Strategische Partnerschaft mit MAZ und MTZ',
+      excerpt:
+        'Die Krantas Group stärkt ihre internationalen Beziehungen durch Gespräche mit belarussischen Partnern über die Montage von Traktoren und Industriemaschinen in Usbekistan.',
+    },
+    5: {
+      title: 'Steigerung der Bergbaueffizienz bei AGMK',
+      excerpt:
+        'Unsere Hochleistungskipper wurden an den Bergbau- und Metallurgiekombinat Almalyk übergeben und unterstützen die Modernisierung der Bergbaukapazitäten Usbekistans.',
+    },
+    6: {
+      title: 'Arslon: Der erste einheimische Schützenpanzer Usbekistans',
+      excerpt:
+        'Unser neuer, nach internationalen Standards entwickelter Schützenpanzer „Arslon“ hat die staatliche Erprobung aufgenommen – ein Meilenstein für die heimische Verteidigungsindustrie.',
+    },
+    7: {
+      title: 'Bedeutendes Renovierungs- und Infrastrukturprojekt für Tashkent',
+      excerpt:
+        'Für unseren (noch) aktuellen Standort Mirzo-Ulugbek arbeiten wir mit Spezialisten aus aller Welt an einem Konzept für ein "mixed development project". Internationale Architekten arbeiten am anspruchsvollen Entwurf von Wohnungen, Hotels und Büros mit einer Investitionssumme von mehr als 1 Milliarde US$.',
+    },
+    8: {
+      title:
+        'Präsidenten von Usbekistan und Tadschikistan eröffnen Joint Venture TALCO-KRANTAS',
+      excerpt:
+        'In einem bedeutenden Schritt hin zur industriellen Zusammenarbeit wurde die erste Phase des Joint Ventures TALCO-KRANTAS zur Montage von Spezialfahrzeugen eingeweiht.',
+    },
+  },
+};
+
 function createDefaultNewsItems(): CmsNewsItem[] {
   return DEFAULT_NEWS_META.map((meta) => {
     const localizations = (['en', 'ru', 'uz', 'de'] as Language[]).reduce<
       Record<Language, CmsNewsItemLocalization>
     >((acc, language) => {
-      const languageTranslation = translations[language] as {
-        blog?: {
-          posts?: Record<number, { title?: string; excerpt?: string }>;
-        };
-      };
-      const post = languageTranslation.blog?.posts?.[meta.translationId];
+      const post = DEFAULT_NEWS_CONTENT[language][meta.translationId];
 
       acc[language] = {
         title: post?.title ?? '',
@@ -1503,21 +1674,31 @@ function normalizeNewsItemLocalization(raw: unknown): CmsNewsItemLocalization {
   };
 }
 
-function normalizeNewsItems(raw: unknown): CmsNewsItem[] {
+function normalizeNewsItems(raw: unknown, defaultNewsItems = createDefaultNewsItems()): CmsNewsItem[] {
   if (!Array.isArray(raw)) {
     return [];
   }
+
+  const defaultNewsById = new Map(defaultNewsItems.map((newsItem) => [newsItem.id, newsItem]));
 
   return raw.flatMap((item, index) => {
     if (!isRecord(item)) {
       return [];
     }
 
+    const id = typeof item.id === 'string' && item.id.trim() ? item.id : `news-${index + 1}`;
+    const defaultItem = defaultNewsById.get(id);
     const localizationsRaw = isRecord(item.localizations) ? item.localizations : {};
     const localizations = (['en', 'ru', 'uz', 'de'] as Language[]).reduce<
       Record<Language, CmsNewsItemLocalization>
     >((acc, language) => {
-      acc[language] = normalizeNewsItemLocalization(localizationsRaw[language]);
+      const normalized = normalizeNewsItemLocalization(localizationsRaw[language]);
+      const fallback = defaultItem?.localizations[language] ?? createEmptyNewsItemLocalization();
+
+      acc[language] = {
+        title: normalized.title || fallback.title,
+        excerpt: normalized.excerpt || fallback.excerpt,
+      };
       return acc;
     }, {
       en: createEmptyNewsItemLocalization(),
@@ -1528,26 +1709,35 @@ function normalizeNewsItems(raw: unknown): CmsNewsItem[] {
 
     return [
       {
-        id: typeof item.id === 'string' && item.id.trim() ? item.id : `news-${index + 1}`,
-        isActive: typeof item.isActive === 'boolean' ? item.isActive : true,
-        date: typeof item.date === 'string' ? item.date : '',
-        author: typeof item.author === 'string' ? item.author : '',
-        image: typeof item.image === 'string' ? item.image : '',
+        id,
+        isActive:
+          typeof item.isActive === 'boolean'
+            ? item.isActive
+            : defaultItem?.isActive ?? true,
+        date: typeof item.date === 'string' && item.date ? item.date : defaultItem?.date ?? '',
+        author:
+          typeof item.author === 'string' && item.author
+            ? item.author
+            : defaultItem?.author ?? '',
+        image:
+          typeof item.image === 'string' && item.image
+            ? item.image
+            : defaultItem?.image ?? '',
         imagePosition: {
           x:
             isRecord(item.imagePosition) &&
             typeof item.imagePosition.x === 'number' &&
             Number.isFinite(item.imagePosition.x)
               ? Math.min(100, Math.max(0, item.imagePosition.x))
-              : 50,
+              : defaultItem?.imagePosition.x ?? 50,
           y:
             isRecord(item.imagePosition) &&
             typeof item.imagePosition.y === 'number' &&
             Number.isFinite(item.imagePosition.y)
               ? Math.min(100, Math.max(0, item.imagePosition.y))
-              : 50,
+              : defaultItem?.imagePosition.y ?? 50,
         },
-        link: typeof item.link === 'string' ? item.link : '',
+        link: typeof item.link === 'string' && item.link ? item.link : defaultItem?.link ?? '',
         localizations,
       },
     ];
@@ -1757,7 +1947,9 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
   const normalizedDistributorLocations = Array.isArray(raw.distributorLocations)
     ? normalizeDistributorLocations(raw.distributorLocations)
     : [];
-  const normalizedNewsItems = Array.isArray(raw.newsItems) ? normalizeNewsItems(raw.newsItems) : [];
+  const normalizedNewsItems = Array.isArray(raw.newsItems)
+    ? normalizeNewsItems(raw.newsItems, defaults.newsItems)
+    : [];
 
   return {
     version: typeof raw.version === 'number' ? raw.version : defaults.version,
@@ -1874,11 +2066,21 @@ export function getVacancyLocalization(vacancy: CmsVacancy, language: Language) 
 export function getNewsItemLocalization(newsItem: CmsNewsItem, language: Language) {
   const requested = newsItem.localizations[language];
 
-  if (requested.title || requested.excerpt) {
+  if (requested?.title.trim()) {
     return requested;
   }
 
-  return newsItem.localizations.en;
+  const english = newsItem.localizations.en;
+
+  if (english?.title.trim()) {
+    return english;
+  }
+
+  const fallback = (['ru', 'uz', 'de'] as Language[])
+    .map((fallbackLanguage) => newsItem.localizations[fallbackLanguage])
+    .find((localization) => localization?.title.trim());
+
+  return fallback ?? requested ?? english;
 }
 
 export function flattenTranslationStrings(
