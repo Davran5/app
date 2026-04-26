@@ -15,6 +15,17 @@ npm run install-force
 npm run build
 ```
 
+CloudLinux NodeJS Selector note:
+- `node_modules` in the application root must be a symlink created by NodeJS Selector, not a real directory.
+- If npm install fails with `application should not contain folder/file with such name in application root`, remove the real folder first:
+
+```bash
+cd /repositories/app
+rm -rf node_modules
+```
+
+Then open cPanel NodeJS Selector and run its npm install action, or run `npm run install-force` again after NodeJS Selector has recreated the `node_modules` symlink.
+
 ## Required environment variables
 Set these in the Node.js app environment in cPanel:
 
