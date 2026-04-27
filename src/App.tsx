@@ -33,6 +33,7 @@ const FindDealer = lazy(() => import('./pages/FindDealer'));
 const News = lazy(() => import('./pages/News'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const ProductBrochure = lazy(() => import('./pages/ProductBrochure'));
 const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 const Products = lazy(() => import('./pages/Products'));
 const Services = lazy(() => import('./pages/Services'));
@@ -66,6 +67,7 @@ function AppContent({
   const location = useLocation();
   const isFindDealer = location.pathname === '/find-dealer';
   const isAdmin = isAdminRoutePath(location.pathname);
+  const isBrochure = location.pathname.startsWith('/brochure');
   const isFixedViewportRoute = isFindDealer || isAdmin;
 
   return (
@@ -81,14 +83,14 @@ function AppContent({
       <ScrollToTop />
       <SeoManager>
         <AnalyticsProvider>
-          {!isAdmin && <ImageProtection />}
-          {!isAdmin && (
+          {!isAdmin && !isBrochure && <ImageProtection />}
+          {!isAdmin && !isBrochure && (
             <Navigation
               isMobileMenuOpen={isMobileMenuOpen}
               setIsMobileMenuOpen={setIsMobileMenuOpen}
             />
           )}
-          {!isAdmin && <GlobalBanner />}
+          {!isAdmin && !isBrochure && <GlobalBanner />}
           <main
             className={
               isFindDealer
@@ -107,6 +109,8 @@ function AppContent({
                 <Route path="/catalog" element={<Catalog />} />
                 <Route path="/catalog/:categoryId" element={<CategoryRedirect />} />
                 <Route path="/product/:productId" element={<ProductDetail />} />
+                <Route path="/brochure/catalog" element={<ProductBrochure />} />
+                <Route path="/brochure/product/:productId" element={<ProductBrochure />} />
                 <Route path="/custom-solutions" element={<CustomSolutions />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/news" element={<News />} />
@@ -119,12 +123,12 @@ function AppContent({
               </Routes>
             </Suspense>
           </main>
-          {!isAdmin && !isFindDealer && <Footer />}
-          {!isAdmin && !isFindDealer && !isMobileMenuOpen && <FloatingActions />}
+          {!isAdmin && !isFindDealer && !isBrochure && <Footer />}
+          {!isAdmin && !isFindDealer && !isBrochure && !isMobileMenuOpen && <FloatingActions />}
         </AnalyticsProvider>
       </SeoManager>
       <SecurityOverlay />
-      {!isAdmin && <CookieConsent />}
+      {!isAdmin && !isBrochure && <CookieConsent />}
       <Toaster
         position="bottom-right"
         toastOptions={{

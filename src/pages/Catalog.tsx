@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ChevronRight, ChevronLeft, X } from 'lucide-react';
+import { BookOpen, ChevronRight, ChevronLeft, X } from 'lucide-react';
 import { useAnalytics } from '../contexts/AnalyticsContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
@@ -173,15 +173,26 @@ export default function Catalog() {
               {/* Product Grid */}
               <div className="flex-1" ref={productGridRef}>
                 {/* Header with product count */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
                   <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-semibold text-[#0B0C0E]">
                     {selectedCategory
                       ? t.categories?.[selectedCategory as keyof typeof t.categories]?.name || categories.find(c => c.id === selectedCategory)?.name
                       : t.catalog.showAll}
                   </h2>
-                  <span className="text-sm text-gray-500">
-                    {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
-                  </span>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-sm text-gray-500">
+                      {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
+                    </span>
+                    <Link
+                      to="/brochure/catalog?print=1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 border border-[#244d85] bg-[#244d85] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1E4ECC]"
+                    >
+                      <BookOpen size={16} />
+                      Full Catalog PDF
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Product Grid - 1 column on mobile (horizontal cards), 2 on tablet, 3-4 on desktop */}

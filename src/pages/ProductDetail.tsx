@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, ArrowLeft, Check, X } from 'lucide-react';
+import { ChevronRight, ArrowLeft, BookOpen, Check, FileText, X } from 'lucide-react';
 import ProductStructuredData from '../components/ProductStructuredData';
 import { useSeoData } from '../components/SeoManager';
 import { useAnalytics } from '../contexts/AnalyticsContext';
@@ -130,6 +130,27 @@ export default function ProductDetail() {
                       </li>
                     ))}
                   </ul>
+                </div>
+
+                <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                  <Link
+                    to={`/brochure/product/${product.id}?print=1`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-14 items-center justify-center gap-3 border border-[#244d85] bg-[#244d85] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1E4ECC]"
+                  >
+                    <FileText size={18} />
+                    Model Brochure PDF
+                  </Link>
+                  <Link
+                    to="/brochure/catalog?print=1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-14 items-center justify-center gap-3 border border-black/15 bg-white px-5 py-3 text-sm font-semibold text-[#0B0C0E] transition hover:border-[#244d85] hover:text-[#244d85]"
+                  >
+                    <BookOpen size={18} />
+                    Full Catalog PDF
+                  </Link>
                 </div>
               </div>
             </div>
