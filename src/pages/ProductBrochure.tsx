@@ -1,6 +1,14 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Printer } from 'lucide-react';
+import {
+  ArrowLeft,
+  Box,
+  CircleGauge,
+  Cog,
+  Printer,
+  Weight,
+  type LucideIcon,
+} from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { useCms } from '../contexts/CmsContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -99,8 +107,17 @@ const brochureLabels: Record<Language, BrochureLabels> = {
 };
 
 const excludedCatalogCategoryIds = new Set(['custom-solutions', 'metal-structures']);
+const categoryCoverImages: Record<string, string> = {
+  'lifting-equipment': '/cover_le.jpg',
+  'dump-trucks': '/cover_dt.jpg',
+  'special-purpose': '/cover_spm.jpg',
+  agricultural: '/cover_am.jpg',
+  'tank-trucks': '/cover_tt.jpg',
+  'overhead-gantry': '/cover_og.jpg',
+  'mining-trucks': '/cover_mt.jpeg',
+};
 const pageShellClass =
-  'brochure-page relative mx-auto my-8 h-[258mm] w-[184mm] max-w-full overflow-hidden bg-white shadow-2xl';
+  'brochure-page relative mx-auto my-8 box-border h-[297mm] w-[210mm] max-w-full overflow-hidden bg-white p-[8mm] shadow-2xl';
 
 function getBrochureLabels(language: Language) {
   return brochureLabels[language] || brochureLabels.en;
@@ -201,6 +218,38 @@ function getModel(product: Product, t: Translation) {
   return localizedSpecs.model || product.specs.model || product.id;
 }
 
+function getCategoryHeroImage(product: Product, category: Category | undefined) {
+  return categoryCoverImages[product.categoryId] || category?.image || product.image;
+}
+
+function getTitleParts(name: string) {
+  const match = name.match(/^(.+?)\s+(\d+(?:[.,]\d+)?\s*(?:t|tons?|tonna|m3|m³|m|mm))$/i);
+
+  if (!match) {
+    return { main: name, accent: '' };
+  }
+
+  return { main: match[1], accent: match[2] };
+}
+
+function getSpecIcon(key: string): LucideIcon {
+  const normalizedKey = key.toLowerCase();
+
+  if (normalizedKey.includes('capacity') || normalizedKey.includes('load')) {
+    return Weight;
+  }
+
+  if (normalizedKey.includes('volume') || normalizedKey.includes('tank')) {
+    return Box;
+  }
+
+  if (normalizedKey.includes('wheel') || normalizedKey.includes('drive')) {
+    return CircleGauge;
+  }
+
+  return Cog;
+}
+
 function PrintToolbar({
   backTo,
   label,
@@ -241,40 +290,57 @@ function BrochurePrintStyles() {
   return (
     <style>{`
       @page {
-        size: A4;
-        margin: 10mm;
+        size: 210mm 297mm;
+        margin: 0mm;
       }
 
-      .brochure-page {
-        box-sizing: border-box;
-        isolation: isolate;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
+        .brochure-page {
+          box-sizing: border-box;
+          isolation: isolate;
+          background: #ffffff;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
 
       @media print {
         html,
         body,
         #root {
+          width: 210mm !important;
+          min-width: 210mm !important;
+          margin: 0 !important;
+          padding: 0 !important;
           background: #ffffff !important;
         }
 
         body {
-          margin: 0 !important;
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
 
-        .brochure-page {
-          width: 184mm !important;
-          height: 258mm !important;
-          min-height: 0 !important;
-          max-height: 258mm !important;
+        main {
+          width: 210mm !important;
           margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        .brochure-page {
+          width: 210mm !important;
+          height: 297mm !important;
+          min-height: 0 !important;
+          max-height: 297mm !important;
+          margin: 0 !important;
+          padding: 8mm !important;
           overflow: hidden !important;
           box-shadow: none !important;
           page-break-after: always;
           break-after: page;
+        }
+
+        .brochure-page > footer {
+          left: 8mm !important;
+          right: 8mm !important;
+          bottom: 8mm !important;
         }
 
         .brochure-page:last-child {
@@ -296,24 +362,28 @@ function BrandBand({ label = 'KRANTAS Group' }: { label?: string }) {
   const labels = getBrochureLabels(language);
 
   return (
-    <div className="relative bg-[#0B0C0E] px-7 py-4 text-white">
-      <div className="absolute inset-y-0 right-0 w-24 bg-[#244d85]" />
-      <div className="absolute right-24 top-0 h-full w-3 bg-[#f6b947]" />
-      <div className="relative flex items-center justify-between gap-6">
+    <div className="relative h-[22mm] overflow-hidden bg-[#0B0C0E] px-7 text-white">
+      <div className="absolute inset-0 bg-gradient-to-r from-[#102033] via-[#101820] to-[#b88608]" />
+      <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-[#d7a10c]" />
+      <div
+        className="absolute bottom-1.5 right-48 h-11 w-64 border-t-2 border-[#e4b437]"
+        style={{ transform: 'skewX(-32deg)', transformOrigin: 'right bottom' }}
+      />
+      <div className="relative flex h-full items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="flex h-11 w-11 items-center justify-center bg-white p-2">
+          <div className="flex h-12 w-12 items-center justify-center bg-white p-2">
             <img src="/logo.png" alt="KRANTAS" className="max-h-full max-w-full object-contain" />
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#f6b947]">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#e4b437]">
               {label}
             </p>
-            <p className="mt-1 text-sm font-semibold tracking-wide text-white">
+            <p className="mt-1 text-base font-semibold tracking-wide text-white">
               {labels.brandTagline}
             </p>
           </div>
         </div>
-        <div className="relative text-right text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
+        <div className="relative text-right text-[11px] font-bold uppercase tracking-[0.22em] text-white/78">
           krantasgroup.com
         </div>
       </div>
@@ -390,92 +460,155 @@ function ProductSheet({
   const model = getModel(product, t);
   const specs = getSpecRows(product, t);
   const topSpecs = getTopSpecs(product, t, 4);
+  const heroImage = getCategoryHeroImage(product, category);
+  const titleParts = getTitleParts(localized.name);
+  const tableSpecs = specs.slice(0, 7);
 
   return (
-    <article className={pageShellClass}>
+    <article
+      className={`${pageShellClass} bg-[#f7f6f1]`}
+      style={{
+        backgroundImage:
+          'radial-gradient(circle at 82% 16%, rgba(216, 163, 20, 0.12), transparent 28%), linear-gradient(135deg, rgba(255,255,255,0.96), rgba(239,241,242,0.72))',
+      }}
+    >
       <BrandBand />
 
-      <section className="relative overflow-hidden bg-[#111827] px-7 pb-6 pt-6 text-white">
-        <div className="absolute inset-x-0 bottom-0 h-2 bg-[#f6b947]" />
-        <div className="absolute right-0 top-0 h-full w-5 bg-[#244d85]" />
-        <div className="relative grid grid-cols-[0.92fr_1.08fr] gap-6">
-          <div className="flex min-h-[205px] items-center justify-center bg-white p-4 shadow-xl">
+      <section className="relative h-[128mm] overflow-hidden bg-[#f4f1e7]">
+        <img
+          src={heroImage}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-[0.14] grayscale"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/94 via-white/88 to-white/96" />
+        <div className="absolute bottom-0 right-0 h-4 w-[58%] bg-[#d6a10f]" />
+        <div
+          className="absolute bottom-4 left-[42%] h-20 w-[42%] border-b-[6px] border-l-[6px] border-[#d6a10f]"
+          style={{ transform: 'skewX(18deg)' }}
+        />
+        <div
+          className="absolute -left-9 bottom-0 h-28 w-16 bg-[#d6a10f]"
+          style={{ transform: 'skewX(-34deg)' }}
+        />
+
+        <div className="relative grid h-full grid-cols-[0.48fr_0.52fr] gap-7 px-8 pb-8 pt-8">
+          <div className="relative flex items-end justify-center overflow-hidden">
             <img
               src={resolveMediaInputUrl(product.image)}
               alt={localized.name}
-              className="max-h-[195px] max-w-full object-contain"
+              className="relative z-10 -ml-10 h-[92mm] w-[128mm] translate-y-2 scale-[1.42] object-contain object-center mix-blend-multiply drop-shadow-2xl"
             />
           </div>
 
-          <div className="flex flex-col justify-between py-1">
+          <div className="relative z-10 flex flex-col justify-start pb-[82px] pt-2">
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="bg-[#f6b947] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#0B0C0E]">
+                <span className="rounded-sm bg-[#d6a10f] px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#111317] shadow-sm">
                   {categoryName}
                 </span>
-                <span className="border border-white/25 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white">
+                <span className="rounded-sm border border-black/18 bg-white/82 px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#111317]">
                   {model}
                 </span>
               </div>
-              <h1 className="mt-4 text-3xl font-semibold leading-[1.02] text-white">
-                {localized.name}
+              <h1 className="mt-6 text-[48px] font-black leading-[0.98] text-[#111317]">
+                {titleParts.main}
+                {titleParts.accent && (
+                  <span className="whitespace-nowrap text-[#c59105]"> {titleParts.accent}</span>
+                )}
               </h1>
-              <p className="mt-3 line-clamp-5 text-sm leading-relaxed text-white/80">
+              <p className="mt-4 line-clamp-4 max-w-[440px] text-[16px] leading-relaxed text-[#111317]">
                 {localized.description}
               </p>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              {topSpecs.map(([key, value]) => (
-                <div key={key} className="border border-white/15 bg-white/10 p-2.5">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#f6b947]">
-                    {getSpecLabel(key, t)}
-                  </p>
-                  <p className="mt-1 text-sm font-semibold text-white">{value}</p>
-                </div>
-              ))}
+            <div className="absolute bottom-0 left-0 right-0 grid grid-cols-2 overflow-hidden rounded-md border border-white/70 shadow-xl">
+              {topSpecs.map(([key, value], index) => {
+                const SpecIcon = getSpecIcon(key);
+                const isDark = index === 3;
+
+                return (
+                  <div
+                    key={key}
+                    className={`min-h-[68px] border-white/80 p-4 ${
+                      index % 2 === 0 ? 'border-r' : ''
+                    } ${index < 2 ? 'border-b' : ''} ${
+                      isDark
+                        ? 'bg-[#2c3031] text-white'
+                        : 'bg-gradient-to-br from-[#a47705] to-[#d6a10f] text-[#111317]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <SpecIcon
+                        size={26}
+                        strokeWidth={2.4}
+                        className={isDark ? 'text-[#d6a10f]' : 'text-[#111317]'}
+                      />
+                      <div>
+                        <p
+                          className={`text-[9px] font-black uppercase leading-tight tracking-[0.03em] ${
+                            isDark ? 'text-white/75' : 'text-[#111317]/70'
+                          }`}
+                        >
+                          {getSpecLabel(key, t)}
+                        </p>
+                        <p className="mt-1 text-[21px] font-black leading-none">{value}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="px-7 pb-20 pt-6">
-        <div className="grid grid-cols-[0.82fr_1.18fr] gap-6">
+      <section className="relative px-8 pb-[28mm] pt-6">
+        <div className="grid grid-cols-[0.42fr_0.58fr] gap-8">
           <div className="avoid-break">
-            <div className="border-l-4 border-[#f6b947] bg-[#f5f7fa] p-4">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#244d85]">
+            <div className="border-l-[5px] border-[#d6a10f] pl-5">
+              <p className="max-w-[300px] text-[22px] font-black uppercase leading-tight text-[#111317]">
                 {labels.workLabel}
               </p>
-              <p className="mt-2 text-xs leading-relaxed text-neutral-700">
+              <p className="mt-3 line-clamp-3 text-[15px] leading-relaxed text-[#111317]">
                 {categoryDescription || localized.shortDescription}
               </p>
             </div>
 
-            <h2 className="mt-5 border-b border-black/10 pb-2.5 text-xs font-bold uppercase tracking-[0.18em] text-[#0B0C0E]">
+            <h2 className="mt-5 text-[23px] font-black uppercase tracking-normal text-[#111317]">
               {t.products.features}
             </h2>
-            <ul className="mt-3 space-y-2">
-              {localized.features.map((feature) => (
-                <li key={feature} className="flex gap-2.5 text-xs leading-relaxed text-neutral-700">
-                  <span className="mt-1.5 h-2 w-2 shrink-0 bg-[#244d85]" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
+            <div
+              className="mt-3 bg-[#dfe3e6] px-8 py-4"
+              style={{
+                clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 32px) 100%, 0 100%)',
+              }}
+            >
+              <ul className="space-y-2.5">
+                {localized.features.slice(0, 5).map((feature) => (
+                  <li key={feature} className="flex gap-4 text-[14px] leading-relaxed text-[#111317]">
+                    <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#d6a10f] shadow-sm" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="avoid-break">
-            <div className="flex items-end justify-between border-b border-black/10 pb-3">
-              <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-[#0B0C0E]">
-                {t.products.specs}
-              </h2>
-              <span className="text-xs font-semibold text-neutral-400">{model}</span>
-            </div>
-            <div className="mt-2 divide-y divide-black/10">
-              {specs.map(([key, value]) => (
-                <div key={key} className="grid grid-cols-[0.9fr_1.1fr] gap-4 py-2 text-xs">
-                  <span className="text-neutral-400">{getSpecLabel(key, t)}</span>
-                  <span className="font-semibold text-[#0B0C0E]">{value}</span>
+            <h2 className="text-[23px] font-black uppercase tracking-normal text-[#111317]">
+              {t.products.specs}
+              <span className="text-[#b48305]">, {model}</span>
+            </h2>
+            <div className="mt-4 space-y-1">
+              {tableSpecs.map(([key, value], index) => (
+                <div
+                  key={key}
+                  className={`grid grid-cols-[0.95fr_1.05fr] items-center rounded px-5 py-2 text-[15px] ${
+                    index % 2 === 0 ? 'bg-[#dde1e4]' : 'bg-white/60'
+                  }`}
+                >
+                  <span className="text-[#111317]">{getSpecLabel(key, t)}</span>
+                  <span className="font-black text-[#111317]">{value}</span>
                 </div>
               ))}
             </div>
@@ -483,16 +616,16 @@ function ProductSheet({
         </div>
       </section>
 
-      <footer className="absolute bottom-0 left-0 right-0 grid grid-cols-[1fr_auto] items-center bg-[#0B0C0E] px-7 py-3 text-white">
+      <footer className="absolute bottom-0 left-0 right-0 grid grid-cols-[1fr_auto] items-center border-t border-black/[0.12] bg-white/90 px-8 py-5 text-[#111317]">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f6b947]">
+          <p className="text-[13px] font-black uppercase tracking-normal text-[#111317]">
             KRANTAS Group
           </p>
-          <p className="mt-1 text-xs text-white/75">
+          <p className="mt-1 text-xs text-[#111317]">
             {labels.footerSummary}
           </p>
         </div>
-        <div className="border-l border-white/15 pl-5 text-right text-xs text-white/70">
+        <div className="text-right text-xs font-medium text-[#111317]">
           <p>krantasgroup.com</p>
           <p>info@krantas.uz</p>
         </div>

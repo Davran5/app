@@ -1288,6 +1288,43 @@ function shouldServeSpaHtml(req) {
   return req.method === 'GET' && req.accepts('html') && !path.extname(req.path);
 }
 
+const GONE_PATH_PREFIXES = [
+  '/ammika.php',
+  '/saiga.php',
+  '/shop',
+  '/class',
+  '/category',
+  '/product-category',
+  '/portfolio',
+  '/detail',
+  '/ctg',
+  '/2016',
+];
+
+function matchesGonePath(pathname) {
+  const normalizedPathname = normalizePathname(pathname);
+
+  return GONE_PATH_PREFIXES.some(
+    (prefix) => normalizedPathname === prefix || normalizedPathname.startsWith(`${prefix}/`),
+  );
+}
+
+function blockGonePaths(req, res, next) {
+  if (matchesGonePath(req.path)) {
+    res
+      .status(410)
+      .set({
+        'Cache-Control': 'no-store',
+        'X-Robots-Tag': 'noindex, nofollow',
+      })
+      .type('text/plain')
+      .send('Gone');
+    return;
+  }
+
+  next();
+}
+
 function requireAdminSession(req, res, next) {
   if (!isAdminAuthenticated(req)) {
     appendAdminAuditLog('admin.access.denied', req);
@@ -1303,6 +1340,7 @@ app.disable('x-powered-by');
 app.set('trust proxy', true);
 app.use(applySecurityHeaders);
 app.use(express.json({ limit: '8mb' }));
+app.use(blockGonePaths);
 app.use(
   '/assets',
   express.static(DIST_ASSETS_DIR, {
