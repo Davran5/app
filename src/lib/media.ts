@@ -1,3 +1,5 @@
+import { OPTIMIZED_MEDIA_URL_BY_SOURCE } from './optimized-media';
+
 export interface MediaItem {
   id: string;
   url: string;
@@ -170,7 +172,11 @@ function buildMediaItem(url: string): MediaItem {
 
 export const MEDIA_LIBRARY = MEDIA_URLS.map(buildMediaItem);
 
-const MEDIA_BY_LOOSE_KEY = new Map(MEDIA_LIBRARY.map((item) => [toLooseMediaKey(item.decodedUrl), item.url]));
+const MEDIA_BY_LOOSE_KEY = new Map(MEDIA_LIBRARY.map((item) => [toLooseMediaKey(item.decodedUrl), item]));
+
+function getOptimizedBundledMediaUrl(url: string) {
+  return OPTIMIZED_MEDIA_URL_BY_SOURCE[url as keyof typeof OPTIMIZED_MEDIA_URL_BY_SOURCE] ?? url;
+}
 
 export const MEDIA_GROUPS = Array.from(
   new Map(MEDIA_LIBRARY.map((item) => [item.groupId, item.groupLabel])).entries(),
@@ -263,10 +269,16 @@ export function resolveMediaInputUrl(url: string) {
   const exactMatch = MEDIA_LIBRARY.find((item) => item.decodedUrl === normalized || item.url === url);
 
   if (exactMatch) {
-    return exactMatch.url;
+    return getOptimizedBundledMediaUrl(exactMatch.url);
   }
 
-  return MEDIA_BY_LOOSE_KEY.get(toLooseMediaKey(normalized)) ?? encodeURI(normalized);
+  const looseMatch = MEDIA_BY_LOOSE_KEY.get(toLooseMediaKey(normalized));
+
+  if (looseMatch) {
+    return getOptimizedBundledMediaUrl(looseMatch.url);
+  }
+
+  return encodeURI(normalized);
 }
 
 export function getMediaPreviewUrl(url: string) {

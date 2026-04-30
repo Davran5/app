@@ -115,8 +115,10 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
             <div className="flex-shrink-0 w-48 xl:w-72 flex justify-center px-4">
               <Link to="/" onClick={closeMenus} className="transition-all duration-500">
                 <img
-                  src="/logo.png"
+                  src="/logo.webp"
                   alt="KRANTAS"
+                  width={167}
+                  height={50}
                   loading="lazy"
                   className={`transition-all duration-500 object-contain ${!isScrolled && isHome
                     ? 'drop-shadow-[0_0_15px_rgba(253,193,94,0.5)]'
@@ -167,6 +169,9 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                       : ''
                       }`}>
                       <button
+                        type="button"
+                        aria-label="Change language"
+                        aria-expanded={isLangOpen}
                         className={`flex items-center gap-1 xl:gap-2 text-[12px] xl:text-sm font-medium transition-colors ${isScrolled || !isHome
                           ? 'text-[#244d85] hover:text-[#1a3a66]'
                           : 'text-[#fdc15e] hover:text-white'
@@ -187,10 +192,12 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
                         {languages.filter(l => l.code !== language).map((lang) => (
                           <button
                             key={lang.code}
+                            type="button"
                             onClick={() => {
                               setLanguage(lang.code as typeof language);
                               setIsLangOpen(false);
                             }}
+                            aria-label={`Switch language to ${lang.label}`}
                             className="text-xs font-bold transition-colors w-full py-0.5 text-center text-[#244d85]/80 hover:text-white"
                           >
                             {lang.label}
@@ -223,8 +230,10 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
               }`}
           >
             <img
-              src="/logo.png"
+              src="/logo.webp"
               alt="KRANTAS"
+              width={167}
+              height={50}
               className="h-10 w-auto object-contain"
             />
           </Link>
@@ -232,7 +241,10 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
           {/* Bottom Right Menu Toggle (Absolute) */}
           <div className="absolute right-6 h-full flex items-center">
             <button
+              type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileMenuOpen}
               className="flex items-center justify-center p-2 text-[#244d85] active:bg-gray-50 transition-colors"
             >
               {isMobileMenuOpen ? (
@@ -292,7 +304,9 @@ export default function Navigation({ isMobileMenuOpen: externalIsOpen, setIsMobi
             {languages.map((lang) => (
               <button
                 key={lang.code}
+                type="button"
                 onClick={() => setLanguage(lang.code as typeof language)}
+                aria-label={`Switch language to ${lang.label}`}
                 className={`py-2 px-5 text-sm font-bold uppercase transition-all rounded-full ${language === lang.code
                   ? 'bg-[#244d85] text-white shadow-sm'
                   : 'bg-gray-100 text-gray-500'

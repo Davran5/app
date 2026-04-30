@@ -13,6 +13,7 @@
     "install-force": "npm install --legacy-peer-deps",
     "preview": "vite preview --host 0.0.0.0",
     "optimize:hero-media": "node scripts/optimize-hero-media.js",
+    "optimize:images": "node scripts/optimize-public-images.js",
     "server": "node server.js",
     "start": "node server.js"
   },

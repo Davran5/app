@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
+import { resolveMediaInputUrl } from '../lib/media';
 
 export default function GlobalBanner() {
     const location = useLocation();
@@ -77,7 +78,7 @@ export default function GlobalBanner() {
             className="hero-section w-full relative flex items-center justify-start mt-[64px] mb-[-3rem] lg:mt-[60px] lg:mb-0 bg-white overflow-hidden"
         >
             <img
-                src={getSectionMedia('global.hero.backgroundImage', '/hero_cover.png')}
+                src={resolveMediaInputUrl(getSectionMedia('global.hero.backgroundImage', '/hero_cover.png'))}
                 alt="Hero"
                 className="w-full h-[180px] object-cover object-top block z-0 relative drop-shadow-[-10px_10px_30px_rgba(0,0,0,0.45)] md:h-auto md:object-fill"
             />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCms } from '../contexts/CmsContext';
+import { resolveMediaInputUrl } from '../lib/media';
 
 interface HeroProps {
     title: string;
@@ -7,7 +8,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ title }) => {
     const { getSectionMedia } = useCms();
-    const heroBg = getSectionMedia('global.hero.backgroundImage', '/hero_cover.png');
+    const heroBg = resolveMediaInputUrl(getSectionMedia('global.hero.backgroundImage', '/hero_cover.png'));
 
     return (
         <>

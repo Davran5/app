@@ -226,7 +226,7 @@ export default function About() {
                         </div>
                         <div className="w-full aspect-video rounded-lg overflow-hidden shadow-lg mt-6">
                           <img
-                            src={event.image || "/about_factory.jpg"}
+                            src={resolveMediaInputUrl(event.image || "/about_factory.jpg")}
                             alt={event.title}
                             className="w-full h-full object-cover"
                           />
@@ -329,7 +329,7 @@ export default function About() {
                             <div className="lg:col-span-6">
                               <div className="w-[90%] mx-auto aspect-video overflow-hidden shadow-2xl">
                                 <img
-                                  src={event.image || "/about_factory.jpg"}
+                                  src={resolveMediaInputUrl(event.image || "/about_factory.jpg")}
                                   alt={`${event.year} - ${event.title}`}
                                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                                 />
@@ -534,7 +534,7 @@ export default function About() {
                 <div key={member.id} className="group bg-gray-50 pb-4 shadow-sm hover:shadow-md transition-shadow flex flex-col">
                   <div className="order-2 lg:order-1 relative mt-3 lg:mt-0 overflow-hidden aspect-[16/9] lg:aspect-[3/2]">
                     <img
-                      src={member.image}
+                      src={resolveMediaInputUrl(member.image)}
                       alt={member.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -573,7 +573,7 @@ export default function About() {
                   className="flex items-center justify-center aspect-square"
                 >
                   <img
-                    src={partner.logo}
+                    src={resolveMediaInputUrl(partner.logo)}
                     alt={partner.name}
                     className="w-full h-full object-contain"
                   />

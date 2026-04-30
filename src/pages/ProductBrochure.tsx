@@ -108,13 +108,13 @@ const brochureLabels: Record<Language, BrochureLabels> = {
 
 const excludedCatalogCategoryIds = new Set(['custom-solutions', 'metal-structures']);
 const categoryCoverImages: Record<string, string> = {
-  'lifting-equipment': '/cover_le.jpg',
-  'dump-trucks': '/cover_dt.jpg',
-  'special-purpose': '/cover_spm.jpg',
-  agricultural: '/cover_am.jpg',
-  'tank-trucks': '/cover_tt.jpg',
-  'overhead-gantry': '/cover_og.jpg',
-  'mining-trucks': '/cover_mt.jpeg',
+  'lifting-equipment': '/cover_le.webp',
+  'dump-trucks': '/cover_dt.webp',
+  'special-purpose': '/cover_spm.webp',
+  agricultural: '/cover_am.webp',
+  'tank-trucks': '/cover_tt.webp',
+  'overhead-gantry': '/cover_og.webp',
+  'mining-trucks': '/cover_mt.webp',
 };
 const pageShellClass =
   'brochure-page relative mx-auto my-8 box-border h-[297mm] w-[210mm] max-w-full overflow-hidden bg-white p-[8mm] shadow-2xl';
@@ -372,7 +372,7 @@ function BrandBand({ label = 'KRANTAS Group' }: { label?: string }) {
       <div className="relative flex h-full items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center bg-white p-2">
-            <img src="/logo.png" alt="KRANTAS" className="max-h-full max-w-full object-contain" />
+            <img src="/logo.webp" alt="KRANTAS" className="max-h-full max-w-full object-contain" />
           </div>
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#e4b437]">
@@ -476,7 +476,7 @@ function ProductSheet({
 
       <section className="relative h-[128mm] overflow-hidden bg-[#f4f1e7]">
         <img
-          src={heroImage}
+          src={resolveMediaInputUrl(heroImage)}
           alt=""
           className="absolute inset-0 h-full w-full object-cover opacity-[0.14] grayscale"
         />
@@ -702,7 +702,7 @@ function FullCatalogPage() {
       <section className={pageShellClass}>
         <div className="relative flex h-full flex-col overflow-hidden bg-[#0B0C0E] text-white">
           <img
-            src="/hero_cover.png"
+            src="/hero_cover.webp"
             alt=""
             className="absolute inset-0 h-full w-full object-cover opacity-28"
           />
@@ -714,7 +714,7 @@ function FullCatalogPage() {
             <div>
               <div className="flex items-center gap-4">
                 <div className="flex h-14 w-14 items-center justify-center bg-white p-2">
-                  <img src="/logo.png" alt="KRANTAS" className="max-h-full max-w-full object-contain" />
+                  <img src="/logo.webp" alt="KRANTAS" className="max-h-full max-w-full object-contain" />
                 </div>
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#f6b947]">

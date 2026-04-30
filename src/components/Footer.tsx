@@ -241,19 +241,19 @@ export default function Footer() {
         </div>
 
         <div className="mt-0 flex flex-col items-center justify-between gap-4 border-t-0 pt-0 md:flex-row lg:mt-12 lg:border-t lg:border-white/10 lg:pt-6">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-400">
             &copy; {new Date().getFullYear()} KRANTAS Group. {t.footer.rights}
           </p>
           <div className="flex items-center gap-6">
             <Link
               to="/privacy-policy"
-              className="text-xs text-gray-500 transition-colors hover:text-gray-400"
+              className="text-xs text-gray-400 transition-colors hover:text-white"
             >
               {t.footer.privacy}
             </Link>
             <Link
               to="/terms-of-service"
-              className="text-xs text-gray-500 transition-colors hover:text-gray-400"
+              className="text-xs text-gray-400 transition-colors hover:text-white"
             >
               {t.footer.terms}
             </Link>

@@ -1,5 +1,6 @@
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
+import { resolveMediaInputUrl } from '../lib/media';
 
 const teamMemberStoryConfig = [
   {
@@ -35,7 +36,7 @@ export default function TeamMemberStoryCards() {
           <div key={member.key} className="bg-white shadow-lg overflow-hidden flex flex-col">
             <div className="h-[205px] lg:h-64 overflow-hidden">
               <img
-                src={getSectionMedia(member.mediaFieldId, member.defaultImage)}
+                src={resolveMediaInputUrl(getSectionMedia(member.mediaFieldId, member.defaultImage))}
                 alt={member.alt}
                 className="w-full h-full object-cover"
               />

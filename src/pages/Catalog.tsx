@@ -241,7 +241,7 @@ export default function Catalog() {
                             {otherSpecs.map(([key, value]) => (
                               value && (
                                 <div key={key} className="flex justify-between items-center gap-2">
-                                  <span className="text-gray-400 font-normal text-xs">
+                                  <span className="text-gray-600 font-normal text-xs">
                                     {t.specLabels?.[key as keyof typeof t.specLabels] || key.replace(/([A-Z])/g, ' $1')
                                       .split(' ')
                                       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())

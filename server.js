@@ -78,6 +78,8 @@ const HOST = process.env.HOST || '0.0.0.0';
 const PORT = Number(process.env.PORT || 3000);
 const CMS_DB_STATE_KEY = 'cms_store';
 const SEO_DB_STATE_KEY = 'seo_store';
+const STORAGE_CACHE_TTL_MS = Math.max(1000, Number(process.env.STORAGE_CACHE_TTL_MS || 30_000));
+const HTML_STORAGE_TIMEOUT_MS = Math.max(50, Number(process.env.HTML_STORAGE_TIMEOUT_MS || 300));
 
 const ROUTE_SEO_DEFAULTS = {
   home: {
@@ -169,8 +171,10 @@ const ROUTE_SEO_DEFAULTS = {
 let cachedIndexHtml = null;
 let cachedSeoStore = null;
 let cachedSeoStoreMtimeMs = 0;
+let cachedSeoStoreLoadedAtMs = 0;
 let cachedCmsStore = null;
 let cachedCmsStoreMtimeMs = 0;
+let cachedCmsStoreLoadedAtMs = 0;
 let cachedProductPaths = [];
 let cachedProductPathsMtimeMs = 0;
 let databasePoolPromise = null;
@@ -969,10 +973,18 @@ async function readIndexHtml() {
   return cachedIndexHtml;
 }
 
+function isFreshStorageCache(loadedAtMs) {
+  return loadedAtMs > 0 && Date.now() - loadedAtMs < STORAGE_CACHE_TTL_MS;
+}
+
 async function readSeoStore() {
   let shouldSeedDatabaseFromFile = false;
 
   if (isDatabaseConfigured()) {
+    if (cachedSeoStore && isFreshStorageCache(cachedSeoStoreLoadedAtMs)) {
+      return cachedSeoStore;
+    }
+
     try {
       const databaseStore = await readStateRecordFromDatabase(SEO_DB_STATE_KEY);
 
@@ -982,6 +994,7 @@ async function readSeoStore() {
             ? databaseStore
             : { paths: databaseStore };
         cachedSeoStoreMtimeMs = 0;
+        cachedSeoStoreLoadedAtMs = Date.now();
         return cachedSeoStore;
       }
 
@@ -1008,6 +1021,7 @@ async function readSeoStore() {
           : { paths: parsed }
         : createEmptySeoStore();
     cachedSeoStoreMtimeMs = stats.mtimeMs;
+    cachedSeoStoreLoadedAtMs = 0;
 
     if (shouldSeedDatabaseFromFile) {
       await writeStateRecordToDatabase(SEO_DB_STATE_KEY, cachedSeoStore).catch(() => undefined);
@@ -1017,6 +1031,7 @@ async function readSeoStore() {
   } catch {
     cachedSeoStore = createEmptySeoStore();
     cachedSeoStoreMtimeMs = 0;
+    cachedSeoStoreLoadedAtMs = 0;
 
     if (shouldSeedDatabaseFromFile) {
       await writeStateRecordToDatabase(SEO_DB_STATE_KEY, cachedSeoStore).catch(() => undefined);
@@ -1033,6 +1048,7 @@ async function writeSeoStore(store) {
       : createEmptySeoStore();
   cachedSeoStore = nextStore;
   cachedSeoStoreMtimeMs = 0;
+  cachedSeoStoreLoadedAtMs = Date.now();
 
   if (isDatabaseConfigured()) {
     try {
@@ -1050,6 +1066,7 @@ async function writeSeoStore(store) {
   try {
     const stats = await fs.stat(SEO_STORAGE_PATH);
     cachedSeoStoreMtimeMs = stats.mtimeMs;
+    cachedSeoStoreLoadedAtMs = 0;
   } catch {
     cachedSeoStoreMtimeMs = 0;
   }
@@ -1059,12 +1076,17 @@ async function readCmsStore() {
   let shouldSeedDatabaseFromFile = false;
 
   if (isDatabaseConfigured()) {
+    if (cachedCmsStore && isFreshStorageCache(cachedCmsStoreLoadedAtMs)) {
+      return cachedCmsStore;
+    }
+
     try {
       const databaseStore = await readStateRecordFromDatabase(CMS_DB_STATE_KEY);
 
       if (isObjectRecord(databaseStore)) {
         cachedCmsStore = databaseStore;
         cachedCmsStoreMtimeMs = 0;
+        cachedCmsStoreLoadedAtMs = Date.now();
         return cachedCmsStore;
       }
 
@@ -1085,6 +1107,7 @@ async function readCmsStore() {
     const parsed = JSON.parse(raw);
     cachedCmsStore = isObjectRecord(parsed) ? parsed : createEmptyCmsStore();
     cachedCmsStoreMtimeMs = stats.mtimeMs;
+    cachedCmsStoreLoadedAtMs = 0;
 
     if (shouldSeedDatabaseFromFile) {
       await writeStateRecordToDatabase(CMS_DB_STATE_KEY, cachedCmsStore).catch(() => undefined);
@@ -1094,6 +1117,7 @@ async function readCmsStore() {
   } catch {
     cachedCmsStore = createEmptyCmsStore();
     cachedCmsStoreMtimeMs = 0;
+    cachedCmsStoreLoadedAtMs = 0;
 
     if (shouldSeedDatabaseFromFile) {
       await writeStateRecordToDatabase(CMS_DB_STATE_KEY, cachedCmsStore).catch(() => undefined);
@@ -1107,6 +1131,7 @@ async function writeCmsStore(store) {
   const nextStore = isObjectRecord(store) ? store : createEmptyCmsStore();
   cachedCmsStore = nextStore;
   cachedCmsStoreMtimeMs = 0;
+  cachedCmsStoreLoadedAtMs = Date.now();
 
   if (isDatabaseConfigured()) {
     try {
@@ -1129,6 +1154,7 @@ async function writeCmsStore(store) {
   try {
     const stats = await fs.stat(CMS_STORAGE_PATH);
     cachedCmsStoreMtimeMs = stats.mtimeMs;
+    cachedCmsStoreLoadedAtMs = 0;
   } catch {
     cachedCmsStoreMtimeMs = 0;
   }
@@ -1197,6 +1223,47 @@ async function getSeoForPath(pathname, req, requestPath = pathname) {
   // Replace this with a real DB lookup once the admin SEO data is persisted server-side.
   const storedSeo = await getSeoFromStorage(pathname, req, requestPath);
   return storedSeo || normalizeSeoPayload({}, pathname, req, requestPath);
+}
+
+function getCachedSeoForPath(pathname, req, requestPath = pathname) {
+  const seoRecords =
+    cachedSeoStore && typeof cachedSeoStore === 'object' && cachedSeoStore.paths
+      ? cachedSeoStore.paths
+      : {};
+  const exactMatch = seoRecords?.[pathname] || seoRecords?.[`${pathname}/`];
+  const matchedEntry =
+    exactMatch && typeof exactMatch === 'object'
+      ? exactMatch
+      : resolvePatternSeoMatch(pathname, seoRecords)?.[1];
+
+  return normalizeSeoPayload(
+    matchedEntry && typeof matchedEntry === 'object' ? matchedEntry : {},
+    pathname,
+    req,
+    requestPath,
+  );
+}
+
+function getCachedCmsStore() {
+  return isObjectRecord(cachedCmsStore) ? cachedCmsStore : createEmptyCmsStore();
+}
+
+function withTimeout(promise, timeoutMs, fallback) {
+  let timeoutId;
+
+  const timeoutPromise = new Promise((resolve) => {
+    timeoutId = setTimeout(() => resolve(fallback), timeoutMs);
+  });
+
+  return Promise.race([
+    promise.catch((error) => {
+      console.error('Timed storage read failed:', error);
+      return fallback;
+    }),
+    timeoutPromise,
+  ]).finally(() => {
+    clearTimeout(timeoutId);
+  });
 }
 
 function stripExistingSeoTags(html) {
@@ -1325,6 +1392,12 @@ function blockGonePaths(req, res, next) {
   next();
 }
 
+function setStaticFileCacheHeaders(res, filePath) {
+  if (/\.(?:avif|gif|jpe?g|mp4|png|svg|webp|woff2?)$/i.test(filePath)) {
+    res.setHeader('Cache-Control', 'public, max-age=2592000');
+  }
+}
+
 function requireAdminSession(req, res, next) {
   if (!isAdminAuthenticated(req)) {
     appendAdminAuditLog('admin.access.denied', req);
@@ -1353,6 +1426,7 @@ app.use(
   express.static(DIST_DIR, {
     index: false,
     maxAge: '1h',
+    setHeaders: setStaticFileCacheHeaders,
   }),
 );
 
@@ -1511,7 +1585,7 @@ app.post('/api/admin/logout', requireSameOrigin, (req, res) => {
 app.get('/api/cms/public', async (req, res, next) => {
   try {
     const cmsStore = await readCmsStore();
-    res.set('Cache-Control', 'no-store').json(filterPublicCmsSnapshot(cmsStore));
+    res.set('Cache-Control', 'private, max-age=30, stale-while-revalidate=60').json(filterPublicCmsSnapshot(cmsStore));
   } catch (error) {
     next(error);
   }
@@ -1585,7 +1659,7 @@ app.get('/api/seo', async (req, res) => {
   const normalizedRequest = normalizeRequestTarget(requestPath);
   const seo = await getSeoForPath(normalizedRequest.pathname, req, normalizedRequest.requestPath);
 
-  res.set('Cache-Control', 'no-store');
+  res.set('Cache-Control', 'private, max-age=300, stale-while-revalidate=300');
   res.json(seo);
 });
 
@@ -1687,10 +1761,19 @@ app.get(/.*/, async (req, res, next) => {
 
   try {
     const normalizedRequest = normalizeRequestTarget(req.originalUrl || req.path);
+    const fallbackSeo = getCachedSeoForPath(
+      normalizedRequest.pathname,
+      req,
+      normalizedRequest.requestPath,
+    );
     const [indexHtml, seo, cmsStore] = await Promise.all([
       readIndexHtml(),
-      getSeoForPath(normalizedRequest.pathname, req, normalizedRequest.requestPath),
-      readCmsStore(),
+      withTimeout(
+        getSeoForPath(normalizedRequest.pathname, req, normalizedRequest.requestPath),
+        HTML_STORAGE_TIMEOUT_MS,
+        fallbackSeo,
+      ),
+      withTimeout(readCmsStore(), HTML_STORAGE_TIMEOUT_MS, getCachedCmsStore()),
     ]);
     const html = injectSeoIntoHtml(
       indexHtml,
@@ -1703,7 +1786,7 @@ app.get(/.*/, async (req, res, next) => {
       res.locals.cspNonce || '',
     );
 
-    res.set('Cache-Control', 'no-store').status(200).type('html').send(html);
+    res.set('Cache-Control', 'private, max-age=0, must-revalidate').status(200).type('html').send(html);
   } catch (error) {
     next(error);
   }

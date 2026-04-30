@@ -113,7 +113,7 @@ export default function Home() {
               loop
               playsInline
               preload="metadata"
-              poster={getSectionMedia('home.hero.videoPoster', '/hero-poster.webp')}
+              poster={resolveMediaInputUrl(getSectionMedia('home.hero.videoPoster', '/hero-poster.webp'))}
               disablePictureInPicture
               disableRemotePlayback
               draggable={false}
@@ -164,6 +164,8 @@ export default function Home() {
                     getSectionMedia('home.aboutHome.factoryImage', '/about_factory.jpg'),
                   )}
                   alt="Krantas Factory"
+                  width={1344}
+                  height={768}
                   className="w-full h-auto object-cover"
                 />
               </div>
@@ -567,7 +569,7 @@ export default function Home() {
                               {otherSpecs.map(([key, value]) => (
                                 value && (
                                   <div key={key} className="flex justify-between items-center gap-2">
-                                    <span className="text-gray-400 font-normal text-xs md:text-sm">
+                                    <span className="text-gray-600 font-normal text-xs md:text-sm">
                                       {t.specLabels?.[key as keyof typeof t.specLabels] ||
                                         key
                                           .replace(/([A-Z])/g, ' $1')
@@ -630,6 +632,8 @@ export default function Home() {
                     getSectionMedia('home.production.facilityImage', '/full_cycle.jpeg'),
                   )}
                   alt="Krantas Production Facility"
+                  width={1344}
+                  height={768}
                   className="w-full h-auto object-cover"
                 />
               </div>
