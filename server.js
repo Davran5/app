@@ -185,9 +185,16 @@ const leadSubmissionAttempts = new Map();
 // Derive a stable signing secret from admin credentials.
 // Sessions survive restarts because tokens are self-contained and verified via HMAC.
 // If ADMIN_PANEL_PASSWORD changes, existing sessions are automatically invalidated.
-const SESSION_SIGNING_SECRET = crypto.createHash('sha256').update(
-  ['krantas-session-v1', process.env.ADMIN_PANEL_PASSWORD || '', process.env.ADMIN_USERS_JSON || '', process.env.DB_PASSWORD || ''].join(':')
-).digest();
+const secretString = [
+  'krantas-session-v1',
+  process.env.ADMIN_PANEL_PASSWORD || '',
+  process.env.ADMIN_USERS_JSON || '',
+  process.env.DB_PASSWORD || '',
+].join(':');
+
+const SESSION_SIGNING_SECRET = secretString === 'krantas-session-v1:::'
+  ? crypto.randomBytes(32)
+  : crypto.createHash('sha256').update(secretString).digest();
 
 function signSessionToken(payload) {
   const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
@@ -445,18 +452,6 @@ function getRequestCookies(req) {
     );
 }
 
-function isLocalDevelopmentRequest(req) {
-  const host = String(req.headers.host || '').toLowerCase();
-
-  return (
-    process.env.NODE_ENV !== 'production' &&
-    (host.startsWith('localhost:') ||
-      host === 'localhost' ||
-      host.startsWith('127.0.0.1:') ||
-      host === '127.0.0.1')
-  );
-}
-
 function stringsMatch(left = '', right = '') {
   const leftBuffer = Buffer.from(String(left));
   const rightBuffer = Buffer.from(String(right));
@@ -482,8 +477,7 @@ function isAdminAccessConfigured() {
 }
 
 function getAdminLoginKey(req, username = '') {
-  const userAgent = String(req.get('user-agent') || '').slice(0, 160);
-  return `${req.ip || req.socket?.remoteAddress || 'unknown'}|${String(username).trim().toLowerCase()}|${userAgent}`;
+  return `${req.ip || req.socket?.remoteAddress || 'unknown'}|${String(username).trim().toLowerCase()}`;
 }
 
 function getAdminLoginAttemptState(req, username = '') {
@@ -549,14 +543,6 @@ function createAdminSession(user) {
 function getAdminSession(req) {
   if (!isAdminAccessConfigured()) {
     return null;
-  }
-
-  if (isLocalDevelopmentRequest(req)) {
-    return {
-      username: process.env.ADMIN_PANEL_USERNAME || process.env.ADMIN_USERNAME || 'admin',
-      role: 'admin',
-      expiresAt: Number.MAX_SAFE_INTEGER,
-    };
   }
 
   const sessionCookie = getRequestCookies(req)[ADMIN_SESSION_COOKIE];
@@ -877,6 +863,10 @@ function isAllowedRequestOrigin(candidate, req) {
 function requireSameOrigin(req, res, next) {
   const origin = req.get('origin');
   const referer = req.get('referer');
+
+  if (!origin && !referer) {
+    return res.status(403).set('Cache-Control', 'no-store').json({ error: 'Forbidden' });
+  }
 
   if (!isAllowedRequestOrigin(origin, req) || !isAllowedRequestOrigin(referer, req)) {
     return res.status(403).set('Cache-Control', 'no-store').json({ error: 'Forbidden' });
