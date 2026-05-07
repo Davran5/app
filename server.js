@@ -194,7 +194,7 @@ const secretString = [
 
 const SESSION_SIGNING_SECRET = secretString === 'krantas-session-v1:::'
   ? crypto.randomBytes(32)
-  : crypto.createHash('sha256').update(secretString).digest();
+  : crypto.pbkdf2Sync(secretString, 'krantas-session-salt', 100000, 32, 'sha256');
 
 function signSessionToken(payload) {
   const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
