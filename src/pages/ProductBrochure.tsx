@@ -15,6 +15,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { getTranslation, type Language } from '../data/translations';
 import type { Category, Product } from '../data/products';
 import { resolveMediaInputUrl } from '../lib/media';
+import { getProductSpecRows } from '../lib/product-content';
 
 type Translation = ReturnType<typeof getTranslation>;
 type BrochureLabels = {
@@ -160,22 +161,14 @@ function getCategoryDescription(
 }
 
 function getSpecLabel(key: string, t: Translation) {
-  return (
-    t.specLabels?.[key as keyof typeof t.specLabels] ||
-    key
-      .replace(/([A-Z])/g, ' $1')
-      .split(' ')
-      .filter(Boolean)
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ')
-  );
+  return t.specLabels?.[key as keyof typeof t.specLabels] || key;
 }
 
 function getSpecRows(product: Product, t: Translation) {
   const localized = getLocalizedProduct(product, t);
 
-  return Object.entries(localized.specs).filter(
-    (entry): entry is [string, string] => typeof entry[1] === 'string' && entry[1].trim().length > 0,
+  return getProductSpecRows(localized.specs).map(
+    (spec) => [spec.label, spec.value] as [string, string],
   );
 }
 
@@ -209,13 +202,6 @@ function getTopSpecs(product: Product, t: Translation, count = 4) {
   const remainingRows = specs.filter(([key]) => !preferredKeys.includes(key));
 
   return [...preferredRows, ...remainingRows].slice(0, count);
-}
-
-function getModel(product: Product, t: Translation) {
-  const localized = getLocalizedProduct(product, t);
-  const localizedSpecs = localized.specs as Record<string, string | undefined>;
-
-  return localizedSpecs.model || product.specs.model || product.id;
 }
 
 function getCategoryHeroImage(product: Product, category: Category | undefined) {
@@ -402,7 +388,6 @@ function ProductCard({
 }) {
   const localized = getLocalizedProduct(product, t);
   const categoryName = getCategoryName(category, product.categoryId, t);
-  const model = getModel(product, t);
   const specs = getTopSpecs(product, t, 3);
 
   return (
@@ -419,9 +404,6 @@ function ProductCard({
         <div className="flex flex-wrap items-center gap-2">
           <span className="bg-[#244d85]/10 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.14em] text-[#244d85]">
             {categoryName}
-          </span>
-          <span className="bg-[#0B0C0E] px-2 py-1 text-[9px] font-bold uppercase tracking-[0.14em] text-white">
-            {model}
           </span>
         </div>
         <h3 className="mt-2 text-base font-semibold leading-tight text-[#0B0C0E]">
@@ -457,7 +439,6 @@ function ProductSheet({
   const localized = getLocalizedProduct(product, t);
   const categoryName = getCategoryName(category, product.categoryId, t);
   const categoryDescription = getCategoryDescription(category, product.categoryId, t);
-  const model = getModel(product, t);
   const specs = getSpecRows(product, t);
   const topSpecs = getTopSpecs(product, t, 4);
   const heroImage = getCategoryHeroImage(product, category);
@@ -505,9 +486,6 @@ function ProductSheet({
               <div className="flex flex-wrap items-center gap-2">
                 <span className="rounded-sm bg-[#d6a10f] px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#111317] shadow-sm">
                   {categoryName}
-                </span>
-                <span className="rounded-sm border border-black/18 bg-white/82 px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#111317]">
-                  {model}
                 </span>
               </div>
               <h1 className="mt-6 text-[48px] font-black leading-[0.98] text-[#111317]">
@@ -597,7 +575,6 @@ function ProductSheet({
           <div className="avoid-break">
             <h2 className="text-[23px] font-black uppercase tracking-normal text-[#111317]">
               {t.products.specs}
-              <span className="text-[#b48305]">, {model}</span>
             </h2>
             <div className="mt-4 space-y-1">
               {tableSpecs.map(([key, value], index) => (

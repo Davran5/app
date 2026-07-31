@@ -38,7 +38,13 @@ const DIST_DIR = resolveDistDir();
 const DIST_INDEX_PATH = path.join(DIST_DIR, 'index.html');
 const DIST_ASSETS_DIR = path.join(DIST_DIR, 'assets');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-const PRODUCT_SOURCE_PATH = path.resolve(PROJECT_ROOT, 'src', 'data', 'products.ts');
+const CATALOG_SEED_PATH = path.resolve(PROJECT_ROOT, 'src', 'data', 'catalog.generated.json');
+const PRODUCT_TRANSLATION_SEED_PATH = path.resolve(
+  PROJECT_ROOT,
+  'src',
+  'data',
+  'product-translation-seed.json',
+);
 const SEO_STORAGE_PATH = process.env.SEO_STORAGE_PATH
   ? path.resolve(PROJECT_ROOT, process.env.SEO_STORAGE_PATH)
   : path.resolve(PROJECT_ROOT, 'seo-data.json');
@@ -177,10 +183,94 @@ let cachedCmsStoreMtimeMs = 0;
 let cachedCmsStoreLoadedAtMs = 0;
 let cachedProductPaths = [];
 let cachedProductPathsMtimeMs = 0;
+let productTranslationSeedPromise = null;
+let catalogSeedPromise = null;
 let databasePoolPromise = null;
 let databaseStorageReadyPromise = null;
 const adminLoginAttempts = new Map();
 const leadSubmissionAttempts = new Map();
+
+async function getProductTranslationSeed() {
+  if (!productTranslationSeedPromise) {
+    productTranslationSeedPromise = fs
+      .readFile(PRODUCT_TRANSLATION_SEED_PATH, 'utf8')
+      .then((source) => JSON.parse(source))
+      .catch((error) => {
+        console.error('Failed to load product translation seed.', error);
+        return {};
+      });
+  }
+
+  return productTranslationSeedPromise;
+}
+
+async function getCatalogSeed() {
+  if (!catalogSeedPromise) {
+    catalogSeedPromise = fs
+      .readFile(CATALOG_SEED_PATH, 'utf8')
+      .then((source) => JSON.parse(source))
+      .catch((error) => {
+        console.error('Failed to load catalog seed.', error);
+        return {};
+      });
+  }
+
+  return catalogSeedPromise;
+}
+
+async function mergeCatalogSeed(store) {
+  const [translationSeed, catalogSeed] = await Promise.all([
+    getProductTranslationSeed(),
+    getCatalogSeed(),
+  ]);
+  const versionChanged =
+    typeof catalogSeed.version === 'string' &&
+    store.catalogSeedVersion !== catalogSeed.version;
+
+  if (!versionChanged) {
+    return { changed: false, store };
+  }
+
+  const currentOverrides = isObjectRecord(store.translationOverrides)
+    ? store.translationOverrides
+    : {};
+  const nextOverrides = { ...currentOverrides };
+
+  for (const language of ['en', 'ru', 'uz', 'de']) {
+    const languageSeed = isObjectRecord(translationSeed[language])
+      ? translationSeed[language]
+      : {};
+    const currentLanguageOverrides = isObjectRecord(currentOverrides[language])
+      ? currentOverrides[language]
+      : {};
+    const preservedOverrides = Object.fromEntries(
+      Object.entries(currentLanguageOverrides).filter(
+        ([translationPath]) =>
+          !translationPath.startsWith('productsData.') &&
+          !translationPath.startsWith('categories.'),
+      ),
+    );
+
+    nextOverrides[language] = {
+      ...preservedOverrides,
+      ...languageSeed,
+    };
+  }
+
+  return {
+    changed: true,
+    store: {
+      ...store,
+      products: Array.isArray(catalogSeed.products) ? catalogSeed.products : [],
+      categories: Array.isArray(catalogSeed.categories) ? catalogSeed.categories : [],
+      featuredProductIds: Array.isArray(catalogSeed.featuredProductIds)
+        ? catalogSeed.featuredProductIds
+        : [],
+      catalogSeedVersion: catalogSeed.version,
+      translationOverrides: nextOverrides,
+    },
+  };
+}
 
 // Derive a stable signing secret from admin credentials.
 // Sessions survive restarts because tokens are self-contained and verified via HMAC.
@@ -1084,9 +1174,15 @@ async function readCmsStore() {
       const databaseStore = await readStateRecordFromDatabase(CMS_DB_STATE_KEY);
 
       if (isObjectRecord(databaseStore)) {
-        cachedCmsStore = databaseStore;
+        const seeded = await mergeCatalogSeed(databaseStore);
+        cachedCmsStore = seeded.store;
         cachedCmsStoreMtimeMs = 0;
         cachedCmsStoreLoadedAtMs = Date.now();
+
+        if (seeded.changed) {
+          await writeStateRecordToDatabase(CMS_DB_STATE_KEY, cachedCmsStore);
+        }
+
         return cachedCmsStore;
       }
 
@@ -1105,17 +1201,24 @@ async function readCmsStore() {
 
     const raw = await fs.readFile(CMS_STORAGE_PATH, 'utf8');
     const parsed = JSON.parse(raw);
-    cachedCmsStore = isObjectRecord(parsed) ? parsed : createEmptyCmsStore();
+    const parsedStore = isObjectRecord(parsed) ? parsed : createEmptyCmsStore();
+    const seeded = await mergeCatalogSeed(parsedStore);
+    cachedCmsStore = seeded.store;
     cachedCmsStoreMtimeMs = stats.mtimeMs;
     cachedCmsStoreLoadedAtMs = 0;
 
     if (shouldSeedDatabaseFromFile) {
       await writeStateRecordToDatabase(CMS_DB_STATE_KEY, cachedCmsStore).catch(() => undefined);
+    } else if (seeded.changed) {
+      await fs
+        .writeFile(CMS_STORAGE_PATH, `${JSON.stringify(cachedCmsStore, null, 2)}\n`, 'utf8')
+        .catch((error) => console.error('Failed to persist seeded product translations.', error));
     }
 
     return cachedCmsStore;
   } catch {
-    cachedCmsStore = createEmptyCmsStore();
+    const seeded = await mergeCatalogSeed(createEmptyCmsStore());
+    cachedCmsStore = seeded.store;
     cachedCmsStoreMtimeMs = 0;
     cachedCmsStoreLoadedAtMs = 0;
 
@@ -1162,18 +1265,18 @@ async function writeCmsStore(store) {
 
 async function getKnownProductPaths() {
   try {
-    const stats = await fs.stat(PRODUCT_SOURCE_PATH);
+    const stats = await fs.stat(CATALOG_SEED_PATH);
 
     if (cachedProductPaths.length > 0 && cachedProductPathsMtimeMs === stats.mtimeMs) {
       return cachedProductPaths;
     }
 
-    const source = await fs.readFile(PRODUCT_SOURCE_PATH, 'utf8');
-    const productsBlock = source.match(
-      /export const products(?:\s*:\s*[^=]+)?\s*=\s*\[(?<content>[\s\S]*?)\n\];/,
-    );
-    const productsContent = productsBlock?.groups?.content ?? '';
-    const ids = Array.from(productsContent.matchAll(/\bid:\s*'([^']+)'/g), (match) => match[1]);
+    const source = JSON.parse(await fs.readFile(CATALOG_SEED_PATH, 'utf8'));
+    const ids = Array.isArray(source.products)
+      ? source.products
+          .map((product) => (isObjectRecord(product) ? product.id : ''))
+          .filter((id) => typeof id === 'string' && id.length > 0)
+      : [];
 
     cachedProductPaths = Array.from(new Set(ids)).map((id) => `/product/${id}`);
     cachedProductPathsMtimeMs = stats.mtimeMs;

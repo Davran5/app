@@ -1,4 +1,7 @@
-import { OPTIMIZED_MEDIA_URL_BY_SOURCE } from './optimized-media';
+import {
+  OPTIMIZED_MEDIA_URL_BY_SOURCE,
+  RESPONSIVE_MEDIA_URLS_BY_SOURCE,
+} from './optimized-media';
 
 export interface MediaItem {
   id: string;
@@ -178,6 +181,10 @@ function getOptimizedBundledMediaUrl(url: string) {
   return OPTIMIZED_MEDIA_URL_BY_SOURCE[url as keyof typeof OPTIMIZED_MEDIA_URL_BY_SOURCE] ?? url;
 }
 
+function getResponsiveBundledMediaVariants(url: string) {
+  return RESPONSIVE_MEDIA_URLS_BY_SOURCE[url as keyof typeof RESPONSIVE_MEDIA_URLS_BY_SOURCE];
+}
+
 export const MEDIA_GROUPS = Array.from(
   new Map(MEDIA_LIBRARY.map((item) => [item.groupId, item.groupLabel])).entries(),
 ).map(([id, label]) => ({ id, label }));
@@ -250,6 +257,17 @@ export function getUploadedMediaItem(url: string) {
   return uploadedMediaRegistry.get(normalizeMediaUrl(url));
 }
 
+function getBundledMediaItem(url: string) {
+  const normalized = normalizeMediaUrl(url);
+  const exactMatch = MEDIA_LIBRARY.find((item) => item.decodedUrl === normalized || item.url === url);
+
+  if (exactMatch) {
+    return exactMatch;
+  }
+
+  return MEDIA_BY_LOOSE_KEY.get(toLooseMediaKey(normalized));
+}
+
 export function resolveMediaInputUrl(url: string) {
   if (!url) {
     return '';
@@ -266,19 +284,42 @@ export function resolveMediaInputUrl(url: string) {
     return uploadedItem.dataUrl;
   }
 
-  const exactMatch = MEDIA_LIBRARY.find((item) => item.decodedUrl === normalized || item.url === url);
+  const bundledItem = getBundledMediaItem(url);
 
-  if (exactMatch) {
-    return getOptimizedBundledMediaUrl(exactMatch.url);
-  }
-
-  const looseMatch = MEDIA_BY_LOOSE_KEY.get(toLooseMediaKey(normalized));
-
-  if (looseMatch) {
-    return getOptimizedBundledMediaUrl(looseMatch.url);
+  if (bundledItem) {
+    return getOptimizedBundledMediaUrl(bundledItem.url);
   }
 
   return encodeURI(normalized);
+}
+
+export function resolveResponsiveMediaInput(
+  url: string,
+  sizes: string,
+): { src: string; srcSet?: string; sizes?: string } {
+  const src = resolveMediaInputUrl(url);
+
+  if (!src || src.startsWith('data:') || src.startsWith('blob:')) {
+    return { src };
+  }
+
+  const bundledItem = getBundledMediaItem(url);
+
+  if (!bundledItem) {
+    return { src };
+  }
+
+  const variants = getResponsiveBundledMediaVariants(bundledItem.url);
+
+  if (!variants?.length) {
+    return { src };
+  }
+
+  return {
+    src: variants[variants.length - 1].url,
+    srcSet: variants.map((variant) => `${variant.url} ${variant.width}w`).join(', '),
+    sizes,
+  };
 }
 
 export function getMediaPreviewUrl(url: string) {

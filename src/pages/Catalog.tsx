@@ -7,6 +7,10 @@ import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
 import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl } from '../lib/media';
+import {
+  compactMeasurementSpacing,
+  getProductSpecRows,
+} from '../lib/product-content';
 
 export default function Catalog() {
   const { t } = useLanguage();
@@ -198,15 +202,23 @@ export default function Catalog() {
                 {/* Product Grid - 1 column on mobile (horizontal cards), 2 on tablet, 3-4 on desktop */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                   {filteredProducts.map((product) => {
-                    const specs = Object.entries(t.productsData?.[product.id as keyof typeof t.productsData]?.specs || product.specs);
-                    const modelSpec = specs[0]; // First spec is usually the model
-                    const otherSpecs = specs.slice(1, 3); // Get next 2 specs for the side
+                    const localizedProduct =
+                      t.productsData?.[product.id as keyof typeof t.productsData];
+                    const productName = localizedProduct?.name || product.name;
+                    const specRows = getProductSpecRows(
+                      localizedProduct?.specs || product.specs,
+                    ).slice(0, 2);
+                    const otherSpecs = specRows.map((spec) => ({
+                      ...spec,
+                      label: compactMeasurementSpacing(spec.label),
+                      value: compactMeasurementSpacing(spec.value),
+                    }));
 
                     return (
                       <Link
                         key={product.id}
                         to={`/product/${product.id}`}
-                        className="group bg-white md:rounded-lg transition-all overflow-hidden shadow-sm hover:shadow-xl md:block flex"
+                        className="group flex h-full overflow-hidden bg-white shadow-sm transition-all hover:shadow-xl md:flex-col md:rounded-lg"
                         onClick={() =>
                           trackEvent('select_item', {
                             item_list_name: selectedCategory || 'catalog',
@@ -215,9 +227,8 @@ export default function Catalog() {
                                 buildProductAnalyticsItem({
                                   item_id: product.id,
                                   item_name:
-                                    t.productsData?.[product.id as keyof typeof t.productsData]?.name || product.name,
+                                    productName,
                                   item_category: product.category,
-                                  item_variant: typeof product.specs.model === 'string' ? product.specs.model : undefined,
                                 }),
                               ],
                             },
@@ -225,45 +236,48 @@ export default function Catalog() {
                         }
                       >
                         {/* Product Image - Clean, no overlays */}
-                        <div className="relative w-1/2 md:w-full md:aspect-[2/1] overflow-hidden bg-gray-50 md:rounded-t-lg flex-shrink-0">
+                        <div className="relative w-[38%] flex-shrink-0 overflow-hidden bg-gray-50 md:aspect-[2/1] md:w-full md:rounded-t-lg">
                           <img
                             src={resolveMediaInputUrl(product.image)}
-                            alt={t.productsData?.[product.id as keyof typeof t.productsData]?.name || product.name}
+                            alt={productName}
                             loading="lazy"
                             className="w-full h-full object-contain p-2 md:p-4 transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
 
                         {/* Product Info */}
-                        <div className="p-3 md:p-4 flex-1 flex flex-col justify-center">
-                          {/* Other specs (skip model — shown below) */}
+                        <div className="flex min-w-0 flex-1 flex-col p-3 md:p-4">
+                          {/* Compact specifications */}
                           <div className="space-y-2">
-                            {otherSpecs.map(([key, value]) => (
-                              value && (
-                                <div key={key} className="flex justify-between items-center gap-2">
-                                  <span className="text-gray-600 font-normal text-xs">
-                                    {t.specLabels?.[key as keyof typeof t.specLabels] || key.replace(/([A-Z])/g, ' $1')
-                                      .split(' ')
-                                      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                                      .join(' ')
-                                      .trim()}
+                            {otherSpecs.map((spec) => (
+                              <div
+                                key={spec.key}
+                                className="flex flex-col items-start gap-0.5 md:grid md:grid-cols-2 md:items-start md:gap-3"
+                              >
+                                <span
+                                  className={
+                                    spec.value
+                                      ? 'text-[11px] font-normal leading-snug text-gray-600 md:text-xs'
+                                      : 'line-clamp-2 text-[11px] font-medium leading-snug text-gray-700 md:col-span-2 md:text-xs'
+                                  }
+                                >
+                                  {spec.label}
+                                </span>
+                                {spec.value && (
+                                  <span className="min-w-0 break-words text-xs font-semibold leading-snug text-[#0B0C0E] md:text-right">
+                                    {spec.value}
                                   </span>
-                                  <span className="text-[#0B0C0E] font-medium text-xs">
-                                    {value}
-                                  </span>
-                                </div>
-                              )
+                                )}
+                              </div>
                             ))}
                           </div>
 
-                          {/* Footer: Model name left, Details link right */}
-                          <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between gap-2">
-                            {modelSpec && modelSpec[1] && (
-                              <p className="text-[#0B0C0E] text-xs font-semibold truncate">
-                                {modelSpec[1]}
-                              </p>
-                            )}
-                            <span className="text-xs font-medium text-[#244d85] flex items-center gap-1 group-hover:gap-2 transition-all flex-shrink-0 ml-auto">
+                          {/* Full product name with the action on its own row */}
+                          <div className="mt-auto flex flex-col border-t border-gray-100 pt-2">
+                            <p className="break-words text-xs font-semibold leading-snug text-[#0B0C0E]">
+                              {compactMeasurementSpacing(productName)}
+                            </p>
+                            <span className="mt-2 flex items-center gap-1 self-end text-xs font-medium text-[#244d85] transition-all group-hover:gap-2">
                               Details <ChevronRight size={12} />
                             </span>
                           </div>

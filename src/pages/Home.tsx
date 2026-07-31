@@ -15,7 +15,8 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
 import { buildProductAnalyticsItem } from '../lib/analytics';
-import { resolveMediaInputUrl } from '../lib/media';
+import { resolveMediaInputUrl, resolveResponsiveMediaInput } from '../lib/media';
+import { getProductSpecRows } from '../lib/product-content';
 
 // Internal CountUp component
 function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
@@ -160,12 +161,15 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div>
                 <img
-                  src={resolveMediaInputUrl(
+                  {...resolveResponsiveMediaInput(
                     getSectionMedia('home.aboutHome.factoryImage', '/about_factory.jpg'),
+                    '(min-width: 1440px) 672px, (min-width: 1024px) calc((100vw - 160px) / 2), calc(100vw - 48px)',
                   )}
                   alt="Krantas Factory"
                   width={1344}
                   height={768}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-cover"
                 />
               </div>
@@ -294,13 +298,16 @@ export default function Home() {
               >
                 <div className="relative h-48 w-full md:absolute md:inset-0 md:h-full overflow-hidden">
                   <img
-                    src={resolveMediaInputUrl(
+                    {...resolveResponsiveMediaInput(
                       getSectionMedia(
                         'home.equipment.customSolutionsImage',
                         '/cust_sol.jpg',
                       ),
+                      '(min-width: 1440px) 672px, (min-width: 1024px) 50vw, calc(100vw - 48px)',
                     )}
                     alt="Customized Solutions"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -357,8 +364,13 @@ export default function Home() {
                   >
                     <div className="relative h-48 overflow-hidden">
                       <img
-                        src={resolveMediaInputUrl(catImage)}
+                        {...resolveResponsiveMediaInput(
+                          catImage,
+                          '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, calc(100vw - 48px)',
+                        )}
                         alt={catName}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent md:hidden" />
@@ -385,13 +397,16 @@ export default function Home() {
               >
                 <div className="relative h-48 w-full overflow-hidden">
                   <img
-                    src={resolveMediaInputUrl(
+                    {...resolveResponsiveMediaInput(
                       getSectionMedia(
                         'home.equipment.metalStructuresImage',
                         '/cover_ms.jpeg',
                       ),
+                      '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, calc(100vw - 48px)',
                     )}
                     alt="Metal Structures"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent md:hidden" />
@@ -512,12 +527,16 @@ export default function Home() {
                 >
                   <div className="flex gap-4 min-w-max pb-4">
                     {featuredProducts.map((featuredProduct) => {
-                      const specs = Object.entries(
-                        t.productsData?.[featuredProduct.id as keyof typeof t.productsData]?.specs ||
-                          featuredProduct.specs,
+                      const localizedProduct =
+                        t.productsData?.[featuredProduct.id as keyof typeof t.productsData];
+                      const productName = localizedProduct?.name || featuredProduct.name;
+                      const specRows = getProductSpecRows(
+                        localizedProduct?.specs || featuredProduct.specs,
+                      ).slice(0, 2);
+                      const modelSpec = [featuredProduct.id, productName] as const;
+                      const otherSpecs = specRows.map(
+                        (spec) => [spec.label, spec.value] as const,
                       );
-                      const modelSpec = specs[0];
-                      const otherSpecs = specs.slice(1, 3);
 
                         return (
                           <Link
@@ -538,13 +557,8 @@ export default function Home() {
                                     buildProductAnalyticsItem({
                                       item_id: featuredProduct.id,
                                       item_name:
-                                        t.productsData?.[featuredProduct.id as keyof typeof t.productsData]?.name ||
-                                        featuredProduct.name,
+                                        productName,
                                       item_category: featuredProduct.category,
-                                      item_variant:
-                                        typeof featuredProduct.specs.model === 'string'
-                                          ? featuredProduct.specs.model
-                                          : undefined,
                                     }),
                                   ],
                                 },
@@ -555,8 +569,7 @@ export default function Home() {
                             <img
                               src={resolveMediaInputUrl(featuredProduct.image)}
                               alt={
-                                t.productsData?.[featuredProduct.id as keyof typeof t.productsData]?.name ||
-                                featuredProduct.name
+                                productName
                               }
                               loading="lazy"
                               draggable={false}

@@ -240,6 +240,9 @@ export default function AdminPanel({ onLogout }: { onLogout?: () => void }) {
               upsertCategory={cms.upsertCategory}
               deleteCategory={cms.deleteCategory}
               mediaLibrary={mediaLibrary}
+              translationOverrides={cms.translationOverrides}
+              setTranslationOverride={cms.setTranslationOverride}
+              clearTranslationOverride={cms.clearTranslationOverride}
               onPrimaryActionChange={handlePrimaryActionChange}
             />
           )}

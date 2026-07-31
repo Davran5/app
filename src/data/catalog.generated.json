@@ -1,0 +1,2754 @@
+{
+  "version": "2026-07-31.1",
+  "categories": [
+    {
+      "id": "lifting-equipment",
+      "name": "Lifting Equipment",
+      "description": "Truck-mounted cranes, loader cranes, augers, and aerial platforms for industrial lifting.",
+      "image": "/products/catalog/le-crane-32t.webp"
+    },
+    {
+      "id": "drilling-workshops",
+      "name": "Drilling & Mobile Workshops",
+      "description": "Drilling rigs and mobile workshops for field service, exploration, and repair operations.",
+      "image": "/products/catalog/catalog-022-peredvizhnaya-remontnaya-masterskaya-s-kmu.webp"
+    },
+    {
+      "id": "dump-trucks",
+      "name": "Dump Trucks",
+      "description": "Dump trucks for construction, mining, municipal work, and bulk material transport.",
+      "image": "/products/catalog/mt-mining-truck-25t.webp"
+    },
+    {
+      "id": "cargo-vehicles",
+      "name": "Cargo Vehicles",
+      "description": "Flatbed, curtain-side, and box-body vehicles for commercial and industrial transport.",
+      "image": "/products/catalog/catalog-035-tentovannyy-gruzovoy-avtomobil-10-t.webp"
+    },
+    {
+      "id": "firefighting-rescue",
+      "name": "Firefighting & Rescue",
+      "description": "Fire engines, aerial rescue platforms, ambulances, and emergency response vehicles.",
+      "image": "/products/catalog/spm-firefighting-platform.webp"
+    },
+    {
+      "id": "special-purpose",
+      "name": "Special-Purpose Vehicles",
+      "description": "Purpose-built vehicles and equipment for security, industry, and demanding field operations.",
+      "image": "/products/catalog/spm-patrol-pickup.webp"
+    },
+    {
+      "id": "overhead-gantry",
+      "name": "Overhead & Gantry Cranes",
+      "description": "Industrial bridge, gantry, magnetic, and grab cranes for material handling.",
+      "image": "/products/catalog/og-overhead-bridge.webp"
+    },
+    {
+      "id": "tank-trucks",
+      "name": "Tank Trucks",
+      "description": "Road tankers and refuelling vehicles for fuel, water, and industrial liquids.",
+      "image": "/products/catalog/tt-fuel-tanker-8-12m3.webp"
+    },
+    {
+      "id": "municipal-road",
+      "name": "Municipal & Road Equipment",
+      "description": "Road maintenance, cleaning, waste collection, irrigation, and sewer service vehicles.",
+      "image": "/products/catalog/spm-vacuum-sweeper.webp"
+    },
+    {
+      "id": "trailers-semitrailers",
+      "name": "Trailers & Semi-Trailers",
+      "description": "Tank, low-loader, tipper, container, pipe, and utility transport solutions.",
+      "image": "/products/catalog/tt-fuel-semi-trailer.webp"
+    },
+    {
+      "id": "agricultural",
+      "name": "Agricultural Machinery",
+      "description": "Tractors and agricultural machines for modern farming operations.",
+      "image": "/products/catalog/catalog-099-john-deere-614ob.webp"
+    }
+  ],
+  "products": [
+    {
+      "id": "catalog-002-avtokran-samokhodnyy-75-100-t",
+      "name": "Self-propelled truck crane 75–100 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Self-propelled truck crane 75–100 t for professional industrial and transport operations.",
+      "fullDescription": "Self-propelled truck crane 75–100 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-002-avtokran-samokhodnyy-75-100-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-002-avtokran-samokhodnyy-75-100-t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 75–100 t",
+        "detail02": "Maximum lift height with goose: 58–61 m",
+        "detail03": "Capacity at maximum boom length: 8 t at 43–45 m",
+        "detail04": "Working range: 360°",
+        "detail05": "Base chassis options: KRANTAS, 8×4 or 10×4"
+      },
+      "features": [
+        "A telescopic 5-section arrow of the type Ovoid",
+        "Electronic control of the crane with joysticks",
+        "Weights: 9 500–15 500 kg",
+        "Supplemental lighting and lighting of the work area",
+        "Modern ergonomic operator cabin with heater"
+      ]
+    },
+    {
+      "id": "catalog-003-avtokran-samokhodnyy-50-55-t",
+      "name": "Self-propelled truck crane 50–55 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Self-propelled truck crane 50–55 t for professional industrial and transport operations.",
+      "fullDescription": "Self-propelled truck crane 50–55 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-003-avtokran-samokhodnyy-50-55-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-003-avtokran-samokhodnyy-50-55-t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 50–55 t",
+        "detail02": "Maximum lift height with a goose 41+15 m: 56 m",
+        "detail03": "Capacity at maximum boom length: 6 t at 43–45 m",
+        "detail04": "Working range: 360°",
+        "detail05": "Base chassis options: KRANTAS, 8×4"
+      },
+      "features": [
+        "A telescopic 5-section arrow of the type Ovoid",
+        "Electronic control of the crane with joysticks",
+        "Weights: 9 000 kg (4 500 + 4 500 kg)",
+        "Supplemental lighting and lighting of the work area",
+        "Modern ergonomic operator cabin with heater"
+      ]
+    },
+    {
+      "id": "le-crane-50t",
+      "name": "Truck crane 50 t on chassis 8×8",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Truck crane 50 t on chassis 8×8 for professional industrial and transport operations.",
+      "fullDescription": "Truck crane 50 t on chassis 8×8 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-crane-50t.webp",
+      "gallery": [
+        "/products/catalog/le-crane-50t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 50 tonnes",
+        "detail02": "Maximum lift height with a goose 15 m: 56 m",
+        "detail03": "Capacity at maximum boom length: 6 t at 43–45 m",
+        "detail04": "Working range: 360°",
+        "detail05": "Base chassis options: KRANTAS, 8×8"
+      },
+      "features": [
+        "A telescopic 5-section arrow of the type Ovoid",
+        "Electronic control of the crane with joysticks",
+        "Weights: 9 000 kg (4 500 + 4 500 kg)",
+        "Supplemental lighting and lighting of the work area",
+        "Modern ergonomic operator cabin with heater"
+      ]
+    },
+    {
+      "id": "le-crane-32t",
+      "name": "Truck crane 32 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Truck crane 32 t for professional industrial and transport operations.",
+      "fullDescription": "Truck crane 32 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-crane-32t.webp",
+      "gallery": [
+        "/products/catalog/le-crane-32t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 32 tonnes",
+        "detail02": "Maximum lift height with a goose 8 m: 42 m",
+        "detail03": "Capacity at maximum boom length: 4 t at 33,5 m",
+        "detail04": "Working range: 360°",
+        "detail05": "Base chassis options: KRANTAS, 6×4 or 6×6"
+      },
+      "features": [
+        "A telescopic 4-section arrow of the type Ovoid",
+        "Electronic control of the crane with joysticks",
+        "Weights: 6 000 kg (4 000 + 2 000 kg)",
+        "Supplemental lighting and lighting of the work area",
+        "Modern ergonomic operator cabin with heater"
+      ]
+    },
+    {
+      "id": "catalog-006-avtokran-samokhodnyy-25-30-t",
+      "name": "Self-propelled truck crane 25-30 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Self-propelled truck crane 25-30 t for professional industrial and transport operations.",
+      "fullDescription": "Self-propelled truck crane 25-30 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-006-avtokran-samokhodnyy-25-30-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-006-avtokran-samokhodnyy-25-30-t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 25-30 tonnes",
+        "detail02": "Maximum lift height with goose 8 m: 50 m",
+        "detail03": "Capacity at maximum boom length: 4 t at 42 m",
+        "detail04": "Working range: 360°",
+        "detail05": "Base chassis options: KRANTAS, 6×4"
+      },
+      "features": [
+        "A telescopic 5-section arrow of the type Ovoid",
+        "Electronic control of the crane with joysticks",
+        "Weights: 5 500 kg (4 000 + 1 500 kg)",
+        "Supplemental lighting and lighting of the work area",
+        "Modern ergonomic operator cabin with heater"
+      ]
+    },
+    {
+      "id": "le-crane-25t",
+      "name": "Truck crane 25 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Truck crane 25 t for professional industrial and transport operations.",
+      "fullDescription": "Truck crane 25 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-crane-25t.webp",
+      "gallery": [
+        "/products/catalog/le-crane-25t.webp"
+      ],
+      "specs": {
+        "detail01": "Rated lifting capacity: 25 t",
+        "detail02": "Maximum lift height with a goose 8 m: 42 m",
+        "detail03": "Capacity at maximum boom length: 4 t at 34 m",
+        "detail04": "Working range: 360°",
+        "detail05": "Base chassis options: KRANTAS, 6×4 or 6×6"
+      },
+      "features": [
+        "A telescopic 4-section arrow of the type Ovoid",
+        "Electronic control of the crane with joysticks",
+        "Weight: 4 500 kg",
+        "Lighting of the work area",
+        "Modern ergonomic operator cabin with heater"
+      ]
+    },
+    {
+      "id": "le-crane-16t",
+      "name": "Truck crane 16 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Truck crane 16 t for professional industrial and transport operations.",
+      "fullDescription": "Truck crane 16 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-crane-16t.webp",
+      "gallery": [
+        "/products/catalog/le-crane-16t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 16 tonnes",
+        "detail02": "Capacity at maximum boom length: 4 t at 28 m",
+        "detail03": "Working range: 360°",
+        "detail04": "Working with dangerous goods: up to 12 tonnes",
+        "detail05": "Base chassis options: KRANTAS 4×2, 4×4"
+      },
+      "features": [
+        "A telescopic 4-section arrow of the type Ovoid",
+        "Management of crane operations using joysticks",
+        "Electronic load limiter and protection module from dangerous voltage",
+        "The hydraulic system of Italian production",
+        "Weight: 1 000 k"
+      ]
+    },
+    {
+      "id": "le-crane-10-15t",
+      "name": "Loader crane 10–15 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Loader crane 10–15 t for professional industrial and transport operations.",
+      "fullDescription": "Loader crane 10–15 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-crane-10-15t.webp",
+      "gallery": [
+        "/products/catalog/le-crane-10-15t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 10–15 t",
+        "detail02": "Maximum lifting height: 23 m",
+        "detail03": "Maximum working radius: 20 m",
+        "detail04": "Load moment: 30–40 t·m",
+        "detail05": "Platform payload: 20 000 kg",
+        "detail06": "Base chassis options: KRANTAS, 8×4"
+      },
+      "features": [
+        "Hydraulic outriggers: 2+2",
+        "Productivity of the main hydrodynas: 60 l/min",
+        "Load ropes: Ø8 mm × 70 m",
+        "The dimensions of the board platform: 8 000 × 2 500 × 600 mm",
+        "Two-seater cabin with length and height adjustment",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "le-crane-7t",
+      "name": "Loader crane 7 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Loader crane 7 t for professional industrial and transport operations.",
+      "fullDescription": "Loader crane 7 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-crane-7t.webp",
+      "gallery": [
+        "/products/catalog/le-crane-7t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 7 t",
+        "detail02": "Maximum lifting height: 21 m",
+        "detail03": "Maximum working radius: 18,7 m",
+        "detail04": "Load moment: 21 t·m",
+        "detail05": "Platform payload: 15 000 kg",
+        "detail06": "Base chassis options: KRANTAS, 6×4"
+      },
+      "features": [
+        "Hydraulic outriggers: 2+2",
+        "Productivity of the main hydrodynas: 60 l/min",
+        "Load ropes: Ø8 mm × 70 m",
+        "The size of the board platform: 5 000/6 000 × 2 500 × 600 mm",
+        "Two-seater cabin with length and height adjustment",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "catalog-011-kran-manipulyator-5-t",
+      "name": "Loader crane 5 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Loader crane 5 t for professional industrial and transport operations.",
+      "fullDescription": "Loader crane 5 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-011-kran-manipulyator-5-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-011-kran-manipulyator-5-t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 5 t",
+        "detail02": "Maximum lifting height: 12,5 m",
+        "detail03": "Slewing angle: 180°",
+        "detail04": "Load moment: 15 t·m",
+        "detail05": "Platform payload: 10 000 kg",
+        "detail06": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "Two front hydraulic supports",
+        "Productivity of the main hydrodynas: 60 l/min",
+        "Load ropes: Ø8 mm × 70 m",
+        "The size of the board platform: 5 000–6 000 × 2 500 × 600 mm",
+        "Two-seater cabin with length and height adjustment"
+      ]
+    },
+    {
+      "id": "catalog-012-kran-manipulyator-3-t",
+      "name": "Loader crane 3 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Loader crane 3 t for professional industrial and transport operations.",
+      "fullDescription": "Loader crane 3 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-012-kran-manipulyator-3-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-012-kran-manipulyator-3-t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum load lift: 3,2 t",
+        "detail02": "Maximum lifting height: 9 m",
+        "detail03": "Maximum working radius: 7,5 m",
+        "detail04": "Slewing angle: 360°",
+        "detail05": "Platform payload: 4 500 кг",
+        "detail06": "Base chassis options: KRANTAS, 4×2 or 4×4"
+      },
+      "features": [
+        "Two front hydraulic supports",
+        "Productivity of the main hydrodynas: 60 l/min",
+        "Load ropes: Ø8 mm × 70 m",
+        "The dimensions of the board platform: 4 000 × 2 210 × 500 mm",
+        "Two-seater cabin with length and height adjustment"
+      ]
+    },
+    {
+      "id": "le-crane-container-3.2t",
+      "name": "Loader crane with container platform",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Loader crane with container platform for professional industrial and transport operations.",
+      "fullDescription": "Loader crane with container platform by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-crane-container-3.2t.webp",
+      "gallery": [
+        "/products/catalog/le-crane-container-3.2t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 11,5 t",
+        "detail02": "Maximum lifting height: 9 m",
+        "detail03": "Maximum working radius: 7,5 m",
+        "detail04": "Slewing angle: 360°",
+        "detail05": "Platform payload: 15 000 kg",
+        "detail06": "Base chassis options: KRANTAS, 6×4 or 6×6"
+      },
+      "features": [
+        "Hydraulic outriggers: 2+2",
+        "Productivity of the main hydrodynas: 60 l/min",
+        "Load ropes: Ø8 mm × 70 m",
+        "The dimensions of the container platform: 6 000 × 2 510 mm",
+        "Two-seater cabin with length and height adjustment",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "le-all-terrain-crane",
+      "name": "All-terrain tractor unit with loader crane and all-terrain semi-trailer",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "All-terrain tractor unit with loader crane and all-terrain semi-trailer for professional industrial and transport operations.",
+      "fullDescription": "All-terrain tractor unit with loader crane and all-terrain semi-trailer by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-all-terrain-crane.webp",
+      "gallery": [
+        "/products/catalog/le-all-terrain-crane.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 7 t",
+        "detail02": "Maximum lifting height: 21 m",
+        "detail03": "Maximum working radius: 18,7 m",
+        "detail04": "Slewing angle: 360°",
+        "detail05": "Platform payload: 20 000 kg",
+        "detail06": "Base chassis options: KRANTAS, 6×4, 6×6 or 8×8"
+      },
+      "features": [
+        "Hydraulic outriggers: 2+2",
+        "Productivity of the main hydrodynas: 60 l/min",
+        "Load ropes: Ø8 mm × 70 m",
+        "The dimensions of the board platform: 12 000 × 2 500 × 600 mm",
+        "Two-seater cabin with length and height adjustment",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "catalog-015-bur-yamokopatel-diameter450-mm",
+      "name": "Earth auger Ø450 mm",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Earth auger Ø450 mm for professional industrial and transport operations.",
+      "fullDescription": "Earth auger Ø450 mm by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-015-bur-yamokopatel-diameter450-mm.webp",
+      "gallery": [
+        "/products/catalog/catalog-015-bur-yamokopatel-diameter450-mm.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 6,3 t",
+        "detail02": "Lifting height: 14 m",
+        "detail03": "Drilling diameter: 450 mm",
+        "detail04": "Maximum drilling depth: 3 500 mm",
+        "detail05": "Platform payload: 10 tonnes",
+        "detail06": "Base chassis options: KRANTAS, 6×4, 6×6"
+      },
+      "features": [
+        "Two front hydraulic supports",
+        "Rotating moment when drilling: 300–820 kgs·m",
+        "The size of the board platform: 5 000–6 000 × 2 500 × 600 mm",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "le-earth-auger",
+      "name": "Earth auger Ø350 mm with 6.3 t loader crane",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Earth auger Ø350 mm with 6.3 t loader crane for professional industrial and transport operations.",
+      "fullDescription": "Earth auger Ø350 mm with 6.3 t loader crane by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-earth-auger.webp",
+      "gallery": [
+        "/products/catalog/le-earth-auger.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 6,3 t",
+        "detail02": "Lifting height: 9.7 m",
+        "detail03": "Drilling diameter: 350 mm",
+        "detail04": "Maximum drilling depth: 3 500 mm",
+        "detail05": "Platform payload: 10 tonnes",
+        "detail06": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "Two front hydraulic supports",
+        "Rotating moment when drilling: 300–820 kgs·m",
+        "The dimensions of the board platform: 5 000 × 2 500 × 600 mm",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "catalog-017-bur-yamokopatel-diameter350-mm-1-5-t",
+      "name": "Earth auger Ø350 mm/ 1,5 t",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Earth auger Ø350 mm/ 1,5 t for professional industrial and transport operations.",
+      "fullDescription": "Earth auger Ø350 mm/ 1,5 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-017-bur-yamokopatel-diameter350-mm-1-5-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-017-bur-yamokopatel-diameter350-mm-1-5-t.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 1.5 t",
+        "detail02": "Lifting height: 9.7 m",
+        "detail03": "Drilling diameter: 350 mm",
+        "detail04": "Maximum drilling depth: 2 600 mm",
+        "detail05": "Platform payload: 5 tonnes",
+        "detail06": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "Two front hydraulic supports",
+        "Rotating moment when drilling: 300–820 kgs·m",
+        "The dimensions of the board platform: 4 000 × 2 200 × 600 mm",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "le-aerial-platform-36m",
+      "name": "Truck-mounted aerial platform 36–45 m",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Truck-mounted aerial platform 36–45 m for professional industrial and transport operations.",
+      "fullDescription": "Truck-mounted aerial platform 36–45 m by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-aerial-platform-36m.webp",
+      "gallery": [
+        "/products/catalog/le-aerial-platform-36m.webp"
+      ],
+      "specs": {
+        "detail01": "Working height: 36–45 m",
+        "detail02": "Basket capacity: 250–300 kg (300 kg is indicated for the basket)",
+        "detail03": "Slewing angle: 360°",
+        "detail04": "Base chassis options: KRANTAS, 4×2 or 4×4"
+      },
+      "features": [
+        "The telescopic arrow",
+        "Lightweight aluminum basket",
+        "High-strength Swedish Strenx 700 steel",
+        "Dual control from the ground and from the basket",
+        "Compliance with the requirements for dimensions, full mass and axle loads"
+      ]
+    },
+    {
+      "id": "le-aerial-platform-28m",
+      "name": "Truck-mounted aerial platform 28 m",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Truck-mounted aerial platform 28 m for professional industrial and transport operations.",
+      "fullDescription": "Truck-mounted aerial platform 28 m by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-aerial-platform-28m.webp",
+      "gallery": [
+        "/products/catalog/le-aerial-platform-28m.webp"
+      ],
+      "specs": {
+        "detail01": "Working height: 28 m",
+        "detail02": "Basket capacity: 250 кг",
+        "detail03": "Slewing angle: 360°",
+        "detail04": "Base chassis options: KRANTAS, 4×2 or 4×4"
+      },
+      "features": [
+        "The telescopic arrow",
+        "Lightweight aluminum basket",
+        "High-strength Swedish Strenx 700 steel",
+        "Dual control from the ground and from the basket",
+        "Compliance with the requirements for dimensions, full mass and axle loads"
+      ]
+    },
+    {
+      "id": "catalog-020-avtovyshka-22-24-m",
+      "name": "Truck-mounted aerial platform 22–24 m",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Truck-mounted aerial platform 22–24 m for professional industrial and transport operations.",
+      "fullDescription": "Truck-mounted aerial platform 22–24 m by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-020-avtovyshka-22-24-m.webp",
+      "gallery": [
+        "/products/catalog/catalog-020-avtovyshka-22-24-m.webp"
+      ],
+      "specs": {
+        "detail01": "Working height: 22–24 m",
+        "detail02": "Basket capacity: 250 кг",
+        "detail03": "Slewing angle: 360°",
+        "detail04": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "The telescopic arrow",
+        "Lightweight aluminum basket",
+        "High-strength Swedish Strenx 700 steel",
+        "Dual control from the ground and from the basket",
+        "Compliance with the requirements for dimensions, full mass and axle loads"
+      ]
+    },
+    {
+      "id": "le-aerial-platform-18m",
+      "name": "Truck-mounted aerial platform 18 m",
+      "category": "Lifting Equipment",
+      "categoryId": "lifting-equipment",
+      "description": "Truck-mounted aerial platform 18 m for professional industrial and transport operations.",
+      "fullDescription": "Truck-mounted aerial platform 18 m by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/le-aerial-platform-18m.webp",
+      "gallery": [
+        "/products/catalog/le-aerial-platform-18m.webp"
+      ],
+      "specs": {
+        "detail01": "Working height: 18 m",
+        "detail02": "Basket capacity: 250 кг",
+        "detail03": "Slewing angle: 360°",
+        "detail04": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "The telescopic arrow",
+        "Lightweight aluminum basket",
+        "High-strength Swedish Strenx 700 steel",
+        "Dual control from the ground and from the basket",
+        "Compliance with the requirements for dimensions, full mass and axle loads"
+      ]
+    },
+    {
+      "id": "catalog-022-peredvizhnaya-remontnaya-masterskaya-s-kmu",
+      "name": "Mobile repair workshop with loader crane",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "Mobile repair workshop with loader crane for professional industrial and transport operations.",
+      "fullDescription": "Mobile repair workshop with loader crane by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-022-peredvizhnaya-remontnaya-masterskaya-s-kmu.webp",
+      "gallery": [
+        "/products/catalog/catalog-022-peredvizhnaya-remontnaya-masterskaya-s-kmu.webp"
+      ],
+      "specs": {
+        "detail01": "Gross vehicle weight: 8 000 kg",
+        "detail02": "Loader-crane capacity: 5 tonnes",
+        "detail03": "Maximum speed: 85 km/h",
+        "detail04": "Size of the body-workshop: 4 800 × 2 450 × 3 070 mm",
+        "detail05": "Base chassis options: KRANTAS 4×2 or 4×4"
+      },
+      "features": [
+        "Cranes and manipulators",
+        "4 seats for specialists; racks, drawing boxes and tractor presses",
+        "Air compressor, welding apparatus, punching drill and cornering machine",
+        "Submersible pump, motor pump and removal hammer",
+        "Gasoline generator, chain saw and professional toolkit",
+        "Storage cabinet, working lighting and safety equipment"
+      ]
+    },
+    {
+      "id": "spm-mobile-workshop",
+      "name": "Mobile repair workshop",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "Mobile repair workshop for professional industrial and transport operations.",
+      "fullDescription": "Mobile repair workshop by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-mobile-workshop.webp",
+      "gallery": [
+        "/products/catalog/spm-mobile-workshop.webp"
+      ],
+      "specs": {
+        "detail01": "Gross vehicle weight: 8 000 kg",
+        "detail02": "Maximum speed: 85 km/h",
+        "detail03": "Size of the body-workshop: 4 800 × 2 450 × 3 070 mm",
+        "detail04": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "4 seats for specialists; racks, drawing boxes and tractor presses",
+        "Storage cabinets and professional hand tools",
+        "Welding machine, impact drill, corner grinding machine and electric chain saw",
+        "Air compressor, submersible pump and motor pump",
+        "Gasoline generator and working lighting",
+        "Fire extinguisher, emergency stop sign and anti-rolling presses"
+      ]
+    },
+    {
+      "id": "catalog-024-vakhtovyy-avtobus",
+      "name": "Crew transport bus",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "Crew transport bus for professional industrial and transport operations.",
+      "fullDescription": "Crew transport bus by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-024-vakhtovyy-avtobus.webp",
+      "gallery": [
+        "/products/catalog/catalog-024-vakhtovyy-avtobus.webp"
+      ],
+      "specs": {
+        "detail01": "Passenger capacity: 18–32 чел.",
+        "detail02": "Base chassis options: KRANTAS 4×4 or 6×6",
+        "detail03": "Operating temperature: -40°C to +50°C",
+        "detail04": "Base chassis options: KRANTAS all-wheel drive, 4×4 or 6x6"
+      },
+      "features": [
+        "Individual seats with three-point safety belts",
+        "The entrance door with a low staircase",
+        "5 mm thick thermal insulated panels; carrier body-furgon",
+        "Sliding windows with fortresses and curtains",
+        "Negotiating device, pharmacy and stand-alone heater of the salon",
+        "State set of tools and spare wheel"
+      ]
+    },
+    {
+      "id": "spm-drilling-rig-urb50",
+      "name": "Drilling rig URB-50 / URB-70 — 8×8",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "Drilling rig URB-50 / URB-70 — 8×8 for professional industrial and transport operations.",
+      "fullDescription": "Drilling rig URB-50 / URB-70 — 8×8 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-drilling-rig-urb50.webp",
+      "gallery": [
+        "/products/catalog/spm-drilling-rig-urb50.webp"
+      ],
+      "specs": {
+        "detail01": "Allowable load: 50 or 70 t",
+        "detail02": "Drilling depth: 350–1 000 m; nominal depth up to 1 500–2 000 m",
+        "detail03": "Drill-pipe diameter: Ø73/ 89/ 114 mm",
+        "detail04": "Distance from the rotor table to the cranblock: 18 m",
+        "detail05": "Maximum rotating point of the rotator: 4 500 kgs·m",
+        "detail06": "Base chassis options: KRANTAS, 8×8 or 8×4"
+      },
+      "features": [
+        "The telescopic two-sectional mast",
+        "Hydraulic drive; execution with a deck engine or electric motor",
+        "A two-drum brown slicer with a planetary reducer.",
+        "Hydro-cylinder mattress slope for working with pipes",
+        "The length of the drilling pipes: 6/12 m; the length of the surrounding pipes: 12 m",
+        "Drilling pump: 11–20 l/s, maximum pressure of 62 atm"
+      ]
+    },
+    {
+      "id": "catalog-026-burovaya-ustanovka-urb-20-urb-25-urb-30-6x6",
+      "name": "Drilling rig URB-20 / URB-25 / URB-30 — 6×6",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "Drilling rig URB-20 / URB-25 / URB-30 — 6×6 for professional industrial and transport operations.",
+      "fullDescription": "Drilling rig URB-20 / URB-25 / URB-30 — 6×6 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-026-burovaya-ustanovka-urb-20-urb-25-urb-30-6x6.webp",
+      "gallery": [
+        "/products/catalog/catalog-026-burovaya-ustanovka-urb-20-urb-25-urb-30-6x6.webp"
+      ],
+      "specs": {
+        "detail01": "Allowable load: 20/ 25/ 30 t",
+        "detail02": "Drilling depth: 350–1 000 m; nominal depth 850–1 400 m",
+        "detail03": "Drill-pipe diameter: Ø73/ 89/ 114 mm",
+        "detail04": "Tightening force: 12 500 kg",
+        "detail05": "Maximum rotating point of the rotator: 4 500 kg·m",
+        "detail06": "Base chassis options: KRANTAS, 6×6"
+      },
+      "features": [
+        "Telescopic mast; hydraulic drive",
+        "A two-drum brown slicer with a planetary reducer.",
+        "Rotator rotation frequency: 18–220 rpm",
+        "Distance from the rotor table to the cranblock: 18 m",
+        "Hydraulic pulling of machetes for working with pipes",
+        "Porch drilling pump: 11 l/s, maximum pressure 62 atm"
+      ]
+    },
+    {
+      "id": "catalog-027-pritsepnaya-burovaya-ustanovka-20-30-50-70-t",
+      "name": "Trailer-mounted drilling rig — 20/ 30/ 50/ 70 t",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "Trailer-mounted drilling rig — 20/ 30/ 50/ 70 t for professional industrial and transport operations.",
+      "fullDescription": "Trailer-mounted drilling rig — 20/ 30/ 50/ 70 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-027-pritsepnaya-burovaya-ustanovka-20-30-50-70-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-027-pritsepnaya-burovaya-ustanovka-20-30-50-70-t.webp"
+      ],
+      "specs": {
+        "detail01": "Permitted vertical load: 20–70 t",
+        "detail02": "Drilling depth: 500–2 000 m",
+        "detail03": "Drill-pipe diameters: Ø57/ 73/ 89/ 114 mm",
+        "detail04": "Maximum drag force of the rope: 20 000 kg",
+        "detail05": "Rotator rotation frequency: 25–155 rpm",
+        "detail06": "Base configuration: 3-axis attachment"
+      },
+      "features": [
+        "Four-sided mesh telescopic two-sectional mast",
+        "A single-drum dumbbell with a built-in planetary reducer",
+        "Diesel-mechanical or electric drive of the dumbbell",
+        "Diesel-mechanical drive of the rotator",
+        "Two hydrocylinders to pull the rotor into the mast",
+        "Generator at least 16 kW; piston drilling pump 60 bar"
+      ]
+    },
+    {
+      "id": "spm-drilling-rig-zif",
+      "name": "ZIF geological exploration drilling rig — semi-trailer/ all-terrain configuration",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "ZIF geological exploration drilling rig — semi-trailer/ all-terrain configuration for professional industrial and transport operations.",
+      "fullDescription": "ZIF geological exploration drilling rig — semi-trailer/ all-terrain configuration by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-drilling-rig-zif.webp",
+      "gallery": [
+        "/products/catalog/spm-drilling-rig-zif.webp"
+      ],
+      "specs": {
+        "detail01": "Allowable load: 12,5 t",
+        "detail02": "Drilling depth: 1 500–2 000 m",
+        "detail03": "Drill-pipe diameters: Ø57/ 63,5/ 73/ 89 mm",
+        "detail04": "Vertical load: 20 000 kg",
+        "detail05": "Maximum drag force of the rope: 20 000 kg",
+        "detail06": "Base configuration: single-axle half-track/ all-wheel drive"
+      },
+      "features": [
+        "The remainder of the matte",
+        "Electric drive of the rotator and drill hook",
+        "A single-drum dumbbell with a built-in planetary reducer",
+        "NB-125 porcelain drilling pump; generator from 125 kW",
+        "Rotator rotation frequency: 79–1 000 rpm; maximum rotating moment is 6 000 kg·m",
+        "Two hydrocylinders to pull the rotor into the mast"
+      ]
+    },
+    {
+      "id": "spm-dnp-pump-installation",
+      "name": "DON unit for lowering and lifting pump equipment",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "DON unit for lowering and lifting pump equipment for professional industrial and transport operations.",
+      "fullDescription": "DON unit for lowering and lifting pump equipment by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-dnp-pump-installation.webp",
+      "gallery": [
+        "/products/catalog/spm-dnp-pump-installation.webp"
+      ],
+      "specs": {
+        "detail01": "Loader-crane capacity: 1,5 tonnes",
+        "detail02": "Permissible gross weight: 18 000 kg",
+        "detail03": "Slang and cable drop depth: up to 650 m",
+        "detail04": "Plastic hose: Ø50–73 mm, up to 650 m",
+        "detail05": "Base chassis options: KRANTAS, 4×4 or 6×6"
+      },
+      "features": [
+        "Frequency of rotation of the large drum: 28 rpm",
+        "Small cable drum for cable length up to 650 m",
+        "Electric power supply; manual control",
+        "Power of the chassis engine: 270 hp.",
+        "Two backs."
+      ]
+    },
+    {
+      "id": "mt-mining-truck-25t",
+      "name": "Dump truck 20 m³/ 25 t",
+      "category": "Dump Trucks",
+      "categoryId": "dump-trucks",
+      "description": "Dump truck 20 m³/ 25 t for professional industrial and transport operations.",
+      "fullDescription": "Dump truck 20 m³/ 25 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/mt-mining-truck-25t.webp",
+      "gallery": [
+        "/products/catalog/mt-mining-truck-25t.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 25 000 kg",
+        "detail02": "Gross vehicle weight: 33 000 kg",
+        "detail03": "Body volume: 16–20 m³",
+        "detail04": "Maximum speed: 85 km/h",
+        "detail05": "Overall dimensions: 8 280 × 2 500 × 3 350 mm",
+        "detail06": "Base chassis options: KRANTAS 6×4"
+      },
+      "features": [
+        "Body floor 4–8 mm; side walls 4–5 mm",
+        "Corner of overturning the body: 42–50°",
+        "Turbo diesel V8 with 340 hp with intercooler",
+        "Regulated driver seat with pneumatic suspension and heating",
+        "Noise-insulated cabin; air conditioner optional",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "dt-dump-truck-16m3",
+      "name": "Dump truck 16 m³/ 20 t",
+      "category": "Dump Trucks",
+      "categoryId": "dump-trucks",
+      "description": "Dump truck 16 m³/ 20 t for professional industrial and transport operations.",
+      "fullDescription": "Dump truck 16 m³/ 20 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/dt-dump-truck-16m3.webp",
+      "gallery": [
+        "/products/catalog/dt-dump-truck-16m3.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 16–20 tonnes",
+        "detail02": "Gross vehicle weight: 28 000 kg",
+        "detail03": "Body volume: 12–14 m³",
+        "detail04": "Maximum speed: 85 km/h",
+        "detail05": "Overall dimensions: 8 500 × 2 500 × 3 500 mm",
+        "detail06": "Base chassis options: KRANTAS 6×4"
+      },
+      "features": [
+        "Body floor 4–6 mm; side walls 4–5 mm",
+        "Corner of overturning the body: 42–50°",
+        "V8 turbo diesel with an intercooler of 270 hp",
+        "Regulated driver seat with pneumatic suspension and heating",
+        "Noise-insulated cabin; air conditioner optional",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "dt-dump-truck-8m3",
+      "name": "Dump truck 8 m³/ 10 t",
+      "category": "Dump Trucks",
+      "categoryId": "dump-trucks",
+      "description": "Dump truck 8 m³/ 10 t for professional industrial and transport operations.",
+      "fullDescription": "Dump truck 8 m³/ 10 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/dt-dump-truck-8m3.webp",
+      "gallery": [
+        "/products/catalog/dt-dump-truck-8m3.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 10 000 kg",
+        "detail02": "Gross vehicle weight: 18 000 kg",
+        "detail03": "Body volume: 8 m³",
+        "detail04": "Maximum speed: 80 km/h",
+        "detail05": "Overall dimensions: 7 500 × 2 500 × 3 500 mm",
+        "detail06": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "Body floor 4–6 mm; side walls 4–5 mm",
+        "Corner of overturning the body: 42–50°",
+        "V8 turbo diesel with an intercooler of 270 hp",
+        "Regulated driver seat with pneumatic suspension and heating",
+        "Noise-insulated cabin; air conditioner optional",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "dt-dump-truck-4m3",
+      "name": "Dump truck 4,5 m³/ 5 t",
+      "category": "Dump Trucks",
+      "categoryId": "dump-trucks",
+      "description": "Dump truck 4,5 m³/ 5 t for professional industrial and transport operations.",
+      "fullDescription": "Dump truck 4,5 m³/ 5 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/dt-dump-truck-4m3.webp",
+      "gallery": [
+        "/products/catalog/dt-dump-truck-4m3.webp"
+      ],
+      "specs": {
+        "detail01": "Indicated load-bearing capacity: 4 500 kg",
+        "detail02": "Gross vehicle weight: 8 500 kg",
+        "detail03": "Body volume: 4.5 m³",
+        "detail04": "Maximum speed: 80 km/h",
+        "detail05": "Overall dimensions: 7 500 × 2 500 × 3 500 mm",
+        "detail06": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "Floor and side walls of the body: 4 mm",
+        "Corner of overturning the body: 42–50°",
+        "Engine power: 121–156 hp",
+        "Regulated driver seat with pneumatic suspension and heating",
+        "Noise-insulated cabin; air conditioner optional",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "catalog-034-samosval-2-5-m3-3-t",
+      "name": "Dump truck 2,5 m³/ 3 t",
+      "category": "Dump Trucks",
+      "categoryId": "dump-trucks",
+      "description": "Dump truck 2,5 m³/ 3 t for professional industrial and transport operations.",
+      "fullDescription": "Dump truck 2,5 m³/ 3 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-034-samosval-2-5-m3-3-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-034-samosval-2-5-m3-3-t.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 3 000 kg",
+        "detail02": "Gross vehicle weight: 5 500 kg",
+        "detail03": "Body volume: 2.5 m³",
+        "detail04": "Maximum speed: 80 km/h",
+        "detail05": "Overall dimensions: 6 500 × 2 500 × 3 500 mm",
+        "detail06": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "Floor and side walls of the body: 3 mm",
+        "Corner of overturning the body: 42–50°",
+        "Engine power: 121–143 hp.",
+        "Regulated driver seat with pneumatic suspension and heating",
+        "Noise-insulated cabin; air conditioner optional",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "catalog-035-tentovannyy-gruzovoy-avtomobil-10-t",
+      "name": "Curtain-side cargo truck — 10 t",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Curtain-side cargo truck — 10 t for professional industrial and transport operations.",
+      "fullDescription": "Curtain-side cargo truck — 10 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-035-tentovannyy-gruzovoy-avtomobil-10-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-035-tentovannyy-gruzovoy-avtomobil-10-t.webp"
+      ],
+      "specs": {
+        "detail01": "Platform payload: 10 000 kg",
+        "detail02": "Body volume: 20–25 m³",
+        "detail03": "Maximum speed: 85 km/h",
+        "detail04": "Platform dimensions: 5 000 × 2 300 × 2 000 mm",
+        "detail05": "Base chassis options: KRANTAS, 4×2 or 4×4"
+      },
+      "features": [
+        "Tented body with reinforced frame",
+        "Tents made of PVC that are resistant to wear",
+        "The driver 's cabin is designed for use from -40°C to +50°C",
+        "Negotiating device and pharmacy",
+        "State set of tools and spare wheel",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "catalog-036-tentovannyy-gruzovoy-avtomobil-3-5-t",
+      "name": "Curtain-side cargo truck — 3–5 t",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Curtain-side cargo truck — 3–5 t for professional industrial and transport operations.",
+      "fullDescription": "Curtain-side cargo truck — 3–5 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-036-tentovannyy-gruzovoy-avtomobil-3-5-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-036-tentovannyy-gruzovoy-avtomobil-3-5-t.webp"
+      ],
+      "specs": {
+        "detail01": "Platform payload: 3 000–5 000 kg",
+        "detail02": "Body volume: up to 20 m³",
+        "detail03": "Platform dimensions: 5 000 × 2 300 × 2 000 mm",
+        "detail04": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "Tented body with reinforced frame",
+        "Tents made of PVC that are resistant to wear",
+        "The driver 's cabin is designed for use from -40°C to +50°C",
+        "Negotiating device and pharmacy",
+        "State set of tools and spare wheel",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "spm-firefighting-ladder",
+      "name": "Firefighting aerial ladder 52 m",
+      "category": "Firefighting & Rescue",
+      "categoryId": "firefighting-rescue",
+      "description": "Firefighting aerial ladder 52 m for professional industrial and transport operations.",
+      "fullDescription": "Firefighting aerial ladder 52 m by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-firefighting-ladder.webp",
+      "gallery": [
+        "/products/catalog/spm-firefighting-ladder.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum working height: 52 m",
+        "detail02": "Maximum takeoff: 18m",
+        "detail03": "Basket capacity: 200 kg",
+        "detail04": "Load lift in crane mode: 2 t",
+        "detail05": "Slewing angle: 360°",
+        "detail06": "Base chassis options: KRANTAS 6×4 or 8×4"
+      },
+      "features": [
+        "A high-powered telescopic arrow.",
+        "Automatic overload limiter",
+        "Automatic support and alignment; preparation for work ≤60 s",
+        "Wind speed detector with work blocking at speeds above 10 m/s",
+        "Contact sensors of the support with the ground and movement blocking",
+        "Two-way connection; the width of the support contour is 5,5 m"
+      ]
+    },
+    {
+      "id": "spm-firefighting-platform",
+      "name": "Fire and rescue aerial platform 68–70 m",
+      "category": "Firefighting & Rescue",
+      "categoryId": "firefighting-rescue",
+      "description": "Fire and rescue aerial platform 68–70 m for professional industrial and transport operations.",
+      "fullDescription": "Fire and rescue aerial platform 68–70 m by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-firefighting-platform.webp",
+      "gallery": [
+        "/products/catalog/spm-firefighting-platform.webp"
+      ],
+      "specs": {
+        "detail01": "Indicated working height: 72 m",
+        "detail02": "Maximum working radius: 25 m",
+        "detail03": "Basket capacity: 500 kg",
+        "detail04": "Slewing angle: 360°",
+        "detail05": "Base chassis options: KRANTAS, 8×4"
+      },
+      "features": [
+        "The Sharnino telescopic arrow",
+        "Lightweight aluminum basket",
+        "Fire extinguishing system with remote control",
+        "Maximum width of the support contour: 7 m",
+        "The time of lifting the basket: 350–360 s.",
+        "Lighting of the work area"
+      ]
+    },
+    {
+      "id": "catalog-039-pozharnaya-avtotsisterna-povyshennoy-prokhodimosti-ats-6-0-7-0-9-0-10-12",
+      "name": "All-terrain fire tanker AC-6,0/ 7,0/ 9,0/ 10/ 12",
+      "category": "Firefighting & Rescue",
+      "categoryId": "firefighting-rescue",
+      "description": "All-terrain fire tanker AC-6,0/ 7,0/ 9,0/ 10/ 12 for professional industrial and transport operations.",
+      "fullDescription": "All-terrain fire tanker AC-6,0/ 7,0/ 9,0/ 10/ 12 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-039-pozharnaya-avtotsisterna-povyshennoy-prokhodimosti-ats-6-0-7-0-9-0-10-12.webp",
+      "gallery": [
+        "/products/catalog/catalog-039-pozharnaya-avtotsisterna-povyshennoy-prokhodimosti-ats-6-0-7-0-9-0-10-12.webp"
+      ],
+      "specs": {
+        "detail01": "Water tank volume: 6 000–12 000 l",
+        "detail02": "Pump capacity: 40–100 l/s",
+        "detail03": "Gross vehicle weight: 21–38 t",
+        "detail04": "Engine power: 270–500 hp.",
+        "detail05": "Road light: up to 400 mm",
+        "detail06": "The depth of the overcome bore: up to 1,5 m",
+        "detail07": "Base chassis options: KRANTAS, 6×4 or 6x6"
+      },
+      "features": [
+        "Combat cabin for 6–8 people",
+        "The volume of the fountain: 360–1 200 litres",
+        "Autonomous heater of the cabin",
+        "Sections for equipment with aluminum rollers",
+        "Working temperature: -40°C to +45°C"
+      ]
+    },
+    {
+      "id": "catalog-040-pozharnaya-avtotsisterna-ats-4-0-ats-5-0",
+      "name": "Fire tanker AC-4,0/ AC-5,0",
+      "category": "Firefighting & Rescue",
+      "categoryId": "firefighting-rescue",
+      "description": "Fire tanker AC-4,0/ AC-5,0 for professional industrial and transport operations.",
+      "fullDescription": "Fire tanker AC-4,0/ AC-5,0 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-040-pozharnaya-avtotsisterna-ats-4-0-ats-5-0.webp",
+      "gallery": [
+        "/products/catalog/catalog-040-pozharnaya-avtotsisterna-ats-4-0-ats-5-0.webp"
+      ],
+      "specs": {
+        "detail01": "Water tank volume: 4 000–5 000 l",
+        "detail02": "Pump capacity: 30–40 l/s",
+        "detail03": "Gross vehicle weight: 8–16 t",
+        "detail04": "Engine power: 210 hp.",
+        "detail05": "Crew capacity: 5–7 people.",
+        "detail06": "Base chassis options: KRANTAS 4×2 or 4×4"
+      },
+      "features": [
+        "The volume of the fountain: 300–500 litres",
+        "Strengthened chassis frame and high passing suspension",
+        "Autonomous heater of the cabin",
+        "Easy access to fire-technical equipment",
+        "Modern lighting and signal equipment",
+        "Working temperature: -40°C to +45°C"
+      ]
+    },
+    {
+      "id": "catalog-041-pozharnaya-avtotsisterna-ats-2-0-ats-3-2",
+      "name": "Fire tanker AC-2,0/ AC-3,2",
+      "category": "Firefighting & Rescue",
+      "categoryId": "firefighting-rescue",
+      "description": "Fire tanker AC-2,0/ AC-3,2 for professional industrial and transport operations.",
+      "fullDescription": "Fire tanker AC-2,0/ AC-3,2 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-041-pozharnaya-avtotsisterna-ats-2-0-ats-3-2.webp",
+      "gallery": [
+        "/products/catalog/catalog-041-pozharnaya-avtotsisterna-ats-2-0-ats-3-2.webp"
+      ],
+      "specs": {
+        "detail01": "Water tank volume: 2 000–3 200 l",
+        "detail02": "Pump capacity: 30–40 l/s",
+        "detail03": "Gross vehicle weight: 8–16 t",
+        "detail04": "Engine power: 156–220 hp.",
+        "detail05": "Crew capacity: 5–7 people.",
+        "detail06": "Base chassis options: KRANTAS 4×2"
+      },
+      "features": [
+        "The volume of the fountain: 120–300 l.",
+        "Compact reinforced body design",
+        "Autonomous heater of the cabin",
+        "Easy access to fire-technical equipment",
+        "Modern lighting and signal equipment",
+        "Working temperature: -40°C to +45°C"
+      ]
+    },
+    {
+      "id": "catalog-042-pozharno-spasatelnyy-avtomobil-kuzov-pikap",
+      "name": "Fire and rescue vehicle — pickup body",
+      "category": "Firefighting & Rescue",
+      "categoryId": "firefighting-rescue",
+      "description": "Fire and rescue vehicle — pickup body for professional industrial and transport operations.",
+      "fullDescription": "Fire and rescue vehicle — pickup body by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-042-pozharno-spasatelnyy-avtomobil-kuzov-pikap.webp",
+      "gallery": [
+        "/products/catalog/catalog-042-pozharno-spasatelnyy-avtomobil-kuzov-pikap.webp"
+      ],
+      "specs": {
+        "detail01": "Water tank volume: 300–800 litres",
+        "detail02": "Pump capacity: 30–40 l/s",
+        "detail03": "Gross vehicle weight: 8–16 t",
+        "detail04": "Engine power: 245 hp.",
+        "detail05": "Crew capacity: up to 5 people.",
+        "detail06": "Wheel configuration: 4x4"
+      },
+      "features": [
+        "Integrated module with water tank, foam tank and pump",
+        "The volume of the fountain: 30–80 litres",
+        "Solid body for intensive use",
+        "Light-diode working and emergency lighting",
+        "Emergency signalling system and loudspeaker",
+        "Compact layout for quick response"
+      ]
+    },
+    {
+      "id": "catalog-044-avtomobil-skoroy-meditsinskoy-pomoshchi-4x4",
+      "name": "All-terrain ambulance 4×4",
+      "category": "Firefighting & Rescue",
+      "categoryId": "firefighting-rescue",
+      "description": "All-terrain ambulance 4×4 for professional industrial and transport operations.",
+      "fullDescription": "All-terrain ambulance 4×4 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-044-avtomobil-skoroy-meditsinskoy-pomoshchi-4x4.webp",
+      "gallery": [
+        "/products/catalog/catalog-044-avtomobil-skoroy-meditsinskoy-pomoshchi-4x4.webp"
+      ],
+      "specs": {
+        "detail01": "Basic car: KRANTAS pickup with double cabin",
+        "detail02": "Wheel configuration: 4x4",
+        "detail03": "Engine: gasoline engine, 245 hp.",
+        "detail04": "Transmission: automatic",
+        "detail05": "Fuel tank: 80 liters",
+        "detail06": "Medical section: not less than 2 500 × 1 700 × 1 700 mm"
+      },
+      "features": [
+        "Strengthened suspension",
+        "Solid medical module made of sandwich panels",
+        "4 places for medical personnel, not including driver",
+        "Fittings for bearings",
+        "LED lighting, ventilation and climate control",
+        "Light and sound system of special signalling"
+      ]
+    },
+    {
+      "id": "spm-patrol-pickup",
+      "name": "Public-safety patrol vehicle",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "Public-safety patrol vehicle for professional industrial and transport operations.",
+      "fullDescription": "Public-safety patrol vehicle by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-patrol-pickup.webp",
+      "gallery": [
+        "/products/catalog/spm-patrol-pickup.webp"
+      ],
+      "specs": {
+        "detail01": "Wheel formula variants: 4×2 or 4×4",
+        "detail02": "Engine: бензиновый турбодвигатель 1,9 л, 245 л.с.",
+        "detail03": "Transmission: automatic",
+        "detail04": "Maximum speed: 140 km/h",
+        "detail05": "Passenger capacity: 8 (2+3+3)",
+        "detail06": "Dimensions: 5 200 × 1 800 × 1 750 mm"
+      },
+      "features": [
+        "Warmed metal service kang",
+        "Internal lighting and ventilation",
+        "Video surveillance system with monitor",
+        "Internal safety net and additional door lock",
+        "Blue-red LED beam, loudspeaker and grille-shaped strobe",
+        "Environmental standard Euro-6"
+      ]
+    },
+    {
+      "id": "catalog-046-peredvizhnaya-kriminalisticheskaya-laboratoriya",
+      "name": "Mobile forensic laboratory",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "Mobile forensic laboratory for professional industrial and transport operations.",
+      "fullDescription": "Mobile forensic laboratory by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-046-peredvizhnaya-kriminalisticheskaya-laboratoriya.webp",
+      "gallery": [
+        "/products/catalog/catalog-046-peredvizhnaya-kriminalisticheskaya-laboratoriya.webp"
+      ],
+      "specs": {
+        "detail01": "Specialized autonomous car for conducting investigative and forensic work on the spot",
+        "detail02": "The interior is designed for industrial reliability, functionality and autonomous operation."
+      },
+      "features": [
+        "Expert's workplace with a desk, professional chair and on-board monitor",
+        "Light-diode working lighting",
+        "Reinforced upper cabinets, drawers and locking sections for equipment",
+        "Metal safes for physical evidence",
+        "Autonomous electricity supply; 220 V/ 12 V routers and inverter",
+        "Ventilation, heating, climate control and electric water tap"
+      ]
+    },
+    {
+      "id": "spm-admin-convoy",
+      "name": "Prisoner transport vehicle",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "Prisoner transport vehicle for professional industrial and transport operations.",
+      "fullDescription": "Prisoner transport vehicle by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-admin-convoy.webp",
+      "gallery": [
+        "/products/catalog/spm-admin-convoy.webp"
+      ],
+      "specs": {
+        "detail01": "Wheel configuration: 4x2",
+        "detail02": "Gross vehicle weight: 4 000 kg; equipped weight: 2 800 kg",
+        "detail03": "Engine: 2.0 litre petrol engine, 191 hp, Euro-5",
+        "detail04": "Transmission: 6-ступенчатая механическая",
+        "detail05": "Maximum speed: up to 120 km/h",
+        "detail06": "Total capacity: 13 people."
+      },
+      "features": [
+        "Separate sections: front cabin 3 seats, convoy 2, delayed 8",
+        "Metal mesh fences and reinforced rear door",
+        "Industrial performance wear-resistant finishing",
+        "ABS + EBD and driver and front passenger safety pillows",
+        "Rearview camera and rear parking sensors",
+        "Front and rear air conditioners"
+      ]
+    },
+    {
+      "id": "catalog-048-multilift-25-27-t-konteyner-kompaktor-konteyner",
+      "name": "Hook-lift truck 25/ 27 t — sealed container/ vacuum tank",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "Hook-lift truck 25/ 27 t — sealed container/ vacuum tank for professional industrial and transport operations.",
+      "fullDescription": "Hook-lift truck 25/ 27 t — sealed container/ vacuum tank by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-048-multilift-25-27-t-konteyner-kompaktor-konteyner.webp",
+      "gallery": [
+        "/products/catalog/catalog-048-multilift-25-27-t-konteyner-kompaktor-konteyner.webp"
+      ],
+      "specs": {
+        "detail01": "Hook-lift capacity: up to 25 000 kg",
+        "detail02": "Container volume: 16–20 m³",
+        "detail03": "Kerb weight without container: up to 13–15 t",
+        "detail04": "Base chassis options: KRANTAS, 8×4"
+      },
+      "features": [
+        "The design of the hook loader: Strenx 700/ Strenx 960",
+        "Closed waterproof container or vacuum cistern 16–20 m³",
+        "Compatible body: on board, self-sweeping container or cistern"
+      ]
+    },
+    {
+      "id": "catalog-049-multilift-25-27-t-okonteyner-kompaktor-konteyner",
+      "name": "Hook-lift truck 25/ 27 t — open container/ compactor container",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "Hook-lift truck 25/ 27 t — open container/ compactor container for professional industrial and transport operations.",
+      "fullDescription": "Hook-lift truck 25/ 27 t — open container/ compactor container by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-049-multilift-25-27-t-okonteyner-kompaktor-konteyner.webp",
+      "gallery": [
+        "/products/catalog/catalog-049-multilift-25-27-t-okonteyner-kompaktor-konteyner.webp"
+      ],
+      "specs": {
+        "detail01": "Hook-lift capacity: up to 25 000 kg",
+        "detail02": "Container volume: 16–20 m³",
+        "detail03": "Kerb weight without container: up to 13–15 t",
+        "detail04": "Base chassis options: KRANTAS, 8×4"
+      },
+      "features": [
+        "The design of the hook loader: Strenx 700/ Strenx 960",
+        "Closed waterproof container or open body 16–20 m³",
+        "Compatible body: on board, self-sweeping container or cistern"
+      ]
+    },
+    {
+      "id": "catalog-050-multilift-15-20-t-6x4",
+      "name": "Hook-lift truck 15/ 20 t — 6×4",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "Hook-lift truck 15/ 20 t — 6×4 for professional industrial and transport operations.",
+      "fullDescription": "Hook-lift truck 15/ 20 t — 6×4 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-050-multilift-15-20-t-6x4.webp",
+      "gallery": [
+        "/products/catalog/catalog-050-multilift-15-20-t-6x4.webp"
+      ],
+      "specs": {
+        "detail01": "Hook-lift capacity: 15 000 or 20 000 kg",
+        "detail02": "Container volume: 12–16 m³",
+        "detail03": "Kerb weight without container: up to 3 800 kg",
+        "detail04": "Base chassis options: KRANTAS, 6×4"
+      },
+      "features": [
+        "Steel of the design of the hook loader: DOMEX/ STRENX/ 10HND",
+        "Closed waterproof container or open self-swimming body",
+        "Compatible body: on board, self-sweeping container or cistern"
+      ]
+    },
+    {
+      "id": "catalog-051-multilift-5-10-t-4x2",
+      "name": "Hook-lift truck 5/ 10 t — 4×2",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "Hook-lift truck 5/ 10 t — 4×2 for professional industrial and transport operations.",
+      "fullDescription": "Hook-lift truck 5/ 10 t — 4×2 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-051-multilift-5-10-t-4x2.webp",
+      "gallery": [
+        "/products/catalog/catalog-051-multilift-5-10-t-4x2.webp"
+      ],
+      "specs": {
+        "detail01": "Hook-lift capacity: 5 000 or 10 000 kg",
+        "detail02": "Container volume: 6–12 m³",
+        "detail03": "Base chassis options: KRANTAS, 4×2"
+      },
+      "features": [
+        "Steel of the design of the hook loader: DOMEX/ STRENX/ 10HND",
+        "Closed waterproof container",
+        "Six loading holes and one rear sliding door.",
+        "Compatible body: on board, self-sweeping container or cistern"
+      ]
+    },
+    {
+      "id": "og-overhead-bridge",
+      "name": "Overhead bridge crane",
+      "category": "Overhead & Gantry Cranes",
+      "categoryId": "overhead-gantry",
+      "description": "Overhead bridge crane for professional industrial and transport operations.",
+      "fullDescription": "Overhead bridge crane by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/og-overhead-bridge.webp",
+      "gallery": [
+        "/products/catalog/og-overhead-bridge.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 3-500 tonnes",
+        "detail02": "Flight: up to 40 m",
+        "detail03": "Lifting height: up to 40 m",
+        "detail04": "Working mode: A3-A8",
+        "detail05": "Operating temperature: from -40°C to +40°C"
+      },
+      "features": [
+        "Control options: pult/ radio control/ cabin",
+        "Load capture organs: hook/ greyfer/ magnet",
+        "Execution by the technical task of the customer"
+      ]
+    },
+    {
+      "id": "og-container-overhead",
+      "name": "Gantry crane",
+      "category": "Overhead & Gantry Cranes",
+      "categoryId": "overhead-gantry",
+      "description": "Gantry crane for professional industrial and transport operations.",
+      "fullDescription": "Gantry crane by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/og-container-overhead.webp",
+      "gallery": [
+        "/products/catalog/og-container-overhead.webp"
+      ],
+      "specs": {
+        "detail01": "The total load-bearing capacity: 5-150 tonnes",
+        "detail02": "Load lift when working with containers: 30-65 t for containers of 20/ 40 ft",
+        "detail03": "Lifting height: up to 40 m",
+        "detail04": "Stable height: up to 6+1 containers",
+        "detail05": "Flow of the crane: up to 40 m"
+      },
+      "features": [
+        "Type of crane: RMG/ RTG",
+        "Container sprayer with twist-lock",
+        "The cabin/ the radio",
+        "Working mode: A6-A8"
+      ]
+    },
+    {
+      "id": "og-magnet-grab",
+      "name": "Magnetic grab crane 5 t",
+      "category": "Overhead & Gantry Cranes",
+      "categoryId": "overhead-gantry",
+      "description": "Magnetic grab crane 5 t for professional industrial and transport operations.",
+      "fullDescription": "Magnetic grab crane 5 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/og-magnet-grab.webp",
+      "gallery": [
+        "/products/catalog/og-magnet-grab.webp"
+      ],
+      "specs": {
+        "detail01": "Basket capacity: 5 000 kg",
+        "detail02": "Flight of the arrows: 13 m",
+        "detail03": "Working height of the lift: 8 m (in the upper block of the page is 13 m)",
+        "detail04": "Area of work: 360°",
+        "detail05": "Rising speed: 16 m/min",
+        "detail06": "Speed of movement: 80 m/min",
+        "detail07": "Weight: 13 000 kg"
+      },
+      "features": [
+        "Maximum load time: 65 t·m",
+        "Weight of crane with counterweight: 32 000 kg",
+        "Collage: 3 200 mm",
+        "Total power of the engine: 52,5 kW",
+        "Cabin with joystick control and full overview of cargo",
+        "Frequent adjustment of movement, turn and lift",
+        "Support-turning device and turning mechanisms of the Italian production"
+      ]
+    },
+    {
+      "id": "tt-fuel-tanker-20-25m3",
+      "name": "Fuel tanker/ refueller ATZ 20 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Fuel tanker/ refueller ATZ 20 m³ for professional industrial and transport operations.",
+      "fullDescription": "Fuel tanker/ refueller ATZ 20 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-fuel-tanker-20-25m3.webp",
+      "gallery": [
+        "/products/catalog/tt-fuel-tanker-20-25m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 20 000/ 25 000 l",
+        "detail02": "Pump capacity: 500–1 000 l/min",
+        "detail03": "Number of compartments: 2/ 3",
+        "detail04": "Base chassis: KRANTAS, 8×4 or 6×4",
+        "detail05": "Gravity discharge time: 45 minutes"
+      },
+      "features": [
+        "Elliptical cistern with hermetic aluminum lid and slurry throat",
+        "Two pressure-sucking arms of 4 m length",
+        "Aluminum fast-moving connections, fire extinguisher, grounding and toolbox",
+        "Fuel distribution node with filter and counter; handle 25 m and refueling pistol 10 m"
+      ]
+    },
+    {
+      "id": "tt-fuel-tanker-16-18m3",
+      "name": "Fuel tanker/ refueller ATZ 16/ 18 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Fuel tanker/ refueller ATZ 16/ 18 m³ for professional industrial and transport operations.",
+      "fullDescription": "Fuel tanker/ refueller ATZ 16/ 18 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-fuel-tanker-16-18m3.webp",
+      "gallery": [
+        "/products/catalog/tt-fuel-tanker-16-18m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 16 000/ 18 000 l",
+        "detail02": "Pump capacity: 500–1 000 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Base chassis: KRANTAS, 6×4 or 6×6",
+        "detail05": "Gravity discharge time: 30–40 min"
+      },
+      "features": [
+        "Elliptical cistern with hermetic aluminium lid",
+        "Two pressure-sucking arms of 4 m length",
+        "Aluminum fast-moving connections, fire extinguisher, grounding and toolbox",
+        "Fuel distribution node with filter and counter; handle 25 m and refueling pistol 10 m"
+      ]
+    },
+    {
+      "id": "catalog-057-vezdekhodnyy-benzovoz-avtotoplivozapravshchik-atz-12-16-m3",
+      "name": "All-terrain fuel tanker/ refueller ATZ 12/ 16 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "All-terrain fuel tanker/ refueller ATZ 12/ 16 m³ for professional industrial and transport operations.",
+      "fullDescription": "All-terrain fuel tanker/ refueller ATZ 12/ 16 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-057-vezdekhodnyy-benzovoz-avtotoplivozapravshchik-atz-12-16-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-057-vezdekhodnyy-benzovoz-avtotoplivozapravshchik-atz-12-16-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 12 000/ 16 000 l",
+        "detail02": "Pump capacity: 500 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Base chassis: KRANTAS, 6×6 or 6×4",
+        "detail05": "Gravity discharge time: 20–25 min"
+      },
+      "features": [
+        "Elliptical cistern with hermetic aluminium lid",
+        "Two pressure-sucking arms of 4 m length",
+        "Aluminum fast-moving connections, fire extinguisher, grounding and toolbox",
+        "Fuel distribution node with filter and counter; handle 25 m and refueling pistol 10 m"
+      ]
+    },
+    {
+      "id": "tt-fuel-tanker-8-12m3",
+      "name": "Fuel tanker/ refueller ATZ 8/ 10 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Fuel tanker/ refueller ATZ 8/ 10 m³ for professional industrial and transport operations.",
+      "fullDescription": "Fuel tanker/ refueller ATZ 8/ 10 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-fuel-tanker-8-12m3.webp",
+      "gallery": [
+        "/products/catalog/tt-fuel-tanker-8-12m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 8 000/ 10 000 l",
+        "detail02": "Pump capacity: 500 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Base chassis: KRANTAS, 4×4 or 4×2",
+        "detail05": "Gravity discharge time: 20–25 min"
+      },
+      "features": [
+        "Elliptical cistern with hermetic aluminium lid",
+        "Two tension-sucking arms of 3.5 m length",
+        "Aluminum fast-moving connections, fire extinguisher, grounding and toolbox",
+        "Fuel distribution node with filter and counter; handle 25 m and refueling pistol 10 m"
+      ]
+    },
+    {
+      "id": "tt-fuel-tanker-4-6m3",
+      "name": "Fuel tanker/ refueller ATZ 3/ 5 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Fuel tanker/ refueller ATZ 3/ 5 m³ for professional industrial and transport operations.",
+      "fullDescription": "Fuel tanker/ refueller ATZ 3/ 5 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-fuel-tanker-4-6m3.webp",
+      "gallery": [
+        "/products/catalog/tt-fuel-tanker-4-6m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 3 000/ 5 000/ 6 000 l",
+        "detail02": "Pump capacity: 500 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Base chassis: KRANTAS, 4×2",
+        "detail05": "Gravity discharge time: 10–12 min"
+      },
+      "features": [
+        "Elliptical cistern with hermetic aluminium lid",
+        "Two tension-sucking arms of 3.5 m length",
+        "Aluminum fast-shot connections and safety kit",
+        "Fuel distribution node with filter and counter; handle 25 m and refueling pistol 10 m"
+      ]
+    },
+    {
+      "id": "catalog-060-kompaktnyy-avtotoplivozapravshchik-atz-1-8-m3",
+      "name": "Compact refuelling truck ATZ 1,8 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Compact refuelling truck ATZ 1,8 m³ for professional industrial and transport operations.",
+      "fullDescription": "Compact refuelling truck ATZ 1,8 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-060-kompaktnyy-avtotoplivozapravshchik-atz-1-8-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-060-kompaktnyy-avtotoplivozapravshchik-atz-1-8-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 1 800 litres",
+        "detail02": "Pump capacity: 500 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Base chassis: KRANTAS, 4×2",
+        "detail05": "Gravity discharge time: 10–12 min"
+      },
+      "features": [
+        "Elliptical cistern; two pressure-sucking arms of 2 m length",
+        "Hermetic aluminum cap and fast-drawing connections",
+        "Electric fuel distribution node with electronic counter",
+        "Ø20 mm sleeve and 5 m petrol pistol"
+      ]
+    },
+    {
+      "id": "tt-trailer-refueller-2-4m3",
+      "name": "Fuel-bowser trailer 4 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Fuel-bowser trailer 4 m³ for professional industrial and transport operations.",
+      "fullDescription": "Fuel-bowser trailer 4 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-trailer-refueller-2-4m3.webp",
+      "gallery": [
+        "/products/catalog/tt-trailer-refueller-2-4m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 3 000/ 4 000 l",
+        "detail02": "Pump capacity: 500 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Base configuration: tractor",
+        "detail05": "Gravity discharge time: 10–12 min"
+      },
+      "features": [
+        "Elliptical cistern with hermetic aluminium lid",
+        "Two pressure-sucking arms of 4 m length",
+        "Electric fuel distribution node with filter and electronic counter",
+        "Ø20 mm sleeve and 5 m petrol pistol"
+      ]
+    },
+    {
+      "id": "tt-water-tanker-allterrain",
+      "name": "All-terrain potable and service water tanker 10/ 12 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "All-terrain potable and service water tanker 10/ 12 m³ for professional industrial and transport operations.",
+      "fullDescription": "All-terrain potable and service water tanker 10/ 12 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-water-tanker-allterrain.webp",
+      "gallery": [
+        "/products/catalog/tt-water-tanker-allterrain.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 10 000/ 12 000 l",
+        "detail02": "Pump capacity: 500 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Maximum suction height: 7,5 m",
+        "detail05": "Base chassis: KRANTAS, 6×6 or 6×4"
+      },
+      "features": [
+        "Elliptical cistern; walls made of high strength steel with a thickness of 5–6 mm",
+        "Two pressure-sucking arms of DU80 length 4 m",
+        "The lid of the hatch with a valve",
+        "Time of self-surrender: 25 minutes"
+      ]
+    },
+    {
+      "id": "catalog-063-vodovoz-dlya-pitevoy-i-tekhnicheskoy-vody-8-10-m3",
+      "name": "Potable and service water tanker 8/ 10 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Potable and service water tanker 8/ 10 m³ for professional industrial and transport operations.",
+      "fullDescription": "Potable and service water tanker 8/ 10 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-063-vodovoz-dlya-pitevoy-i-tekhnicheskoy-vody-8-10-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-063-vodovoz-dlya-pitevoy-i-tekhnicheskoy-vody-8-10-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 8 000/ 10 000 l",
+        "detail02": "Pump capacity: 500 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Maximum suction height: 7,5 m",
+        "detail05": "Base chassis: KRANTAS, 4×2"
+      },
+      "features": [
+        "Elliptical cistern; walls made of high strength steel with a thickness of 5–6 mm",
+        "Two pressure-sucking arms of DU80 length 4 m",
+        "The lid of the hatch with a valve",
+        "Time of self-surrender: 25 minutes"
+      ]
+    },
+    {
+      "id": "tt-water-tanker-4-6m3",
+      "name": "Potable and service water tanker 3/ 5 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Potable and service water tanker 3/ 5 m³ for professional industrial and transport operations.",
+      "fullDescription": "Potable and service water tanker 3/ 5 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-water-tanker-4-6m3.webp",
+      "gallery": [
+        "/products/catalog/tt-water-tanker-4-6m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 3 000/ 5 000 l",
+        "detail02": "Pump capacity: 500 l/min",
+        "detail03": "Number of compartments: 1/ 2",
+        "detail04": "Maximum suction height: 7,5 m",
+        "detail05": "Base chassis: KRANTAS, 4×2"
+      },
+      "features": [
+        "Elliptical cistern; walls made of high strength steel with a thickness of 3–4 mm",
+        "Two pressure-sucking arms of the DU50 length of 3,5 m",
+        "The lid of the hatch with a valve",
+        "Self-swimming time: 8–10 min"
+      ]
+    },
+    {
+      "id": "catalog-065-kombinirovannaya-dorozhnaya-mashina-8-10-12-m3",
+      "name": "Combined road maintenance truck 8/ 10/ 12 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Combined road maintenance truck 8/ 10/ 12 m³ for professional industrial and transport operations.",
+      "fullDescription": "Combined road maintenance truck 8/ 10/ 12 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-065-kombinirovannaya-dorozhnaya-mashina-8-10-12-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-065-kombinirovannaya-dorozhnaya-mashina-8-10-12-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 8 000/ 10 000/ 12 000 l",
+        "detail02": "Pump capacity: 45–75 m³/h",
+        "detail03": "Spraying width: up to 12 m",
+        "detail04": "Water throw range: up to 25 m",
+        "detail05": "Base chassis: KRANTAS, 4×2 or 6×4"
+      },
+      "features": [
+        "Remote management of all operations from the driver 's cabin",
+        "Inter-metal grinding brush, irrigation equipment and snow cleaning drainage",
+        "Two front watering pads",
+        "The upper flake barrel"
+      ]
+    },
+    {
+      "id": "catalog-066-kombinirovannaya-dorozhnaya-mashina-peskorazbrasyvatel-5-8-m3",
+      "name": "Combined road maintenance and grit-spreading truck 5/ 8 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Combined road maintenance and grit-spreading truck 5/ 8 m³ for professional industrial and transport operations.",
+      "fullDescription": "Combined road maintenance and grit-spreading truck 5/ 8 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-066-kombinirovannaya-dorozhnaya-mashina-peskorazbrasyvatel-5-8-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-066-kombinirovannaya-dorozhnaya-mashina-peskorazbrasyvatel-5-8-m3.webp"
+      ],
+      "specs": {
+        "detail01": "The volume of the sand dispenser bunker: 5/ 8 m³",
+        "detail02": "Density of the drop: 30–500 g/m²",
+        "detail03": "The width of the treatment: up to 9 m",
+        "detail04": "Engine: дизельный 7,47 л, 270 л.с.",
+        "detail05": "Base chassis: KRANTAS, 4×2 or 6×4"
+      },
+      "features": [
+        "Regulating the sand dispenser from the cabin",
+        "The height of the falls from 900 mm; the width of the cleaning from 2 600 mm",
+        "Turn of the valve ± 30°; hydraulic drive",
+        "Pneumatic brakes with ABS; tank 300 l"
+      ]
+    },
+    {
+      "id": "catalog-067-polivomoechnaya-mashina-8-10-m3",
+      "name": "Street washing truck 8/ 10 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Street washing truck 8/ 10 m³ for professional industrial and transport operations.",
+      "fullDescription": "Street washing truck 8/ 10 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-067-polivomoechnaya-mashina-8-10-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-067-polivomoechnaya-mashina-8-10-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 8 000/ 10 000 l",
+        "detail02": "Pump capacity: 45–75 m³/h",
+        "detail03": "Water suction depth: up to 7 m",
+        "detail04": "Spraying width: up to 12 m",
+        "detail05": "Water throw range: up to 25 m"
+      },
+      "features": [
+        "Self-sucking centrifugal water pump",
+        "Two front watering pads",
+        "Two pressure-sucking arms of DU80 length 4 m",
+        "Self-supply time: up to 15 minutes",
+        "Base chassis: KRANTAS, 4×2 or 6×4"
+      ]
+    },
+    {
+      "id": "catalog-068-polivomoechnaya-mashina-pm-4-5",
+      "name": "Street washing truck PM-4.5",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Street washing truck PM-4.5 for professional industrial and transport operations.",
+      "fullDescription": "Street washing truck PM-4.5 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-068-polivomoechnaya-mashina-pm-4-5.webp",
+      "gallery": [
+        "/products/catalog/catalog-068-polivomoechnaya-mashina-pm-4-5.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 4 500 litres",
+        "detail02": "Pump capacity: 45–75 m³/h",
+        "detail03": "Water suction depth: up to 7 m",
+        "detail04": "Spraying width: up to 12 m",
+        "detail05": "Water throw range: up to 25 m"
+      },
+      "features": [
+        "Self-sucking centrifugal water pump",
+        "Two front watering pads",
+        "Two pressure-sucking arms of DU80 length 4 m",
+        "Self-supply time: up to 15 minutes",
+        "Base chassis: KRANTAS, 4×2"
+      ]
+    },
+    {
+      "id": "catalog-069-gidrodinamicheskaya-kanalopromyvochnaya-mashina-8-10-m3",
+      "name": "Hydrodynamic sewer jetting truck 8/ 10 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Hydrodynamic sewer jetting truck 8/ 10 m³ for professional industrial and transport operations.",
+      "fullDescription": "Hydrodynamic sewer jetting truck 8/ 10 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-069-gidrodinamicheskaya-kanalopromyvochnaya-mashina-8-10-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-069-gidrodinamicheskaya-kanalopromyvochnaya-mashina-8-10-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 8 000/ 10 000 l",
+        "detail02": "High-pressure pump: not less than 150 bar, 7,5–10 m³/h",
+        "detail03": "The diameter of the pipes to be cleaned: 150–1 000 mm",
+        "detail04": "Working sleeve: 50 m on the drum",
+        "detail05": "Base chassis: KRANTAS, 6×6, 6×4 or 4×2"
+      },
+      "features": [
+        "Italian high pressure pump with hydraulic drive",
+        "Elliptical or cylindrical cistern",
+        "A set of 4–5 folding heads."
+      ]
+    },
+    {
+      "id": "catalog-070-gidrodinamicheskaya-kanalopromyvochnaya-mashina-4-5-m3",
+      "name": "Hydrodynamic sewer jetting truck 4/ 5 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Hydrodynamic sewer jetting truck 4/ 5 m³ for professional industrial and transport operations.",
+      "fullDescription": "Hydrodynamic sewer jetting truck 4/ 5 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-070-gidrodinamicheskaya-kanalopromyvochnaya-mashina-4-5-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-070-gidrodinamicheskaya-kanalopromyvochnaya-mashina-4-5-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 4 000/ 5 000 l",
+        "detail02": "High-pressure pump: not less than 150 bar, 7,5–10 m³/h",
+        "detail03": "The diameter of the pipes to be cleaned: 150–1 000 mm",
+        "detail04": "Working sleeve: 50 m on the drum",
+        "detail05": "Base chassis: KRANTAS, 4×2"
+      },
+      "features": [
+        "Italian high pressure pump with hydraulic drive",
+        "Elliptical or cylindrical cistern",
+        "A set of 4–5 folding heads."
+      ]
+    },
+    {
+      "id": "catalog-071-peredvizhnaya-avtomasterskaya-na-vezdekhodnom-shassi-6x6-4x4",
+      "name": "Mobile workshop on all-terrain chassis 6×6/ 4×4",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "Mobile workshop on all-terrain chassis 6×6/ 4×4 for professional industrial and transport operations.",
+      "fullDescription": "Mobile workshop on all-terrain chassis 6×6/ 4×4 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-071-peredvizhnaya-avtomasterskaya-na-vezdekhodnom-shassi-6x6-4x4.webp",
+      "gallery": [
+        "/products/catalog/catalog-071-peredvizhnaya-avtomasterskaya-na-vezdekhodnom-shassi-6x6-4x4.webp"
+      ],
+      "specs": {
+        "detail01": "Engine: Diesel, 340 hp; MCPP 10",
+        "detail02": "Fuel tank: 400 liters",
+        "detail03": "Operating temperature: from -40°C to +50°C",
+        "detail04": "Off road tyres: 14.00R20",
+        "detail05": "Base chassis: KRANTAS, 6×6, 6×4 or 4×4"
+      },
+      "features": [
+        "Wagon metal carcass body with heat insulation of 50 mm and autonomous heater",
+        "Generator up to 22 kW; welding unit 50–280 A; compressor 1 000 l/min at 10 atm",
+        "Electricity 380/220 V and water tank 400 l",
+        "Welding and gas equipment, machinery, drill bits up to 20 t and cranes and cranes of 1 t"
+      ]
+    },
+    {
+      "id": "catalog-072-peredvizhnaya-avtomasterskaya-parm-3-5-t",
+      "name": "PARM mobile workshop 3/ 5 t",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "PARM mobile workshop 3/ 5 t for professional industrial and transport operations.",
+      "fullDescription": "PARM mobile workshop 3/ 5 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-072-peredvizhnaya-avtomasterskaya-parm-3-5-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-072-peredvizhnaya-avtomasterskaya-parm-3-5-t.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 3 000/ 5 000 kg",
+        "detail02": "Gross vehicle weight: 5 500/ 8 500 kg",
+        "detail03": "Internal body dimensions: 4 850 × 2 155 × 1 980 mm",
+        "detail04": "Engine: Diesel, 156 hp EURO 4",
+        "detail05": "Transmission: ZF mechanical 5+1"
+      },
+      "features": [
+        "The three-seater cabin",
+        "The ABS",
+        "The rear drive",
+        "Shine 8.25R16 16PR",
+        "The coach of the car-maker"
+      ]
+    },
+    {
+      "id": "catalog-073-peredvizhnaya-avtoremontnaya-masterskaya",
+      "name": "Mobile vehicle repair workshop",
+      "category": "Drilling & Mobile Workshops",
+      "categoryId": "drilling-workshops",
+      "description": "Mobile vehicle repair workshop for professional industrial and transport operations.",
+      "fullDescription": "Mobile vehicle repair workshop by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-073-peredvizhnaya-avtoremontnaya-masterskaya.webp",
+      "gallery": [
+        "/products/catalog/catalog-073-peredvizhnaya-avtoremontnaya-masterskaya.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum speed: 85 km/h",
+        "detail02": "Internal body dimensions: from 3 500 × 1 800 × 1 800 to 4 800 × 2 450 × 2 070 mm",
+        "detail03": "Base chassis: KRANTAS, 4×2",
+        "detail04": "Separate work and passenger sections"
+      },
+      "features": [
+        "Right entrance door to the passenger compartment and rear sliding doors to the work compartment",
+        "Lighting of ceiling and walls",
+        "Up to four seats for slashers",
+        "Box-to-box, tractor presses, compressor and key set",
+        "Supplementary repair equipment on request of the customer"
+      ]
+    },
+    {
+      "id": "catalog-074-avtofurgon-promtovarnyy-18-20-m3",
+      "name": "Dry-goods box truck 18–20 m³",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Dry-goods box truck 18–20 m³ for professional industrial and transport operations.",
+      "fullDescription": "Dry-goods box truck 18–20 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-074-avtofurgon-promtovarnyy-18-20-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-074-avtofurgon-promtovarnyy-18-20-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 3 000/ 5 000 kg",
+        "detail02": "Gross vehicle weight: 5 550/ 8 500 kg",
+        "detail03": "Body volume: 18–20 m³",
+        "detail04": "Internal body dimensions: 4 900/ 4 300 × 2 000 × 2 100 mm",
+        "detail05": "Engine: дизельный 2,7 л, 140–150 л.с."
+      },
+      "features": [
+        "Wheel formula 4×2, rear drive",
+        "The three-seater cabin",
+        "The ABS",
+        "Shine 7.00R16 10PR",
+        "Mechanical transmission box 5+1"
+      ]
+    },
+    {
+      "id": "catalog-075-kompaktnyy-promtovarnyy-avtofurgon-11-6-m3",
+      "name": "Compact dry-goods box truck 11,6 m³",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Compact dry-goods box truck 11,6 m³ for professional industrial and transport operations.",
+      "fullDescription": "Compact dry-goods box truck 11,6 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-075-kompaktnyy-promtovarnyy-avtofurgon-11-6-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-075-kompaktnyy-promtovarnyy-avtofurgon-11-6-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 1 600 kg",
+        "detail02": "Gross vehicle weight: 3 500 kg",
+        "detail03": "Body volume: 11.6 m³",
+        "detail04": "Internal body dimensions: 3 500 × 1 800 × 1 850 mm",
+        "detail05": "Engine: бензиновый 1,5 л, 111 л.с."
+      },
+      "features": [
+        "Wheel formula 4×2, rear drive",
+        "The three-seater cabin",
+        "The ABS",
+        "Shine 185/95 R14",
+        "Mechanical transmission box 5+1"
+      ]
+    },
+    {
+      "id": "catalog-076-bortovoy-avtomobil-6x4-15-18-t",
+      "name": "Flatbed truck 6×4, 15–18 t",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Flatbed truck 6×4, 15–18 t for professional industrial and transport operations.",
+      "fullDescription": "Flatbed truck 6×4, 15–18 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-076-bortovoy-avtomobil-6x4-15-18-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-076-bortovoy-avtomobil-6x4-15-18-t.webp"
+      ],
+      "specs": {
+        "detail01": "Platform payload: 15 000–18 000 kg",
+        "detail02": "Gross vehicle weight: 26 000 kg",
+        "detail03": "Platform dimensions: 6 500–7 000 × 2 550 × 600 mm",
+        "detail04": "Engine: дизельный, 270–340 л.с.",
+        "detail05": "Base chassis: KRANTAS, 6×4"
+      },
+      "features": [
+        "Driver 's cabin with air conditioner and central lock",
+        "The driver 's seat with a pneumatic suspension",
+        "Bedroom"
+      ]
+    },
+    {
+      "id": "catalog-077-bortovoy-avtomobil-4x2-8-10-t",
+      "name": "Flatbed truck 4×2, 8–10 t",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Flatbed truck 4×2, 8–10 t for professional industrial and transport operations.",
+      "fullDescription": "Flatbed truck 4×2, 8–10 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-077-bortovoy-avtomobil-4x2-8-10-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-077-bortovoy-avtomobil-4x2-8-10-t.webp"
+      ],
+      "specs": {
+        "detail01": "Platform payload: 8 000–10 000 kg",
+        "detail02": "Permissible gross weight: 18 000 kg",
+        "detail03": "Platform dimensions: 4 000–5 000 × 2 550 × 600 mm",
+        "detail04": "Engine: дизельный, 210 л.с.",
+        "detail05": "Wheel configuration: 4x2"
+      },
+      "features": [
+        "The three-seater cabin",
+        "7.50R16 cameraless tires"
+      ]
+    },
+    {
+      "id": "catalog-078-bortovoy-avtomobil-3-5-t",
+      "name": "Flatbed truck 3–5 t",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Flatbed truck 3–5 t for professional industrial and transport operations.",
+      "fullDescription": "Flatbed truck 3–5 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-078-bortovoy-avtomobil-3-5-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-078-bortovoy-avtomobil-3-5-t.webp"
+      ],
+      "specs": {
+        "detail01": "Platform payload: 3 000–5 000 kg",
+        "detail02": "Permissible gross weight: 5 500–8 500 kg",
+        "detail03": "Platform dimensions: 3 800-4 800 × 2 550 × 600 mm",
+        "detail04": "Engine: Diesel, 156 hp",
+        "detail05": "Wheel configuration: 4x2"
+      },
+      "features": [
+        "The three-seater cabin",
+        "Shine 8.25R16 16PR"
+      ]
+    },
+    {
+      "id": "catalog-079-kompaktnyy-bortovoy-avtomobil-2-t",
+      "name": "Compact flatbed truck 2 t",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Compact flatbed truck 2 t for professional industrial and transport operations.",
+      "fullDescription": "Compact flatbed truck 2 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-079-kompaktnyy-bortovoy-avtomobil-2-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-079-kompaktnyy-bortovoy-avtomobil-2-t.webp"
+      ],
+      "specs": {
+        "detail01": "Platform payload: 2 000 kg",
+        "detail02": "Gross vehicle weight: 3 500 kg",
+        "detail03": "Platform dimensions: 3 300 × 1 600 × 350 mm",
+        "detail04": "Engine: бензиновый 1,5 л, 111 л.с.",
+        "detail05": "Wheel configuration: 4x2"
+      },
+      "features": [
+        "A two-seater cabin.",
+        "The ABS",
+        "Shine 185R14",
+        "ZF 5+1 mechanical transmission box"
+      ]
+    },
+    {
+      "id": "spm-vacuum-sweeper",
+      "name": "Vacuum road sweeper",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Vacuum road sweeper for professional industrial and transport operations.",
+      "fullDescription": "Vacuum road sweeper by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/spm-vacuum-sweeper.webp",
+      "gallery": [
+        "/products/catalog/spm-vacuum-sweeper.webp"
+      ],
+      "specs": {
+        "detail01": "The volume of the garbage dump: 3,5–8 m³",
+        "detail02": "Tank of water made of stainless steel: 1 500 l",
+        "detail03": "Speed of sweeping: 1–15 km/h",
+        "detail04": "The width of the brush capture: 2 200/ 3 400 mm",
+        "detail05": "Base chassis: KRANTAS, 6×4 or 4×2"
+      },
+      "features": [
+        "High pressure front and rear windings",
+        "Centerless dust-crushing pump",
+        "The angle of overturning the bunker is 45°.",
+        "Four external cameras and a monitor in the cabin.",
+        "Sucking sleeve Ø250 mm with length 5 m"
+      ]
+    },
+    {
+      "id": "catalog-081-musorovoz-s-zadney-zagruzkoy-12-2-m3",
+      "name": "Rear-loading refuse truck 12+2 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Rear-loading refuse truck 12+2 m³ for professional industrial and transport operations.",
+      "fullDescription": "Rear-loading refuse truck 12+2 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-081-musorovoz-s-zadney-zagruzkoy-12-2-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-081-musorovoz-s-zadney-zagruzkoy-12-2-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Body volume: 12/ 14 m³",
+        "detail02": "Payload: 5 000–7 000 kg",
+        "detail03": "Hopper volume: 1,5–2 m³",
+        "detail04": "The density coefficient: up to 1:9",
+        "detail05": "Base chassis: KRANTAS 4×2"
+      },
+      "features": [
+        "Steel of body and loading bunker: Strenx/ 10XNDR/ St09G2C",
+        "The working pressure of the hydrosystem up to 180 bar",
+        "Manual and semi-automatic control",
+        "Rearview camera and driver monitor",
+        "Hydrocontrol or Danfoss water system components"
+      ]
+    },
+    {
+      "id": "catalog-082-musorovoz-s-zadney-zagruzkoy-7-1-m3",
+      "name": "Rear-loading refuse truck 7+1 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Rear-loading refuse truck 7+1 m³ for professional industrial and transport operations.",
+      "fullDescription": "Rear-loading refuse truck 7+1 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-082-musorovoz-s-zadney-zagruzkoy-7-1-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-082-musorovoz-s-zadney-zagruzkoy-7-1-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Body volume: 7/ 8 m³",
+        "detail02": "Payload: 3 500–5 000 kg",
+        "detail03": "Hopper volume: 1–1,2 m³",
+        "detail04": "The density coefficient: up to 1:9",
+        "detail05": "Base chassis: KRANTAS 4×2"
+      },
+      "features": [
+        "Steel of body and loading bunker: Strenx/ 10XNDR/ St09G2C",
+        "The working pressure of the hydrosystem up to 180 bar",
+        "Manual and semi-automatic control",
+        "Rearview camera and driver monitor",
+        "Hydrocontrol or Danfoss water system components"
+      ]
+    },
+    {
+      "id": "catalog-083-polivoorositelnaya-mashina-dlya-karerov-20-25-m3",
+      "name": "Mining-site water-spraying truck 20/ 25 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Mining-site water-spraying truck 20/ 25 m³ for professional industrial and transport operations.",
+      "fullDescription": "Mining-site water-spraying truck 20/ 25 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-083-polivoorositelnaya-mashina-dlya-karerov-20-25-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-083-polivoorositelnaya-mashina-dlya-karerov-20-25-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 20 000/ 25 000 l",
+        "detail02": "Pump capacity: 1 500–2 000 l/min",
+        "detail03": "The length of the laffet stem: up to 60 m",
+        "detail04": "Spraying width: not less than 24 m",
+        "detail05": "Base chassis: KRANTAS, 8×4 or 6×4"
+      },
+      "features": [
+        "Remote management of all operations from the driver 's cabin",
+        "Hydraulic drive of water pump",
+        "Top and back sprayers",
+        "Self-swimming time: 40–60 min",
+        "A long-range raft with remote control."
+      ]
+    },
+    {
+      "id": "tt-acid-tanker-8-14m3",
+      "name": "Acid tanker truck 8/ 10/ 12/ 14 m³",
+      "category": "Tank Trucks",
+      "categoryId": "tank-trucks",
+      "description": "Acid tanker truck 8/ 10/ 12/ 14 m³ for professional industrial and transport operations.",
+      "fullDescription": "Acid tanker truck 8/ 10/ 12/ 14 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-acid-tanker-8-14m3.webp",
+      "gallery": [
+        "/products/catalog/tt-acid-tanker-8-14m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 8 000/ 10 000/ 12 000/ 14 000 l",
+        "detail02": "Transportable liquids: acid solutions with a density of 1–1,85 t/m³",
+        "detail03": "Form of the cistern: ellipse or cylinder",
+        "detail04": "The thickness of the cistern walls: 6–8 mm",
+        "detail05": "Base chassis: KRANTAS, 6×4 or 6×6"
+      },
+      "features": [
+        "Material of the tank: stainless steel or St09G2C",
+        "Internal acid-resistant protective coating",
+        "Floor sliding resistant coating",
+        "Staircase made of stainless steel with acid-resistant coating"
+      ]
+    },
+    {
+      "id": "catalog-085-avtogudronator-8-10-12-m3",
+      "name": "Bitumen distributor truck 8/ 10/ 12 m³",
+      "category": "Municipal & Road Equipment",
+      "categoryId": "municipal-road",
+      "description": "Bitumen distributor truck 8/ 10/ 12 m³ for professional industrial and transport operations.",
+      "fullDescription": "Bitumen distributor truck 8/ 10/ 12 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-085-avtogudronator-8-10-12-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-085-avtogudronator-8-10-12-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 8 000/ 10 000/ 12 000 l",
+        "detail02": "Spreading width: 2,5–4,8 m",
+        "detail03": "The thickness of the cistern 's thermal insulation: 100 mm",
+        "detail04": "Base chassis: KRANTAS, 6×4 or 4×2"
+      },
+      "features": [
+        "Distance management of distribution from the driver 's cabin",
+        "The Riello liquid-fuel burner",
+        "Automatically disconnect the burner when the maximum temperature of the bitum is reached",
+        "Air blowing and washing of the bitumen system",
+        "Thermometer, level sensor and automatic valve"
+      ]
+    },
+    {
+      "id": "catalog-086-mnogosektsionnaya-maslostantsiya-dlya-karernoy-tekhniki",
+      "name": "Multi-section hydraulic power unit for mining machinery",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "Multi-section hydraulic power unit for mining machinery for professional industrial and transport operations.",
+      "fullDescription": "Multi-section hydraulic power unit for mining machinery by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-086-mnogosektsionnaya-maslostantsiya-dlya-karernoy-tekhniki.webp",
+      "gallery": [
+        "/products/catalog/catalog-086-mnogosektsionnaya-maslostantsiya-dlya-karernoy-tekhniki.webp"
+      ],
+      "specs": {
+        "detail01": "Total capacity: 10 000 to 12 000 litres",
+        "detail02": "Number of seats: 8–9",
+        "detail03": "Air compressor: 1 000–1 500 l/min",
+        "detail04": "Number of compartments: 1/ 2",
+        "detail05": "Base chassis: KRANTAS, 8×4, 6×6 or 6×4"
+      },
+      "features": [
+        "Heated work van and tool and spare parts compartment",
+        "Five capacities of 500–1 500 liters for hydraulic, transmission and motor oils and cooling liquids",
+        "Heated lower capacity for refined oil and lubrication 200 l",
+        "Two pressure-sucking arms of 4 m length"
+      ]
+    },
+    {
+      "id": "catalog-087-vezdekhodnaya-spetsmashina-dlya-perevozki-vzryvchatykh-veshchestv-4x4-6x",
+      "name": "All-terrain explosive-material transport vehicle 4×4/ 6×6",
+      "category": "Special-Purpose Vehicles",
+      "categoryId": "special-purpose",
+      "description": "All-terrain explosive-material transport vehicle 4×4/ 6×6 for professional industrial and transport operations.",
+      "fullDescription": "All-terrain explosive-material transport vehicle 4×4/ 6×6 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-087-vezdekhodnaya-spetsmashina-dlya-perevozki-vzryvchatykh-veshchestv-4x4-6x.webp",
+      "gallery": [
+        "/products/catalog/catalog-087-vezdekhodnaya-spetsmashina-dlya-perevozki-vzryvchatykh-veshchestv-4x4-6x.webp"
+      ],
+      "specs": {
+        "detail01": "Maximum lifting capacity: 6 000/ 12 000 kg",
+        "detail02": "Gabarits of the cargo body: 6 500 × 2 550 × 1 950 mm",
+        "detail03": "Base chassis: KRANTAS, 6×6 or 4×4",
+        "detail04": "Metal body with back or side door"
+      },
+      "features": [
+        "Outside layer: zinced steel 0,7–1 mm",
+        "Internal layer: multi-layered faner with fire-resistant coverage of 12–18 mm",
+        "Heat insulation of the floor: non-woven basalt fiber 40–50 mm",
+        "The blast locator type Font",
+        "Day cabin without sleeping space"
+      ]
+    },
+    {
+      "id": "catalog-088-bortovoy-avtomobil-s-tentom",
+      "name": "Flatbed truck with tarpaulin",
+      "category": "Cargo Vehicles",
+      "categoryId": "cargo-vehicles",
+      "description": "Flatbed truck with tarpaulin for professional industrial and transport operations.",
+      "fullDescription": "Flatbed truck with tarpaulin by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-088-bortovoy-avtomobil-s-tentom.webp",
+      "gallery": [
+        "/products/catalog/catalog-088-bortovoy-avtomobil-s-tentom.webp"
+      ],
+      "specs": {
+        "detail01": "Platform payload: 4 500–25 000 kg",
+        "detail02": "Body volume: 20–50 m³",
+        "detail03": "Base chassis: KRANTAS, 6×6, 6×4, 4×4 or 4×2",
+        "detail04": "Cabin working range: from -40°C to +50°C"
+      },
+      "features": [
+        "Board body with tent frame",
+        "Tents made of PVC",
+        "All boards are open and equipped with zinc locks",
+        "Standard tool and spare wheel"
+      ]
+    },
+    {
+      "id": "tt-fuel-semi-trailer",
+      "name": "Fuel tank semi-trailer 30/ 35/ 40/ 41 m³",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Fuel tank semi-trailer 30/ 35/ 40/ 41 m³ for professional industrial and transport operations.",
+      "fullDescription": "Fuel tank semi-trailer 30/ 35/ 40/ 41 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-fuel-semi-trailer.webp",
+      "gallery": [
+        "/products/catalog/tt-fuel-semi-trailer.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 30/ 33/ 35/ 40 m³",
+        "detail02": "Rated payload: 22 000–33 000 kg",
+        "detail03": "Maximum speed: 85 km/h",
+        "detail04": "Number of axles: 3, single-sided axis",
+        "detail05": "Dimensions: 12 000 × 2 500 × 3 900 mm"
+      },
+      "features": [
+        "Elliptical cistern with spherical bottoms and transverse wave cuts",
+        "Steel: St3 or St09G2C",
+        "From two to five sections",
+        "Aluminum lid of the Ø500 mm hatch with throat and breathing valve",
+        "Two pressure-sucking arms of at least 4 m length"
+      ]
+    },
+    {
+      "id": "catalog-090-polupritsep-bitumovoz-25-30-33-m3",
+      "name": "Bitumen tank semi-trailer 25/ 30/ 33 m³",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Bitumen tank semi-trailer 25/ 30/ 33 m³ for professional industrial and transport operations.",
+      "fullDescription": "Bitumen tank semi-trailer 25/ 30/ 33 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-090-polupritsep-bitumovoz-25-30-33-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-090-polupritsep-bitumovoz-25-30-33-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 25/ 30/ 33 m³",
+        "detail02": "Rated payload: 22 000–33 000 kg",
+        "detail03": "Maximum speed: 85 km/h",
+        "detail04": "Number of axles: 3, single-sided axis",
+        "detail05": "Dimensions: 12 000 × 2 500 × 3 900 mm"
+      },
+      "features": [
+        "Elliptical cistern with spherical bottoms and transverse wave cuts",
+        "Steel: St3 or St09G2C",
+        "From two to five sections",
+        "Aluminum lid of the Ø500 mm hatch with throat and breathing valve",
+        "Two pressure-sucking arms of at least 4 m length"
+      ]
+    },
+    {
+      "id": "tt-acid-semi-trailer",
+      "name": "Acid tank semi-trailer 14/ 16/ 20 m³",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Acid tank semi-trailer 14/ 16/ 20 m³ for professional industrial and transport operations.",
+      "fullDescription": "Acid tank semi-trailer 14/ 16/ 20 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/tt-acid-semi-trailer.webp",
+      "gallery": [
+        "/products/catalog/tt-acid-semi-trailer.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume: 14 000 / 16 000 / 20 000 л",
+        "detail02": "Transportable liquids: concentrated acid solutions",
+        "detail03": "Form of the cistern: ellipse or cylinder",
+        "detail04": "Material of the tank: stainless steel or St09G2C"
+      },
+      "features": [
+        "Internal acid-resistant protective coating",
+        "The area of the hatch with the anti-sliding covering",
+        "Two pressure-sucking arms of the DU80 length of 4,5 m",
+        "Stairs made of stainless steel",
+        "Pneumatic braking system with ABS"
+      ]
+    },
+    {
+      "id": "dt-tipper-semi-trailer",
+      "name": "Tipper semi-trailer 24/ 26 m³",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Tipper semi-trailer 24/ 26 m³ for professional industrial and transport operations.",
+      "fullDescription": "Tipper semi-trailer 24/ 26 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/dt-tipper-semi-trailer.webp",
+      "gallery": [
+        "/products/catalog/dt-tipper-semi-trailer.webp"
+      ],
+      "specs": {
+        "detail01": "Body volume: 24/ 26 m³",
+        "detail02": "Payload: up to 40 000 kg",
+        "detail03": "Semi-trailer kerb weight: 8 500 kg",
+        "detail04": "Body shape: classical or semi-circular",
+        "detail05": "Body steel: St52 or St09G2C"
+      },
+      "features": [
+        "The front hydraulic cylinder of the body lift",
+        "Pneumatic suspension with telescopic hydraulic shock absorbers",
+        "ABS WABCO pneumatic braking system",
+        "Toolbox, plating and drinking water capacity"
+      ]
+    },
+    {
+      "id": "catalog-093-pyatiosnyy-nizkoramnyy-polupritsep-tyazhelovoz-70-80-t",
+      "name": "Five-axle low-bed heavy-haul semi-trailer 70/ 80 t",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Five-axle low-bed heavy-haul semi-trailer 70/ 80 t for professional industrial and transport operations.",
+      "fullDescription": "Five-axle low-bed heavy-haul semi-trailer 70/ 80 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-093-pyatiosnyy-nizkoramnyy-polupritsep-tyazhelovoz-70-80-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-093-pyatiosnyy-nizkoramnyy-polupritsep-tyazhelovoz-70-80-t.webp"
+      ],
+      "specs": {
+        "detail01": "Rated payload: 65 500–80 000 kg",
+        "detail02": "Loading platform width: 2 550–3 050 mm",
+        "detail03": "Fifth-wheel load: 17 000/ 23 000 kg",
+        "detail04": "In the characteristics block is shown 3/ 4 axis, despite the heading 5-axis"
+      },
+      "features": [
+        "The Strenx 700 high-strength steel frame",
+        "5–6 mm rifle with a wooden beam",
+        "Hooks for fixing the load on both sides",
+        "Mechanical or hydraulic appliances",
+        "ABS/ EBS WABCO braking system"
+      ]
+    },
+    {
+      "id": "catalog-094-chetyrekhosnyy-polupritsep-tyazhelovoz-50-60-70-t",
+      "name": "Four-axle heavy-haul semi-trailer 50/ 60/ 70 t",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Four-axle heavy-haul semi-trailer 50/ 60/ 70 t for professional industrial and transport operations.",
+      "fullDescription": "Four-axle heavy-haul semi-trailer 50/ 60/ 70 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-094-chetyrekhosnyy-polupritsep-tyazhelovoz-50-60-70-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-094-chetyrekhosnyy-polupritsep-tyazhelovoz-50-60-70-t.webp"
+      ],
+      "specs": {
+        "detail01": "Rated payload: 45 500–60 000 kg",
+        "detail02": "Loading platform width: 2 550–3 050 mm",
+        "detail03": "Fifth-wheel load: 17 000/ 23 000 kg",
+        "detail04": "The characteristics block shows 3/ 4 axis"
+      },
+      "features": [
+        "The Strenx 700 high-strength steel frame",
+        "5–6 mm rifle with a wooden beam",
+        "Hooks for fixing the load on both sides",
+        "Mechanical or hydraulic appliances",
+        "ABS/ EBS WABCO braking system"
+      ]
+    },
+    {
+      "id": "catalog-095-trekhosnyy-nizkoramnyy-polupritsep-30-45-t",
+      "name": "Three-axle low-bed semi-trailer 30/ 45 t",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Three-axle low-bed semi-trailer 30/ 45 t for professional industrial and transport operations.",
+      "fullDescription": "Three-axle low-bed semi-trailer 30/ 45 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-095-trekhosnyy-nizkoramnyy-polupritsep-30-45-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-095-trekhosnyy-nizkoramnyy-polupritsep-30-45-t.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 30 500–45 000 kg",
+        "detail02": "Loading platform width: 2 550–3 050 mm",
+        "detail03": "Fifth-wheel load: 17 000/ 23 000 kg",
+        "detail04": "The characteristics block shows 3/ 4 axis"
+      },
+      "features": [
+        "The Strenx 700 high-strength steel frame",
+        "5–6 mm rifle with a wooden beam",
+        "Hooks for fixing the load on both sides",
+        "Mechanical or hydraulic appliances",
+        "ABS/ EBS WABCO braking system"
+      ]
+    },
+    {
+      "id": "catalog-096-bortovoy-polupritsep-konteynerovoz-30-t",
+      "name": "Flatbed container semi-trailer 30 t",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Flatbed container semi-trailer 30 t for professional industrial and transport operations.",
+      "fullDescription": "Flatbed container semi-trailer 30 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-096-bortovoy-polupritsep-konteynerovoz-30-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-096-bortovoy-polupritsep-konteynerovoz-30-t.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 30 000 kg",
+        "detail02": "Rated payload: 31 000–35 000 kg",
+        "detail03": "Platform dimensions: 12–13,6 × 2,5 × 0,6 m",
+        "detail04": "Number of axles: 3",
+        "detail05": "Tyres: 385/65"
+      },
+      "features": [
+        "The Strenx 700 steel carrier frame",
+        "Prolonged half-elliptic resors with pneumatic pads and telescopic amortisers",
+        "ABS/ EBS braking system WABCO or Knorr",
+        "Toolbox and capacity for drinking water",
+        "Two mechanical supports with a load-bearing capacity of 10 tonnes"
+      ]
+    },
+    {
+      "id": "catalog-097-vezdekhodnyy-pritsep-trubovoz-dlya-burovykh-trub-30-t",
+      "name": "All-terrain drilling-pipe trailer 30 t",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "All-terrain drilling-pipe trailer 30 t for professional industrial and transport operations.",
+      "fullDescription": "All-terrain drilling-pipe trailer 30 t by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-097-vezdekhodnyy-pritsep-trubovoz-dlya-burovykh-trub-30-t.webp",
+      "gallery": [
+        "/products/catalog/catalog-097-vezdekhodnyy-pritsep-trubovoz-dlya-burovykh-trub-30-t.webp"
+      ],
+      "specs": {
+        "detail01": "Payload: 30 000 kg",
+        "detail02": "Rated payload: 31 000–35 000 kg",
+        "detail03": "Platform dimensions: 12–13,6 × 2,5 × 0,6 m",
+        "detail04": "Number of axles: 3",
+        "detail05": "Tyres: 385/65"
+      },
+      "features": [
+        "The Strenx 700 steel carrier frame",
+        "Prolonged half-elliptic resors with pneumatic pads and telescopic amortisers",
+        "ABS/ EBS braking system WABCO or Knorr",
+        "Toolbox and capacity for drinking water",
+        "Two mechanical supports with a load-bearing capacity of 10 tonnes"
+      ]
+    },
+    {
+      "id": "catalog-098-pritsep-tsisterna-dlya-pitevoy-vody-0-5-1-1-5-2-m3",
+      "name": "Potable-water tank trailer 0,5/ 1/ 1,5/ 2 m³",
+      "category": "Trailers & Semi-Trailers",
+      "categoryId": "trailers-semitrailers",
+      "description": "Potable-water tank trailer 0,5/ 1/ 1,5/ 2 m³ for professional industrial and transport operations.",
+      "fullDescription": "Potable-water tank trailer 0,5/ 1/ 1,5/ 2 m³ by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-098-pritsep-tsisterna-dlya-pitevoy-vody-0-5-1-1-5-2-m3.webp",
+      "gallery": [
+        "/products/catalog/catalog-098-pritsep-tsisterna-dlya-pitevoy-vody-0-5-1-1-5-2-m3.webp"
+      ],
+      "specs": {
+        "detail01": "Tank volume options: 0,5/ 1/ 1,5/ 2 m³",
+        "detail02": "Payload: 500/ 1 000/ 1 500/ 2 000 kg",
+        "detail03": "In the characteristics block, the cistern is also 1,1 m³",
+        "detail04": "The diameter of the throat cavity: 450 mm"
+      },
+      "features": [
+        "Cisterna of stainless steel",
+        "The outer lining of zinc steel",
+        "Heat insulation 50 mm",
+        "Welded reinforced tractor frame"
+      ]
+    },
+    {
+      "id": "catalog-099-john-deere-614ob",
+      "name": "John Deere 6140B",
+      "category": "Agricultural Machinery",
+      "categoryId": "agricultural",
+      "description": "John Deere 6140B for professional industrial and transport operations.",
+      "fullDescription": "John Deere 6140B by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-099-john-deere-614ob.webp",
+      "gallery": [
+        "/products/catalog/catalog-099-john-deere-614ob.webp"
+      ],
+      "specs": {
+        "detail01": "Engine displacement, L - 6.8",
+        "detail02": "Power, hp/kW - 140/103",
+        "detail03": "Gears, forward/reverse - 24/8",
+        "detail04": "PTO - 540/1000",
+        "detail05": "Length - 4730 mm",
+        "detail06": "Width - 2490 мм",
+        "detail07": "Height - 2930 mm",
+        "detail08": "Wheelbase - 2677 mm"
+      },
+      "features": []
+    },
+    {
+      "id": "catalog-100-savdi-390-4w",
+      "name": "Savdi 390 4W",
+      "category": "Agricultural Machinery",
+      "categoryId": "agricultural",
+      "description": "Savdi 390 4W for professional industrial and transport operations.",
+      "fullDescription": "Savdi 390 4W by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-100-savdi-390-4w.webp",
+      "gallery": [
+        "/products/catalog/catalog-100-savdi-390-4w.webp"
+      ],
+      "specs": {
+        "detail01": "Engine displacement, L - 4",
+        "detail02": "Power, hp/kW - 90/66.2",
+        "detail03": "Gears, forward/reverse - 8/2",
+        "detail04": "PTO - 540",
+        "detail05": "Length - 3893 мм",
+        "detail06": "Width - 2290 mm",
+        "detail07": "Height - 2430 mm",
+        "detail08": "Wheelbase - 2290 mm"
+      },
+      "features": []
+    },
+    {
+      "id": "catalog-101-df-404-rops",
+      "name": "DF 404 ROPS",
+      "category": "Agricultural Machinery",
+      "categoryId": "agricultural",
+      "description": "DF 404 ROPS for professional industrial and transport operations.",
+      "fullDescription": "DF 404 ROPS by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-101-df-404-rops.webp",
+      "gallery": [
+        "/products/catalog/catalog-101-df-404-rops.webp"
+      ],
+      "specs": {
+        "detail01": "Engine displacement, L - 2.5",
+        "detail02": "Power, hp/kW - 40/29,4",
+        "detail03": "Gears, forward/reverse - 8/4",
+        "detail04": "PTO - 540/1000",
+        "detail05": "Length - 3460 мм",
+        "detail06": "Width - 1500 мм",
+        "detail07": "Height - 2170 mm",
+        "detail08": "Wheelbase - 1818 мм"
+      },
+      "features": []
+    },
+    {
+      "id": "catalog-102-tat-df-904",
+      "name": "TAT DF 904",
+      "category": "Agricultural Machinery",
+      "categoryId": "agricultural",
+      "description": "TAT DF 904 for professional industrial and transport operations.",
+      "fullDescription": "TAT DF 904 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-102-tat-df-904.webp",
+      "gallery": [
+        "/products/catalog/catalog-102-tat-df-904.webp"
+      ],
+      "specs": {
+        "detail01": "Engine displacement, L - 5.3",
+        "detail02": "Power, hp/kW - 90/66.2",
+        "detail03": "Gears, forward/reverse - 12/4",
+        "detail04": "PTO - 540/1000",
+        "detail05": "Length - 4025 мм",
+        "detail06": "Width - 2200 mm",
+        "detail07": "Height - 3015 mm"
+      },
+      "features": []
+    },
+    {
+      "id": "catalog-103-belarus-80-1",
+      "name": "Belarus 80.1",
+      "category": "Agricultural Machinery",
+      "categoryId": "agricultural",
+      "description": "Belarus 80.1 for professional industrial and transport operations.",
+      "fullDescription": "Belarus 80.1 by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-103-belarus-80-1.webp",
+      "gallery": [
+        "/products/catalog/catalog-103-belarus-80-1.webp"
+      ],
+      "specs": {
+        "detail01": "Engine - D-243",
+        "detail02": "Power, hp/kW - 81/60",
+        "detail03": "Gears, forward/reverse - 18/4",
+        "detail04": "PTO - 540/1000",
+        "detail05": "Length - 4120 мм",
+        "detail06": "Width - 1970 мм",
+        "detail07": "Height - 2800 mm",
+        "detail08": "Wheel configuration - 4x2"
+      },
+      "features": []
+    },
+    {
+      "id": "catalog-104-nurafshon-80c",
+      "name": "Nurafshon 80C — 76 cm row spacing",
+      "category": "Agricultural Machinery",
+      "categoryId": "agricultural",
+      "description": "Nurafshon 80C — 76 cm row spacing for professional industrial and transport operations.",
+      "fullDescription": "Nurafshon 80C — 76 cm row spacing by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/catalog-104-nurafshon-80c.webp",
+      "gallery": [
+        "/products/catalog/catalog-104-nurafshon-80c.webp"
+      ],
+      "specs": {
+        "detail01": "Engine - D-243",
+        "detail02": "Power, hp/kW - 81/60",
+        "detail03": "Gears, forward/reverse - 16/4",
+        "detail04": "PTO - 540/1000",
+        "detail05": "Length - 4140 мм",
+        "detail06": "Height - 2850 mm",
+        "detail07": "Wheel configuration - 3×2",
+        "detail08": "Row spacing - 76 см",
+        "detail09": "There 's a 15% subsidy."
+      },
+      "features": []
+    },
+    {
+      "id": "am-tractor-n81c",
+      "name": "Nurafshon 80C",
+      "category": "Agricultural Machinery",
+      "categoryId": "agricultural",
+      "description": "Nurafshon 80C for professional industrial and transport operations.",
+      "fullDescription": "Nurafshon 80C by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/am-tractor-n81c.webp",
+      "gallery": [
+        "/products/catalog/am-tractor-n81c.webp"
+      ],
+      "specs": {
+        "detail01": "Engine - D-243",
+        "detail02": "Power, hp/kW - 81/60",
+        "detail03": "Gears, forward/reverse - 16/4",
+        "detail04": "PTO - 540/1000",
+        "detail05": "Length - 4140 мм",
+        "detail06": "Height - 2850 mm",
+        "detail07": "Wheel configuration - 3×2",
+        "detail08": "There 's a 15% subsidy."
+      },
+      "features": []
+    },
+    {
+      "id": "am-tractor-n81",
+      "name": "Nurafshon 81N",
+      "category": "Agricultural Machinery",
+      "categoryId": "agricultural",
+      "description": "Nurafshon 81N for professional industrial and transport operations.",
+      "fullDescription": "Nurafshon 81N by KRANTAS Group is engineered for reliable work in demanding operating conditions. Equipment and base chassis are configured to the customer's requirements.",
+      "image": "/products/catalog/am-tractor-n81.webp",
+      "gallery": [
+        "/products/catalog/am-tractor-n81.webp"
+      ],
+      "specs": {
+        "detail01": "Engine - D-243",
+        "detail02": "Power, hp/kW - 81/60",
+        "detail03": "Gears, forward/reverse - 18/4",
+        "detail04": "PTO - 540/1000",
+        "detail05": "Length - 4120 мм",
+        "detail06": "Width - 1970 мм",
+        "detail07": "Height - 2800 mm",
+        "detail08": "Wheel configuration - 4x4",
+        "detail09": "There 's a 15% subsidy."
+      },
+      "features": []
+    }
+  ],
+  "featuredProductIds": [
+    "catalog-002-avtokran-samokhodnyy-75-100-t",
+    "catalog-003-avtokran-samokhodnyy-50-55-t",
+    "le-crane-50t",
+    "le-crane-32t",
+    "catalog-006-avtokran-samokhodnyy-25-30-t",
+    "le-crane-25t",
+    "le-crane-16t",
+    "le-crane-10-15t"
+  ]
+}

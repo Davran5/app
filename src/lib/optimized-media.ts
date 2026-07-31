@@ -98,3 +98,18 @@ export const OPTIMIZED_MEDIA_URL_BY_SOURCE = {
   '/work.jpeg': '/work.webp',
   '/Yunusov.jpeg': '/Yunusov.webp',
 } as const;
+
+export const RESPONSIVE_MEDIA_URLS_BY_SOURCE = {
+  '/about_factory.jpg': [{ width: 420, url: '/about_factory-w420.webp' }, { width: 720, url: '/about_factory-w720.webp' }, { width: 960, url: '/about_factory-w960.webp' }, { width: 1280, url: '/about_factory-w1280.webp' }],
+  '/cover_am.jpg': [{ width: 360, url: '/cover_am-w360.webp' }, { width: 520, url: '/cover_am-w520.webp' }, { width: 720, url: '/cover_am-w720.webp' }, { width: 960, url: '/cover_am-w960.webp' }],
+  '/cover_dt.jpg': [{ width: 360, url: '/cover_dt-w360.webp' }, { width: 520, url: '/cover_dt-w520.webp' }, { width: 720, url: '/cover_dt-w720.webp' }, { width: 960, url: '/cover_dt-w960.webp' }],
+  '/cover_le.jpg': [{ width: 360, url: '/cover_le-w360.webp' }, { width: 520, url: '/cover_le-w520.webp' }, { width: 720, url: '/cover_le-w720.webp' }, { width: 960, url: '/cover_le-w960.webp' }],
+  '/cover_ms.jpeg': [{ width: 360, url: '/cover_ms-w360.webp' }, { width: 520, url: '/cover_ms-w520.webp' }, { width: 720, url: '/cover_ms-w720.webp' }, { width: 960, url: '/cover_ms-w960.webp' }],
+  '/cover_mt.jpeg': [{ width: 360, url: '/cover_mt-w360.webp' }, { width: 520, url: '/cover_mt-w520.webp' }, { width: 720, url: '/cover_mt-w720.webp' }, { width: 960, url: '/cover_mt-w960.webp' }],
+  '/cover_og.jpg': [{ width: 360, url: '/cover_og-w360.webp' }, { width: 520, url: '/cover_og-w520.webp' }, { width: 720, url: '/cover_og-w720.webp' }, { width: 960, url: '/cover_og-w960.webp' }],
+  '/cover_spm.jpg': [{ width: 360, url: '/cover_spm-w360.webp' }, { width: 520, url: '/cover_spm-w520.webp' }, { width: 720, url: '/cover_spm-w720.webp' }, { width: 960, url: '/cover_spm-w960.webp' }],
+  '/cover_tt.jpg': [{ width: 360, url: '/cover_tt-w360.webp' }, { width: 520, url: '/cover_tt-w520.webp' }, { width: 720, url: '/cover_tt-w720.webp' }, { width: 960, url: '/cover_tt-w960.webp' }],
+  '/cust_sol.jpg': [{ width: 360, url: '/cust_sol-w360.webp' }, { width: 520, url: '/cust_sol-w520.webp' }, { width: 720, url: '/cust_sol-w720.webp' }, { width: 960, url: '/cust_sol-w960.webp' }],
+  '/logo.png': [{ width: 167, url: '/logo-w167.webp' }, { width: 240, url: '/logo-w240.webp' }, { width: 320, url: '/logo-w320.webp' }],
+  '/our_vis.jpeg': [{ width: 420, url: '/our_vis-w420.webp' }, { width: 720, url: '/our_vis-w720.webp' }, { width: 960, url: '/our_vis-w960.webp' }, { width: 1280, url: '/our_vis-w1280.webp' }],
+} as const;

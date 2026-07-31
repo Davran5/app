@@ -9,6 +9,7 @@ import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
 import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl } from '../lib/media';
+import { getProductSpecRows } from '../lib/product-content';
 export default function ProductDetail() {
   const { t } = useLanguage();
   const { trackEventOnce } = useAnalytics();
@@ -26,6 +27,10 @@ export default function ProductDetail() {
     product?.fullDescription ||
     product?.description ||
     '';
+  const productFeatures = localizedProduct?.features || product?.features || [];
+  const productSpecs: Record<string, string | undefined> =
+    localizedProduct?.specs || product?.specs || {};
+  const productSpecRows = getProductSpecRows(productSpecs);
   const productImages = product
     ? [...new Set([product.image, ...product.gallery].map(resolveMediaInputUrl))]
     : [];
@@ -43,7 +48,6 @@ export default function ProductDetail() {
             item_id: product.id,
             item_name: productName,
             item_category: product.category,
-            item_variant: typeof product.specs.model === 'string' ? product.specs.model : undefined,
           }),
         ],
       },
@@ -78,9 +82,8 @@ export default function ProductDetail() {
         image={productImages}
         category={product.category}
         sku={product.id}
-        model={typeof product.specs.model === 'string' ? product.specs.model : undefined}
         url={currentUrl}
-        specs={product.specs}
+        specs={productSpecs}
         specLabels={t.specLabels}
         seo={seo}
       />
@@ -121,12 +124,12 @@ export default function ProductDetail() {
                 <div>
                   <h3 className="font-display text-xl font-medium text-krantas-blue mb-6">{t.products.features}</h3>
                   <ul className="grid sm:grid-cols-2 gap-4">
-                    {product.features.map((feature, index) => (
+                    {productFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <div className="w-5 h-5 bg-krantas-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                           <Check size={12} className="text-krantas-blue" />
                         </div>
-                        <span className="text-gray-600 text-base">{t.productsData?.[product.id as keyof typeof t.productsData]?.features?.[index] || feature}</span>
+                        <span className="text-gray-600 text-base">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -140,7 +143,7 @@ export default function ProductDetail() {
                     className="inline-flex min-h-14 items-center justify-center gap-3 border border-[#244d85] bg-[#244d85] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1E4ECC]"
                   >
                     <FileText size={18} />
-                    Model Brochure PDF
+                    Product Brochure PDF
                   </Link>
                   <Link
                     to="/brochure/catalog?print=1"
@@ -160,47 +163,22 @@ export default function ProductDetail() {
         {/* Specifications Section */}
         <section className="py-16 bg-gray-50 border-y border-gray-100">
           <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-              {/* Left: Technical Specifications */}
-              <div>
-                <h2 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-8 uppercase tracking-wider">
-                  {t.products.specs}
-                </h2>
-                <div className="divide-y divide-gray-200">
-                  {Object.entries(product.specs).filter(([key]) =>
-                    ['liftingCapacity', 'loadCapacity', 'tankVolume', 'span', 'liftingHeight', 'workingWidth', 'workingDepth', 'hopperCapacity', 'baleSize', 'pickupWidth', 'model'].includes(key)
-                  ).map(([key, value]) => {
-                    if (!value) return null;
-                    const label = key.replace(/([A-Z])/g, ' $1').trim().replace(/^./, str => str.toUpperCase());
-                    return (
-                      <div key={key} className="py-4 flex justify-between items-center text-base">
-                        <span className="text-gray-400">{t.specLabels?.[key as keyof typeof t.specLabels] || label}</span>
-                        <span className="text-[#0B0C0E] font-medium text-right">{value}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Right: Equipment Specifications */}
-              <div>
-                <h2 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-8 uppercase tracking-wider">
-                  {t.specLabels?.equipment || 'Equipment'}
-                </h2>
-                <div className="divide-y divide-gray-200">
-                  {Object.entries(product.specs).filter(([key]) =>
-                    !['liftingCapacity', 'loadCapacity', 'tankVolume', 'span', 'liftingHeight', 'workingWidth', 'workingDepth', 'hopperCapacity', 'baleSize', 'pickupWidth', 'model'].includes(key)
-                  ).map(([key, value]) => {
-                    if (!value) return null;
-                    const label = key.replace(/([A-Z])/g, ' $1').trim().replace(/^./, str => str.toUpperCase());
-                    return (
-                      <div key={key} className="py-4 flex justify-between items-center text-base">
-                        <span className="text-gray-400">{t.specLabels?.[key as keyof typeof t.specLabels] || label}</span>
-                        <span className="text-[#0B0C0E] font-medium text-right">{value}</span>
-                      </div>
-                    );
-                  })}
-                </div>
+            <div>
+              <h2 className="font-display text-xl lg:text-2xl font-medium text-[#0B0C0E] mb-8 uppercase tracking-wider">
+                {t.products.specs}
+              </h2>
+              <div className="grid gap-x-12 lg:grid-cols-2">
+                {productSpecRows.map((spec) => (
+                  <div
+                    key={spec.key}
+                    className="flex items-start justify-between gap-6 border-b border-gray-200 py-4 text-base"
+                  >
+                    <span className="text-gray-500">{spec.label}</span>
+                    <span className="max-w-[55%] text-right font-medium text-[#0B0C0E]">
+                      {spec.value}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

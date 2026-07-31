@@ -1,5 +1,7 @@
 ﻿export type Language = 'en' | 'ru' | 'uz' | 'de';
 
+import generatedCatalogTranslations from './catalog-translations.generated.json';
+
 export const translations = {
   en: {
     locale: 'en',
@@ -3716,6 +3718,17 @@ export const translations = {
   },
 };
 
+
+for (const language of ['en', 'ru', 'uz', 'de'] as const) {
+  Object.assign(
+    translations[language].categories,
+    generatedCatalogTranslations[language].categories,
+  );
+  Object.assign(
+    translations[language].productsData,
+    generatedCatalogTranslations[language].productsData,
+  );
+}
 
 export function getTranslation(lang: Language) {
   return translations[lang];

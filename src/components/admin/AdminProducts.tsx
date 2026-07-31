@@ -2,7 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FileJson, ImageIcon, Plus, Search, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Category, Product } from '../../data/products';
-import { createEmptyCategory, createEmptyProduct, slugifyProductId } from '../../lib/cms';
+import { getTranslation, type Language } from '../../data/translations';
+import {
+  applyTranslationOverrides,
+  createEmptyCategory,
+  createEmptyProduct,
+  slugifyProductId,
+  type TranslationOverrideMap,
+} from '../../lib/cms';
 import type { MediaItem } from '../../lib/media';
 import { getMediaPreviewUrl, isImageMedia, resolveMediaInputUrl } from '../../lib/media';
 import {
@@ -48,6 +55,9 @@ interface AdminProductsProps {
   upsertCategory: (category: Category) => void;
   deleteCategory: (id: string) => boolean;
   mediaLibrary: MediaItem[];
+  translationOverrides: TranslationOverrideMap;
+  setTranslationOverride: (language: Language, path: string, value: string) => void;
+  clearTranslationOverride: (language: Language, path: string) => void;
   onPrimaryActionChange?: (action: AdminPrimaryAction | null) => void;
 }
 
@@ -55,6 +65,13 @@ type LibraryMode = 'products' | 'categories';
 
 const NEW_PRODUCT_KEY = '__new_product__';
 const NEW_CATEGORY_KEY = '__new_category__';
+const PRODUCT_TRANSLATION_LANGUAGES: Language[] = ['ru', 'uz', 'de'];
+const LANGUAGE_LABELS: Record<Language, string> = {
+  en: 'English',
+  ru: 'Russian',
+  uz: 'Uzbek',
+  de: 'German',
+};
 
 function createRowId() {
   return globalThis.crypto?.randomUUID?.() ?? `row-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -123,6 +140,29 @@ function draftToProduct(draft: ProductDraft, categoryName: string): Product {
   };
 }
 
+function getLocalizedProduct(
+  product: Product,
+  language: Language,
+  translationOverrides: TranslationOverrideMap,
+) {
+  const translation = applyTranslationOverrides(
+    getTranslation(language),
+    translationOverrides[language],
+  );
+  const localized = translation.productsData?.[
+    product.id as keyof typeof translation.productsData
+  ];
+  const localizedSpecs = localized?.specs as Product['specs'] | undefined;
+
+  return {
+    name: localized?.name || product.name,
+    description: localized?.description || product.description,
+    fullDescription: localized?.fullDescription || product.fullDescription,
+    features: localized?.features || product.features,
+    specs: localizedSpecs || product.specs,
+  };
+}
+
 function ImagePreview({
   url,
   emptyLabel,
@@ -159,6 +199,9 @@ export default function AdminProducts({
   upsertCategory,
   deleteCategory,
   mediaLibrary,
+  translationOverrides,
+  setTranslationOverride,
+  clearTranslationOverride,
   onPrimaryActionChange,
 }: AdminProductsProps) {
   const [libraryMode, setLibraryMode] = useState<LibraryMode>('products');
@@ -175,6 +218,7 @@ export default function AdminProducts({
   const [categoryDraft, setCategoryDraft] = useState<Category>(
     categories[0] ?? createEmptyCategory(),
   );
+  const [translationLanguage, setTranslationLanguage] = useState<Language>('ru');
 
   const filteredProducts = useMemo(() => {
     const query = librarySearch.trim().toLowerCase();
@@ -283,7 +327,21 @@ export default function AdminProducts({
       return;
     }
 
-    upsertProduct(draftToProduct({ ...productDraft, id: nextId }, category.name));
+    const nextProduct = draftToProduct({ ...productDraft, id: nextId }, category.name);
+    upsertProduct(nextProduct);
+
+    const englishPath = `productsData.${nextId}`;
+    setTranslationOverride('en', `${englishPath}.name`, nextProduct.name);
+    setTranslationOverride('en', `${englishPath}.description`, nextProduct.description);
+    setTranslationOverride('en', `${englishPath}.fullDescription`, nextProduct.fullDescription);
+    nextProduct.features.forEach((feature, index) => {
+      setTranslationOverride('en', `${englishPath}.features.${index}`, feature);
+    });
+    Object.entries(nextProduct.specs).forEach(([key, value]) => {
+      if (value) {
+        setTranslationOverride('en', `${englishPath}.specs.${key}`, value);
+      }
+    });
 
     if (selectedProductKey !== NEW_PRODUCT_KEY && selectedProductKey !== nextId) {
       deleteProduct(selectedProductKey);
@@ -297,6 +355,7 @@ export default function AdminProducts({
     getProductById,
     productDraft,
     selectedProductKey,
+    setTranslationOverride,
     upsertProduct,
   ]);
 
@@ -306,6 +365,11 @@ export default function AdminProducts({
       return;
     }
 
+    (['en', 'ru', 'uz', 'de'] as Language[]).forEach((language) => {
+      Object.keys(translationOverrides[language])
+        .filter((path) => path.startsWith(`productsData.${selectedProductKey}.`))
+        .forEach((path) => clearTranslationOverride(language, path));
+    });
     deleteProduct(selectedProductKey);
     setSelectedProductKey(
       products.find((product) => product.id !== selectedProductKey)?.id ?? NEW_PRODUCT_KEY,
@@ -799,6 +863,123 @@ export default function AdminProducts({
                   ))}
                 </div>
               </div>
+
+              {selectedProductKey !== NEW_PRODUCT_KEY && (
+                <div className="mt-8 border-t border-black/10 pt-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-base font-semibold text-black">Product Translations</h3>
+                      <p className="mt-1 text-xs text-neutral-500">
+                        Localized product content is saved automatically to the CMS database.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {PRODUCT_TRANSLATION_LANGUAGES.map((language) => (
+                        <button
+                          key={language}
+                          type="button"
+                          onClick={() => setTranslationLanguage(language)}
+                          className={getAdminPillClass(translationLanguage === language)}
+                        >
+                          {LANGUAGE_LABELS[language]}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {(() => {
+                    const product = getProductById(selectedProductKey);
+                    if (!product) return null;
+
+                    const localized = getLocalizedProduct(
+                      product,
+                      translationLanguage,
+                      translationOverrides,
+                    );
+                    const pathBase = `productsData.${product.id}`;
+                    const setLocalizedValue = (path: string, value: string) =>
+                      setTranslationOverride(translationLanguage, `${pathBase}.${path}`, value);
+
+                    return (
+                      <div className="mt-5 space-y-5">
+                        <label className="block space-y-2">
+                          <span className={adminLabelClass}>Localized Product Name</span>
+                          <input
+                            value={localized.name}
+                            onChange={(event) => setLocalizedValue('name', event.target.value)}
+                            className={adminInputClass}
+                          />
+                        </label>
+
+                        <div className="grid gap-4 xl:grid-cols-2">
+                          <label className="space-y-2">
+                            <span className={adminLabelClass}>Localized Short Description</span>
+                            <textarea
+                              value={localized.description}
+                              onChange={(event) =>
+                                setLocalizedValue('description', event.target.value)
+                              }
+                              rows={4}
+                              className={adminTextareaClass}
+                            />
+                          </label>
+                          <label className="space-y-2">
+                            <span className={adminLabelClass}>Localized Full Description</span>
+                            <textarea
+                              value={localized.fullDescription}
+                              onChange={(event) =>
+                                setLocalizedValue('fullDescription', event.target.value)
+                              }
+                              rows={4}
+                              className={adminTextareaClass}
+                            />
+                          </label>
+                        </div>
+
+                        <div className="grid gap-5 xl:grid-cols-2">
+                          <div>
+                            <span className={adminLabelClass}>Localized Features</span>
+                            <div className="mt-3 space-y-3">
+                              {product.features.map((_, index) => (
+                                <input
+                                  key={index}
+                                  value={localized.features[index] ?? ''}
+                                  onChange={(event) =>
+                                    setLocalizedValue(`features.${index}`, event.target.value)
+                                  }
+                                  placeholder={`Feature ${index + 1}`}
+                                  className={adminInputClass}
+                                />
+                              ))}
+                            </div>
+                          </div>
+
+                          <div>
+                            <span className={adminLabelClass}>Localized Technical Information</span>
+                            <div className="mt-3 space-y-3">
+                              {Object.entries(product.specs).map(([key]) => (
+                                <label
+                                  key={key}
+                                  className="grid gap-2 md:grid-cols-[minmax(120px,0.7fr)_1fr] md:items-center"
+                                >
+                                  <span className="font-mono text-xs text-neutral-500">{key}</span>
+                                  <input
+                                    value={localized.specs[key] ?? ''}
+                                    onChange={(event) =>
+                                      setLocalizedValue(`specs.${key}`, event.target.value)
+                                    }
+                                    className={adminInputClass}
+                                  />
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
+              )}
             </div>
           </>
         ) : (
