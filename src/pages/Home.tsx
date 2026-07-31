@@ -16,7 +16,17 @@ import { useCms } from '../contexts/CmsContext';
 import ContactForm from '../components/ContactForm';
 import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl, resolveResponsiveMediaInput } from '../lib/media';
-import { getProductSpecRows } from '../lib/product-content';
+import {
+  compactMeasurementSpacing,
+  getProductSpecRows,
+} from '../lib/product-content';
+
+const hiddenHomepageCategoryIds = new Set([
+  'cargo-vehicles',
+  'firefighting-rescue',
+  'municipal-road',
+  'trailers-semitrailers',
+]);
 
 // Internal CountUp component
 function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
@@ -330,7 +340,12 @@ export default function Home() {
               </Link>
 
               {/* Other Categories */}
-              {categories.filter(c => c.id !== 'custom-solutions' && c.id !== 'metal-structures').map((category) => {
+              {categories.filter(
+                (category) =>
+                  category.id !== 'custom-solutions' &&
+                  category.id !== 'metal-structures' &&
+                  !hiddenHomepageCategoryIds.has(category.id),
+              ).map((category) => {
                 const catName = t.categories?.[category.id as keyof typeof t.categories]?.name || category.name;
                 const catDesc = t.categories?.[category.id as keyof typeof t.categories]?.description || category.description;
                 const categoryCoverFields: Record<string, string> = {
@@ -341,6 +356,7 @@ export default function Home() {
                   'overhead-gantry': 'home.categories.overheadGantryCover',
                   'dump-trucks': 'home.categories.dumpTrucksCover',
                   'mining-trucks': 'home.categories.miningTrucksCover',
+                  'drilling-workshops': 'customSolutions.customSolutionsPage.containersImage',
                 };
                 const defaultCovers: Record<string, string> = {
                   'lifting-equipment': '/cover_le.jpg',
@@ -350,6 +366,7 @@ export default function Home() {
                   'overhead-gantry': '/cover_og.jpg',
                   'dump-trucks': '/cover_dt.jpg',
                   'mining-trucks': '/cover_mt.jpeg',
+                  'drilling-workshops': '/non_stan.jpeg',
                 };
                 const fieldId = categoryCoverFields[category.id];
                 const catImage = fieldId
@@ -533,16 +550,17 @@ export default function Home() {
                       const specRows = getProductSpecRows(
                         localizedProduct?.specs || featuredProduct.specs,
                       ).slice(0, 2);
-                      const modelSpec = [featuredProduct.id, productName] as const;
-                      const otherSpecs = specRows.map(
-                        (spec) => [spec.label, spec.value] as const,
-                      );
+                      const otherSpecs = specRows.map((spec) => ({
+                        ...spec,
+                        label: compactMeasurementSpacing(spec.label),
+                        value: compactMeasurementSpacing(spec.value),
+                      }));
 
                         return (
                           <Link
                             key={featuredProduct.id}
                             to={`/product/${featuredProduct.id}`}
-                            className="group bg-white rounded-lg transition-all overflow-hidden shadow-sm hover:shadow-lg flex max-w-[340px] md:max-w-[570px] w-full flex-shrink-0 snap-center"
+                            className="group flex w-[84vw] max-w-[360px] flex-shrink-0 snap-center flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all hover:shadow-lg md:w-[600px] md:max-w-none md:flex-row"
                             onClick={(e) => {
                               const scroll = document.getElementById('products-scroll');
                               if (scroll?.getAttribute('data-dragging')) {
@@ -565,7 +583,7 @@ export default function Home() {
                               });
                             }}
                           >
-                          <div className="relative w-1/2 overflow-hidden bg-gray-50 rounded-l-lg flex-shrink-0">
+                          <div className="relative aspect-[16/9] w-full flex-shrink-0 overflow-hidden bg-gray-50 md:aspect-auto md:w-[42%] md:rounded-l-lg">
                             <img
                               src={resolveMediaInputUrl(featuredProduct.image)}
                               alt={
@@ -577,35 +595,32 @@ export default function Home() {
                             />
                           </div>
 
-                          <div className="p-4 md:p-8 flex-1 flex flex-col justify-center">
-                            <div className="space-y-2 md:space-y-4">
-                              {otherSpecs.map(([key, value]) => (
-                                value && (
-                                  <div key={key} className="flex justify-between items-center gap-2">
-                                    <span className="text-gray-600 font-normal text-xs md:text-sm">
-                                      {t.specLabels?.[key as keyof typeof t.specLabels] ||
-                                        key
-                                          .replace(/([A-Z])/g, ' $1')
-                                          .split(' ')
-                                          .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                                          .join(' ')
-                                          .trim()}
+                          <div className="flex min-w-0 flex-1 flex-col p-4 md:p-6">
+                            <div className="grid grid-cols-2 gap-3">
+                              {otherSpecs.map((spec) => (
+                                <div
+                                  key={spec.key}
+                                  className={`min-w-0 border-l-2 border-[#fdc15e] pl-3 ${
+                                    spec.value ? '' : 'col-span-2'
+                                  }`}
+                                >
+                                  <span className="line-clamp-2 text-[11px] font-normal leading-snug text-gray-600 md:text-xs">
+                                    {spec.label}
+                                  </span>
+                                  {spec.value && (
+                                    <span className="mt-1 block break-words text-sm font-semibold leading-snug text-[#0B0C0E]">
+                                      {spec.value}
                                     </span>
-                                    <span className="text-[#0B0C0E] font-medium text-xs md:text-sm">
-                                      {value}
-                                    </span>
-                                  </div>
-                                )
+                                  )}
+                                </div>
                               ))}
                             </div>
 
-                            <div className="mt-3 md:mt-6 pt-2 md:pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
-                              {modelSpec && modelSpec[1] && (
-                                <p className="text-[#0B0C0E] text-xs md:text-sm font-semibold truncate">
-                                  {modelSpec[1]}
-                                </p>
-                              )}
-                              <span className="text-xs md:text-sm font-medium text-[#244d85] flex items-center gap-1 group-hover:gap-2 transition-all flex-shrink-0 ml-auto">
+                            <div className="mt-4 flex flex-col border-t border-gray-100 pt-3 md:mt-auto">
+                              <p className="break-words text-sm font-semibold leading-snug text-[#0B0C0E]">
+                                {compactMeasurementSpacing(productName)}
+                              </p>
+                              <span className="mt-3 flex items-center gap-1 self-end text-xs font-medium text-[#244d85] transition-all group-hover:gap-2 md:text-sm">
                                 Details <ChevronRight size={14} />
                               </span>
                             </div>
