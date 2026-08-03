@@ -243,17 +243,10 @@ async function mergeCatalogSeed(store) {
     const currentLanguageOverrides = isObjectRecord(currentOverrides[language])
       ? currentOverrides[language]
       : {};
-    const preservedOverrides = Object.fromEntries(
-      Object.entries(currentLanguageOverrides).filter(
-        ([translationPath]) =>
-          !translationPath.startsWith('productsData.') &&
-          !translationPath.startsWith('categories.'),
-      ),
-    );
 
     nextOverrides[language] = {
-      ...preservedOverrides,
       ...languageSeed,
+      ...currentLanguageOverrides,
     };
   }
 
@@ -1688,7 +1681,7 @@ app.post('/api/admin/logout', requireSameOrigin, (req, res) => {
 app.get('/api/cms/public', async (req, res, next) => {
   try {
     const cmsStore = await readCmsStore();
-    res.set('Cache-Control', 'private, max-age=30, stale-while-revalidate=60').json(filterPublicCmsSnapshot(cmsStore));
+    res.set('Cache-Control', 'no-store').json(filterPublicCmsSnapshot(cmsStore));
   } catch (error) {
     next(error);
   }
@@ -1711,8 +1704,16 @@ app.put('/api/admin/cms', requireSameOrigin, requireAdminSession, async (req, re
       return res.status(400).json({ error: 'Expected a "snapshot" object.' });
     }
 
+    const catalogSeed = await getCatalogSeed();
+    const catalogSeedVersion =
+      typeof catalogSeed.version === 'string'
+        ? catalogSeed.version
+        : typeof snapshot.catalogSeedVersion === 'string' && snapshot.catalogSeedVersion
+          ? snapshot.catalogSeedVersion
+          : undefined;
     const nextSnapshot = {
       ...snapshot,
+      ...(catalogSeedVersion ? { catalogSeedVersion } : {}),
       updatedAt: new Date().toISOString(),
     };
 

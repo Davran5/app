@@ -127,6 +127,7 @@ export type CmsSectionMediaMap = Record<string, string>;
 
 export interface CmsSnapshot {
   version: number;
+  catalogSeedVersion?: string;
   updatedAt: string;
   products: Product[];
   categories: Category[];
@@ -1953,6 +1954,8 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
 
   return {
     version: typeof raw.version === 'number' ? raw.version : defaults.version,
+    catalogSeedVersion:
+      typeof raw.catalogSeedVersion === 'string' ? raw.catalogSeedVersion : undefined,
     updatedAt: typeof raw.updatedAt === 'string' ? raw.updatedAt : defaults.updatedAt,
     products,
     categories,
