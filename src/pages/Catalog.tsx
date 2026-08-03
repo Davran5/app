@@ -218,7 +218,7 @@ export default function Catalog() {
                       <Link
                         key={product.id}
                         to={`/product/${product.id}`}
-                        className="group flex h-full overflow-hidden bg-white shadow-sm transition-all hover:shadow-xl md:flex-col md:rounded-lg"
+                        className="group flex h-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-all hover:shadow-xl md:flex-col"
                         onClick={() =>
                           trackEvent('select_item', {
                             item_list_name: selectedCategory || 'catalog',
@@ -235,6 +235,13 @@ export default function Catalog() {
                           })
                         }
                       >
+                        <div className="w-full bg-white px-3 py-2.5 md:hidden">
+                          <p className="line-clamp-2 break-words text-sm font-semibold leading-snug text-[#0B0C0E]">
+                            {compactMeasurementSpacing(productName)}
+                          </p>
+                        </div>
+
+                        <div className="flex min-w-0 flex-1 flex-row md:flex-col">
                         {/* Product Image - Clean, no overlays */}
                         <div className="relative w-[38%] flex-shrink-0 overflow-hidden bg-gray-50 md:aspect-[2/1] md:w-full md:rounded-t-lg">
                           <img
@@ -274,13 +281,14 @@ export default function Catalog() {
 
                           {/* Full product name with the action on its own row */}
                           <div className="mt-auto flex flex-col border-t border-gray-100 pt-2">
-                            <p className="break-words text-xs font-semibold leading-snug text-[#0B0C0E]">
+                            <p className="hidden break-words text-xs font-semibold leading-snug text-[#0B0C0E] md:block">
                               {compactMeasurementSpacing(productName)}
                             </p>
                             <span className="mt-2 flex items-center gap-1 self-end text-xs font-medium text-[#244d85] transition-all group-hover:gap-2">
                               Details <ChevronRight size={12} />
                             </span>
                           </div>
+                        </div>
                         </div>
                       </Link>
                     );

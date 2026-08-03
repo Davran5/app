@@ -560,7 +560,7 @@ export default function Home() {
                           <Link
                             key={featuredProduct.id}
                             to={`/product/${featuredProduct.id}`}
-                            className="group flex w-[84vw] max-w-[360px] flex-shrink-0 snap-center flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all hover:shadow-lg md:w-[600px] md:max-w-none md:flex-row"
+                            className="group flex w-[84vw] max-w-[360px] flex-shrink-0 snap-center flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-all hover:shadow-lg md:w-[600px] md:max-w-none md:flex-row"
                             onClick={(e) => {
                               const scroll = document.getElementById('products-scroll');
                               if (scroll?.getAttribute('data-dragging')) {
@@ -583,6 +583,13 @@ export default function Home() {
                               });
                             }}
                           >
+                          <div className="w-full bg-white px-4 py-3 md:hidden">
+                            <p className="line-clamp-2 break-words text-sm font-semibold leading-snug text-[#0B0C0E]">
+                              {compactMeasurementSpacing(productName)}
+                            </p>
+                          </div>
+
+                          <div className="flex min-w-0 flex-1 flex-col md:flex-row">
                           <div className="relative aspect-[16/9] w-full flex-shrink-0 overflow-hidden bg-gray-50 md:aspect-auto md:w-[42%] md:rounded-l-lg">
                             <img
                               src={resolveMediaInputUrl(featuredProduct.image)}
@@ -617,13 +624,14 @@ export default function Home() {
                             </div>
 
                             <div className="mt-4 flex flex-col border-t border-gray-100 pt-3 md:mt-auto">
-                              <p className="break-words text-sm font-semibold leading-snug text-[#0B0C0E]">
+                              <p className="hidden break-words text-sm font-semibold leading-snug text-[#0B0C0E] md:block">
                                 {compactMeasurementSpacing(productName)}
                               </p>
                               <span className="mt-3 flex items-center gap-1 self-end text-xs font-medium text-[#244d85] transition-all group-hover:gap-2 md:text-sm">
                                 Details <ChevronRight size={14} />
                               </span>
                             </div>
+                          </div>
                           </div>
                         </Link>
                       );

@@ -1849,18 +1849,18 @@ export const translations = {
   uz: {
     locale: 'uz',
     nav: {
-      home: 'Bosh Sahifa',
-      catalog: 'Yuk Mashinalari',
+      home: 'Bosh sahifa',
+      catalog: 'Yuk mashinalari',
       services: 'Xizmatlar',
-      about: 'Biz Haqimizda',
+      about: 'Biz haqimizda',
       blog: 'Yangiliklar',
       careers: 'Karyera',
       contacts: 'Aloqa',
       products: 'Mahsulotlar',
-      customSolutions: 'Maxsus Yechimlar',
+      customSolutions: 'Maxsus yechimlar',
     },
     distributors: {
-      title: 'Bizning Ekotizim',
+      title: 'Bizning ekotizim',
       searchPlaceholder: 'Manzil yoki dilerni qidirish...',
       tabs: {
         all: 'Barchasi',
@@ -1898,34 +1898,34 @@ export const translations = {
       }
     },
     cookieConsent: {
-      title: 'Cookie Sozlamalari',
+      title: 'Cookie sozlamalari',
       description: 'Biz saytimizning ishlashini yaxshilash uchun cookie fayllardan foydalanamiz. Global Privacy Control (GPC) signali aniqlandi.',
       acceptAll: 'Hammasini qabul qilish',
       necessaryOnly: 'Faqat zaruriy',
       settings: 'Sozlamalar',
     },
     customSolutionsPage: {
-      heroTitle: 'Maxsus Yechimlar',
+      heroTitle: 'Maxsus yechimlar',
       heroIntro: 'Sizning noyob talablaringizga moslashtirilgan maxsus muhandislik yechimlari. Biz murakkab g\'oyalarni ishonchli sanoat haqiqatiga aylantiramiz.',
       intro: {
-        title: 'Sizning Tasavvuringiz,\nBizning Tajribamiz',
+        title: 'Sizning tasavvuringiz,\nbizning tajribamiz',
         desc1: '75 yildan ortiq vaqt davomida biz butun dunyo bo\'ylab sanoat korxonalari bilan hamkorlik qilib, og\'ir texnika ishlab chiqarishida imkoniyatlar chegarasini kengaytiradigan maxsus texnikalarni yaratib kelmoqdamiz. Dastlabki maslahatlashuvdan tortib loyihalash, prototiplash va ishlab chiqarishgacha bo\'lgan bosqichlarda muhandislik jamoamiz kutilganidan yuqori natija beradigan va vaqt sinovidan o\'tadigan yechimlarni taqdim etadi.',
         desc2: '',
         stats: {
-          projects: 'Maxsus Loyihalar',
-          experience: 'Yillik Tajriba',
+          projects: 'Maxsus loyihalar',
+          experience: 'Yillik tajriba',
         },
       },
       metalStructures: {
-        title: 'Sanoat Metall Konstruktsiyalari',
+        title: 'Sanoat metall konstruktsiyalari',
         description: 'Murakkab sanoat darajasidagi metall konstruksiyalarni loyihalash va tayyorlash. Biz konstruktiv muhandislikdan yakuniy yig\'ishgacha to\'liq yechimlarni taqdim etamiz, maksimal chidamlilik va xalqaro standartlarga muvofiqligini ta\'minlaymiz.',
       },
       capabilities: {
-        title: 'Moslashtirish Imkoniyatlari',
+        title: 'Moslashtirish imkoniyatlari',
         subtitle: '',
         items: {
           chassis: {
-            title: 'Shassi Modifikatsiyasi',
+            title: 'Shassi modifikatsiyasi',
             description: 'Shassini to\'liq o\'zgartirish, jumladan g\'ildirak bazasini moslashtirish, transmissiyani takomillashtirish va maxsus qo\'llanilish uchun konstruktiv mustahkamlash.',
             capabilities: [
               'Uzaytirilgan baza',
@@ -1935,7 +1935,7 @@ export const translations = {
             ]
           },
           complexes: {
-            title: 'Maxsus Transport Muhandisligi',
+            title: 'Maxsus transport muhandisligi',
             description: 'Ekstremal chidamlilik va aniq ishlash uchun mo\'ljallangan buyurtma asosidagi og\'ir yuk tashish komplekslari va avtomatlashtirilgan yuklash tizimlari.',
             capabilities: [
               'Ko\'p o\'qli tirkamalar',
@@ -1945,7 +1945,7 @@ export const translations = {
             ]
           },
           hydraulics: {
-            title: 'Gidravlika va Elektronika',
+            title: 'Gidravlika va elektronika',
             description: 'Aniq ishlash va avtomatlashtirish imkoniyatlari uchun ilg\'or gidravlik tizim integratsiyasi hamda elektron boshqaruv tizimlari.',
             capabilities: [
               'Avtomatlashtirish',
@@ -1955,7 +1955,7 @@ export const translations = {
             ]
           },
           containers: {
-            title: 'Nostandart Konteynerlar',
+            title: 'Nostandart konteynerlar',
             description: 'Maxsus yuklar, izolyatsiyalangan tanklar, bosim ostidagi idishlar va vazifaga mos noyob geometrik shakllar uchun konteyner ishlab chiqarish.',
             capabilities: [
               'Bosim ostidagi idishlar',
@@ -1967,19 +1967,19 @@ export const translations = {
         }
       },
       production: {
-        title: 'Ishlab Chiqarish Bazasi',
+        title: 'Ishlab chiqarish bazasi',
         subtitle: 'Yuksak tajribaga ega mutaxassislar va ilg\'or uskunalar bizga istalgan murakkablikdagi loyihalarni bajarish imkonini beradi.',
         items: {
-          manufacturing: { title: 'Ishlab Chiqarish Maydoni', desc: '390 000 m² ishlab chiqarish majmuasi' },
-          cnc: { title: 'CNC Ishlov Berish', desc: '±0.01 mm aniqlik' },
-          welding: { title: 'Sertifikatlangan Payvandlash', desc: 'MIG, TIG, robotlashtirilgan' },
-          assembly: { title: 'Yig\'ish va Sinash', desc: 'Qattiq sifat nazorati protokollari' },
+          manufacturing: { title: 'Ishlab chiqarish maydoni', desc: '390 000 m² ishlab chiqarish majmuasi' },
+          cnc: { title: 'CNC Ishlov berish', desc: '±0.01 mm aniqlik' },
+          welding: { title: 'Sertifikatlangan payvandlash', desc: 'MIG, TIG, robotlashtirilgan' },
+          assembly: { title: 'Yig\'ish va sinash', desc: 'Qattiq sifat nazorati protokollari' },
         }
       },
       cta: {
-        title: 'Maxsus Loyihangizni Boshlashga Tayyormisiz?',
+        title: 'Maxsus loyihangizni boshlashga tayyormisiz?',
         description: 'Talablaringizni muhokama qilish uchun muhandislik jamoamiz bilan bog\'laning.',
-        button: 'Maslahat So\'rash',
+        button: 'Maslahat so\'rash',
       },
     },
     home: {
@@ -1987,95 +1987,95 @@ export const translations = {
         explore: 'Batafsil',
       },
       process: {
-        explore: 'Jarayonimizni Ko\'ring',
+        explore: 'Jarayonimizni ko\'ring',
       },
       categories: {
         dumpTrucks: 'Samosvallar',
         truckCranes: 'Avtokranlar',
-        overheadCranes: 'Ko\'prik Kranlar',
-        specialMachinery: 'Maxsus Texnika',
-        tankers: 'Yoqilg\'i va Suv Tashuvchilar',
-        agricultural: 'Qishloq Xo\'jaligi Texnikasi',
-        machining: 'Og\'ir Ishlov Berish',
+        overheadCranes: 'Ko\'prik kranlar',
+        specialMachinery: 'Maxsus texnika',
+        tankers: 'Yoqilg\'i va suv tashuvchilar',
+        agricultural: 'Qishloq xo\'jaligi texnikasi',
+        machining: 'Og\'ir ishlov berish',
         construction: 'Qurilish',
-        miningTrucks: 'Kon Samosvallari',
-        metalStructures: 'Metall Konstruktsiyalar',
+        miningTrucks: 'Kon samosvallari',
+        metalStructures: 'Metall konstruktsiyalar',
       },
-      since: '1945-yildan Buyon',
-      title: 'Muhandislik\nKuchi',
+      since: '1945-yildan buyon',
+      title: 'Muhandislik\nkuchi',
       subtitle: 'Taraqqiyotning harakatlantiruvchi kuchi. Sanoat avtomobillari, kranlar va qishloq xo\'jaligi texnikasini to\'liq siklda ishlab chiqarish.',
-      exploreCatalog: 'Katalogni Ko\'rish',
+      exploreCatalog: 'Katalogni ko\'rish',
       contactUs: 'Aloqa',
-      inquiryForm: 'So\'rov Formasi',
+      inquiryForm: 'So\'rov formasi',
     },
     stats: {
-      equipment: 'Uskuna Turlari',
-      projects: 'Bajarilgan Loyihalar',
+      equipment: 'Uskuna turlari',
+      projects: 'Bajarilgan loyihalar',
       employees: 'Xodimlar',
-      experience: 'Yillik Tajriba',
+      experience: 'Yillik tajriba',
     },
     intro: {
-      welcomeTitle: 'KRANTAS Groupga Xush Kelibsiz',
+      welcomeTitle: 'KRANTAS Groupga Xush kelibsiz',
       welcomeDesc: '1945-yildan beri muhandislik mukammalligi merosi. Biz eng talabchan sharoitlar uchun mo\'ljallangan yuqori unumdorlikdagi sanoat avtomobillari, kranlar va maxsus uskunalarni loyihalashtiramiz va ishlab chiqaramiz.',
-      fleetRecovery: 'Kompleks Parkni Tiklash',
+      fleetRecovery: 'Kompleks parkni tiklash',
       fleetRecoveryDesc: 'Biz yuk mashinalari va og\'ir yuk ko\'taruvchi kranlarni murakkab tiklashga ixtisoslashganmiz. Korxonamiz aniq frezalash va silliqlashdan tortib to\'liq chilangarlik ishlarigacha bo\'lgan barcha jarayonlarni bajaradi.',
-      fabrication: 'Ilg\'or Ishlab Chiqarish Standartlari',
+      fabrication: 'Ilg\'or ishlab chiqarish standartlari',
       fabricationDesc: 'Biz ilg\'or ishlab chiqarish standartlariga amal qilamiz va konstruksiyalarimiz sanoatning eng yuqori talablariga javob berishini ta\'minlash uchun plazma kesish hamda CNC ishlov berish kabi zamonaviy texnologiyalardan foydalanamiz.',
-      advisory: 'Strategik Uskuna Maslahati',
+      advisory: 'Strategik uskuna maslahati',
       advisoryDesc: 'To\'g\'ri uskunani tanlash orqali to\'xtab qolishlarni kamaytiring. Mutaxassislarimiz uskunangiz operatsion ehtiyojlaringizga to\'liq mos kelishini ta\'minlash uchun chuqur texnik ko\'mak beradi.',
     },
     aboutHome: {
-      title: 'Biz Haqimizda',
-      heading: 'Kamtarona Ta\'mirlash Ustaxonasidan Sanoat Yetakchisigacha',
+      title: 'Biz haqimizda',
+      heading: 'Kamtarona ta\'mirlash ustaxonasidan sanoat yetakchisigacha',
       description: 'Zavodimiz 1945-yilda mexanik ta\'mirlash korxonasi sifatida tashkil etilgan. 1966-yilgi zilziladan so\'ng e\'tiborimizni po\'lat konstruksiyalar va yuk ko\'tarish uskunalarini ishlab chiqarishga qaratdik. Bugun KRANTAS Group zamonaviy CNC ishlov berish, payvandlash, plazma/lazer kesish va yig\'ish imkoniyatlariga ega bo\'lgan to\'liq siklli transport texnikasi ishlab chiqaruvchisidir.',
       points: ['To\'liq siklli ishlab chiqarish o\'z ichimizda', 'Markaziy Osiyo va undan tashqariga eksport'],
-      learnMore: 'Biz Haqimizda Ko\'proq',
+      learnMore: 'Biz haqimizda ko\'proq',
     },
     mission: {
-      title: 'Bizning Vazifamiz',
-      heading: 'Sanoatni Mustahkamlaydigan Lokallashtirish',
+      title: 'Bizning vazifamiz',
+      heading: 'Sanoatni mustahkamlaydigan lokallashtirish',
       description: 'Biz milliy korxonalar birgalikda yetakchilik qiladigan tarmoqni yaratib, O\'zbekistonning sanoat mustaqilligiga hissa qo\'shmoqdamiz. Bu shunchaki biznes emas - bu importga tenglasha oladigan mahalliy alternativalarni yaratish va haqiqiy mahalliy mustaqillikni mustahkamlashdir. Biz faqat qismlar yetkazib bermaymiz; butun operatsiyangizni yanada samarali va foydaliroq qilish uchun siz bilan hamkorlik qilamiz.',
-      qualityFirst: 'Sifat Birinchi',
+      qualityFirst: 'Sifat birinchi',
       qualityFirstDesc: 'Xalqaro standartlar biz uchun qo\'shimcha emas, balki asosdir. Bizda aniqlik yagona tamoyilga aylangan, chunki "deyarli yetarli" biz uchun hech qachon yetarli emas.',
-      localProduction: 'Mahalliy Ishlab Chiqarish',
+      localProduction: 'Mahalliy ishlab chiqarish',
       localProductionDesc: 'Biz "O\'zbekistonda ishlab chiqarilgan" tamg\'asini kuchaytiruvchi asosiy harakatlantiruvchi kuchlardanmiz. Mahalliy maydonlarda ishlaganimiz uchun ishonchlilik va tezkor javob taklif qilamiz.',
-      globalStandards: 'Jahon Standartlari',
+      globalStandards: 'Jahon standartlari',
       globalStandardsDesc: 'Chuqur mahalliy mahorat va yuqori sifatli muhandislikka tayangan holda, biz o\'z texnik imkoniyatlarimizni xalqaro ishlab chiqaruvchilar darajasi bilan solishtiramiz.',
     },
     equipment: {
-      title: 'Uskuna Yechimlari',
-      heading: 'Biz Nima Ishlab Chiqaramiz',
-      viewAll: 'Barcha Kategoriyalarni Ko\'rish',
-      customSolutions: 'Maxsus Yechimlar',
+      title: 'Uskuna yechimlari',
+      heading: 'Biz nima ishlab chiqaramiz',
+      viewAll: 'Barcha kategoriyalarni ko\'rish',
+      customSolutions: 'Maxsus yechimlar',
       customDesc: 'Bizning tajribamiz. Sizning noyob talablaringizga moslashtirilgan muhandislik yechimlari.',
     },
     products: {
-      title: 'Tanlangan Mahsulotlar',
-      heading: 'Haqiqiy Sharoitlar Uchun Yaratilgan',
-      viewAll: 'Barcha Mahsulotlarni Ko\'rish',
+      title: 'Tanlangan mahsulotlar',
+      heading: 'Haqiqiy sharoitlar uchun yaratilgan',
+      viewAll: 'Barcha mahsulotlarni ko\'rish',
       specs: 'Xususiyatlari',
       features: 'Xususiyatlari',
-      inquiry: 'So\'rov Yuborish',
+      inquiry: 'So\'rov yuborish',
     },
     production: {
-      title: 'Ishlab Chiqarish',
-      heading: 'To\'liq Siklli Ishlab Chiqarish',
+      title: 'Ishlab chiqarish',
+      heading: 'To\'liq siklli ishlab chiqarish',
       description: 'Loyihalash → asboblash → metall konstruksiyalar → yig\'ish → sinov → sertifikatlash. Barcha jarayonlar korxonaning o\'zida, zamonaviy CNC ishlov berish, plazma/lazer kesish va avtomatlashtirilgan payvandlash bilan bajariladi.',
-      modeling: '3D Modellashtirish va Muhandislik',
+      modeling: '3D Modellashtirish va muhandislik',
       modelingDesc: 'Aniq ishlab chiqarish uchun ilg\'or CAD dasturiy ta\'minotidan foydalanib, to\'liq loyihalash va tafsilotlash.',
-      cnc: 'CNC Ishlov Berish',
+      cnc: 'CNC Ishlov berish',
       cncDesc: '±0.01mm gacha chetlangan komponentlarni yuqori aniqlikdagi ishlov berish.',
-      cutting: 'Plazma va Lazer Kesish',
+      cutting: 'Plazma va lazer kesish',
       cuttingDesc: 'Murakkab shakllar va toza kantlar uchun ilg\'or kesish texnologiyalari.',
-      welding: 'Payvandlash va Ishlab Chiqarish',
+      welding: 'Payvandlash va ishlab chiqarish',
       weldingDesc: 'MIG, TIG va robotlashtirilgan payvandlashni o\'z ichiga olgan sertifikatlangan payvandlash jarayonlari.',
-      surface: 'Yuzani Qayta Ishlash',
+      surface: 'Yuzani qayta ishlash',
       surfaceDesc: 'Korroziyadan himoya qilish uchun drobester yuvish, gruntlash va bo\'yash.',
-      assembly: 'Yig\'ish va Sinash',
+      assembly: 'Yig\'ish va sinash',
       assemblyDesc: 'Qattiq sifat nazorati va sinash protokollari bilan to\'liq yig\'ish.',
     },
     cta: {
-      title: 'Loyihangizni Muhokama Qilishga Tayyormisiz?',
+      title: 'Loyihangizni muhokama qilishga tayyormisiz?',
       description: 'Mutaxassislarimiz ehtiyojlaringiz uchun to\'g\'ri uskunani tanlashga yordam beradi hamda batafsil texnik tavsiyalar va tijorat taklifini taqdim etadi.',
       button: 'Aloqa',
     },
@@ -2085,9 +2085,9 @@ export const translations = {
       products: 'Mahsulotlar',
       contact: 'Aloqa',
       rights: 'Barcha huquqlar himoyalangan.',
-      privacy: 'Maxfiylik Siyosati',
-      terms: 'Foydalanish Shartlari',
-      viewAll: 'Barchasini Ko\'rish →',
+      privacy: 'Maxfiylik siyosati',
+      terms: 'Foydalanish shartlari',
+      viewAll: 'Barchasini ko\'rish →',
     },
     notFound: {
       badge: 'Tiklash xizmati',
@@ -2104,42 +2104,42 @@ export const translations = {
     productsPage: {
       title: 'Mahsulotlar',
       heroIntro: 'Muhandislik mukammalligining to\'liq spektri. Maxsus buyurtma asosidagi texnikalarimiz va sinalgan mashinalarimizning keng katalogi bilan tanishing.',
-      heading: 'Bizning Mahsulotlar va Yechimlar',
+      heading: 'Bizning mahsulotlar va yechimlar',
       description: 'KRANTAS Group sanoat yechimlarining to\'liq portfelini taklif etadi. Sizga aniq talablaringiz bo\'yicha tayyorlangan maxsus transport vositasi yoki katalogdagi tasdiqlangan model kerak bo\'ladimi, biz operatsiyalaringiz talab qiladigan ishonchlilikni ta\'minlaymiz.',
-      customTitle: 'Maxsus Muhandislik Yechimlari',
+      customTitle: 'Maxsus muhandislik yechimlari',
       customDesc: 'KRANTAS da biz har bir operatsiyaning o\'ziga xos talablari borligini tushunamiz. Bizning maxsus muhandislik bo\'limimiz sizning talablaringizga moslashtirilgan maxsus sanoat transporti vositalari va uskunalarini loyihalash va ishlab chiqarishga ixtisoslashgan.',
       customPoints: {
         1: 'To\'liq loyihalash konsultatsiyasi va muhandislik yordami',
         2: 'Prototip yaratish va sinovdan o\'tkazish',
         3: 'Maxsus modifikatsiyalar va integratsiyalar',
       },
-      customLink: 'Maxsus Yechimlar Haqida',
-      catalogTitle: 'Standart Mahsulotlar Katalogi',
+      customLink: 'Maxsus yechimlar haqida',
+      catalogTitle: 'Standart mahsulotlar katalogi',
       catalogDesc: 'Bizning katalogimizda tasdiqlangan sanoat texnikasining keng assortimenti mavjud. Har bir model ishonchlilik uchun ishlab chiqilgan, sifatli materiallardan qurilgan va o\'n yillik ishlab chiqarish tajribasi bilan mustahkamlangan.',
       catalogPoints: {
         1: 'Ishlatishga tayyor standart konfiguratsiyalar',
         2: 'Keng toifalar va ilovalar',
         3: 'Raqobatbardosh narxlar va tez yetkazib berish',
       },
-      catalogLink: 'To\'liq Katalogni Ko\'rish',
+      catalogLink: 'To\'liq katalogni ko\'rish',
     },
     catalog: {
-      title: 'Mahsulot Katalogi',
+      title: 'Mahsulot katalogi',
       subtitle: 'Og\'ir yuk mashinalaridan aniq ko\'tarish tizimlarigacha — haqiqiy ekspluatatsiya sharoitlari uchun mo\'ljallangan.',
       heroIntro: 'Sanoat texnikasi va uskunalarimizning keng assortimenti bilan tanishing. Har bir model ishonchlilik uchun ishlab chiqilgan va xalqaro standartlarga javob beradi.',
       categories: 'Kategoriyalar',
-      showAll: 'Barcha Mahsulotlarni Ko\'rsatish',
-      welcomeTitle: 'Mahsulot Katalogi',
-      customSolution: 'Maxsus Yechim Kerakmi?',
+      showAll: 'Barcha mahsulotlarni ko\'rsatish',
+      welcomeTitle: 'Mahsulot katalogi',
+      customSolution: 'Maxsus yechim kerakmi?',
       customDesc: 'Biz sizning maxsus talablaringizga moslashtirilgan uskunalarni loyihalaymiz va ishlab chiqaramiz.',
-      backToCatalog: 'Katalogga Qaytish',
-      filter: 'Kategoriya Bo\'yicha Filtrlash',
+      backToCatalog: 'Katalogga qaytish',
+      filter: 'Kategoriya bo\'yicha filtrlash',
       noProducts: 'Mahsulotlar topilmadi',
     },
     services: {
-      title: 'Bizning Xizmatlar',
-      heading: 'Keng Ko\'lamli Xizmat',
-      welcomeTitle: 'Bizning Xizmatlar',
+      title: 'Bizning xizmatlar',
+      heading: 'Keng ko\'lamli xizmat',
+      welcomeTitle: 'Bizning xizmatlar',
       heroIntro: 'Sanoat texnikangiz uchun har tomonlama qo\'llab-quvvatlash. Mutaxassislar xizmati, original ehtiyot qismlar, maxsus muhandislik va texnik loyiha yordami.',
       introHeadline: 'Uzoq yo\'l uchun qurilgan. \nButun umr qo\'llab-quvvatlanadi.',
       introP1: 'Biz sizning sohangizda bahonaga o\'rin yo\'qligini bilamiz. Shu sababli texnikamiz kabi mustahkam qo\'llab-quvvatlash tizimini yaratdik.',
@@ -2149,12 +2149,12 @@ export const translations = {
         parts: 'Ehtiyot qismlari',
       },
       subtitle: 'Ishlab chiqarishdan sotuvdan keyingi qo\'llab-quvvatlashgacha — biz to\'liq xizmatlar spektrini taqdim etamiz.',
-      supportCenter: 'Qo\'llab-quvvatlash Markazi',
+      supportCenter: 'Qo\'llab-quvvatlash markazi',
       supportDesc: 'Bizning yuqori malakali mutaxassislarimiz sizga mos uskunani tanlashga yordam beradi va barcha texnik savollarga javob beradi.',
-      facilities: 'Bizning Obyektlar',
+      facilities: 'Bizning obyektlar',
       items: {
         afterSales: {
-          title: 'Sotuvdan Keyingi Xizmat',
+          title: 'Sotuvdan keyingi xizmat',
           shortTitle: 'Xizmat',
           description: 'Texnik xizmat ko\'rsatish, kafolat, ehtiyot qismlar va mahsulotning butun hayotiy tsikli davomida maxsus qo\'llab-quvvatlash. Xizmat ko\'rsatish markazlarimiz eng qiyin sharoitlarda flotingiz ishchi holatda qolishini ta\'minlash uchun ilg\'or diagnostika asboblari bilan jihozlangan. Biz joylarda ta\'mirlash uchun tezkor javob guruhlarini taqdim etamiz va ishlamay qolish vaqtini minimallashtirish uchun original qismlarning to\'liq inventarizatsiyasini saqlaymiz.',
           stages: {
@@ -2165,7 +2165,7 @@ export const translations = {
           }
         },
         quality: {
-          title: 'Sifat Nazorati va Sertifikatlash',
+          title: 'Sifat nazorati va sertifikatlash',
           shortTitle: 'Sifat',
           description: 'Ishlab chiqarishning har bir bosqichida sifat kafolati va majburiy sertifikatlash talablariga muvofiqlik ta\'minlanadi. Har bir texnika xalqaro standartlarga mos bo\'lishi uchun yuklama sinovlari va gidravlik tizim tekshiruvlarini o\'z ichiga olgan qat\'iy ko\'p bosqichli nazoratdan o\'tadi. Ichki laboratoriyalarimiz materiallar tahlili va nozik tekshiruvlarni olib borib, KRANTAS texnikasining uzoq xizmat qilishini va ishonchliligini kafolatlaydi.',
           stages: {
@@ -2176,7 +2176,7 @@ export const translations = {
           }
         },
         localization: {
-          title: 'Mahalliylashtirish va Integratsiya',
+          title: 'Mahalliylashtirish va integratsiya',
           shortTitle: 'Mahalliylashtirish',
           description: 'Mahalliy sanoat loyihalari va mintaqaviy bozorlar uchun texnologiya transferini qo\'llab-quvvatlaymiz. Biz global muhandislik darajasi bilan mahalliy ishlab chiqarish standartlari o\'rtasidagi farqni yopib, hamkorlarga mintaqada barqaror ishlab chiqarish liniyalarini yo\'lga qo\'yishda yordam beramiz. Jamoamiz ta\'minot zanjirini optimallashtirish va texnik hujjatlarni moslashtirish bo\'yicha boshidan oxirigacha maslahat beradi.',
           stages: {
@@ -2187,8 +2187,8 @@ export const translations = {
           }
         },
         manufacturing: {
-          title: 'Ishlab Chiqarish va Yig\'ish',
-          shortTitle: 'Ishlab Chiqarish',
+          title: 'Ishlab chiqarish va yig\'ish',
+          shortTitle: 'Ishlab chiqarish',
           description: 'Barcha asosiy bosqichlarni qamrab oladigan to\'liq siklli platformada seriyali va loyiha asosidagi ishlab chiqarishni olib boramiz. Xom ashyoni qayta ishlashdan yakuniy yig\'ishgacha bo\'lgan 390 000 m² maydonli korxonamiz yuqori aniqlikdagi CNC ishlov berish va avtomatlashtirilgan payvandlash orqali barqaror konstruktiv mustahkamlikni ta\'minlaydi. Biz butun ishlab chiqarish jarayonini o\'zimiz boshqarib, har bir loyiha - standart birlik bo\'ladimi yoki murakkab individual sanoat yechimi bo\'ladimi - aniq texnik talab bo\'yicha bajarilishini kafolatlaymiz.',
           stages: {
             design: { name: 'Dizayn', desc: '3D modellashtirish' },
@@ -2198,7 +2198,7 @@ export const translations = {
           }
         },
         engineering: {
-          title: 'Muhandislik va Moslashtirish',
+          title: 'Muhandislik va moslashtirish',
           shortTitle: 'Muhandislik',
           description: 'Maxsus muhandislik yechimlari va mahsulotni aniq operatsion vazifalarga moslashtiramiz. Dizayn byuromiz noyob obyekt sharoitlari uchun mashinalar yaratishda ilg\'or 3D modellashtirish va konstruktiv simulyatsiyadan foydalanadi. Biz murakkab texnik talablarni yuqori samarali sanoat yechimlariga aylantirib, ixtisoslashgan tarmoqlar uchun to\'liq konstruktiv va mexanik moslashtirishni taqdim etamiz.',
           stages: {
@@ -2215,20 +2215,20 @@ export const translations = {
           description: 'Ehtiyot qismlar va butlovchi qismlar boshqaruvi uchun 5 000 m² zamonaviy ombor maydoni.'
         },
         serviceStation: {
-          title: 'Xizmat Ko\'rsatish Stantsiyasi',
+          title: 'Xizmat ko\'rsatish stantsiyasi',
           description: 'Xizmat ko\'rsatish va ta\'mirlash uchun to\'liq jihozlangan bokslar. Zamonaviy diagnostika uskunalari.'
         },
         spareParts: {
-          title: 'Ehtiyot Qismlar Markazi',
+          title: 'Ehtiyot qismlar markazi',
           description: 'Original ehtiyot qismlarning katta zaxirasi va tez yetkazib berish. Omborda 10 000 dan ortiq pozitsiya mavjud.'
         }
       },
-      inquiryForm: 'So\'rov Shakli'
+      inquiryForm: 'So\'rov shakli'
     },
     about: {
-      heroTitle: 'Krantas Merosi',
+      heroTitle: 'Krantas merosi',
       heroIntro: '1945 yildan beri muhandislik qudrati. Bizning merosimiz eng murakkab sharoitlar uchun sanoat uskunalarini to\'liq siklli ishlab chiqarishga asoslangan.',
-      story: 'Bizning Tariximiz',
+      story: 'Bizning tariximiz',
       storyP1: 'Zavodimiz 1945-yilda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan. Dastlabki yillarda biz mintaqa transport vositalarini ishlashda davom etishga ixtisoslashgan, sifatli ishchi kuchining obro\'sini qo\'lga kiritdik.',
       storyP2: '1966-yilgi vayronagarchilik zilziladan so\'ng, zavod qayta maqsadlandi va fuqarolik va sanoat qurilishi uchun po\'lat konstruktsiyalari va yuk ko\'tarish uskunalari ishlab chiqarishni boshladi.',
       storyP3: 'O\'zbekiston mustaqilligidan va keyingi xususiyalashtirishdan so\'ng yangi bosqich boshlandi. Biz zamonaviy texnologiyalarga sarmoya kiritdik, mahsulotlar assortimentini kengaytirdik va xalqaro bozorlarga xizmat ko\'rsatishni boshladik.',
@@ -2236,28 +2236,28 @@ export const translations = {
       family: 'KRANTAS Oilasi',
       familyDesc: 'Sadoqat avlodlari. O\'nlab yillik tajriba. KRANTASning kompaniya sifatidagi yuragini tashkil qiladigan insonlar.',
       joinFamily: 'Bizning oilamizga qo\'shiling',
-      history: 'Tarix va Bosqichlar',
-      chairman: 'Rais Xabari',
+      history: 'Tarix va bosqichlar',
+      chairman: 'Rais xabari',
       chairmanQuote: '"KRANTAS Group mustahkam muhandislik an\'analari, mahalliy ishlab chiqarish va kelajak uchun aniq tasavvurga asoslangan. KRANTAS shunchaki transport vositasi emas, balki ishonchli muhandislik yechimi."',
       chairmanName: 'Karimov Mukhtor Akbarovich',
       chairmanTitle: 'Rais, KRANTAS Group',
-      team: 'Bizning Jamoa',
+      team: 'Bizning jamoa',
       teamSubtitle: '',
       historyEvents: [
-        { year: 1945, title: 'Tashkil Topish', description: 'Toshkentda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan.', image: '/1945.jpeg' },
-        { year: 1966, title: 'Tiklanish va Kengayish', description: '1966 yilgi Toshkent zilziladan so\'ng zavod shaharni qayta qurish ishlarini qo\'llab-quvvatlashga o\'tdi va qurilish uchun po\'lat konstruktsiyalar ishlab chiqarishni boshladi.', image: '/1966.jpg' },
-        { year: 1991, title: 'Mustaqillik va Xususiylashtirish', description: 'Oʻzbekiston mustaqilligi eʼlon qilinganidan soʻng, korxona xususiy sektorga oʻtdi. Ushbu o‘zgarish sanoat mustaqilligining yangi davrini boshlab berdi va keyingi o‘n yilliklardagi barqaror o‘sish hamda mintaqaviy yetakchilik uchun asos yaratdi.', image: '/1991.png' },
-        { year: 2018, title: 'Tarixiy Ittifoq', description: 'Oʻzbekiston va Tojikiston Prezidentlari ishtirok etgan tarixiy marosimda Tursunzoda shahrida TALCO-KRANTAS qoʻshma korxonasi ochildi. Ushbu strategik sheriklik mintaqaviy hamkorlikning yorqin tasdigʻi boʻlib, ixtisoslashtirilgan texnika yigʻishdagi innovatsiyalarga yangi turtki berdi.', image: '/2018.png' },
-        { year: 2019, title: 'Sanoat Kengayishi', description: 'Nurafshon hududida NURAFSHON-MAXSUS-TEXNIKA ishlab chiqarish maydonining ishga tushirilishi guruhning ishlab chiqarish quvvatlari va muhandislik imkoniyatlarini sezilarli darajada kengaytirdi.', image: '/about_factory.jpg' },
-        { year: 2021, title: 'Mudofaa va Ogʻir Sanoat', description: 'Oʻzbekiston Prezidenti hamda rais Karimov Muxtor Akbarovich birgalikda maxsus harbiy texnikalar va strategik ogʻir platformalarning ilk prototiplarini koʻzdan kechirdi. Bu voqea KRANTAS Group uchun mudofaa muhandisligi va zamonaviy ogʻir sanoat ishlab chiqarishidagi yangi bosqichning muhim ramziga aylandi.', image: '/2021.png' },
-        { year: 2024, title: 'Strategik Rivojlanish', description: 'Olmaliq kon-metallurgiya kombinatiga birinchi mahalliy ishlab chiqarilgan kon samosvallari muvaffaqiyatli yetkazib berildi. Shu yilning o?zida Arslon va Tarlon zirhli transport vositalarining ilk seriyali partiyalari, shuningdek qator maxsus sanoat yechimlari ishlab chiqarila boshlandi.', image: '/2024.png' },
+        { year: 1945, title: 'Tashkil topish', description: 'Toshkentda yuk mashinalari va og\'ir texnika uchun mexanik ta\'mirlash zavodi sifatida tashkil etilgan.', image: '/1945.jpeg' },
+        { year: 1966, title: 'Tiklanish va kengayish', description: '1966 yilgi Toshkent zilziladan so\'ng zavod shaharni qayta qurish ishlarini qo\'llab-quvvatlashga o\'tdi va qurilish uchun po\'lat konstruktsiyalar ishlab chiqarishni boshladi.', image: '/1966.jpg' },
+        { year: 1991, title: 'Mustaqillik va xususiylashtirish', description: 'Oʻzbekiston mustaqilligi eʼlon qilinganidan soʻng, korxona xususiy sektorga oʻtdi. Ushbu o‘zgarish sanoat mustaqilligining yangi davrini boshlab berdi va keyingi o‘n yilliklardagi barqaror o‘sish hamda mintaqaviy yetakchilik uchun asos yaratdi.', image: '/1991.png' },
+        { year: 2018, title: 'Tarixiy ittifoq', description: 'Oʻzbekiston va tojikiston prezidentlari ishtirok etgan tarixiy marosimda Tursunzoda shahrida TALCO-KRANTAS qoʻshma korxonasi ochildi. Ushbu strategik sheriklik mintaqaviy hamkorlikning yorqin tasdigʻi boʻlib, ixtisoslashtirilgan texnika yigʻishdagi innovatsiyalarga yangi turtki berdi.', image: '/2018.png' },
+        { year: 2019, title: 'Sanoat kengayishi', description: 'Nurafshon hududida NURAFSHON-MAXSUS-TEXNIKA ishlab chiqarish maydonining ishga tushirilishi guruhning ishlab chiqarish quvvatlari va muhandislik imkoniyatlarini sezilarli darajada kengaytirdi.', image: '/about_factory.jpg' },
+        { year: 2021, title: 'Mudofaa va ogʻir sanoat', description: 'Oʻzbekiston Prezidenti hamda rais Karimov muxtor Akbarovich birgalikda maxsus harbiy texnikalar va strategik ogʻir platformalarning ilk prototiplarini koʻzdan kechirdi. Bu voqea KRANTAS Group uchun mudofaa muhandisligi va zamonaviy ogʻir sanoat ishlab chiqarishidagi yangi bosqichning muhim ramziga aylandi.', image: '/2021.png' },
+        { year: 2024, title: 'Strategik rivojlanish', description: 'Olmaliq kon-metallurgiya kombinatiga birinchi mahalliy ishlab chiqarilgan kon samosvallari muvaffaqiyatli yetkazib berildi. Shu yilning o?zida arslon va tarlon zirhli transport vositalarining ilk seriyali partiyalari, shuningdek qator maxsus sanoat yechimlari ishlab chiqarila boshlandi.', image: '/2024.png' },
       ],
       teamMemberStories: {
         sergey: {
           name: 'Petrov Sergey Konstantinovich',
-          role: 'Direktor O\'rinbosari',
+          role: 'Direktor o\'rinbosari',
           years: 'KRANTAS bilan 50 yildan ortiq',
-          text: '1972-yilda yosh mutaxassis sifatida ish boshlagan va bugun Direktor o\'rinbosari sifatida operatsiyalarni boshqaradi. U KRANTASning tajriba zavodidan zamonaviy ishlab chiqaruvchigacha bo\'lgan yo\'lini asosiy qadriyatlarni saqlagan holda ko\'rdi.'
+          text: '1972-yilda yosh mutaxassis sifatida ish boshlagan va bugun direktor o\'rinbosari sifatida operatsiyalarni boshqaradi. U KRANTASning tajriba zavodidan zamonaviy ishlab chiqaruvchigacha bo\'lgan yo\'lini asosiy qadriyatlarni saqlagan holda ko\'rdi.'
         },
         komil: {
           name: 'Komil Xaitmatov',
@@ -2267,12 +2267,12 @@ export const translations = {
         },
         elvira: {
           name: 'Elvira',
-          role: 'Ko\'prik Krani Operatori',
+          role: 'Ko\'prik krani operatori',
           years: 'Uchinchi avlod · 10+ yil',
-          text: 'Ota-onasi, bobo-buvisi va aka-ukalari ham KRANTASda ishlagan. Otasi: 40 yil bo\'yoqchi. Onasi: 37 yil kran operatori. Sadoqat merosi.'
+          text: 'Ota-onasi, bobo-buvisi va aka-ukalari ham krantasda ishlagan. Otasi: 40 yil bo\'yoqchi. Onasi: 37 yil kran operatori. Sadoqat merosi.'
         }
       },
-      partners: 'Bizning Hamkorlar',
+      partners: 'Bizning hamkorlar',
       partnersDesc: 'Biz mahsulotlarimizda komponentlar va texnologiyalarning eng yuqori sifatini ta\'minlash uchun yetakchi global ishlab chiqaruvchilar bilan hamkorlik qilamiz.',
       teamRoles: {
         director: 'Direktor',
@@ -2284,7 +2284,7 @@ export const translations = {
     },
     blog: {
       heroIntro: 'KRANTAS Groupning so\'nggi yangiliklari va strategik yutuqlari. Yangi hamkorliklarimiz, ishlab chiqarish bosqichlari va mintaqaviy rivojlanishdan xabardor bo\'ling.',
-      latest: 'So\'nggi Maqolalar',
+      latest: 'So\'nggi maqolalar',
       readOriginal: 'Asl nusxani o\'qish',
       newestFirst: 'Avval yangilari',
       oldestFirst: 'Avval eskilari',
@@ -2292,20 +2292,20 @@ export const translations = {
     careers: {
       heroIntro: 'KRANTAS oilasiga qo\'shilib, sanoat texnologiyalarining yangi avlodining bir qismi bo\'ling. Biz muhandislik va ishlab chiqarish jamoalarimizga fidoyi mutaxassislarni taklif qilamiz.',
       subtitle: 'Sanoat avtomobillarining keyingi avlodini yarating. Aniqlik, xavfsizlik va o\'sishni qadrlaydigan jamoaga qo\'shiling.',
-      whyWork: 'Nima Uchun Biz Bilan Ishlash Kerak?',
-      team: 'Hurmatli Jamoa A\'zolari',
-      openPositions: 'Ochiq Vakansiyalar',
-      apply: 'Ariza Topshirish',
-      fullName: 'To\'liq Ism',
-      email: 'Elektron Pochta',
+      whyWork: 'Nima uchun biz bilan ishlash kerak?',
+      team: 'Hurmatli jamoa a\'zolari',
+      openPositions: 'Ochiq vakansiyalar',
+      apply: 'Ariza topshirish',
+      fullName: 'To\'liq ism',
+      email: 'Elektron pochta',
       phone: 'Telefon',
       message: 'Xabar',
-      submit: 'Ariza Yuborish',
+      submit: 'Ariza yuborish',
       experienceLabel: 'Tajriba:',
       ageLabel: 'Yosh:',
       requirementsLabel: 'Talablar:',
       fullTime: 'To\'liq bandlik',
-      applyPopupTitle: 'Ariza Topshirish',
+      applyPopupTitle: 'Ariza topshirish',
       namePlaceholder: 'To\'liq ismingiz',
       emailPlaceholder: 'your@email.com',
       phonePlaceholder: '+998 XX XXX XX XX',
@@ -2314,109 +2314,109 @@ export const translations = {
       messagePlaceholder: 'O\'zingiz haqida gapirib bering...',
     },
     contacts: {
-      title: 'Biz Bilan Bog\'laning',
-      heroIntro: 'Bizning jamoamiz texnik yoki tijorat so\'rovlaringizda yordam berishga tayyor. Professional yordam uchun Toshkentdagi bosh qorong\'imizga murojaat qiling.',
-      address: 'Mirzo-Ulug\'bek tumani, Ziyolilar ko\'chasi, 1',
+      title: 'Biz bilan bog\'laning',
+      heroIntro: 'Bizning jamoamiz texnik yoki tijorat so\'rovlaringizda yordam berishga tayyor. Professional yordam uchun toshkentdagi bosh qorong\'imizga murojaat qiling.',
+      address: 'Mirzo-Ulug\'bek tumani, ziyolilar ko\'chasi, 1',
       phone: '+998 90 330 00 00',
       email: 'info@krantas.uz',
-      telegramService: 'Krantas TG Bot',
+      telegramService: 'Krantas TG bot',
       telegramKrantas: 'Krantas Group TG',
       name: 'Ismingiz',
-      emailLabel: 'Sizning Emailingiz',
-      messageLabel: 'Sizning Xabaringiz',
-      send: 'Xabarni Yuborish',
+      emailLabel: 'Sizning emailingiz',
+      messageLabel: 'Sizning xabaringiz',
+      send: 'Xabarni yuborish',
       headquarters: {
-        title: 'KRANTAS Group Bosh Qarorgohi',
+        title: 'KRANTAS Group Bosh qarorgohi',
         description: 'Ofis Toshkent xalqaro aeroportidan taxminan 50 daqiqalik masofada joylashgan.',
-        officeLabel: 'Bizning Ofis',
-        postalCodeLabel: 'Pochta Indeksi',
-        mainOfficeLabel: 'Bosh Ofis',
+        officeLabel: 'Bizning ofis',
+        postalCodeLabel: 'Pochta indeksi',
+        mainOfficeLabel: 'Bosh ofis',
         mainOfficePhone: '+998 90 330 00 00',
         mainOfficeEmail: 'info@krantas.uz',
-        serviceCenterLabel: 'Servis Markazi',
+        serviceCenterLabel: 'Servis markazi',
         serviceCenterPhone: '+998 90 047 90 90',
         serviceCenterEmail: 'info@krantas.uz'
       },
-      formTitle: 'Aloqa Shakli',
-      inquiryForm: 'So\'rov Shakli',
+      formTitle: 'Aloqa shakli',
+      inquiryForm: 'So\'rov shakli',
       companyLabel: 'Kompaniya',
       organizationPlaceholder: 'Sizning tashkilotingiz',
-      areaOfInterestLabel: 'Qiziqish Sohasi',
+      areaOfInterestLabel: 'Qiziqish sohasi',
       selectAreaPlaceholder: 'Sohani tanlang',
-      phoneLabel: 'Telefon Raqami',
+      phoneLabel: 'Telefon raqami',
       emailPlaceholder: 'sizning@email.com',
       successMessage: 'Xabar yuborildi! Biz siz bilan 1-2 ish kuni ichida bog\'lanamiz.',
       subjectOptions: {
-        lifting: 'Yuk Ko\'tarish Uskunalari',
+        lifting: 'Yuk ko\'tarish uskunalari',
         dump: 'Samosvallar',
-        special: 'Maxsus Texnika',
-        metal: 'Metall Konstruktsiyalar',
-        agricultural: 'Qishloq Xo\'jaligi Texnikasi',
+        special: 'Maxsus texnika',
+        metal: 'Metall konstruktsiyalar',
+        agricultural: 'Qishloq xo\'jaligi texnikasi',
         tanks: 'Avtosisternalar',
-        mining: 'Kon Samosvallari',
-        cranes: 'Ko\'prikli va Ko\'tarma Kranlar',
-        custom: 'Maxsus Yechimlar',
-        service: 'Ehtiyot Qismlar va Servis',
-        careers: 'Karyera / Ishga Joylashish',
-        other: 'Boshqa So\'rov'
+        mining: 'Kon samosvallari',
+        cranes: 'Ko\'prikli va ko\'tarma kranlar',
+        custom: 'Maxsus yechimlar',
+        service: 'Ehtiyot qismlar va servis',
+        careers: 'Karyera / ishga joylashish',
+        other: 'Boshqa so\'rov'
       }
     },
     equipmentSolutions: {
-      title: 'Maxsus Muhandislik',
-      heading: 'Noyob Maxsus Yechimlar',
+      title: 'Maxsus muhandislik',
+      heading: 'Noyob maxsus yechimlar',
       welcomeTitle: 'Buyurtma asosidagi yechimlar',
       subtitle: 'Maxsus muhandislik imkoniyatlarimiz bilan o\'z tasavvuringizni haqiqatga aylantiring. Kontsepsiyadan ishlab chiqarishgacha, biz sizning noyob talablaringizga javob beradigan moslashtirilgan yechimlarni taqdim etamiz.',
-      howItWorks: 'Bu Qanday Ishlaydi',
-      howItWorksTitle: 'Siz Har Qanday G\'oya Topsangiz Bo\'ladi',
+      howItWorks: 'Bu qanday ishlaydi',
+      howItWorksTitle: 'Siz har qanday g\'oya topsangiz bo\'ladi',
       howItWorksDesc1: 'Bizning muhandislik jamoamiz sizning ekspluatatsiya muammolaringizni tushunish va innovatsion yechimlar ishlab chiqish uchun siz bilan yaqindan hamkorlik qiladi. Sizga modifikatsiyalangan shassi, maxsus uskuna integratsiyasi yoki mutlaqo noyob texnika kerak bo\'lsa, bizda buni amalga oshirish uchun tajriba mavjud.',
       howItWorksDesc2: 'Dastlabki maslahatdan loyihalash, prototiplash va yakuniy ishlab chiqarish orqali biz ochiq muloqotni qo\'llab-quvvatlaymiz, shunda yakuniy mahsulot sizning kutganlaringizdan oshib ketadi.',
-      capabilities: 'Ishlab Chiqarish Bazasi',
-      capabilitiesTitle: 'Bizning Imkoniyatlar va Ishlab Chiqarish Bazasi',
+      capabilities: 'Ishlab chiqarish bazasi',
+      capabilitiesTitle: 'Bizning imkoniyatlar va ishlab chiqarish bazasi',
       types: 'Xizmatlar',
-      typesTitle: 'Kustomlashtirish Turlari',
-      chassis: 'Shassi Modifikatsiyasi',
+      typesTitle: 'Kustomlashtirish turlari',
+      chassis: 'Shassi modifikatsiyasi',
       chassisDesc: 'Maxsus ilovalar uchun g\'ildirak bazasini sozlash, transmissiyani yangilash va konstruktsiyani mustahkamlashni o\'z ichiga olgan to\'liq shassi modifikatsiyalari.',
-      complexes: 'Ixtisoslashtirilgan Transport Muhandisligi',
+      complexes: 'Ixtisoslashtirilgan transport muhandisligi',
       complexesDesc: 'Ekstremal operatsion talablar uchun ishlab chiqilgan yuqori quvvatli transport majmualarini loyihalash va ishlab chiqarish. Biz chidamlilik va aniqlik uchun qurilgan maxsus ko\'p o\'qli konfiguratsiyalar va avtomatlashtirilgan yuklash tizimlarini yetkazib beramiz.',
-      hydraulics: 'Gidraulika va Elektronika',
+      hydraulics: 'Gidraulika va elektronika',
       hydraulicsDesc: 'Aniq ishlash va avtomatlashtirish imkoniyatlari uchun ilg\'or gidravlik tizim integratsiyasi va elektron boshqaruv tizimlari.',
-      containers: 'Standartga Mos Kelmaydigan Konteynerlar',
+      containers: 'Standartga mos kelmaydigan konteynerlar',
       containersDesc: 'Maxsus yuklar, izolyatsiyalangan tanklar, bosim ostidagi idishlar va vazifaga mos noyob geometrik shakllar uchun konteyner ishlab chiqarish.',
-      discussProject: 'Loyihangizni Muhokama Qiling',
-      customProject: 'Maxsus Loyihangiz Bormi?',
+      discussProject: 'Loyihangizni muhokama qiling',
+      customProject: 'Maxsus loyihangiz bormi?',
       customProjectDesc: 'Bizning muhandislik jamoamiz sizning noyob talablaringizni muhokama qilishga va sizning ekspluatatsiya ehtiyojlaringizga mos keladigan moslashtirilgan yechimni ishlab chiqishga tayyor.',
-      startProject: 'Loyihani Boshlash',
-      viewProducts: 'Standart Mahsulotlarni Ko\'rish',
+      startProject: 'Loyihani boshlash',
+      viewProducts: 'Standart mahsulotlarni ko\'rish',
     },
     categories: {
-      'lifting-equipment': { name: 'Yuk Ko\'tarish Uskunalari', description: 'Qurilish va sanoat uchun avtokranlar va yuk ko\'tarish yechimlari' },
+      'lifting-equipment': { name: 'Yuk ko\'tarish uskunalari', description: 'Qurilish va sanoat uchun avtokranlar va yuk ko\'tarish yechimlari' },
       'dump-trucks': { name: 'Samosvallar', description: 'Tog\'-kon, qurilish va material tashish uchun og\'ir yuk samosvallari' },
-      'special-purpose': { name: 'Maxsus Texnika', description: 'Sanoat va kommunal vazifalar uchun tayyorlangan maxsus texnikalar' },
-      'agricultural': { name: 'Qishloq Xo\'jaligi Texnikasi', description: 'Zamonaviy qishloq xo\'jaligi uchun traktorlar, kombaynlar va uskunalar' },
+      'special-purpose': { name: 'Maxsus texnika', description: 'Sanoat va kommunal vazifalar uchun tayyorlangan maxsus texnikalar' },
+      'agricultural': { name: 'Qishloq xo\'jaligi texnikasi', description: 'Zamonaviy qishloq xo\'jaligi uchun traktorlar, kombaynlar va uskunalar' },
       'tank-trucks': { name: 'Avtositsernalar', description: 'Yoqilg\'i, suv va kimyoviy moddalar tashish uchun maxsus sisternalar' },
-      'overhead-gantry': { name: 'Ko\'prik va Kozlovoy Kranlar', description: 'Og\'ir yuklarni ko\'tarish uchun sanoat ko\'prik va kozlovoy kran tizimlari' },
-      'mining-trucks': { name: 'Kon Samosvallari', description: 'Tog\'-kon va karyer ishlari uchun og\'ir yukli qattiq va sharnirli samosvallar' },
-      'metal-structures': { name: 'Metall Konstruktsiyalar', description: 'Sanoat metall konstruktsiyalari va komplekslarini loyihalash va ishlab chiqarish' },
+      'overhead-gantry': { name: 'Ko\'prik va kozlovoy kranlar', description: 'Og\'ir yuklarni ko\'tarish uchun sanoat ko\'prik va kozlovoy kran tizimlari' },
+      'mining-trucks': { name: 'Kon samosvallari', description: 'Tog\'-kon va karyer ishlari uchun og\'ir yukli qattiq va sharnirli samosvallar' },
+      'metal-structures': { name: 'Metall konstruktsiyalar', description: 'Sanoat metall konstruktsiyalari va komplekslarini loyihalash va ishlab chiqarish' },
     },
     specLabels: {
       model: 'Model',
-      loadCapacity: 'Yuk Ko\'tarish Qobiliyati',
-      tankVolume: 'Sistern Hajmi',
-      wheelFormula: 'G\'ildirak Formulasi',
+      loadCapacity: 'Yuk ko\'tarish qobiliyati',
+      tankVolume: 'Sistern hajmi',
+      wheelFormula: 'G\'ildirak formulasi',
       drive: 'Yuritma',
       environmentalClass: 'Ekol. Sinf',
-      tippingSystem: 'Ag\'darish Tizimi',
-      liftingCapacity: 'Yuk Ko\'tarish Qobiliyati',
-      craneType: 'Kran Turi',
+      tippingSystem: 'Ag\'darish tizimi',
+      liftingCapacity: 'Yuk ko\'tarish qobiliyati',
+      craneType: 'Kran turi',
       reach: 'Quloch',
-      liftingHeight: 'Ko\'tarish Balandligi',
+      liftingHeight: 'Ko\'tarish balandligi',
       outriggers: 'Tiryallar',
       terrain: 'O\'tuvchanlik',
-      drillingDiameter: 'Burg\'ulash Diametri',
-      drillingDepth: 'Burg\'ulash Chuqurligi',
+      drillingDiameter: 'Burg\'ulash diametri',
+      drillingDepth: 'Burg\'ulash chuqurligi',
       mounting: 'O\'rnatish',
-      platformHeight: 'Platforma Balandligi',
-      platformCapacity: 'Platforma Sig\'imi',
+      platformHeight: 'Platforma balandligi',
+      platformCapacity: 'Platforma sig\'imi',
       stabilization: 'Barqarorlashtirish',
       platform: 'Platforma',
       material: 'Material',
@@ -2426,28 +2426,28 @@ export const translations = {
       compartments: 'Bo\'limlar',
       application: 'Qo\'llanilishi',
       chassis: 'Shassi',
-      sweepingWidth: 'Tozalash Kengligi',
-      hopperVolume: 'Bunker Hajmi',
-      vacuumSystem: 'Vakuum Tizimi',
-      waterTank: 'Suv Baki',
-      waterCapacity: 'Suv Sig\'imi',
-      pumpCapacity: 'Nasos Sig\'imi',
+      sweepingWidth: 'Tozalash kengligi',
+      hopperVolume: 'Bunker hajmi',
+      vacuumSystem: 'Vakuum tizimi',
+      waterTank: 'Suv baki',
+      waterCapacity: 'Suv sig\'imi',
+      pumpCapacity: 'Nasos sig\'imi',
       equipment: 'Uskunalar',
       tools: 'Asboblar',
       storage: 'Saqlash',
       applications: 'Ilovalar',
-      pumpDepth: 'Nasos Chuqurligi',
+      pumpDepth: 'Nasos chuqurligi',
       seating: 'O\'rindiqlar',
       comfort: 'Qulaylik',
       rescue: 'Qutqaruv',
-      grainTank: 'Don Bunkeri',
-      headerWidth: 'Jatka Kengligi',
+      grainTank: 'Don bunkeri',
+      headerWidth: 'Jatka kengligi',
       threshing: 'Yanchish',
       power: 'Quvvat',
-      augerType: 'Bur Turi',
+      augerType: 'Bur turi',
       control: 'Boshqaruv',
-      grabType: 'Greyfer Turi',
-      containerSize: 'Konteyner O\'lchami',
+      grabType: 'Greyfer turi',
+      containerSize: 'Konteyner o\'lchami',
       mobility: 'Mobillik',
       structure: 'Tuzilishi',
       axles: 'O\'qlar',
@@ -2475,14 +2475,14 @@ export const translations = {
         specs: { model: 'KDT-20', loadCapacity: '20 tonna', tankVolume: '16 m³', wheelFormula: '6x4', drive: 'Dizel', environmentalClass: 'Euro 5' }
       },
       'mt-mining-truck-25t': {
-        name: 'Kon Samosvali 240 t',
+        name: 'Kon samosvali 240 t',
         description: 'Og\'ir karyer va qazib olish ishlari uchun maxsus kon samosvali.',
         fullDescription: 'MT kon samosvali qattiq yo\'lsiz kon muhitlari uchun maxsus ishlab chiqilgan bo\'lib, ajoyib shassi chidamliligi bilan karyer va qazish operatsiyalari uchun maksimal yuk ko\'tarish qobiliyatini beradi.',
         features: ['Kuchaytirilgan kon shassisi', 'Og\'ir karyer ishi', 'Yo\'lsiz muhitga mos', 'Kuchli transmissiya', 'Sanoat xavfsizligi'],
         specs: { model: 'KMT-240', loadCapacity: '240 tonna', tankVolume: '20 m³', wheelFormula: '6x4', drive: 'Dizel', environmentalClass: 'Euro 5' }
       },
       'dt-tipper-semi-trailer': {
-        name: 'Samosval Yarim Tirkama 24-26 m³',
+        name: 'Samosval yarim tirkama 24-26 m³',
         description: 'Sochma materiallarni tashish uchun katta sig\'imli yarim tirkama.',
         fullDescription: 'Samosval yarim tirkamasi gidravlik ag\'darish tizimi bilan uzoq masofaga sochma materiallarni tashish uchun maksimal yuk ko\'tarish qobiliyatini ta\'minlaydi.',
         features: ['Katta hajm', 'Uzoq masofa', 'Gidravlik ag\'darish', 'Yuqori samaradorlik', 'Sochma tashish'],
@@ -2507,38 +2507,38 @@ export const translations = {
         description: 'Qurilish ko\'tarish operatsiyalari uchun mobil avtokran.',
         fullDescription: '16 tonnalik avtokran qurilish va sanoat dasturlari uchun mobillikni katta yuk ko\'tarish qobiliyati bilan birlashtiradi.',
         features: ['Mobil kran', 'Teleskopik strela', 'Gidravlik tiryallar', 'Qurilish darajasi', 'Yuqori barqarorlik'],
-        specs: { model: 'KTC-16', liftingCapacity: '16 tonna', craneType: 'Teleskopik Strela', liftingHeight: '30m', outriggers: 'Gidravlik' }
+        specs: { model: 'KTC-16', liftingCapacity: '16 tonna', craneType: 'Teleskopik strela', liftingHeight: '30m', outriggers: 'Gidravlik' }
       },
       'le-crane-25t': {
         name: 'Avtokran 25 t',
         description: 'Katta qurilish loyihalari uchun og\'ir yuk avtokrani.',
         fullDescription: '25 tonnalik avtokran katta qurilish va sanoat loyihalari uchun ajoyib quloch bilan kuchli yuk ko\'tarish qobiliyatini beradi.',
         features: ['Og\'ir ko\'tarish', 'Uzun strela', 'Katta loyihalar', 'Professional daraja', 'Maksimal barqarorlik'],
-        specs: { model: 'KTC-25', liftingCapacity: '25 tonna', craneType: 'Teleskopik Strela', liftingHeight: '35m', outriggers: 'Gidravlik' }
+        specs: { model: 'KTC-25', liftingCapacity: '25 tonna', craneType: 'Teleskopik strela', liftingHeight: '35m', outriggers: 'Gidravlik' }
       },
       'le-crane-32t': {
         name: 'Avtokran 32 t',
         description: 'Yirik sanoat operatsiyalari uchun o\'ta og\'ir avtokran.',
         fullDescription: '32 tonnalik avtokran yirik sanoat inshootlari va infratuzilma loyihalari uchun ajoyib yuk ko\'tarish qobiliyatini ta\'minlaydi.',
         features: ['Qo\'shimcha sig\'im', 'Sanoat darajasi', 'Kengaytirilgan balandlik', 'Og\'ir loyihalar', 'Yuqori barqarorlik'],
-        specs: { model: 'KTC-32', liftingCapacity: '32 tonna', craneType: 'Teleskopik Strela', liftingHeight: '40m', outriggers: 'Gidravlik' }
+        specs: { model: 'KTC-32', liftingCapacity: '32 tonna', craneType: 'Teleskopik strela', liftingHeight: '40m', outriggers: 'Gidravlik' }
       },
       'le-crane-50t': {
         name: 'Avtokran 50 t',
         description: 'Og\'ir sanoat ko\'tarish uchun maksimal sig\'imli avtokran.',
         fullDescription: '50 tonnalik avtokran — bizning eng kuchli mobil kranimizni ifodalaydi.',
         features: ['Maksimal sig\'im', 'Og\'ir sanoat', 'Uzun quloch', 'Infratuzilmaga tayyor', 'Professional ishlash'],
-        specs: { model: 'KTC-50', liftingCapacity: '50 tonna', craneType: 'Teleskopik Strela', liftingHeight: '48m', outriggers: 'Gidravlik' }
+        specs: { model: 'KTC-50', liftingCapacity: '50 tonna', craneType: 'Teleskopik strela', liftingHeight: '48m', outriggers: 'Gidravlik' }
       },
       'le-all-terrain-crane': {
-        name: 'Barcha Hududlar Uchun Avtokran',
+        name: 'Barcha hududlar uchun avtokran',
         description: 'Uzoq joylar uchun yo\'lsiz yarim tirkamali barcha hududlar krani.',
         fullDescription: 'Barcha hududlar uchun avtokran murakkab yerlarda ishlash uchun ixtisoslashgan yarim tirkama bilan yo\'lsiz qobiliyatga ega.',
         features: ['Barcha hudud', 'Yo\'lsiz qobiliyat', 'Yarim tirkama', 'Uzoq joylar', 'Yuqori mobillik'],
-        specs: { model: 'KATC-AT', craneType: 'Barcha Hududlar', wheelFormula: '6x6', drive: 'To\'liq g\'ildirakli', terrain: 'Yo\'lsiz qobiliyat' }
+        specs: { model: 'KATC-AT', craneType: 'Barcha hududlar', wheelFormula: '6x6', drive: 'To\'liq g\'ildirakli', terrain: 'Yo\'lsiz qobiliyat' }
       },
       'le-earth-auger': {
-        name: 'Avtoshassidagi Burg\'ulash Uskunasi Ø 350mm',
+        name: 'Avtoshassidagi burg\'ulash uskunasi Ø 350mm',
         description: 'Poydevor va ustun o\'rnatish uchun yuk mashinasiga o\'rnatilgan burg\'ulash shneki.',
         fullDescription: 'Yuk mashinasiga o\'rnatilgan burg\'ulash shneki poydevor qo\'ziqlari, kommunal ustunlar va panjara o\'rnatish uchun Ø 350 mm sig\'im bilan samarali burg\'ulashni ta\'minlaydi.',
         features: ['Tuproq burg\'ulash', 'Poydevor ishlari', 'Ustun o\'rnatish', 'Gidravlik quvvat', 'Samarali ishlash'],
@@ -2566,214 +2566,214 @@ export const translations = {
         specs: { model: 'KAP-36', platformHeight: '36m', platformCapacity: '200 kg', drive: 'Gidravlik', stabilization: 'Og\'ir tiryallar' }
       },
       'le-crane-container-3.2t': {
-        name: 'Manipulyator Kran 3.2 t (Konteynertashuvchi)',
+        name: 'Manipulyator kran 3.2 t (konteynertashuvchi)',
         description: 'O\'zi yuklashi uchun konteyner platformali avtokran.',
         fullDescription: 'Konteyner platformali 3.2 tonnalik avtokran konteynerlar va og\'ir yuklarni samarali o\'zi yuklash va tashish imkonini beradi.',
         features: ['O\'zi yuklash', 'Konteyner tashish', 'Samarali', 'Ko\'p qirrali', 'Ixcham'],
         specs: { liftingCapacity: '3.2 tonna', platform: 'Konteyner turi', drive: 'Gidravlik' }
       },
       'tt-water-tanker-4-6m3': {
-        name: 'Suv Tashuvchi 4-6 m³',
+        name: 'Suv tashuvchi 4-6 m³',
         description: 'Ichimlik va texnik suv tashish uchun ixcham suv tashuvchi.',
         fullDescription: '4-6 m³ hajmli suv tashuvchi kommunal xizmatlar, qurilish maydonchalari va qishloq joylari uchun ichimlik va texnik suv tashishni ta\'minlaydi.',
         features: ['Oziq-ovqat darajasi', 'Ixcham o\'lcham', 'Ichimlik suvi', 'Kommunal foydalanish', 'Qishloq xizmati'],
         specs: { model: 'KWT-6', tankVolume: '4-6 m³', material: 'Oziq-ovqat po\'lati', pumping: 'Kiritilgan', certification: 'Ichimlik suvi' }
       },
       'tt-water-tanker-allterrain': {
-        name: 'Suv Tashuvchi Barcha Hudud 10-12 m³',
+        name: 'Suv tashuvchi barcha hudud 10-12 m³',
         description: 'Yo\'lsiz suv yetkazib berish uchun barcha hudud suv tashuvchisi.',
         fullDescription: '10-12 m³ sig\'imli barcha hudud suv tashuvchisi uzoq joylarga suv yetkazib berish va qurilishni qo\'llab-quvvatlash uchun yo\'lsiz qobiliyatga ega.',
         features: ['Barcha hudud', 'Yo\'lsiz qobiliyat', 'Uzoq yetkazib berish', 'Qurilishni qo\'llab-quvvatlash', 'Katta sig\'im'],
         specs: { model: 'KWT-AT12', tankVolume: '10-12 m³', wheelFormula: '6x6', drive: 'Barcha hudud', material: 'Oziq-ovqat po\'lati' }
       },
       'tt-acid-tanker-8-14m3': {
-        name: 'Kislota Tashuvchi Avtomobil 8-14 m³',
+        name: 'Kislota tashuvchi avtomobil 8-14 m³',
         description: 'Kimyoviy moddalar tashish uchun maxsus kislota tashuvchi.',
         fullDescription: '8-14 m³ sig\'imli kislota tashuvchi yuk mashinasi kislotalar va korroziv kimyoviy moddalarni xavfsiz tashish uchun korroziyaga chidamli konstruktsiyaga ega.',
         features: ['Kislotaga chidamli', 'Kimyoviy tashish', 'Xavfsizlik xususiyatlari', 'ADR mosligi', 'Korroziyaga qarshi'],
         specs: { model: 'KAT-14', tankVolume: '8-14 m³', material: 'Kislotaga chidamli', lining: 'Rezina/PTFE', certification: 'ADR' }
       },
       'tt-acid-semi-trailer': {
-        name: 'Kislota Sesterna Yarim Tirkama 14-20 m³',
+        name: 'Kislota sesterna yarim tirkama 14-20 m³',
         description: 'Sanoat kimyoviy moddalarini tashish uchun katta sig\'imli kislota baki yarim tirkamasi.',
         fullDescription: 'Kislota baki yarim tirkamasi to\'liq xavfsizlik tizimlari bilan keng ko\'lamli sanoat kimyoviy moddalarini tashish uchun 14-20 m³ sig\'imni ta\'minlaydi.',
         features: ['Katta sig\'im', 'Yarim tirkama', 'Sanoat kimyosi', 'Xavfsizlik tizimlari', 'Uzoq masofa'],
         specs: { model: 'KATS-20', tankVolume: '14-20 m³', axles: '3 o\'qli', material: 'Kislotaga chidamli', certification: 'ADR/UN' }
       },
       'tt-fuel-semi-trailer': {
-        name: 'Yoqilg\'i Sesterna Yarim Tirkama 30-40 m³',
+        name: 'Yoqilg\'i sesterna yarim tirkama 30-40 m³',
         description: 'Neft mahsulotlarini tarqatish uchun yuqori sig\'imli yoqilg\'i baki yarim tirkamasi.',
         fullDescription: 'Yoqilg\'i baki yarim tirkamasi bir nechta bo\'limlar bilan keng ko\'lamli neft mahsulotlarini tarqatish uchun 30-40 m³ sig\'imni yetkazib beradi.',
         features: ['Maksimal sig\'im', 'Ko\'p bo\'limli', 'Neft tarqatish', 'Uzoq masofa', 'Samarali yetkazib berish'],
         specs: { model: 'KFTS-40', tankVolume: '30-40 m³', compartments: 'Ko\'p bo\'limli', axles: '3 o\'qli', certification: 'ADR' }
       },
       'tt-fuel-tanker-4-6m3': {
-        name: 'Yoqilg\'i Tashuvchi ATZ 4-6 m³',
+        name: 'Yoqilg\'i tashuvchi ATZ 4-6 m³',
         description: 'Mahalliy tarqatish uchun yoqilg\'i tashuvchi va quyish mashinasi.',
         fullDescription: 'Samarali mahalliy yoqilg\'i tarqatish va joyida quyish uchun mo\'ljallangan ixcham yoqilg\'i tashuvchi va quyuvchi.',
         features: ['Yoqilg\'i tarqatish', 'Quyish', 'Ixcham', 'Samarali', 'Mahalliy foydalanish'],
         specs: { model: 'ATZ-6', tankVolume: '4-6 m³', material: 'Po\'lat', application: 'Quyish' }
       },
       'tt-trailer-refueller-2-4m3': {
-        name: 'Tirkama Quyuvchi 2-4 m³',
+        name: 'Tirkama quyuvchi 2-4 m³',
         description: 'Moslashuvchan joylashtirish uchun tirkamaga o\'rnatilgan yoqilg\'i quyuvchi.',
         fullDescription: 'Qurilish maydonchalari va uzoq hududlar uchun moslashuvchan va mobil quyish imkoniyatlarini ta\'minlaydigan tirkamaga o\'rnatilgan yoqilg\'i quyuvchi.',
         features: ['Mobil quyish', 'Tirkamaga o\'rnatilgan', 'Moslashuvchan', 'Qurilish maydonchalari', 'Uzoq hududlar'],
-        specs: { model: 'TR-4', tankVolume: '2-4 m³', chassis: 'Tirkama', application: 'Mobil Quyish' }
+        specs: { model: 'TR-4', tankVolume: '2-4 m³', chassis: 'Tirkama', application: 'Mobil quyish' }
       },
       'tt-fuel-tanker-8-12m3': {
-        name: 'Yoqilg\'i Tashuvchi ATZ 8-12 m³',
+        name: 'Yoqilg\'i tashuvchi ATZ 8-12 m³',
         description: 'Mintaqaviy tarqatish uchun o\'rta sig\'imli yoqilg\'i tashuvchi.',
         fullDescription: '8-12 m³ sig\'imli samarali mintaqaviy yoqilg\'i tarqatish va joyida quyish operatsiyalari uchun mo\'ljallangan o\'rta sig\'imli yoqilg\'i tashuvchi.',
         features: ['O\'rta sig\'im', 'Mintaqaviy tarqatish', 'Quyishga qodir', 'Samarali', 'Ko\'p qirrali'],
-        specs: { model: 'ATZ-12', tankVolume: '8-12 m³', material: 'Po\'lat', application: 'Yoqilg\'i Tarqatish' }
+        specs: { model: 'ATZ-12', tankVolume: '8-12 m³', material: 'Po\'lat', application: 'Yoqilg\'i tarqatish' }
       },
       'tt-fuel-tanker-16-18m3': {
-        name: 'Yoqilg\'i Tashuvchi ATZ 16-18 m³',
+        name: 'Yoqilg\'i tashuvchi ATZ 16-18 m³',
         description: 'Tijorat tarqatish uchun katta sig\'imli yoqilg\'i tashuvchi.',
         fullDescription: 'Tijorat yoqilg\'i tarqatish va keng ko\'lamli quyish operatsiyalari uchun 16-18 m³ hajmli katta sig\'imli yoqilg\'i tashuvchi.',
         features: ['Katta sig\'im', 'Tijorat darajasi', 'Yuqori hajm', 'Tarqatishga tayyor', 'Professional'],
-        specs: { model: 'ATZ-18', tankVolume: '16-18 m³', material: 'Po\'lat', application: 'Tijorat Tarqatish' }
+        specs: { model: 'ATZ-18', tankVolume: '16-18 m³', material: 'Po\'lat', application: 'Tijorat tarqatish' }
       },
       'tt-fuel-tanker-20-25m3': {
-        name: 'Yoqilg\'i Tashuvchi ATZ 20-25 m³',
+        name: 'Yoqilg\'i tashuvchi ATZ 20-25 m³',
         description: 'Sanoat operatsiyalari uchun o\'ta katta yoqilg\'i tashuvchi.',
         fullDescription: 'Sanoat yoqilg\'i tarqatish va keng ko\'lamli tijorat operatsiyalari uchun 20-25 m³ hajmli o\'ta katta sig\'imli yoqilg\'i tashuvchi.',
         features: ['O\'ta katta sig\'im', 'Sanoat darajasi', 'Maksimal hajm', 'Og\'ir yuk', 'Yuqori samaradorlik'],
-        specs: { model: 'ATZ-25', tankVolume: '20-25 m³', material: 'Po\'lat', application: 'Sanoat Tarqatish' }
+        specs: { model: 'ATZ-25', tankVolume: '20-25 m³', material: 'Po\'lat', application: 'Sanoat tarqatish' }
       },
       'spm-vacuum-sweeper': {
-        name: 'Vakuum Supurish Mashinasi',
+        name: 'Vakuum supurish mashinasi',
         description: 'Ko\'chalarni tozalash uchun kommunal vakuum supuruvchi.',
         fullDescription: 'Vakuum supurish mashinasi changni bostirish bilan kommunal ko\'chalarni tozalash uchun samarali mexanik va vakuum supurishni ta\'minlaydi.',
         features: ['Vakuum supurish', 'Changni bostirish', 'Kommunal daraja', 'Katta bunker', 'Samarali tozalash'],
         specs: { model: 'KVS-Municipal', sweepingWidth: '2.5m', hopperVolume: '6 m³', vacuumSystem: 'Kiritilgan', waterTank: '1000L' }
       },
       'spm-firefighting-platform': {
-        name: 'Yong\'in O\'chirish Gidravlik Havo Platformasi 72 m',
+        name: 'Yong\'in o\'chirish gidravlik havo platformasi 72 m',
         description: 'Ko\'p qavatli yong\'in o\'chirish va qutqaruv platformasi.',
         fullDescription: '72 metrlik yong\'in o\'chirish gidravlik havo platformasi ko\'p qavatli binolar va sanoat inshootlari uchun yong\'in o\'chirish va qutqaruv imkoniyatlarini ta\'minlaydi.',
         features: ['72m balandlik', 'Yong\'in o\'chirish', 'Qutqaruvchi qodir', 'Suv to\'pi', 'Ko\'p qavatli tayyor'],
         specs: { model: 'KFF-72', platformHeight: '72m', waterCapacity: '2000L', pumpCapacity: '3000 L/min', reach: '65m gacha' }
       },
       'spm-firefighting-platform-52-55m': {
-        name: 'Yong\'in O\'chirish Gidravlik Havo Platformasi 52-55 m',
+        name: 'Yong\'in o\'chirish gidravlik havo platformasi 52-55 m',
         description: 'O\'rta qavatli yong\'in o\'chirish va qutqaruv platformasi yuk mashinasi.',
         fullDescription: '52-55 metrlik yong\'in o\'chirish gidravlik havo platformasi yuk mashinasi o\'rta qavatli binolar va sanoat inshootlari uchun yong\'in o\'chirish va qutqaruv imkoniyatlarini ta\'minlaydi.',
         features: ['52-55m balandlik', 'Yong\'in o\'chirish', 'Qutqaruv platformasi', 'Suv tizimi', 'O\'rta qavatli qodir'],
         specs: { model: 'KFF-55', platformHeight: '52-55m', waterCapacity: '1800L', pumpCapacity: '2500 L/min', reach: '50m gacha' }
       },
       'spm-mobile-workshop': {
-        name: 'Mobil Avtotransport Ta\'mirlash Ustaxonasi (MVRW)',
+        name: 'Mobil avtotransport ta\'mirlash ustaxonasi (MVRW)',
         description: 'Dala ta\'miri uchun to\'liq jihozlangan mobil ustaxona.',
         fullDescription: 'Mobil avtotransport ta\'mirlash ustaxonasi asboblar, uskunalar va ehtiyot qismlarni saqlash bilan to\'liq joyida texnik xizmat ko\'rsatish va ta\'mirlash imkoniyatlarini ta\'minlaydi.',
         features: ['Mobil ustaxona', 'To\'liq asboblar', 'Joyida ta\'mirlash', 'Elektr ishlab chiqarish', 'Dalaga tayyor'],
         specs: { model: 'KMVRW', equipment: 'To\'liq ustaxona', power: 'Generator 15kVt', tools: 'To\'liq to\'plam', storage: 'Tashkillashtirilgan bo\'limlar' }
       },
       'spm-drilling-rig-urb50': {
-        name: 'URB-50 Burg\'ulash Uskunasi (8×8)',
+        name: 'URB-50 Burg\'ulash uskunasi (8×8)',
         description: 'Qidiruv va quduq burg\'ulash uchun barcha hudud burg\'ulash uskunasi.',
         fullDescription: '8×8 barcha hudud shassisidagi URB-50 burg\'ulash uskunasi qidiruv, suv quduqlari va geotexnik dasturlar uchun kuchli burg\'ulash qobiliyatini ta\'minlaydi.',
         features: ['Chuqur burg\'ulash', '8x8 shassi', 'Barcha hudud', 'Qidiruvga tayyor', 'Suv quduqlari'],
         specs: { model: 'URB-50', wheelFormula: '8x8', drillingDepth: '500m gacha', drive: 'To\'liq g\'ildirakli', terrain: 'Barcha hudud' }
       },
       'spm-drilling-rig-zif': {
-        name: 'ZIF Burg\'ulash Uskunasi',
+        name: 'ZIF Burg\'ulash uskunasi',
         description: 'Sanoat dasturlari uchun ixtisoslashtirilgan burg\'ulash uskunasi.',
         fullDescription: 'ZIF burg\'ulash uskunasi sanoat, qurilish va geotexnik dasturlar uchun ixtisoslashgan burg\'ulash qobiliyatini ta\'minlaydi.',
         features: ['Sanoat burg\'ulash', 'Qurilishda foydalanish', 'Geotexnik', 'Gidravlik quvvat', 'Ko\'p qirrali ishlash'],
-        specs: { model: 'ZIF', drillingDepth: '300m gacha', applications: 'Sanoat/Qurilish', drive: 'Gidravlik' }
+        specs: { model: 'ZIF', drillingDepth: '300m gacha', applications: 'Sanoat/qurilish', drive: 'Gidravlik' }
       },
       'spm-dnp-pump-installation': {
-        name: 'DNP Nasos O\'rnatish Tizimi',
+        name: 'DNP Nasos o\'rnatish tizimi',
         description: 'Nasoslarni quduqlarga tushirish uchun o\'rnatish tizimi.',
         fullDescription: 'DNP o\'rnatish tizimi neft, suv va sanoat dasturlari uchun chuqur quduqlarda nasoslarni xavfsiz va samarali o\'rnatish va olib tashlashni ta\'minlaydi.',
-        features: ['Nasos o\'rnatish', 'Chuqur quduqlar', 'Neft/Suv', 'Xavfsiz ishlash', 'Sanoat darajasi'],
-        specs: { model: 'DNP', pumpDepth: '2000m gacha', liftingCapacity: '5 tonna', applications: 'Neft/Suv quduqlari', drive: 'Gidravlik' }
+        features: ['Nasos o\'rnatish', 'Chuqur quduqlar', 'Neft/suv', 'Xavfsiz ishlash', 'Sanoat darajasi'],
+        specs: { model: 'DNP', pumpDepth: '2000m gacha', liftingCapacity: '5 tonna', applications: 'Neft/suv quduqlari', drive: 'Gidravlik' }
       },
       'spm-admin-convoy': {
-        name: 'Ma\'muriy Karvon Avtomobili',
+        name: 'Ma\'muriy karvon avtomobili',
         description: 'Ma\'muriy karvon tashish uchun maxsus mo\'ljallangan avtomobil.',
         fullDescription: 'Ma\'muriy xodimlarni va karvon operatsiyalarini xavfsiz va qulay tashish uchun mo\'ljallangan.',
         features: ['Karvon tashish', 'Ma\'muriy', 'Xavfsiz', 'Qulay', 'Maxsus maqsad'],
         specs: { application: 'Ma\'muriy', seating: 'Ko\'p yo\'lovchili', comfort: 'Yuqori' }
       },
       'spm-firefighting-ladder': {
-        name: 'Yong\'in O\'chirish Havo Narvoni',
+        name: 'Yong\'in o\'chirish havo narvoni',
         description: 'Havo narvoni va qutqaruv platformasi bilan yong\'in o\'chirish avtomobili.',
         fullDescription: 'Havo narvoni va qutqaruv platformasi bilan jihozlangan ushbu avtomobil samarali yuqori burchakli yong\'in o\'chirish va qutqaruv operatsiyalarini ta\'minlaydi.',
         features: ['Yong\'in o\'chirish', 'Havo narvoni', 'Qutqaruv platformasi', 'Yuqori burchak', 'Samarali'],
         specs: { application: 'Yong\'in o\'chirish', equipment: 'Havo narvoni', rescue: 'Platforma kiritilgan' }
       },
       'spm-patrol-pickup': {
-        name: 'Patrul Pikapi (PPS)',
+        name: 'Patrul pikapi (PPS)',
         description: 'Xavfsizlik operatsiyalari uchun patrul va soqchi xizmati pikapi.',
         fullDescription: 'Patrul va soqchi xizmatlari uchun sozlangan mustahkam pikap yuk mashinasi, xavfsizlik vazifalari uchun mobillik va ishonchlilikni taklif etadi.',
         features: ['Patrul', 'Soqchi xizmati', 'Xavfsizlik', 'Mobillik', 'Ishonchlilik'],
-        specs: { chassis: 'Pikap', drive: '4x4', application: 'Patrul/Soqchi' }
+        specs: { chassis: 'Pikap', drive: '4x4', application: 'Patrul/soqchi' }
       },
       'am-grain-harvester': {
-        name: 'Don Kombayni (O\'zi Yurar)',
+        name: 'Don kombayni (o\'zi yurar)',
         description: 'Samarali don yig\'ish uchun o\'zi yurar kombayn.',
         fullDescription: 'Don kombayni bug\'doy, arpa, makkajo\'xori va boshqa don ekinlarini ilg\'or yanchish va minimal yo\'qotish bilan samarali yig\'ib olishni ta\'minlaydi.',
         features: ['O\'zi yurar', 'Katta don bunkeri', 'Keng jatka', 'Kam yo\'qotish', 'Samarali hosil yig\'ish'],
         specs: { model: 'KCH-SP', grainTank: '8000L', headerWidth: '6.5m', drive: 'O\'zi yurar', threshing: 'Ilg\'or tizim' }
       },
       'am-tractor-n81': {
-        name: 'Universal Traktor NURAFSHON N 81 (4×4)',
+        name: 'Universal traktor NURAFSHON N 81 (4×4)',
         description: 'Ko\'p qirrali dehqonchilik uchun Belarus platformasiga asoslangan 4×4 yordamchi traktor.',
         fullDescription: 'NURAFSHON N 81 universal traktori kuchaytirilgan tortishni talab qiladigan dehqonchilik, kommunal va transport operatsiyalari uchun Belarus platformasida 4×4 yuritmani o\'z ichiga oladi.',
         features: ['4x4 yuritma', 'Belarus asosida', 'Universal foydalanish', 'PTO kiritilgan', 'Ishonchli platforma'],
         specs: { model: 'N-81 4x4', platform: 'Belarus MTZ', wheelFormula: '4x4', power: '81 OT', drive: 'Mexanik' }
       },
       'am-tractor-earth-auger': {
-        name: 'Yer Burg\'usi Bilan Jihozlangan Traktor',
+        name: 'Yer burg\'usi bilan jihozlangan traktor',
         description: 'Qishloq xo\'jaligi burg\'ulash uchun o\'rnatilgan yer burg\'usi bilan traktor.',
         fullDescription: 'Yer burg\'usi bilan jihozlangan traktor panjara ustunlari, daraxt ekish va qishloq xo\'jaligi poydevor ishlari uchun samarali burg\'ulashni ta\'minlaydi.',
         features: ['PTO boshqariladigan burgu', 'Panjara o\'rnatish', 'Daraxt ekish', 'Qishloq xo\'jaligi', 'Ko\'p qirrali burg\'ulash'],
-        specs: { model: 'N-Auger', augerType: 'PTO boshqariladigan', drillingDiameter: 'O\'zgaruvchan', applications: 'Panjara/Daraxtlar', drive: 'Traktor PTO' }
+        specs: { model: 'N-Auger', augerType: 'PTO boshqariladigan', drillingDiameter: 'O\'zgaruvchan', applications: 'Panjara/daraxtlar', drive: 'Traktor PTO' }
       },
       'am-tractor-n81c': {
-        name: 'Universal Traktor N 81 C',
+        name: 'Universal traktor N 81 C',
         description: 'Belarus platformasiga asoslangan universal traktor NURAFSHON N 81 C.',
         fullDescription: 'NURAFSHON N 81 C — ixtisoslashtirilgan versiya universal traktorning, qishloq xo\'jaligi vazifalari uchun ishonchli ishlashni taklif qiluvchi.',
         features: ['Universal traktor', 'Belarus asosida', 'Ishonchli', 'Qishloq xo\'jaligi', 'Ixtisoslashgan'],
         specs: { model: 'N-81 C', platform: 'Belarus MTZ', power: '81 OT', drive: 'Mexanik' }
       },
       'og-overhead-bridge': {
-        name: 'Ko\'prik Kran',
+        name: 'Ko\'prik kran',
         description: 'Sanoat inshootlari uchun og\'ir yuk ko\'prik krani.',
         fullDescription: 'Aniq yuk nazorati bilan zavodlar, omborlar va ishlab chiqarish inshootlarida og\'ir yuk ko\'tarish operatsiyalari uchun mo\'ljallangan sanoat ko\'prik kran tizimi.',
         features: ['Og\'ir yuk', 'Aniq nazorat', 'Sanoat darajasi', 'Maxsus oraliq', 'Elektr ishlash'],
         specs: { liftingCapacity: '50 tonnagacha', span: 'Maxsus', liftingHeight: 'Maxsus', control: 'Elektr' }
       },
       'og-magnet-grab': {
-        name: 'Magnit va Greyfer Kran',
+        name: 'Magnit va greyfer kran',
         description: 'Magnit va greyfer biriktirmalari bilan ixtisoslashgan kran.',
         fullDescription: 'Metallolom, sochma materiallar va maxsus yuklarni qayta ishlash uchun elektromagnit va mexanik greyfer tizimlari bilan jihozlangan ko\'prik kran.',
         features: ['Magnit tizimi', 'Greyfer biriktirmasi', 'Lomni qayta ishlash', 'Sochma materiallar', 'Ko\'p qirrali ishlash'],
-        specs: { liftingCapacity: '32 tonnagacha', grabType: 'Elektromagnit/Mexanik', control: 'Elektr', applications: 'Lom/Sochma' }
+        specs: { liftingCapacity: '32 tonnagacha', grabType: 'Elektromagnit/mexanik', control: 'Elektr', applications: 'Lom/sochma' }
       },
       'og-container-overhead': {
-        name: 'Konteyner Ko\'prik Kranlari',
+        name: 'Konteyner ko\'prik kranlari',
         description: 'Konteynerlarni qayta ishlash uchun ixtisoslashgan ko\'prik kranlar.',
         fullDescription: 'Portlar, terminallar va logistika inshootlarida konteynerlarni samarali qayta ishlash uchun maxsus mo\'ljallangan og\'ir yuk ko\'prik kran tizimi.',
         features: ['Konteynerni qayta ishlash', 'Port operatsiyalari', 'Yuqori sig\'im', 'Avtomatlashtirilgan boshqaruv', 'Logistikaga tayyor'],
         specs: { liftingCapacity: '65 tonnagacha', containerSize: '20ft/40ft', span: 'Maxsus', control: 'Avtomatlashtirilgan' }
       },
       'og-single-girder-gantry': {
-        name: 'Bir To\'sinli Kozlovoy Kran',
+        name: 'Bir to\'sinli kozlovoy kran',
         description: 'Tashqi operatsiyalar uchun mobil bir to\'sinli kozlovoy kran.',
         fullDescription: 'Moslashuvchan joylashtirish bilan tashqi materiallarni qayta ishlash, qurilish maydonchalari va saqlash hovlilari uchun mobil dizaynli bir to\'sinli kozlovoy kran.',
         features: ['Bir to\'sinli', 'Mobil dizayn', 'Tashqida ishlash imkoniyati', 'Moslashuvchan oraliq', 'Relsga o\'rnatilgan'],
         specs: { liftingCapacity: '20 tonnagacha', span: '10-35m', liftingHeight: '6-18m', mobility: 'Relsga o\'rnatilgan' }
       },
       'og-truss-gantry': {
-        name: 'Ferma Kozlovoy Kran',
+        name: 'Ferma kozlovoy kran',
         description: 'Keng ko\'lamli operatsiyalar uchun og\'ir yuk ferma kozlovoy krani.',
         fullDescription: 'Kemasozlik zavodlari, qurilish maydonchalari va sanoat inshootlarida og\'ir yuk ko\'tarish uchun kuchaytirilgan tuzilishga ega mustahkam ferma kozlovoy krani.',
         features: ['Ferma tuzilishi', 'Og\'ir yuk', 'Katta oraliq', 'Kemasozlik darajasi', 'Sanoat operatsiyalari'],
-        specs: { liftingCapacity: '100 tonnagacha', span: '20-50m', structure: 'Ferma dizayni', applications: 'Kemasozlik/Sanoat' }
+        specs: { liftingCapacity: '100 tonnagacha', span: '20-50m', structure: 'Ferma dizayni', applications: 'Kemasozlik/sanoat' }
       }
     },
   },
