@@ -199,6 +199,7 @@ let productTranslationSeedPromise = null;
 let catalogSeedPromise = null;
 let databasePoolPromise = null;
 let databaseStorageReadyPromise = null;
+let cmsMutationQueue = Promise.resolve();
 const adminLoginAttempts = new Map();
 const leadSubmissionAttempts = new Map();
 
@@ -1253,7 +1254,8 @@ async function writeCmsStore(store) {
       await writeStateRecordToDatabase(CMS_DB_STATE_KEY, nextStore);
       return;
     } catch (error) {
-      console.error('Failed to write CMS store to database, falling back to file storage.', error);
+      console.error('Failed to write CMS store to database.', error);
+      throw error;
     }
   }
 
@@ -1273,6 +1275,27 @@ async function writeCmsStore(store) {
   } catch {
     cachedCmsStoreMtimeMs = 0;
   }
+}
+
+function mutateCmsStore(updater) {
+  const mutation = cmsMutationQueue.then(async () => {
+    const currentStore = await readCmsStore();
+    const nextStore = await updater(currentStore);
+
+    try {
+      await writeCmsStore(nextStore);
+    } catch (error) {
+      cachedCmsStore = currentStore;
+      cachedCmsStoreMtimeMs = 0;
+      cachedCmsStoreLoadedAtMs = Date.now();
+      throw error;
+    }
+
+    return nextStore;
+  });
+
+  cmsMutationQueue = mutation.catch(() => undefined);
+  return mutation;
 }
 
 async function getKnownProductPaths() {
@@ -1589,6 +1612,105 @@ async function optimizeUploadedMedia({ buffer, mimeType, name }) {
   }
 }
 
+function replaceExactMediaUrls(value, replacements) {
+  if (typeof value === 'string') {
+    return replacements.get(value) || value;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item) => replaceExactMediaUrls(item, replacements));
+  }
+
+  if (isObjectRecord(value)) {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, replaceExactMediaUrls(item, replacements)]),
+    );
+  }
+
+  return value;
+}
+
+async function removeStoredMediaFiles(id, exceptFilename = '') {
+  const entries = await fs.readdir(MEDIA_STORAGE_DIR, { withFileTypes: true }).catch((error) => {
+    if (error?.code === 'ENOENT') {
+      return [];
+    }
+    throw error;
+  });
+  const matchingEntries = entries.filter(
+    (entry) =>
+      entry.isFile() && entry.name.startsWith(`${id}-`) && entry.name !== exceptFilename,
+  );
+
+  await Promise.all(
+    matchingEntries.map((entry) => fs.unlink(path.join(MEDIA_STORAGE_DIR, entry.name))),
+  );
+  return matchingEntries.length;
+}
+
+async function migrateStoredCmsMedia() {
+  const generatedPaths = [];
+
+  try {
+    const nextStore = await mutateCmsStore(async (currentStore) => {
+      const currentMediaItems = Array.isArray(currentStore.mediaItems)
+        ? currentStore.mediaItems
+        : [];
+      const replacements = new Map();
+      const nextMediaItems = [];
+
+      await fs.mkdir(MEDIA_STORAGE_DIR, { recursive: true });
+
+      for (const item of currentMediaItems) {
+        if (!isObjectRecord(item) || typeof item.dataUrl !== 'string' || !item.dataUrl) {
+          nextMediaItems.push(item);
+          continue;
+        }
+
+        const id = sanitizeMediaId(item.id);
+        const requestedName = sanitizeMediaFilename(item.name);
+        const parsedMedia = parseMediaDataUrl(item.dataUrl);
+        const optimizedMedia = await optimizeUploadedMedia({
+          ...parsedMedia,
+          name: requestedName,
+        });
+        const filename = `${id}-${optimizedMedia.name}`;
+        const storedPath = path.join(MEDIA_STORAGE_DIR, filename);
+        const mediaItem = {
+          id,
+          name: optimizedMedia.name,
+          url: `/uploads/${filename}`,
+          mimeType: optimizedMedia.mimeType,
+        };
+
+        await fs.writeFile(storedPath, optimizedMedia.buffer);
+        generatedPaths.push(storedPath);
+        replacements.set(item.url, mediaItem.url);
+        replacements.set(item.dataUrl, mediaItem.url);
+        nextMediaItems.push(mediaItem);
+      }
+
+      if (replacements.size === 0) {
+        return currentStore;
+      }
+
+      return replaceExactMediaUrls(
+        {
+          ...currentStore,
+          mediaItems: nextMediaItems,
+          updatedAt: new Date().toISOString(),
+        },
+        replacements,
+      );
+    });
+
+    return Array.isArray(nextStore.mediaItems) ? nextStore.mediaItems : [];
+  } catch (error) {
+    await Promise.all(generatedPaths.map((storedPath) => fs.unlink(storedPath).catch(() => undefined)));
+    throw error;
+  }
+}
+
 const app = express();
 
 app.disable('x-powered-by');
@@ -1609,9 +1731,38 @@ app.post(
         name: requestedName,
       });
       const filename = `${id}-${optimizedMedia.name}`;
+      const storedPath = path.join(MEDIA_STORAGE_DIR, filename);
+      const mediaItem = {
+        id,
+        name: optimizedMedia.name,
+        url: `/uploads/${filename}`,
+        mimeType: optimizedMedia.mimeType,
+      };
 
       await fs.mkdir(MEDIA_STORAGE_DIR, { recursive: true });
-      await fs.writeFile(path.join(MEDIA_STORAGE_DIR, filename), optimizedMedia.buffer);
+      await fs.writeFile(storedPath, optimizedMedia.buffer);
+
+      try {
+        await mutateCmsStore((currentStore) => {
+          const currentMediaItems = Array.isArray(currentStore.mediaItems)
+            ? currentStore.mediaItems
+            : [];
+
+          return {
+            ...currentStore,
+            mediaItems: [
+              mediaItem,
+              ...currentMediaItems.filter((item) => item?.id !== mediaItem.id),
+            ],
+            updatedAt: new Date().toISOString(),
+          };
+        });
+      } catch (error) {
+        await fs.unlink(storedPath).catch(() => undefined);
+        throw error;
+      }
+
+      await removeStoredMediaFiles(id, filename);
       appendAdminAuditLog('admin.media.uploaded', req, {
         id,
         name: optimizedMedia.name,
@@ -1620,12 +1771,7 @@ app.post(
 
       res.set('Cache-Control', 'no-store').json({
         ok: true,
-        mediaItem: {
-          id,
-          name: optimizedMedia.name,
-          url: `/uploads/${filename}`,
-          mimeType: optimizedMedia.mimeType,
-        },
+        mediaItem,
       });
     } catch (error) {
       if (error instanceof Error && error.message.startsWith('Uploaded')) {
@@ -1853,6 +1999,21 @@ app.get('/api/admin/cms', requireAdminSession, async (req, res, next) => {
   }
 });
 
+app.post(
+  '/api/admin/media/migrate',
+  requireSameOrigin,
+  requireAdminSession,
+  async (req, res, next) => {
+    try {
+      const mediaItems = await migrateStoredCmsMedia();
+      appendAdminAuditLog('admin.media.migrated', req, { mediaItems: mediaItems.length });
+      res.set('Cache-Control', 'no-store').json({ ok: true, mediaItems });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
 app.put('/api/admin/cms', requireSameOrigin, requireAdminSession, async (req, res, next) => {
   try {
     const snapshot = req.body?.snapshot;
@@ -1874,7 +2035,7 @@ app.put('/api/admin/cms', requireSameOrigin, requireAdminSession, async (req, re
       updatedAt: new Date().toISOString(),
     };
 
-    await writeCmsStore(nextSnapshot);
+    await mutateCmsStore(() => nextSnapshot);
     appendAdminAuditLog('admin.cms.saved', req);
 
     res.set('Cache-Control', 'no-store').json({ ok: true });
@@ -1927,20 +2088,19 @@ app.get('/api/seo', async (req, res) => {
 app.delete('/api/admin/media/:id', requireSameOrigin, requireAdminSession, async (req, res, next) => {
   try {
     const id = sanitizeMediaId(req.params.id);
-    const entries = await fs.readdir(MEDIA_STORAGE_DIR, { withFileTypes: true }).catch((error) => {
-      if (error?.code === 'ENOENT') {
-        return [];
-      }
-      throw error;
-    });
+    await mutateCmsStore((currentStore) => {
+      const currentMediaItems = Array.isArray(currentStore.mediaItems)
+        ? currentStore.mediaItems
+        : [];
 
-    const matchingEntries = entries.filter(
-      (entry) => entry.isFile() && entry.name.startsWith(`${id}-`),
-    );
-    await Promise.all(
-      matchingEntries.map((entry) => fs.unlink(path.join(MEDIA_STORAGE_DIR, entry.name))),
-    );
-    appendAdminAuditLog('admin.media.deleted', req, { id, filesDeleted: matchingEntries.length });
+      return {
+        ...currentStore,
+        mediaItems: currentMediaItems.filter((item) => item?.id !== id),
+        updatedAt: new Date().toISOString(),
+      };
+    });
+    const filesDeleted = await removeStoredMediaFiles(id);
+    appendAdminAuditLog('admin.media.deleted', req, { id, filesDeleted });
     res.set('Cache-Control', 'no-store').json({ ok: true });
   } catch (error) {
     next(error);

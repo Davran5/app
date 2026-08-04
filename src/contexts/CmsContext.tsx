@@ -344,6 +344,9 @@ export function CmsProvider({ children }: { children: ReactNode }) {
 
   const upsertMediaItem = useCallback(
     (item: UploadedMediaInput) => {
+      const previousSnapshotHash = JSON.stringify(snapshotRef.current);
+      const wasFullySynced = previousSnapshotHash === lastServerSnapshotHashRef.current;
+
       commitSnapshot((currentSnapshot) => {
         const existingIndex = currentSnapshot.mediaItems.findIndex(
           (existingItem) => existingItem.id === item.id,
@@ -361,16 +364,27 @@ export function CmsProvider({ children }: { children: ReactNode }) {
           mediaItems: nextMediaItems,
         };
       });
+
+      if (wasFullySynced) {
+        lastServerSnapshotHashRef.current = JSON.stringify(snapshotRef.current);
+      }
     },
     [commitSnapshot],
   );
 
   const deleteMediaItem = useCallback(
     (id: string) => {
+      const previousSnapshotHash = JSON.stringify(snapshotRef.current);
+      const wasFullySynced = previousSnapshotHash === lastServerSnapshotHashRef.current;
+
       commitSnapshot((currentSnapshot) => ({
         ...currentSnapshot,
         mediaItems: currentSnapshot.mediaItems.filter((item) => item.id !== id),
       }));
+
+      if (wasFullySynced) {
+        lastServerSnapshotHashRef.current = JSON.stringify(snapshotRef.current);
+      }
     },
     [commitSnapshot],
   );

@@ -120,14 +120,6 @@ async function optimizeImageForUpload(file: File) {
   }
 }
 
-async function embeddedMediaToFile(item: UploadedMediaInput) {
-  const response = await fetch(item.dataUrl || '');
-  const blob = await response.blob();
-  return new File([blob], item.name, {
-    type: item.mimeType || blob.type || 'application/octet-stream',
-  });
-}
-
 async function prepareMediaUpload(file: File, id: string) {
   const preparedFile = await optimizeImageForUpload(file);
   return {
@@ -191,26 +183,36 @@ function replaceExactMediaUrls<T>(value: T, replacements: Map<string, string>): 
 }
 
 async function migrateEmbeddedMedia(snapshot: CmsSnapshot) {
-  const replacements = new Map<string, string>();
-  const mediaItems: UploadedMediaInput[] = [];
+  const embeddedItems = snapshot.mediaItems.filter((item) => item.dataUrl);
 
-  for (const item of snapshot.mediaItems) {
-    if (!item.dataUrl) {
-      mediaItems.push(item);
-      continue;
-    }
-
-    const sourceFile = await embeddedMediaToFile(item);
-    const uploadInput = await prepareMediaUpload(sourceFile, item.id);
-    const uploadedItem = await uploadEmbeddedAdminMedia(uploadInput);
-    replacements.set(item.url, uploadedItem.url);
-    replacements.set(item.dataUrl, uploadedItem.url);
-    mediaItems.push(uploadedItem);
-  }
-
-  if (replacements.size === 0) {
+  if (embeddedItems.length === 0) {
     return snapshot;
   }
+
+  const response = await fetch('/api/admin/media/migrate', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+  const result = await parseJsonResponse<{
+    ok: true;
+    mediaItems: UploadedMediaInput[];
+  }>(response);
+  const migratedById = new Map(result.mediaItems.map((item) => [item.id, item]));
+  const replacements = new Map<string, string>();
+  const mediaItems = snapshot.mediaItems.map((item) => {
+    const migratedItem = migratedById.get(item.id);
+
+    if (!item.dataUrl || !migratedItem) {
+      return item;
+    }
+
+    replacements.set(item.url, migratedItem.url);
+    replacements.set(item.dataUrl, migratedItem.url);
+    return migratedItem;
+  });
 
   return replaceExactMediaUrls(
     {
