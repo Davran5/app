@@ -51,6 +51,13 @@ const SEO_STORAGE_PATH = process.env.SEO_STORAGE_PATH
 const CMS_STORAGE_PATH = process.env.CMS_STORAGE_PATH
   ? path.resolve(PROJECT_ROOT, process.env.CMS_STORAGE_PATH)
   : path.resolve(PROJECT_ROOT, 'cms-data.json');
+const MEDIA_STORAGE_DIR = process.env.MEDIA_STORAGE_PATH
+  ? path.resolve(PROJECT_ROOT, process.env.MEDIA_STORAGE_PATH)
+  : path.resolve(PROJECT_ROOT, 'uploads');
+const MAX_MEDIA_UPLOAD_BYTES = Math.max(
+  1024 * 1024,
+  Number(process.env.MAX_MEDIA_UPLOAD_BYTES || 20 * 1024 * 1024),
+);
 const DATABASE_HOST = process.env.DB_HOST?.trim() || process.env.MYSQL_HOST?.trim() || 'localhost';
 const DATABASE_PORT = Number(process.env.DB_PORT || process.env.MYSQL_PORT || 3306);
 const DATABASE_NAME = process.env.DB_NAME?.trim() || process.env.MYSQL_DATABASE?.trim() || '';
@@ -817,7 +824,14 @@ function filterPublicCmsSnapshot(rawSnapshot) {
     );
   }
 
-  for (const key of ['products', 'categories', 'featuredProductIds', 'distributorLocations', 'newsItems']) {
+  for (const key of [
+    'products',
+    'categories',
+    'featuredProductIds',
+    'starredProductIds',
+    'distributorLocations',
+    'newsItems',
+  ]) {
     if (Array.isArray(nextSnapshot[key]) && nextSnapshot[key].length === 0) {
       delete nextSnapshot[key];
     }
@@ -1503,13 +1517,88 @@ function requireAdminSession(req, res, next) {
   return next();
 }
 
+function sanitizeMediaId(value) {
+  const candidate = String(value || '').trim();
+  return /^[a-zA-Z0-9_-]{8,128}$/.test(candidate) ? candidate : crypto.randomUUID();
+}
+
+function sanitizeMediaFilename(value) {
+  const basename = path.basename(String(value || 'upload'));
+  const safeName = basename.replace(/[^a-zA-Z0-9._-]+/g, '-').replace(/^-+|-+$/g, '');
+  return safeName || 'upload';
+}
+
+function parseMediaDataUrl(value) {
+  const match = /^data:([^;,]+)?;base64,([a-zA-Z0-9+/=\r\n]+)$/.exec(String(value || ''));
+
+  if (!match) {
+    throw new Error('The uploaded file is not a valid base64 data URL.');
+  }
+
+  const buffer = Buffer.from(match[2].replace(/\s/g, ''), 'base64');
+  if (buffer.length === 0 || buffer.length > MAX_MEDIA_UPLOAD_BYTES) {
+    throw new Error(`Uploaded files must be between 1 byte and ${MAX_MEDIA_UPLOAD_BYTES} bytes.`);
+  }
+
+  return {
+    buffer,
+    mimeType: match[1] || 'application/octet-stream',
+  };
+}
+
 const app = express();
 
 app.disable('x-powered-by');
 app.set('trust proxy', true);
 app.use(applySecurityHeaders);
+app.post(
+  '/api/admin/media/upload',
+  express.json({ limit: '32mb' }),
+  requireSameOrigin,
+  requireAdminSession,
+  async (req, res, next) => {
+    try {
+      const id = sanitizeMediaId(req.body?.id);
+      const name = sanitizeMediaFilename(req.body?.name);
+      const { buffer, mimeType } = parseMediaDataUrl(req.body?.dataUrl);
+      const filename = `${id}-${name}`;
+
+      await fs.mkdir(MEDIA_STORAGE_DIR, { recursive: true });
+      await fs.writeFile(path.join(MEDIA_STORAGE_DIR, filename), buffer);
+      appendAdminAuditLog('admin.media.uploaded', req, { id, name, bytes: buffer.length });
+
+      res.set('Cache-Control', 'no-store').json({
+        ok: true,
+        mediaItem: {
+          id,
+          name: req.body?.name || name,
+          url: `/uploads/${filename}`,
+          mimeType: req.body?.mimeType || mimeType,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Error && error.message.startsWith('Uploaded')) {
+        return res.status(413).set('Cache-Control', 'no-store').json({ error: error.message });
+      }
+
+      if (error instanceof Error && error.message.includes('base64 data URL')) {
+        return res.status(400).set('Cache-Control', 'no-store').json({ error: error.message });
+      }
+
+      return next(error);
+    }
+  },
+);
 app.use(express.json({ limit: '8mb' }));
 app.use(blockGonePaths);
+app.use(
+  '/uploads',
+  express.static(MEDIA_STORAGE_DIR, {
+    maxAge: '30d',
+    index: false,
+    setHeaders: setStaticFileCacheHeaders,
+  }),
+);
 app.use(
   '/assets',
   express.static(DIST_ASSETS_DIR, {
@@ -1577,11 +1666,21 @@ app.get('/api/admin/diag', async (req, res) => {
 
   let cmsWritable = false;
   let cmsWriteError = null;
+  let mediaWritable = false;
+  let mediaWriteError = null;
   try {
     await fs.access(path.dirname(CMS_STORAGE_PATH), fs.constants?.W_OK ?? 2);
     cmsWritable = true;
   } catch (err) {
     cmsWriteError = String(err?.message ?? err);
+  }
+
+  try {
+    await fs.mkdir(MEDIA_STORAGE_DIR, { recursive: true });
+    await fs.access(MEDIA_STORAGE_DIR, fs.constants?.W_OK ?? 2);
+    mediaWritable = true;
+  } catch (err) {
+    mediaWriteError = String(err?.message ?? err);
   }
 
   res.set('Cache-Control', 'no-store').json({
@@ -1614,6 +1713,9 @@ app.get('/api/admin/diag', async (req, res) => {
       cmsStoragePath: CMS_STORAGE_PATH,
       cmsWritable,
       cmsWriteError,
+      mediaStoragePath: MEDIA_STORAGE_DIR,
+      mediaWritable,
+      mediaWriteError,
     },
     env: {
       nodeEnv: process.env.NODE_ENV || '(not set)',
@@ -1767,6 +1869,29 @@ app.get('/api/seo', async (req, res) => {
   res.json(seo);
 });
 
+app.delete('/api/admin/media/:id', requireSameOrigin, requireAdminSession, async (req, res, next) => {
+  try {
+    const id = sanitizeMediaId(req.params.id);
+    const entries = await fs.readdir(MEDIA_STORAGE_DIR, { withFileTypes: true }).catch((error) => {
+      if (error?.code === 'ENOENT') {
+        return [];
+      }
+      throw error;
+    });
+
+    const matchingEntries = entries.filter(
+      (entry) => entry.isFile() && entry.name.startsWith(`${id}-`),
+    );
+    await Promise.all(
+      matchingEntries.map((entry) => fs.unlink(path.join(MEDIA_STORAGE_DIR, entry.name))),
+    );
+    appendAdminAuditLog('admin.media.deleted', req, { id, filesDeleted: matchingEntries.length });
+    res.set('Cache-Control', 'no-store').json({ ok: true });
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.post('/api/seo', requireSameOrigin, requireAdminSession, async (req, res, next) => {
   try {
     const routePath =
@@ -1907,7 +2032,11 @@ app.use((error, req, res, next) => {
     return next(error);
   }
 
-  res.status(500).send('Internal server error');
+  if (error?.type === 'entity.too.large') {
+    return res.status(413).json({ error: 'The request is too large. Upload media through the media library.' });
+  }
+
+  res.status(500).json({ error: 'Internal server error' });
 });
 
 app.listen(PORT, HOST, () => {

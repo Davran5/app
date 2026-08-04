@@ -132,6 +132,7 @@ export interface CmsSnapshot {
   products: Product[];
   categories: Category[];
   featuredProductIds: string[];
+  starredProductIds: string[];
   distributorLocations: DistributorLocation[];
   vacancies: CmsVacancy[];
   newsItems: CmsNewsItem[];
@@ -1493,6 +1494,7 @@ export function getDefaultCmsSnapshot(): CmsSnapshot {
     products: cloneCmsValue(baseProducts),
     categories: cloneCmsValue(baseCategories),
     featuredProductIds: getDefaultFeaturedProductIds(baseProducts, baseCategories),
+    starredProductIds: [],
     distributorLocations: cloneCmsValue(baseDistributorLocations),
     vacancies: createDefaultVacancies(),
     newsItems: createDefaultNewsItems(),
@@ -1592,7 +1594,7 @@ function normalizeMediaItems(raw: unknown): UploadedMediaInput[] {
           : '';
     const mimeType = typeof item.mimeType === 'string' ? item.mimeType : undefined;
 
-    if (!id || !name || !dataUrl) {
+    if (!id || !name || (!url && !dataUrl)) {
       return [];
     }
 
@@ -1601,7 +1603,7 @@ function normalizeMediaItems(raw: unknown): UploadedMediaInput[] {
         id,
         name,
         url: url && !url.startsWith('data:') ? url : createUploadedMediaUrl(id, name),
-        dataUrl,
+        ...(dataUrl ? { dataUrl } : {}),
         mimeType,
       },
     ];
@@ -1908,7 +1910,7 @@ function normalizeDistributorLocations(raw: unknown): DistributorLocation[] {
   });
 }
 
-function normalizeFeaturedProductIds(raw: unknown, products: Product[]) {
+function normalizeProductIds(raw: unknown, products: Product[]) {
   if (!Array.isArray(raw)) {
     return [];
   }
@@ -1942,8 +1944,9 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
     : cloneCmsValue(raw.categories as Category[]);
   const hasFeaturedProductIds = Object.prototype.hasOwnProperty.call(raw, 'featuredProductIds');
   const normalizedFeaturedProductIds = hasFeaturedProductIds
-    ? normalizeFeaturedProductIds(raw.featuredProductIds, products)
+    ? normalizeProductIds(raw.featuredProductIds, products)
     : [];
+  const normalizedStarredProductIds = normalizeProductIds(raw.starredProductIds, products);
   const defaultFeaturedProductIds = getDefaultFeaturedProductIds(products, categories);
   const normalizedDistributorLocations = Array.isArray(raw.distributorLocations)
     ? normalizeDistributorLocations(raw.distributorLocations)
@@ -1964,6 +1967,7 @@ export function normalizeCmsSnapshot(raw: unknown): CmsSnapshot {
         ? normalizedFeaturedProductIds
         : defaultFeaturedProductIds
       : defaultFeaturedProductIds,
+    starredProductIds: normalizedStarredProductIds,
     distributorLocations:
       normalizedDistributorLocations.length > 0 ? normalizedDistributorLocations : defaults.distributorLocations,
     vacancies: Array.isArray(raw.vacancies) ? normalizeVacancies(raw.vacancies) : defaults.vacancies,

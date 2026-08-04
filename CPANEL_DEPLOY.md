@@ -80,10 +80,14 @@ Optional:
 
 ```bash
 SEO_STORAGE_PATH=seo-data.json
+MEDIA_STORAGE_PATH=uploads
 GOOGLE_MAPS_API_KEY=your_key
 GOOGLE_MAPS_MAP_ID=your_map_id
 VITE_GTM_ID=GTM-XXXXXXX
 ```
+
+Uploaded media is stored in `uploads/`, outside the Vite `dist` build. Keep this directory in
+server backups; deployments do not overwrite it.
 
 Database notes:
 - On cPanel, `DB_HOST=localhost` is typically correct.

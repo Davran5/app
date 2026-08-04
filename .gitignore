@@ -8,3 +8,4 @@ local-server-*.log
 start-local-*.cmd
 scripts/__pycache__/
 tmp/
+uploads/

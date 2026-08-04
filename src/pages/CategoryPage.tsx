@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, ArrowLeft, X } from 'lucide-react';
-import { getCategoryById, getProductsByCategory, categories } from '../data/products';
 import ContactForm from '../components/ContactForm';
 import { useAnalytics } from '../contexts/AnalyticsContext';
+import { useCms } from '../contexts/CmsContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { buildProductAnalyticsItem } from '../lib/analytics';
 import { resolveMediaInputUrl } from '../lib/media';
@@ -11,6 +11,7 @@ import { resolveMediaInputUrl } from '../lib/media';
 export default function CategoryPage() {
   const { t } = useLanguage();
   const { trackEvent } = useAnalytics();
+  const { categories, getCategoryById, getProductsByCategory } = useCms();
   const [showForm, setShowForm] = useState(false);
   const { categoryId } = useParams<{ categoryId: string }>();
   const category = getCategoryById(categoryId || '');

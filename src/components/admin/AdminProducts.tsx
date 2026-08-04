@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { FileJson, ImageIcon, Images, Plus, Search, Trash2, X } from 'lucide-react';
+import { FileJson, ImageIcon, Images, Plus, Search, Star, Trash2, X } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Category, Product } from '../../data/products';
 import { getTranslation, type Language } from '../../data/translations';
@@ -11,6 +11,7 @@ import {
   type TranslationOverrideMap,
 } from '../../lib/cms';
 import type { MediaItem } from '../../lib/media';
+import { sortProductsByStarred } from '../../lib/product-order';
 import {
   getMediaPreviewUrl,
   isImageMedia,
@@ -54,10 +55,12 @@ interface AdminProductsProps {
   products: Product[];
   categories: Category[];
   featuredProductIds: string[];
+  starredProductIds: string[];
   getProductById: (id: string) => Product | undefined;
   getCategoryById: (id: string) => Category | undefined;
   upsertProduct: (product: Product) => void;
   deleteProduct: (id: string) => void;
+  setStarredProductIds: (ids: string[]) => void;
   upsertCategory: (category: Category) => void;
   deleteCategory: (id: string) => boolean;
   mediaLibrary: MediaItem[];
@@ -199,10 +202,12 @@ export default function AdminProducts({
   products,
   categories,
   featuredProductIds,
+  starredProductIds,
   getProductById,
   getCategoryById,
   upsertProduct,
   deleteProduct,
+  setStarredProductIds,
   upsertCategory,
   deleteCategory,
   mediaLibrary,
@@ -230,17 +235,18 @@ export default function AdminProducts({
 
   const filteredProducts = useMemo(() => {
     const query = librarySearch.trim().toLowerCase();
+    const orderedProducts = sortProductsByStarred(products, starredProductIds);
     if (!query) {
-      return products;
+      return orderedProducts;
     }
 
-    return products.filter(
+    return orderedProducts.filter(
       (product) =>
         product.name.toLowerCase().includes(query) ||
         product.id.toLowerCase().includes(query) ||
         product.category.toLowerCase().includes(query),
     );
-  }, [librarySearch, products]);
+  }, [librarySearch, products, starredProductIds]);
 
   const filteredCategories = useMemo(() => {
     const query = librarySearch.trim().toLowerCase();
@@ -387,6 +393,21 @@ export default function AdminProducts({
       products.find((product) => product.id !== selectedProductKey)?.id ?? NEW_PRODUCT_KEY,
     );
     toast.success('Product deleted.');
+  };
+
+  const isSelectedProductStarred =
+    selectedProductKey !== NEW_PRODUCT_KEY && starredProductIds.includes(selectedProductKey);
+
+  const handleToggleStarred = () => {
+    if (selectedProductKey === NEW_PRODUCT_KEY) {
+      return;
+    }
+
+    const nextIds = isSelectedProductStarred
+      ? starredProductIds.filter((id) => id !== selectedProductKey)
+      : [...starredProductIds, selectedProductKey];
+    setStarredProductIds(nextIds);
+    toast.success(isSelectedProductStarred ? 'Product removed from priority.' : 'Product starred.');
   };
 
   const handleCreateCategory = () => {
@@ -556,19 +577,33 @@ export default function AdminProducts({
                     onClick={() => setSelectedProductKey(product.id)}
                     className={getAdminListItemClass(selectedProductKey === product.id)}
                   >
-                    <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-start justify-between gap-3">
                       <p className="text-sm font-semibold">{product.name}</p>
-                      {featuredProductIds.includes(product.id) && (
-                        <span
-                          className={`rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
-                            selectedProductKey === product.id
-                              ? 'bg-white/15 text-white'
-                              : 'bg-neutral-100 text-neutral-600'
-                          }`}
-                        >
-                          Featured
-                        </span>
-                      )}
+                      <div className="flex shrink-0 flex-wrap justify-end gap-1">
+                        {starredProductIds.includes(product.id) && (
+                          <span
+                            className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                              selectedProductKey === product.id
+                                ? 'bg-amber-400 text-black'
+                                : 'bg-amber-100 text-amber-900'
+                            }`}
+                          >
+                            <Star size={10} fill="currentColor" />
+                            Starred
+                          </span>
+                        )}
+                        {featuredProductIds.includes(product.id) && (
+                          <span
+                            className={`rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                              selectedProductKey === product.id
+                                ? 'bg-white/15 text-white'
+                                : 'bg-neutral-100 text-neutral-600'
+                            }`}
+                          >
+                            Featured
+                          </span>
+                        )}
+                      </div>
                     </div>
                     <p
                       className={`mt-1 text-xs uppercase tracking-[0.12em] ${
@@ -620,6 +655,17 @@ export default function AdminProducts({
               </h2>
 
               <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={handleToggleStarred}
+                  disabled={selectedProductKey === NEW_PRODUCT_KEY}
+                  aria-pressed={isSelectedProductStarred}
+                  className={`${adminSecondaryButtonClass} disabled:cursor-not-allowed disabled:opacity-40 ${
+                    isSelectedProductStarred ? 'border-amber-400 bg-amber-50 text-amber-900' : ''
+                  }`}
+                >
+                  <Star size={16} fill={isSelectedProductStarred ? 'currentColor' : 'none'} />
+                  {isSelectedProductStarred ? 'Starred' : 'Star Product'}
+                </button>
                 <button onClick={handleDuplicateProduct} className={adminSecondaryButtonClass}>
                   <FileJson size={16} />
                   Duplicate

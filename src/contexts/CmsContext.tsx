@@ -41,6 +41,7 @@ import {
 } from '../lib/cmsApi';
 import { isAdminRoutePath } from '../lib/adminRoute';
 import { setUploadedMediaRegistry, type UploadedMediaInput } from '../lib/media';
+import { sortProductsByStarred } from '../lib/product-order';
 
 interface CmsContextValue extends CmsSnapshot {
   getProductById: (id: string) => Product | undefined;
@@ -54,6 +55,7 @@ interface CmsContextValue extends CmsSnapshot {
   refreshSnapshot: (scope?: 'public' | 'admin') => Promise<void>;
   flushSnapshot: () => Promise<void>;
   setFeaturedProductIds: (ids: string[]) => void;
+  setStarredProductIds: (ids: string[]) => void;
   upsertMediaItem: (item: UploadedMediaInput) => void;
   deleteMediaItem: (id: string) => void;
   upsertProduct: (product: Product) => void;
@@ -120,8 +122,15 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    await saveAdminCmsSnapshot(currentSnapshot);
-    lastServerSnapshotHashRef.current = snapshotHash;
+    const savedSnapshot = normalizeCmsSnapshot(await saveAdminCmsSnapshot(currentSnapshot));
+    const savedSnapshotHash = JSON.stringify(savedSnapshot);
+
+    if (snapshotRef.current === currentSnapshot) {
+      snapshotRef.current = savedSnapshot;
+      setSnapshot(savedSnapshot);
+    }
+
+    lastServerSnapshotHashRef.current = savedSnapshotHash;
     hasShownSyncErrorRef.current = false;
   }, [isAdminRoute]);
 
@@ -192,9 +201,13 @@ export function CmsProvider({ children }: { children: ReactNode }) {
         try {
           await flushSnapshot();
           hasShownSyncErrorRef.current = false;
-        } catch {
+        } catch (error) {
           if (!hasShownSyncErrorRef.current) {
-            toast.error('Admin changes failed to sync to the server.');
+            toast.error(
+              error instanceof Error
+                ? `Admin changes failed to sync: ${error.message}`
+                : 'Admin changes failed to sync to the server.',
+            );
             hasShownSyncErrorRef.current = true;
           }
         }
@@ -229,8 +242,12 @@ export function CmsProvider({ children }: { children: ReactNode }) {
   );
 
   const getProductsByCategory = useCallback(
-    (categoryId: string) => snapshot.products.filter((product) => product.categoryId === categoryId),
-    [snapshot.products],
+    (categoryId: string) =>
+      sortProductsByStarred(
+        snapshot.products.filter((product) => product.categoryId === categoryId),
+        snapshot.starredProductIds,
+      ),
+    [snapshot.products, snapshot.starredProductIds],
   );
 
   const getDistributorById = useCallback(
@@ -289,6 +306,9 @@ export function CmsProvider({ children }: { children: ReactNode }) {
         featuredProductIds: currentSnapshot.featuredProductIds.filter(
           (productId) => productId !== id,
         ),
+        starredProductIds: currentSnapshot.starredProductIds.filter(
+          (productId) => productId !== id,
+        ),
       }));
     },
     [commitSnapshot],
@@ -302,6 +322,20 @@ export function CmsProvider({ children }: { children: ReactNode }) {
         return {
           ...currentSnapshot,
           featuredProductIds: Array.from(new Set(ids.filter((id) => availableProductIds.has(id)))),
+        };
+      });
+    },
+    [commitSnapshot],
+  );
+
+  const setStarredProductIds = useCallback(
+    (ids: string[]) => {
+      commitSnapshot((currentSnapshot) => {
+        const availableProductIds = new Set(currentSnapshot.products.map((product) => product.id));
+
+        return {
+          ...currentSnapshot,
+          starredProductIds: Array.from(new Set(ids.filter((id) => availableProductIds.has(id)))),
         };
       });
     },
@@ -653,6 +687,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       refreshSnapshot,
       flushSnapshot,
       setFeaturedProductIds,
+      setStarredProductIds,
       upsertMediaItem,
       deleteMediaItem,
       upsertProduct,
@@ -695,6 +730,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       refreshSnapshot,
       flushSnapshot,
       setFeaturedProductIds,
+      setStarredProductIds,
       upsertMediaItem,
       deleteMediaItem,
       upsertProduct,

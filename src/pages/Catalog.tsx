@@ -11,11 +11,12 @@ import {
   compactMeasurementSpacing,
   getProductSpecRows,
 } from '../lib/product-content';
+import { sortProductsByStarred } from '../lib/product-order';
 
 export default function Catalog() {
   const { t } = useLanguage();
   const { trackEvent } = useAnalytics();
-  const { categories, products } = useCms();
+  const { categories, products, starredProductIds } = useCms();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showForm, setShowForm] = useState(false);
   const productGridRef = useRef<HTMLDivElement>(null);
@@ -78,9 +79,15 @@ export default function Catalog() {
     }
   }, [selectedCategory]);
 
-  const filteredProducts = selectedCategory
-    ? products.filter(p => p.categoryId === selectedCategory)
-    : products.filter(p => p.categoryId !== 'custom-solutions' && p.categoryId !== 'metal-structures');
+  const filteredProducts = sortProductsByStarred(
+    selectedCategory
+      ? products.filter((product) => product.categoryId === selectedCategory)
+      : products.filter(
+          (product) =>
+            product.categoryId !== 'custom-solutions' && product.categoryId !== 'metal-structures',
+        ),
+    starredProductIds,
+  );
 
   return (
     <div className="min-h-screen w-full flex-1 flex flex-col" style={{ backgroundColor: '#f8f8f8' }}>

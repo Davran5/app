@@ -193,7 +193,7 @@ export interface UploadedMediaInput {
   id: string;
   name: string;
   url: string;
-  dataUrl: string;
+  dataUrl?: string;
   mimeType?: string;
 }
 
@@ -306,7 +306,7 @@ export function resolveMediaInputUrl(url: string) {
   const uploadedItem = uploadedMediaRegistry.get(normalized);
 
   if (uploadedItem) {
-    return uploadedItem.dataUrl;
+    return uploadedItem.dataUrl || uploadedItem.url;
   }
 
   const bundledItem = getBundledMediaItem(url);

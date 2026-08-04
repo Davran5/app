@@ -137,8 +137,12 @@ export default function AdminPanel({ onLogout }: { onLogout?: () => void }) {
     try {
       await Promise.resolve(resolvedPrimaryAction.onClick());
       await cms.flushSnapshot();
-    } catch {
-      toast.error('Changes failed to save to the server.');
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? `Changes failed to save: ${error.message}`
+          : 'Changes failed to save to the server.',
+      );
     }
   }, [cms, resolvedPrimaryAction]);
 
@@ -233,10 +237,12 @@ export default function AdminPanel({ onLogout }: { onLogout?: () => void }) {
               products={cms.products}
               categories={cms.categories}
               featuredProductIds={cms.featuredProductIds}
+              starredProductIds={cms.starredProductIds}
               getProductById={cms.getProductById}
               getCategoryById={cms.getCategoryById}
               upsertProduct={cms.upsertProduct}
               deleteProduct={cms.deleteProduct}
+              setStarredProductIds={cms.setStarredProductIds}
               upsertCategory={cms.upsertCategory}
               deleteCategory={cms.deleteCategory}
               mediaLibrary={mediaLibrary}

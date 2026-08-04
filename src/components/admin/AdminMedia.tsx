@@ -3,12 +3,11 @@ import { useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import { useCms } from '../../contexts/CmsContext';
 import {
-  createUploadedMediaUrl,
   getMediaLibrary,
   getMediaPreviewUrl,
   isImageMedia,
-  type UploadedMediaInput,
 } from '../../lib/media';
+import { deleteAdminMediaFile, uploadAdminMediaFile } from '../../lib/cmsApi';
 import {
   adminCardClass,
   adminDangerButtonClass,
@@ -19,18 +18,10 @@ import {
 } from './styles';
 import AdminMediaLibrary from './AdminMediaLibrary';
 
-function readFileAsDataUrl(file: File) {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result ?? ''));
-    reader.onerror = () => reject(reader.error ?? new Error('Could not read file.'));
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function AdminMedia() {
   const { mediaItems, upsertMediaItem, deleteMediaItem } = useCms();
   const [selectedUrl, setSelectedUrl] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
   const uploadRef = useRef<HTMLInputElement>(null);
   const mediaLibrary = useMemo(() => getMediaLibrary(mediaItems), [mediaItems]);
 
@@ -58,39 +49,33 @@ export default function AdminMedia() {
     }
 
     try {
-      const uploadedItems = await Promise.all(
-        files.map(async (file) => {
-          const dataUrl = await readFileAsDataUrl(file);
-          const id = globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${file.name}`;
-
-          return {
-            id,
-            name: file.name,
-            url: createUploadedMediaUrl(id, file.name),
-            dataUrl,
-            mimeType: file.type || undefined,
-          } satisfies UploadedMediaInput;
-        }),
-      );
+      setIsUploading(true);
+      const uploadedItems = await Promise.all(files.map((file) => uploadAdminMediaFile(file)));
 
       uploadedItems.forEach(upsertMediaItem);
       setSelectedUrl(uploadedItems[0]?.url ?? '');
       toast.success(`${uploadedItems.length} file${uploadedItems.length > 1 ? 's' : ''} uploaded.`);
-    } catch {
-      toast.error('Could not upload the selected files.');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Could not upload the selected files.');
     } finally {
+      setIsUploading(false);
       event.target.value = '';
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!selectedMedia || selectedMedia.source !== 'uploaded') {
       return;
     }
 
-    deleteMediaItem(selectedMedia.id);
-    setSelectedUrl('');
-    toast.success('Uploaded file removed.');
+    try {
+      await deleteAdminMediaFile(selectedMedia.id);
+      deleteMediaItem(selectedMedia.id);
+      setSelectedUrl('');
+      toast.success('Uploaded file removed.');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Could not remove the uploaded file.');
+    }
   };
 
   return (
@@ -122,10 +107,11 @@ export default function AdminMedia() {
 
           <button
             onClick={() => uploadRef.current?.click()}
+            disabled={isUploading}
             className={adminPrimaryButtonClass}
           >
             <Upload size={16} />
-            Upload Files
+            {isUploading ? 'Uploading...' : 'Upload Files'}
           </button>
         </div>
 
@@ -169,7 +155,7 @@ export default function AdminMedia() {
                   </button>
 
                   {selectedMedia.source === 'uploaded' && (
-                    <button onClick={handleDelete} className={adminDangerButtonClass}>
+                    <button onClick={() => void handleDelete()} className={adminDangerButtonClass}>
                       <Trash2 size={16} />
                       Delete
                     </button>
