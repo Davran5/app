@@ -6,22 +6,50 @@
 - Application URL: `/`
 - Startup file: `server.js`
 
-## Install and build
-Run these in the application root:
+## Automatic pull, install, build, and restart
+After the first cPanel Node.js application setup, deploy future updates with one command:
 
 ```bash
-cd /repositories/app
-npm run install-force
+cd /home/krantasu/repositories/app && sh ./pull.sh
+```
+
+`pull.sh` automatically:
+- preserves file-backed CMS, SEO, and audit data
+- fetches and fast-forwards the current branch
+- activates the matching CloudLinux Node environment
+- repairs a missing CloudLinux `node_modules` symlink
+- installs dependencies including TypeScript and Vite
+- builds and verifies the production assets
+- requests a Passenger restart and checks `/health`
+
+Optional overrides:
+
+```bash
+BRANCH=main NODE_VENV=/home/krantasu/nodevenv/repositories/app/22 sh ./pull.sh
+SKIP_HEALTH_CHECK=1 sh ./pull.sh
+```
+
+The script stops only when it finds real source-code changes on the server. Generated `dist` files and runtime data do not block deployment.
+
+## Manual install and build
+If an automatic deployment needs diagnosis, run:
+
+```bash
+cd /home/krantasu/repositories/app
+source /home/krantasu/nodevenv/repositories/app/22/bin/activate
+npm install --include=dev --legacy-peer-deps
 npm run build
+touch tmp/restart.txt
 ```
 
 CloudLinux NodeJS Selector note:
 - `node_modules` in the application root must be a symlink created by NodeJS Selector, not a real directory.
-- If npm install fails with `application should not contain folder/file with such name in application root`, remove the real folder first:
+- `pull.sh` automatically moves an incompatible real directory into its timestamped deployment backup.
+- For a manual repair, preserve the real directory and let NodeJS Selector recreate the symlink:
 
 ```bash
-cd /repositories/app
-rm -rf node_modules
+cd /home/krantasu/repositories/app
+mv node_modules "tmp/node_modules.backup.$(date +%Y%m%d-%H%M%S)"
 ```
 
 Then open cPanel NodeJS Selector and run its npm install action, or run `npm run install-force` again after NodeJS Selector has recreated the `node_modules` symlink.
