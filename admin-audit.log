@@ -7,3 +7,4 @@
 {"at":"2026-04-08T15:00:34.821Z","event":"admin.login.success","ip":"127.0.0.1","method":"POST","path":"/api/admin/login","username":"admin-temp","role":"admin"}
 {"at":"2026-04-08T15:03:01.199Z","event":"admin.login.success","ip":"127.0.0.1","method":"POST","path":"/api/admin/login","username":"admin-temp","role":"admin"}
 {"at":"2026-04-08T15:04:09.273Z","event":"admin.login.success","ip":"127.0.0.1","method":"POST","path":"/api/admin/login","username":"admin-temp","role":"admin"}
+{"at":"2026-05-07T11:13:21.907Z","event":"admin.login.success","ip":"127.0.0.1","method":"POST","path":"/api/admin/login","username":"admin","role":"admin"}
