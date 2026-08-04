@@ -1,4 +1,4 @@
-import { Copy, Search } from 'lucide-react';
+import { Check, Copy, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import {
@@ -27,6 +27,8 @@ interface AdminMediaLibraryProps {
   selectedUrls?: string[];
   onSelect: (url: string) => void;
   emptyMessage?: string;
+  deselectLabel?: string;
+  showTechnicalDetails?: boolean;
 }
 
 export default function AdminMediaLibrary({
@@ -37,6 +39,8 @@ export default function AdminMediaLibrary({
   selectedUrls = [],
   onSelect,
   emptyMessage = 'No images match the current filter.',
+  deselectLabel,
+  showTechnicalDetails = false,
 }: AdminMediaLibraryProps) {
   const [search, setSearch] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('all');
@@ -109,7 +113,7 @@ export default function AdminMediaLibrary({
           <input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search by file name or path"
+            placeholder="Search images"
             className={`${adminInputClass} pl-10`}
           />
         </div>
@@ -167,7 +171,9 @@ export default function AdminMediaLibrary({
                       <p className="mt-1 text-xs uppercase tracking-[0.12em] text-neutral-500">
                         {item.groupLabel}
                       </p>
-                      <p className="mt-2 break-all font-mono text-xs text-neutral-500">{item.url}</p>
+                      {showTechnicalDetails && (
+                        <p className="mt-2 break-all font-mono text-xs text-neutral-500">{item.url}</p>
+                      )}
                     </div>
 
                     <div className="flex flex-wrap gap-2">
@@ -175,15 +181,18 @@ export default function AdminMediaLibrary({
                         onClick={() => onSelect(item.url)}
                         className={adminPrimaryButtonClass}
                       >
-                        {selectLabel}
+                        {selected && <Check size={14} />}
+                        {selected && deselectLabel ? deselectLabel : selectLabel}
                       </button>
-                      <button
-                        onClick={() => void handleCopyPath(item.url)}
-                        className={adminSecondaryButtonClass}
-                      >
-                        <Copy size={14} />
-                        Copy Path
-                      </button>
+                      {showTechnicalDetails && (
+                        <button
+                          onClick={() => void handleCopyPath(item.url)}
+                          className={adminSecondaryButtonClass}
+                        >
+                          <Copy size={14} />
+                          Copy Path
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

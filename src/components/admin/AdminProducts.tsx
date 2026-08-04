@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { FileJson, ImageIcon, Plus, Search, Trash2 } from 'lucide-react';
+import { FileJson, ImageIcon, Images, Plus, Search, Trash2, X } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Category, Product } from '../../data/products';
 import { getTranslation, type Language } from '../../data/translations';
@@ -11,7 +11,12 @@ import {
   type TranslationOverrideMap,
 } from '../../lib/cms';
 import type { MediaItem } from '../../lib/media';
-import { getMediaPreviewUrl, isImageMedia, resolveMediaInputUrl } from '../../lib/media';
+import {
+  getMediaPreviewUrl,
+  isImageMedia,
+  mergeReferencedMedia,
+  normalizeMediaStorageUrl,
+} from '../../lib/media';
 import {
   adminCardClass,
   adminDangerButtonClass,
@@ -25,6 +30,7 @@ import {
   getAdminPillClass,
 } from './styles';
 import type { AdminPrimaryAction } from './types';
+import AdminMediaLibrary from './AdminMediaLibrary';
 
 interface SpecRow {
   rowId: string;
@@ -62,6 +68,7 @@ interface AdminProductsProps {
 }
 
 type LibraryMode = 'products' | 'categories';
+type MediaPickerTarget = 'product-cover' | 'product-gallery' | 'category-cover';
 
 const NEW_PRODUCT_KEY = '__new_product__';
 const NEW_CATEGORY_KEY = '__new_category__';
@@ -133,8 +140,8 @@ function draftToProduct(draft: ProductDraft, categoryName: string): Product {
     category: categoryName,
     description: draft.description.trim(),
     fullDescription: draft.fullDescription.trim(),
-    image: resolveMediaInputUrl(draft.image.trim()),
-    gallery: deserializeLines(draft.galleryText).map(resolveMediaInputUrl),
+    image: normalizeMediaStorageUrl(draft.image.trim()),
+    gallery: deserializeLines(draft.galleryText).map(normalizeMediaStorageUrl),
     features: deserializeLines(draft.featuresText),
     specs: rowsToSpecs(draft.specs),
   };
@@ -219,6 +226,7 @@ export default function AdminProducts({
     categories[0] ?? createEmptyCategory(),
   );
   const [translationLanguage, setTranslationLanguage] = useState<Language>('ru');
+  const [mediaPickerTarget, setMediaPickerTarget] = useState<MediaPickerTarget | null>(null);
 
   const filteredProducts = useMemo(() => {
     const query = librarySearch.trim().toLowerCase();
@@ -247,12 +255,16 @@ export default function AdminProducts({
   }, [categories, librarySearch]);
 
   const galleryImages = useMemo(
-    () => deserializeLines(productDraft.galleryText).map(resolveMediaInputUrl),
+    () => deserializeLines(productDraft.galleryText).map(normalizeMediaStorageUrl),
     [productDraft.galleryText],
   );
   const imageMediaOptions = useMemo(
-    () => mediaLibrary.filter((item) => isImageMedia(item.url, item.mimeType)),
-    [mediaLibrary],
+    () =>
+      mergeReferencedMedia(mediaLibrary, [
+        ...products.flatMap((product) => [product.image, ...product.gallery]),
+        ...categories.map((category) => category.image),
+      ]).filter((item) => isImageMedia(item.url, item.mimeType)),
+    [categories, mediaLibrary, products],
   );
 
   useEffect(() => {
@@ -402,7 +414,7 @@ export default function AdminProducts({
       id: nextId,
       name: categoryDraft.name.trim(),
       description: categoryDraft.description.trim(),
-      image: resolveMediaInputUrl(categoryDraft.image.trim()),
+      image: normalizeMediaStorageUrl(categoryDraft.image.trim()),
     });
     setSelectedCategoryKey(nextId);
     toast.success('Category saved.');
@@ -432,10 +444,37 @@ export default function AdminProducts({
       ...current,
       galleryText: serializeLines(
         deserializeLines(current.galleryText)
-          .map(resolveMediaInputUrl)
+          .map(normalizeMediaStorageUrl)
           .filter((imageUrl) => imageUrl !== url),
       ),
     }));
+  };
+
+  const handleMediaSelection = (url: string) => {
+    const storedUrl = normalizeMediaStorageUrl(url);
+
+    if (mediaPickerTarget === 'product-cover') {
+      setProductDraft((current) => ({ ...current, image: storedUrl }));
+      setMediaPickerTarget(null);
+      return;
+    }
+
+    if (mediaPickerTarget === 'category-cover') {
+      setCategoryDraft((current) => ({ ...current, image: storedUrl }));
+      setMediaPickerTarget(null);
+      return;
+    }
+
+    if (mediaPickerTarget === 'product-gallery') {
+      setProductDraft((current) => {
+        const currentGallery = deserializeLines(current.galleryText).map(normalizeMediaStorageUrl);
+        const nextGallery = currentGallery.includes(storedUrl)
+          ? currentGallery.filter((imageUrl) => imageUrl !== storedUrl)
+          : [...currentGallery, storedUrl];
+
+        return { ...current, galleryText: serializeLines(nextGallery) };
+      });
+    }
   };
 
   useEffect(() => {
@@ -647,34 +686,30 @@ export default function AdminProducts({
                   </select>
                 </label>
 
-                <label className="space-y-2">
+                <div className="space-y-2">
                   <span className={adminLabelClass}>Cover Image</span>
-                  <div className="space-y-2">
-                    <input
-                      value={productDraft.image}
-                      onChange={(event) =>
-                        setProductDraft((current) => ({ ...current, image: event.target.value }))
-                      }
-                      className={adminInputClass}
-                    />
-                    <select
-                      value=""
-                      onChange={(event) => {
-                        if (!event.target.value) return;
-                        setProductDraft((current) => ({ ...current, image: event.target.value }));
-                        event.target.value = '';
-                      }}
-                      className={adminInputClass}
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => setMediaPickerTarget('product-cover')}
+                      className={adminSecondaryButtonClass}
                     >
-                      <option value="">Choose from media library</option>
-                      {imageMediaOptions.map((item) => (
-                        <option key={item.id} value={item.url}>
-                          {item.label}
-                        </option>
-                      ))}
-                    </select>
+                      <Images size={16} />
+                      Choose from Gallery
+                    </button>
+                    {productDraft.image && (
+                      <button
+                        onClick={() => setProductDraft((current) => ({ ...current, image: '' }))}
+                        className={adminDangerButtonClass}
+                      >
+                        <Trash2 size={14} />
+                        Clear
+                      </button>
+                    )}
                   </div>
-                </label>
+                  <p className="text-xs text-neutral-500">
+                    {productDraft.image ? 'Cover image selected' : 'No cover image selected'}
+                  </p>
+                </div>
               </div>
 
               <div className="mt-4 grid gap-4 xl:grid-cols-[260px_minmax(0,1fr)]">
@@ -715,15 +750,23 @@ export default function AdminProducts({
                   <div>
                     <div className="flex items-center justify-between gap-3">
                       <span className={adminLabelClass}>Gallery</span>
-                      <span className="text-xs text-neutral-500">{galleryImages.length}</span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs text-neutral-500">{galleryImages.length}</span>
+                        <button
+                          onClick={() => setMediaPickerTarget('product-gallery')}
+                          className={adminSecondaryButtonClass}
+                        >
+                          <Images size={14} />
+                          Add Images
+                        </button>
+                      </div>
                     </div>
                     <div className="mt-3 grid gap-3 sm:grid-cols-2">
                       {galleryImages.length > 0 ? (
                         galleryImages.map((url) => (
                           <div key={url} className="overflow-hidden rounded-2xl border border-black/10 bg-neutral-50">
                             <img src={getMediaPreviewUrl(url)} alt="" className="aspect-[4/3] w-full object-cover" />
-                            <div className="space-y-3 p-3">
-                              <p className="break-all font-mono text-xs text-neutral-500">{url}</p>
+                            <div className="p-3">
                               <button
                                 onClick={() => handleRemoveGalleryImage(url)}
                                 className={adminDangerButtonClass}
@@ -742,43 +785,6 @@ export default function AdminProducts({
                     </div>
                   </div>
 
-                  <label className="space-y-2">
-                    <span className={adminLabelClass}>Gallery Paths</span>
-                    <div className="space-y-2">
-                      <textarea
-                        value={productDraft.galleryText}
-                        onChange={(event) =>
-                          setProductDraft((current) => ({ ...current, galleryText: event.target.value }))
-                        }
-                        rows={5}
-                        placeholder="One image path per line"
-                        className={adminTextareaClass}
-                      />
-                      <select
-                        value=""
-                        onChange={(event) => {
-                          const nextUrl = event.target.value;
-                          if (!nextUrl) return;
-                          setProductDraft((current) => ({
-                            ...current,
-                            galleryText: serializeLines([
-                              ...deserializeLines(current.galleryText).map(resolveMediaInputUrl),
-                              nextUrl,
-                            ]),
-                          }));
-                          event.target.value = '';
-                        }}
-                        className={adminInputClass}
-                      >
-                        <option value="">Add image from media library</option>
-                        {imageMediaOptions.map((item) => (
-                          <option key={item.id} value={item.url}>
-                            {item.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </label>
                 </div>
 
                 <label className="space-y-2">
@@ -1025,34 +1031,30 @@ export default function AdminProducts({
                 <ImagePreview url={categoryDraft.image} emptyLabel="No image selected" />
 
                 <div className="space-y-4">
-                  <label className="space-y-2">
+                  <div className="space-y-2">
                     <span className={adminLabelClass}>Cover Image</span>
-                    <div className="space-y-2">
-                      <input
-                        value={categoryDraft.image}
-                        onChange={(event) =>
-                          setCategoryDraft((current) => ({ ...current, image: event.target.value }))
-                        }
-                        className={adminInputClass}
-                      />
-                      <select
-                        value=""
-                        onChange={(event) => {
-                          if (!event.target.value) return;
-                          setCategoryDraft((current) => ({ ...current, image: event.target.value }));
-                          event.target.value = '';
-                        }}
-                        className={adminInputClass}
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        onClick={() => setMediaPickerTarget('category-cover')}
+                        className={adminSecondaryButtonClass}
                       >
-                        <option value="">Choose from media library</option>
-                        {imageMediaOptions.map((item) => (
-                          <option key={item.id} value={item.url}>
-                            {item.label}
-                          </option>
-                        ))}
-                      </select>
+                        <Images size={16} />
+                        Choose from Gallery
+                      </button>
+                      {categoryDraft.image && (
+                        <button
+                          onClick={() => setCategoryDraft((current) => ({ ...current, image: '' }))}
+                          className={adminDangerButtonClass}
+                        >
+                          <Trash2 size={14} />
+                          Clear
+                        </button>
+                      )}
                     </div>
-                  </label>
+                    <p className="text-xs text-neutral-500">
+                      {categoryDraft.image ? 'Cover image selected' : 'No cover image selected'}
+                    </p>
+                  </div>
 
                   <label className="space-y-2">
                     <span className={adminLabelClass}>Description</span>
@@ -1071,6 +1073,52 @@ export default function AdminProducts({
           </>
         )}
       </section>
+
+      {mediaPickerTarget && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Choose an image"
+        >
+          <div className="flex h-[min(88vh,880px)] w-full max-w-6xl flex-col overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.2)]">
+            <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
+              <div>
+                <p className={adminLabelClass}>Image Gallery</p>
+                <h3 className="mt-1 text-lg font-semibold text-black">
+                  {mediaPickerTarget === 'product-gallery' ? 'Select Gallery Images' : 'Select Cover Image'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setMediaPickerTarget(null)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-black transition hover:bg-neutral-100"
+                aria-label="Close image gallery"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="min-h-0 flex-1 overflow-hidden p-4">
+              <AdminMediaLibrary
+                title={mediaPickerTarget === 'product-gallery' ? 'Product Gallery' : 'Cover Images'}
+                description="Choose from uploaded images and all images currently used by the product catalog."
+                selectLabel={mediaPickerTarget === 'product-gallery' ? 'Add Image' : 'Use Image'}
+                deselectLabel={mediaPickerTarget === 'product-gallery' ? 'Remove Image' : undefined}
+                mediaLibrary={imageMediaOptions}
+                selectedUrls={
+                  mediaPickerTarget === 'product-cover'
+                    ? [productDraft.image]
+                    : mediaPickerTarget === 'category-cover'
+                      ? [categoryDraft.image]
+                      : galleryImages
+                }
+                onSelect={handleMediaSelection}
+                emptyMessage="No images are available in the gallery."
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -103,6 +103,7 @@ export default function AdminMedia() {
         selectedUrls={selectedMedia ? [selectedMedia.url] : []}
         onSelect={setSelectedUrl}
         emptyMessage="No media files are available yet."
+        showTechnicalDetails
       />
 
       <div className={`${adminCardClass} flex min-h-0 flex-col overflow-hidden p-6`}>

@@ -223,6 +223,31 @@ export function getMediaLibrary(uploadedMedia: UploadedMediaInput[] = []) {
   return [...uploadedItems, ...MEDIA_LIBRARY];
 }
 
+export function mergeReferencedMedia(
+  mediaLibrary: MediaItem[],
+  referencedUrls: string[],
+) {
+  const merged = [...mediaLibrary];
+  const knownUrls = new Set(mediaLibrary.map((item) => normalizeMediaUrl(item.url)));
+
+  referencedUrls.forEach((url) => {
+    if (!url || url.startsWith('data:') || url.startsWith('blob:')) {
+      return;
+    }
+
+    const normalizedUrl = normalizeMediaUrl(url);
+
+    if (knownUrls.has(normalizedUrl)) {
+      return;
+    }
+
+    merged.push(buildMediaItem(encodeURI(normalizedUrl)));
+    knownUrls.add(normalizedUrl);
+  });
+
+  return merged;
+}
+
 export function getMediaGroups(uploadedMedia: UploadedMediaInput[] = []) {
   return Array.from(
     new Map(getMediaLibrary(uploadedMedia).map((item) => [item.groupId, item.groupLabel])).entries(),
@@ -291,6 +316,26 @@ export function resolveMediaInputUrl(url: string) {
   }
 
   return encodeURI(normalized);
+}
+
+export function normalizeMediaStorageUrl(url: string) {
+  if (!url) {
+    return '';
+  }
+
+  if (url.startsWith('data:') || url.startsWith('blob:')) {
+    return url;
+  }
+
+  const normalized = normalizeMediaUrl(url);
+  const uploadedItem = uploadedMediaRegistry.get(normalized);
+
+  if (uploadedItem) {
+    return uploadedItem.url;
+  }
+
+  const bundledItem = getBundledMediaItem(url);
+  return bundledItem?.url ?? encodeURI(normalized);
 }
 
 export function resolveResponsiveMediaInput(
