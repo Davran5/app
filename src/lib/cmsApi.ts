@@ -23,6 +23,11 @@ async function parseJsonResponse<T>(response: Response): Promise<T> {
   return payload;
 }
 
+const MAX_OPTIMIZED_IMAGE_BYTES = 600 * 1024;
+const MAX_OPTIMIZED_IMAGE_DIMENSION = 2000;
+const MIN_OPTIMIZED_IMAGE_DIMENSION = 900;
+const WEBP_QUALITY_STEPS = [0.82, 0.74, 0.66, 0.58];
+
 function readFileAsDataUrl(file: File) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -32,14 +37,110 @@ function readFileAsDataUrl(file: File) {
   });
 }
 
-export async function uploadAdminMediaFile(file: File, id?: string) {
-  const dataUrl = await readFileAsDataUrl(file);
-  return uploadEmbeddedAdminMedia({
-    id: id || globalThis.crypto?.randomUUID?.() || `${Date.now()}-${file.name}`,
-    name: file.name,
-    dataUrl,
-    mimeType: file.type || undefined,
+function createWebpFilename(filename: string) {
+  const basename = filename.replace(/\.[^.]+$/, '').trim() || 'image';
+  return `${basename}.webp`;
+}
+
+function canvasToWebpBlob(canvas: HTMLCanvasElement, quality: number) {
+  return new Promise<Blob | null>((resolve) => {
+    canvas.toBlob(resolve, 'image/webp', quality);
   });
+}
+
+async function optimizeImageForUpload(file: File) {
+  if (!file.type.startsWith('image/') || file.type === 'image/svg+xml') {
+    return file;
+  }
+
+  let bitmap: ImageBitmap;
+
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    return file;
+  }
+
+  try {
+    const initialScale = Math.min(
+      1,
+      MAX_OPTIMIZED_IMAGE_DIMENSION / Math.max(bitmap.width, bitmap.height),
+    );
+    let width = Math.max(1, Math.round(bitmap.width * initialScale));
+    let height = Math.max(1, Math.round(bitmap.height * initialScale));
+    let smallestBlob: Blob | null = null;
+
+    for (let resizeAttempt = 0; resizeAttempt < 5; resizeAttempt += 1) {
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext('2d', { alpha: true });
+
+      if (!context) {
+        return file;
+      }
+
+      context.drawImage(bitmap, 0, 0, width, height);
+
+      for (const quality of WEBP_QUALITY_STEPS) {
+        const blob = await canvasToWebpBlob(canvas, quality);
+
+        if (!blob) {
+          continue;
+        }
+
+        if (!smallestBlob || blob.size < smallestBlob.size) {
+          smallestBlob = blob;
+        }
+
+        if (blob.size <= MAX_OPTIMIZED_IMAGE_BYTES) {
+          return new File([blob], createWebpFilename(file.name), {
+            type: 'image/webp',
+            lastModified: file.lastModified,
+          });
+        }
+      }
+
+      if (Math.max(width, height) <= MIN_OPTIMIZED_IMAGE_DIMENSION) {
+        break;
+      }
+
+      width = Math.max(1, Math.round(width * 0.8));
+      height = Math.max(1, Math.round(height * 0.8));
+    }
+
+    return smallestBlob
+      ? new File([smallestBlob], createWebpFilename(file.name), {
+          type: 'image/webp',
+          lastModified: file.lastModified,
+        })
+      : file;
+  } finally {
+    bitmap.close();
+  }
+}
+
+async function embeddedMediaToFile(item: UploadedMediaInput) {
+  const response = await fetch(item.dataUrl || '');
+  const blob = await response.blob();
+  return new File([blob], item.name, {
+    type: item.mimeType || blob.type || 'application/octet-stream',
+  });
+}
+
+async function prepareMediaUpload(file: File, id: string) {
+  const preparedFile = await optimizeImageForUpload(file);
+  return {
+    id,
+    name: preparedFile.name,
+    dataUrl: await readFileAsDataUrl(preparedFile),
+    mimeType: preparedFile.type || undefined,
+  };
+}
+
+export async function uploadAdminMediaFile(file: File, id?: string) {
+  const mediaId = id || globalThis.crypto?.randomUUID?.() || `${Date.now()}-${file.name}`;
+  return uploadEmbeddedAdminMedia(await prepareMediaUpload(file, mediaId));
 }
 
 async function uploadEmbeddedAdminMedia(
@@ -91,18 +192,21 @@ function replaceExactMediaUrls<T>(value: T, replacements: Map<string, string>): 
 
 async function migrateEmbeddedMedia(snapshot: CmsSnapshot) {
   const replacements = new Map<string, string>();
-  const mediaItems = await Promise.all(
-    snapshot.mediaItems.map(async (item) => {
-      if (!item.dataUrl) {
-        return item;
-      }
+  const mediaItems: UploadedMediaInput[] = [];
 
-      const uploadedItem = await uploadEmbeddedAdminMedia(item);
-      replacements.set(item.url, uploadedItem.url);
-      replacements.set(item.dataUrl, uploadedItem.url);
-      return uploadedItem;
-    }),
-  );
+  for (const item of snapshot.mediaItems) {
+    if (!item.dataUrl) {
+      mediaItems.push(item);
+      continue;
+    }
+
+    const sourceFile = await embeddedMediaToFile(item);
+    const uploadInput = await prepareMediaUpload(sourceFile, item.id);
+    const uploadedItem = await uploadEmbeddedAdminMedia(uploadInput);
+    replacements.set(item.url, uploadedItem.url);
+    replacements.set(item.dataUrl, uploadedItem.url);
+    mediaItems.push(uploadedItem);
+  }
 
   if (replacements.size === 0) {
     return snapshot;

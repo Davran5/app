@@ -88,6 +88,8 @@ VITE_GTM_ID=GTM-XXXXXXX
 
 Uploaded media is stored in `uploads/`, outside the Vite `dist` build. Keep this directory in
 server backups; deployments do not overwrite it.
+Raster images uploaded through the admin panel are resized and converted to WebP before transfer,
+then normalized by the server again before storage.
 
 Database notes:
 - On cPanel, `DB_HOST=localhost` is typically correct.

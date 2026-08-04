@@ -2,6 +2,7 @@ import 'dotenv/config';
 import crypto from 'node:crypto';
 import express from 'express';
 import mysql from 'mysql2/promise';
+import sharp from 'sharp';
 import { existsSync } from 'node:fs';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -57,6 +58,10 @@ const MEDIA_STORAGE_DIR = process.env.MEDIA_STORAGE_PATH
 const MAX_MEDIA_UPLOAD_BYTES = Math.max(
   1024 * 1024,
   Number(process.env.MAX_MEDIA_UPLOAD_BYTES || 20 * 1024 * 1024),
+);
+const MAX_OPTIMIZED_IMAGE_DIMENSION = Math.max(
+  800,
+  Number(process.env.MAX_OPTIMIZED_IMAGE_DIMENSION || 2000),
 );
 const DATABASE_HOST = process.env.DB_HOST?.trim() || process.env.MYSQL_HOST?.trim() || 'localhost';
 const DATABASE_PORT = Number(process.env.DB_PORT || process.env.MYSQL_PORT || 3306);
@@ -1546,6 +1551,44 @@ function parseMediaDataUrl(value) {
   };
 }
 
+async function optimizeUploadedMedia({ buffer, mimeType, name }) {
+  const optimizableImageTypes = new Set([
+    'image/avif',
+    'image/gif',
+    'image/jpeg',
+    'image/png',
+    'image/tiff',
+    'image/webp',
+  ]);
+
+  if (!optimizableImageTypes.has(mimeType.toLowerCase())) {
+    return { buffer, mimeType, name };
+  }
+
+  try {
+    const optimizedBuffer = await sharp(buffer, { animated: false })
+      .rotate()
+      .resize({
+        width: MAX_OPTIMIZED_IMAGE_DIMENSION,
+        height: MAX_OPTIMIZED_IMAGE_DIMENSION,
+        fit: 'inside',
+        withoutEnlargement: true,
+      })
+      .webp({ quality: 82, effort: 4 })
+      .toBuffer();
+    const extension = path.extname(name);
+    const basename = path.basename(name, extension) || 'image';
+
+    return {
+      buffer: optimizedBuffer,
+      mimeType: 'image/webp',
+      name: `${basename}.webp`,
+    };
+  } catch {
+    throw new Error('The uploaded image could not be processed.');
+  }
+}
+
 const app = express();
 
 app.disable('x-powered-by');
@@ -1559,21 +1602,29 @@ app.post(
   async (req, res, next) => {
     try {
       const id = sanitizeMediaId(req.body?.id);
-      const name = sanitizeMediaFilename(req.body?.name);
-      const { buffer, mimeType } = parseMediaDataUrl(req.body?.dataUrl);
-      const filename = `${id}-${name}`;
+      const requestedName = sanitizeMediaFilename(req.body?.name);
+      const parsedMedia = parseMediaDataUrl(req.body?.dataUrl);
+      const optimizedMedia = await optimizeUploadedMedia({
+        ...parsedMedia,
+        name: requestedName,
+      });
+      const filename = `${id}-${optimizedMedia.name}`;
 
       await fs.mkdir(MEDIA_STORAGE_DIR, { recursive: true });
-      await fs.writeFile(path.join(MEDIA_STORAGE_DIR, filename), buffer);
-      appendAdminAuditLog('admin.media.uploaded', req, { id, name, bytes: buffer.length });
+      await fs.writeFile(path.join(MEDIA_STORAGE_DIR, filename), optimizedMedia.buffer);
+      appendAdminAuditLog('admin.media.uploaded', req, {
+        id,
+        name: optimizedMedia.name,
+        bytes: optimizedMedia.buffer.length,
+      });
 
       res.set('Cache-Control', 'no-store').json({
         ok: true,
         mediaItem: {
           id,
-          name: req.body?.name || name,
+          name: optimizedMedia.name,
           url: `/uploads/${filename}`,
-          mimeType: req.body?.mimeType || mimeType,
+          mimeType: optimizedMedia.mimeType,
         },
       });
     } catch (error) {
@@ -1582,6 +1633,10 @@ app.post(
       }
 
       if (error instanceof Error && error.message.includes('base64 data URL')) {
+        return res.status(400).set('Cache-Control', 'no-store').json({ error: error.message });
+      }
+
+      if (error instanceof Error && error.message.includes('could not be processed')) {
         return res.status(400).set('Cache-Control', 'no-store').json({ error: error.message });
       }
 

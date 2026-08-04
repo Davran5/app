@@ -50,7 +50,11 @@ export default function AdminMedia() {
 
     try {
       setIsUploading(true);
-      const uploadedItems = await Promise.all(files.map((file) => uploadAdminMediaFile(file)));
+      const uploadedItems: Awaited<ReturnType<typeof uploadAdminMediaFile>>[] = [];
+
+      for (const file of files) {
+        uploadedItems.push(await uploadAdminMediaFile(file));
+      }
 
       uploadedItems.forEach(upsertMediaItem);
       setSelectedUrl(uploadedItems[0]?.url ?? '');
